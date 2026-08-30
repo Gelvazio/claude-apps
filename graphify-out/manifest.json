@@ -10,8 +10,8 @@
     "semantic_hash": ""
   },
   "financas-app/src/supabase.js": {
-    "mtime": 1788116937.1189034,
-    "ast_hash": "de4379328f280dba70069cd884fef53a",
+    "mtime": 1788116989.1315668,
+    "ast_hash": "3dbcd62a1dacad2276536d566ec1e30f",
     "semantic_hash": ""
   },
   "financas-app/supabase-schema.sql": {
@@ -67,6 +67,11 @@
   "financas-app/src/assets/vite.svg": {
     "mtime": 1788115484.0,
     "ast_hash": "9960a24288958394ac50e57ff638b036",
+    "semantic_hash": ""
+  },
+  "financas-app/database.sql": {
+    "mtime": 1788117025.5756514,
+    "ast_hash": "b59c249109f19f9da16ec9f3ea8e253b",
     "semantic_hash": ""
   }
 }
