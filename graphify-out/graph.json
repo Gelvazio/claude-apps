@@ -1,0 +1,1805 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "financas_app_package",
+      "community": 2,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "financas_app_package_name",
+      "community": 2,
+      "norm_label": "name"
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "financas_app_package_version",
+      "community": 2,
+      "norm_label": "version"
+    },
+    {
+      "label": "private",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "financas_app_package_private",
+      "community": 2,
+      "norm_label": "private"
+    },
+    {
+      "label": "type",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "financas_app_package_type",
+      "community": 2,
+      "norm_label": "type"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "financas_app_package_scripts",
+      "community": 2,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "dev",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "financas_app_package_scripts_dev",
+      "community": 2,
+      "norm_label": "dev"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "financas_app_package_scripts_build",
+      "community": 2,
+      "norm_label": "build"
+    },
+    {
+      "label": "preview",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "financas_app_package_scripts_preview",
+      "community": 2,
+      "norm_label": "preview"
+    },
+    {
+      "label": "devDependencies",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L11",
+      "_origin": "ast",
+      "id": "financas_app_package_devdependencies",
+      "community": 2,
+      "norm_label": "devdependencies"
+    },
+    {
+      "label": "vite",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "financas_app_package_devdependencies_vite",
+      "community": 2,
+      "norm_label": "vite"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L14",
+      "_origin": "ast",
+      "id": "financas_app_package_dependencies",
+      "community": 2,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "@supabase/supabase-js",
+      "file_type": "code",
+      "source_file": "financas-app/package.json",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "financas_app_package_dependencies_supabase_supabase_js",
+      "community": 2,
+      "norm_label": "@supabase/supabase-js"
+    },
+    {
+      "label": "main.js",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_main",
+      "community": 0,
+      "norm_label": "main.js"
+    },
+    {
+      "label": "app",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "src_main_app",
+      "community": 0,
+      "norm_label": "app"
+    },
+    {
+      "label": "DEFAULT_CATS",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "src_main_default_cats",
+      "community": 0,
+      "norm_label": "default_cats"
+    },
+    {
+      "label": "fmt()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "src_main_fmt",
+      "community": 0,
+      "norm_label": "fmt()"
+    },
+    {
+      "label": "state",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L19",
+      "_origin": "ast",
+      "id": "src_main_state",
+      "community": 0,
+      "norm_label": "state"
+    },
+    {
+      "label": "monthBounds()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L27",
+      "_origin": "ast",
+      "id": "src_main_monthbounds",
+      "community": 0,
+      "norm_label": "monthbounds()"
+    },
+    {
+      "label": "MESES",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "src_main_meses",
+      "community": 0,
+      "norm_label": "meses"
+    },
+    {
+      "label": "loadData()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "src_main_loaddata",
+      "community": 0,
+      "norm_label": "loaddata()"
+    },
+    {
+      "label": "renderAuth()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L60",
+      "_origin": "ast",
+      "id": "src_main_renderauth",
+      "community": 0,
+      "norm_label": "renderauth()"
+    },
+    {
+      "label": "traduzErro()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L114",
+      "_origin": "ast",
+      "id": "src_main_traduzerro",
+      "community": 0,
+      "norm_label": "traduzerro()"
+    },
+    {
+      "label": "renderApp()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L122",
+      "_origin": "ast",
+      "id": "src_main_renderapp",
+      "community": 0,
+      "norm_label": "renderapp()"
+    },
+    {
+      "label": "renderLedgerRows()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L178",
+      "_origin": "ast",
+      "id": "src_main_renderledgerrows",
+      "community": 0,
+      "norm_label": "renderledgerrows()"
+    },
+    {
+      "label": "escapeHtml()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L202",
+      "_origin": "ast",
+      "id": "src_main_escapehtml",
+      "community": 0,
+      "norm_label": "escapehtml()"
+    },
+    {
+      "label": "changeMonth()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L208",
+      "_origin": "ast",
+      "id": "src_main_changemonth",
+      "community": 0,
+      "norm_label": "changemonth()"
+    },
+    {
+      "label": "deleteTx()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L214",
+      "_origin": "ast",
+      "id": "src_main_deletetx",
+      "community": 0,
+      "norm_label": "deletetx()"
+    },
+    {
+      "label": "openModal()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L221",
+      "_origin": "ast",
+      "id": "src_main_openmodal",
+      "community": 0,
+      "norm_label": "openmodal()"
+    },
+    {
+      "label": "drawChart()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L280",
+      "_origin": "ast",
+      "id": "src_main_drawchart",
+      "community": 0,
+      "norm_label": "drawchart()"
+    },
+    {
+      "label": "boot()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L336",
+      "_origin": "ast",
+      "id": "src_main_boot",
+      "community": 0,
+      "norm_label": "boot()"
+    },
+    {
+      "label": "supabase.js",
+      "file_type": "code",
+      "source_file": "financas-app/src/supabase.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_supabase",
+      "community": 0,
+      "norm_label": "supabase.js"
+    },
+    {
+      "label": "supabase",
+      "file_type": "code",
+      "source_file": "financas-app/src/supabase.js",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "src_supabase_supabase",
+      "community": 0,
+      "norm_label": "supabase"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme",
+      "community": 9,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "claude-apps",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "readme_claude_apps",
+      "community": 9,
+      "norm_label": "claude-apps"
+    },
+    {
+      "label": "CLAUDE.md",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "financas_app_claude",
+      "community": 1,
+      "norm_label": "claude.md"
+    },
+    {
+      "label": "Raz\u00e3o \u2014 Documenta\u00e7\u00e3o T\u00e9cnica",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "community": 1,
+      "norm_label": "razao \u2014 documentacao tecnica"
+    },
+    {
+      "label": "Vis\u00e3o Geral",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "financas_app_claude_vis\u00e3o_geral",
+      "community": 1,
+      "norm_label": "visao geral"
+    },
+    {
+      "label": "Stack T\u00e9cnico",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "financas_app_claude_stack_t\u00e9cnico",
+      "community": 1,
+      "norm_label": "stack tecnico"
+    },
+    {
+      "label": "Arquitetura",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "financas_app_claude_arquitetura",
+      "community": 1,
+      "norm_label": "arquitetura"
+    },
+    {
+      "label": "State (Estado da Aplica\u00e7\u00e3o)",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L47",
+      "_origin": "ast",
+      "id": "financas_app_claude_state_estado_da_aplica\u00e7\u00e3o",
+      "community": 1,
+      "norm_label": "state (estado da aplicacao)"
+    },
+    {
+      "label": "Fluxo de State",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L59",
+      "_origin": "ast",
+      "id": "financas_app_claude_fluxo_de_state",
+      "community": 1,
+      "norm_label": "fluxo de state"
+    },
+    {
+      "label": "Fluxo de Dados",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L69",
+      "_origin": "ast",
+      "id": "financas_app_claude_fluxo_de_dados",
+      "community": 4,
+      "norm_label": "fluxo de dados"
+    },
+    {
+      "label": "1. Autentica\u00e7\u00e3o",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L71",
+      "_origin": "ast",
+      "id": "financas_app_claude_1_autentica\u00e7\u00e3o",
+      "community": 4,
+      "norm_label": "1. autenticacao"
+    },
+    {
+      "label": "2. Carregamento de Dados",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L89",
+      "_origin": "ast",
+      "id": "financas_app_claude_2_carregamento_de_dados",
+      "community": 4,
+      "norm_label": "2. carregamento de dados"
+    },
+    {
+      "label": "3. Navega\u00e7\u00e3o de M\u00eas",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L115",
+      "_origin": "ast",
+      "id": "financas_app_claude_3_navega\u00e7\u00e3o_de_m\u00eas",
+      "community": 4,
+      "norm_label": "3. navegacao de mes"
+    },
+    {
+      "label": "4. Cria\u00e7\u00e3o de Transa\u00e7\u00e3o",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L129",
+      "_origin": "ast",
+      "id": "financas_app_claude_4_cria\u00e7\u00e3o_de_transa\u00e7\u00e3o",
+      "community": 4,
+      "norm_label": "4. criacao de transacao"
+    },
+    {
+      "label": "5. Exclus\u00e3o de Transa\u00e7\u00e3o",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L146",
+      "_origin": "ast",
+      "id": "financas_app_claude_5_exclus\u00e3o_de_transa\u00e7\u00e3o",
+      "community": 4,
+      "norm_label": "5. exclusao de transacao"
+    },
+    {
+      "label": "C\u00e1lculos e Formata\u00e7\u00e3o",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L160",
+      "_origin": "ast",
+      "id": "financas_app_claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
+      "community": 8,
+      "norm_label": "calculos e formatacao"
+    },
+    {
+      "label": "C\u00e1lculo de Saldo",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L162",
+      "_origin": "ast",
+      "id": "financas_app_claude_c\u00e1lculo_de_saldo",
+      "community": 8,
+      "norm_label": "calculo de saldo"
+    },
+    {
+      "label": "Formata\u00e7\u00e3o de Moeda",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L170",
+      "_origin": "ast",
+      "id": "financas_app_claude_formata\u00e7\u00e3o_de_moeda",
+      "community": 8,
+      "norm_label": "formatacao de moeda"
+    },
+    {
+      "label": "Limites de M\u00eas",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L180",
+      "_origin": "ast",
+      "id": "financas_app_claude_limites_de_m\u00eas",
+      "community": 8,
+      "norm_label": "limites de mes"
+    },
+    {
+      "label": "Gr\u00e1fico (\u00faltimos 6 meses)",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L192",
+      "_origin": "ast",
+      "id": "financas_app_claude_gr\u00e1fico_\u00faltimos_6_meses",
+      "community": 1,
+      "norm_label": "grafico (ultimos 6 meses)"
+    },
+    {
+      "label": "Banco de Dados (Supabase)",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L214",
+      "_origin": "ast",
+      "id": "financas_app_claude_banco_de_dados_supabase",
+      "community": 7,
+      "norm_label": "banco de dados (supabase)"
+    },
+    {
+      "label": "Tabela: `categorias`",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L216",
+      "_origin": "ast",
+      "id": "financas_app_claude_tabela_categorias",
+      "community": 7,
+      "norm_label": "tabela: `categorias`"
+    },
+    {
+      "label": "Tabela: `transacoes`",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L229",
+      "_origin": "ast",
+      "id": "financas_app_claude_tabela_transacoes",
+      "community": 7,
+      "norm_label": "tabela: `transacoes`"
+    },
+    {
+      "label": "Categorias Padr\u00e3o (Seed no app)",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L244",
+      "_origin": "ast",
+      "id": "financas_app_claude_categorias_padr\u00e3o_seed_no_app",
+      "community": 7,
+      "norm_label": "categorias padrao (seed no app)"
+    },
+    {
+      "label": "Componentes Visuais",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L262",
+      "_origin": "ast",
+      "id": "financas_app_claude_componentes_visuais",
+      "community": 1,
+      "norm_label": "componentes visuais"
+    },
+    {
+      "label": "Telas Principais",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L264",
+      "_origin": "ast",
+      "id": "financas_app_claude_telas_principais",
+      "community": 1,
+      "norm_label": "telas principais"
+    },
+    {
+      "label": "CSS Classes Principais",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L286",
+      "_origin": "ast",
+      "id": "financas_app_claude_css_classes_principais",
+      "community": 1,
+      "norm_label": "css classes principais"
+    },
+    {
+      "label": "Setup e Configura\u00e7\u00e3o",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L300",
+      "_origin": "ast",
+      "id": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
+      "community": 5,
+      "norm_label": "setup e configuracao"
+    },
+    {
+      "label": "1. Criar Projeto Supabase",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L302",
+      "_origin": "ast",
+      "id": "financas_app_claude_1_criar_projeto_supabase",
+      "community": 5,
+      "norm_label": "1. criar projeto supabase"
+    },
+    {
+      "label": "2. Configurar Credenciais",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L308",
+      "_origin": "ast",
+      "id": "financas_app_claude_2_configurar_credenciais",
+      "community": 5,
+      "norm_label": "2. configurar credenciais"
+    },
+    {
+      "label": "3. Habilitar Email Auth",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L319",
+      "_origin": "ast",
+      "id": "financas_app_claude_3_habilitar_email_auth",
+      "community": 5,
+      "norm_label": "3. habilitar email auth"
+    },
+    {
+      "label": "4. Instalar e Rodar",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L324",
+      "_origin": "ast",
+      "id": "financas_app_claude_4_instalar_e_rodar",
+      "community": 5,
+      "norm_label": "4. instalar e rodar"
+    },
+    {
+      "label": "Deploy (Vercel)",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L335",
+      "_origin": "ast",
+      "id": "financas_app_claude_deploy_vercel",
+      "community": 1,
+      "norm_label": "deploy (vercel)"
+    },
+    {
+      "label": "Fluxos Principais",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L345",
+      "_origin": "ast",
+      "id": "financas_app_claude_fluxos_principais",
+      "community": 6,
+      "norm_label": "fluxos principais"
+    },
+    {
+      "label": "Novo Usu\u00e1rio (Signup + Primeiro Acesso)",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L347",
+      "_origin": "ast",
+      "id": "financas_app_claude_novo_usu\u00e1rio_signup_primeiro_acesso",
+      "community": 6,
+      "norm_label": "novo usuario (signup + primeiro acesso)"
+    },
+    {
+      "label": "Usu\u00e1rio Existente",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L359",
+      "_origin": "ast",
+      "id": "financas_app_claude_usu\u00e1rio_existente",
+      "community": 6,
+      "norm_label": "usuario existente"
+    },
+    {
+      "label": "Navega\u00e7\u00e3o Mensal",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L366",
+      "_origin": "ast",
+      "id": "financas_app_claude_navega\u00e7\u00e3o_mensal",
+      "community": 6,
+      "norm_label": "navegacao mensal"
+    },
+    {
+      "label": "Gr\u00e1fico de 6 Meses",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L373",
+      "_origin": "ast",
+      "id": "financas_app_claude_gr\u00e1fico_de_6_meses",
+      "community": 6,
+      "norm_label": "grafico de 6 meses"
+    },
+    {
+      "label": "Seguran\u00e7a (RLS)",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L382",
+      "_origin": "ast",
+      "id": "financas_app_claude_seguran\u00e7a_rls",
+      "community": 1,
+      "norm_label": "seguranca (rls)"
+    },
+    {
+      "label": "Fun\u00e7\u00f5es Utilit\u00e1rias",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L395",
+      "_origin": "ast",
+      "id": "financas_app_claude_fun\u00e7\u00f5es_utilit\u00e1rias",
+      "community": 1,
+      "norm_label": "funcoes utilitarias"
+    },
+    {
+      "label": "Pr\u00f3ximos Passos (Roadmap)",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L404",
+      "_origin": "ast",
+      "id": "financas_app_claude_pr\u00f3ximos_passos_roadmap",
+      "community": 1,
+      "norm_label": "proximos passos (roadmap)"
+    },
+    {
+      "label": "Poss\u00edveis Bugs / Melhorias",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L421",
+      "_origin": "ast",
+      "id": "financas_app_claude_poss\u00edveis_bugs_melhorias",
+      "community": 1,
+      "norm_label": "possiveis bugs / melhorias"
+    },
+    {
+      "label": "Arquivo `.env`",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L431",
+      "_origin": "ast",
+      "id": "financas_app_claude_arquivo_env",
+      "community": 1,
+      "norm_label": "arquivo `.env`"
+    },
+    {
+      "label": "Links \u00dateis",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L444",
+      "_origin": "ast",
+      "id": "financas_app_claude_links_\u00fateis",
+      "community": 1,
+      "norm_label": "links uteis"
+    },
+    {
+      "label": "Comandos \u00dateis",
+      "file_type": "document",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L454",
+      "_origin": "ast",
+      "id": "financas_app_claude_comandos_\u00fateis",
+      "community": 1,
+      "norm_label": "comandos uteis"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "financas-app/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "financas_app_readme",
+      "community": 3,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "Raz\u00e3o \u2014 controle financeiro pessoal",
+      "file_type": "document",
+      "source_file": "financas-app/README.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
+      "community": 3,
+      "norm_label": "razao \u2014 controle financeiro pessoal"
+    },
+    {
+      "label": "Setup",
+      "file_type": "document",
+      "source_file": "financas-app/README.md",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "financas_app_readme_setup",
+      "community": 3,
+      "norm_label": "setup"
+    },
+    {
+      "label": "Rodar localmente",
+      "file_type": "document",
+      "source_file": "financas-app/README.md",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "financas_app_readme_rodar_localmente",
+      "community": 3,
+      "norm_label": "rodar localmente"
+    },
+    {
+      "label": "Deploy (Vercel)",
+      "file_type": "document",
+      "source_file": "financas-app/README.md",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "financas_app_readme_deploy_vercel",
+      "community": 3,
+      "norm_label": "deploy (vercel)"
+    },
+    {
+      "label": "O que tem",
+      "file_type": "document",
+      "source_file": "financas-app/README.md",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "financas_app_readme_o_que_tem",
+      "community": 3,
+      "norm_label": "o que tem"
+    },
+    {
+      "label": "Pr\u00f3ximos passos poss\u00edveis",
+      "file_type": "document",
+      "source_file": "financas-app/README.md",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "financas_app_readme_pr\u00f3ximos_passos_poss\u00edveis",
+      "community": 3,
+      "norm_label": "proximos passos possiveis"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "financas_app_package",
+      "target": "financas_app_package_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "financas_app_package",
+      "target": "financas_app_package_devdependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "financas_app_package",
+      "target": "financas_app_package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "financas_app_package",
+      "target": "financas_app_package_private",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "financas_app_package",
+      "target": "financas_app_package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "financas_app_package",
+      "target": "financas_app_package_type",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "financas_app_package",
+      "target": "financas_app_package_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "financas_app_package_scripts",
+      "target": "financas_app_package_scripts_build",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "financas_app_package_scripts",
+      "target": "financas_app_package_scripts_dev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "financas_app_package_scripts",
+      "target": "financas_app_package_scripts_preview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "financas_app_package_devdependencies",
+      "target": "financas_app_package_devdependencies_vite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "financas_app_package_dependencies",
+      "target": "financas_app_package_dependencies_supabase_supabase_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L336",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_boot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L208",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_changemonth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_default_cats",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L214",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_deletetx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L280",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_drawchart",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L202",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_escapehtml",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_fmt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_loaddata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_meses",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_monthbounds",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L221",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_openmodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L122",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_renderapp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L60",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_renderauth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_renderledgerrows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_state",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_traduzerro",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_supabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_supabase_supabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L141",
+      "weight": 1.0,
+      "source": "src_main_renderapp",
+      "target": "src_main_fmt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L295",
+      "weight": 1.0,
+      "source": "src_main_drawchart",
+      "target": "src_main_monthbounds",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "src_main_loaddata",
+      "target": "src_main_monthbounds",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L341",
+      "weight": 1.0,
+      "source": "src_main_boot",
+      "target": "src_main_loaddata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L210",
+      "weight": 1.0,
+      "source": "src_main_changemonth",
+      "target": "src_main_loaddata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L216",
+      "weight": 1.0,
+      "source": "src_main_deletetx",
+      "target": "src_main_loaddata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L338",
+      "weight": 1.0,
+      "source": "src_main_boot",
+      "target": "src_main_renderauth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L342",
+      "weight": 1.0,
+      "source": "src_main_boot",
+      "target": "src_main_renderapp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L211",
+      "weight": 1.0,
+      "source": "src_main_changemonth",
+      "target": "src_main_renderapp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L217",
+      "weight": 1.0,
+      "source": "src_main_deletetx",
+      "target": "src_main_renderapp",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L175",
+      "weight": 1.0,
+      "source": "src_main_renderapp",
+      "target": "src_main_drawchart",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L157",
+      "weight": 1.0,
+      "source": "src_main_renderapp",
+      "target": "src_main_renderledgerrows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/supabase.js",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_supabase",
+      "target": "src_supabase_supabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "readme",
+      "target": "readme_claude_apps",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "financas_app_claude",
+      "target": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_arquitetura",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L431",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_arquivo_env",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L214",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_banco_de_dados_supabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L454",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_comandos_\u00fateis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L262",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_componentes_visuais",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L160",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L335",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_deploy_vercel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_fluxo_de_dados",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L345",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_fluxos_principais",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L395",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_fun\u00e7\u00f5es_utilit\u00e1rias",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L192",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_gr\u00e1fico_\u00faltimos_6_meses",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L444",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_links_\u00fateis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L421",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_poss\u00edveis_bugs_melhorias",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L404",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_pr\u00f3ximos_passos_roadmap",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L382",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_seguran\u00e7a_rls",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L300",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_stack_t\u00e9cnico",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_state_estado_da_aplica\u00e7\u00e3o",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "financas_app_claude_vis\u00e3o_geral",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "financas_app_claude_state_estado_da_aplica\u00e7\u00e3o",
+      "target": "financas_app_claude_fluxo_de_state",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "financas_app_claude_fluxo_de_dados",
+      "target": "financas_app_claude_1_autentica\u00e7\u00e3o",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L89",
+      "weight": 1.0,
+      "source": "financas_app_claude_fluxo_de_dados",
+      "target": "financas_app_claude_2_carregamento_de_dados",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L115",
+      "weight": 1.0,
+      "source": "financas_app_claude_fluxo_de_dados",
+      "target": "financas_app_claude_3_navega\u00e7\u00e3o_de_m\u00eas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L129",
+      "weight": 1.0,
+      "source": "financas_app_claude_fluxo_de_dados",
+      "target": "financas_app_claude_4_cria\u00e7\u00e3o_de_transa\u00e7\u00e3o",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L146",
+      "weight": 1.0,
+      "source": "financas_app_claude_fluxo_de_dados",
+      "target": "financas_app_claude_5_exclus\u00e3o_de_transa\u00e7\u00e3o",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L162",
+      "weight": 1.0,
+      "source": "financas_app_claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
+      "target": "financas_app_claude_c\u00e1lculo_de_saldo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L170",
+      "weight": 1.0,
+      "source": "financas_app_claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
+      "target": "financas_app_claude_formata\u00e7\u00e3o_de_moeda",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L180",
+      "weight": 1.0,
+      "source": "financas_app_claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
+      "target": "financas_app_claude_limites_de_m\u00eas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L244",
+      "weight": 1.0,
+      "source": "financas_app_claude_banco_de_dados_supabase",
+      "target": "financas_app_claude_categorias_padr\u00e3o_seed_no_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L216",
+      "weight": 1.0,
+      "source": "financas_app_claude_banco_de_dados_supabase",
+      "target": "financas_app_claude_tabela_categorias",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L229",
+      "weight": 1.0,
+      "source": "financas_app_claude_banco_de_dados_supabase",
+      "target": "financas_app_claude_tabela_transacoes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L286",
+      "weight": 1.0,
+      "source": "financas_app_claude_componentes_visuais",
+      "target": "financas_app_claude_css_classes_principais",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L264",
+      "weight": 1.0,
+      "source": "financas_app_claude_componentes_visuais",
+      "target": "financas_app_claude_telas_principais",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L302",
+      "weight": 1.0,
+      "source": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
+      "target": "financas_app_claude_1_criar_projeto_supabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L308",
+      "weight": 1.0,
+      "source": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
+      "target": "financas_app_claude_2_configurar_credenciais",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L319",
+      "weight": 1.0,
+      "source": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
+      "target": "financas_app_claude_3_habilitar_email_auth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L324",
+      "weight": 1.0,
+      "source": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
+      "target": "financas_app_claude_4_instalar_e_rodar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L373",
+      "weight": 1.0,
+      "source": "financas_app_claude_fluxos_principais",
+      "target": "financas_app_claude_gr\u00e1fico_de_6_meses",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L366",
+      "weight": 1.0,
+      "source": "financas_app_claude_fluxos_principais",
+      "target": "financas_app_claude_navega\u00e7\u00e3o_mensal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L347",
+      "weight": 1.0,
+      "source": "financas_app_claude_fluxos_principais",
+      "target": "financas_app_claude_novo_usu\u00e1rio_signup_primeiro_acesso",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/CLAUDE.md",
+      "source_location": "L359",
+      "weight": 1.0,
+      "source": "financas_app_claude_fluxos_principais",
+      "target": "financas_app_claude_usu\u00e1rio_existente",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "financas_app_readme",
+      "target": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/README.md",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
+      "target": "financas_app_readme_deploy_vercel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/README.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
+      "target": "financas_app_readme_o_que_tem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/README.md",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
+      "target": "financas_app_readme_pr\u00f3ximos_passos_poss\u00edveis",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/README.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
+      "target": "financas_app_readme_rodar_localmente",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/README.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
+      "target": "financas_app_readme_setup",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "596f292925a39f9be5e2c794770452eb83a43e0b"
+}

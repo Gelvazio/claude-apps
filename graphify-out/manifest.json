@@ -1,0 +1,72 @@
+{
+  "financas-app/package.json": {
+    "mtime": 1788115496.0,
+    "ast_hash": "ce8853cd48e7515d98c0fe3bf5e4347e",
+    "semantic_hash": ""
+  },
+  "financas-app/src/main.js": {
+    "mtime": 1788115625.0,
+    "ast_hash": "ac88a04e0cc7be85663bd7f442ae873e",
+    "semantic_hash": ""
+  },
+  "financas-app/src/supabase.js": {
+    "mtime": 1788116937.1189034,
+    "ast_hash": "de4379328f280dba70069cd884fef53a",
+    "semantic_hash": ""
+  },
+  "financas-app/supabase-schema.sql": {
+    "mtime": 1788115514.0,
+    "ast_hash": "09b5450077f8ce9fc76842dbcb061835",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1788116768.9849153,
+    "ast_hash": "563ae2e65d61a9a99bb7494245bbb733",
+    "semantic_hash": ""
+  },
+  "financas-app/CLAUDE.md": {
+    "mtime": 1788116949.5921395,
+    "ast_hash": "efc352affbdc0f29f85081b33463ade4",
+    "semantic_hash": ""
+  },
+  "financas-app/README.md": {
+    "mtime": 1788115636.0,
+    "ast_hash": "a196f35df936db3ec9ed09d9c5a80bfd",
+    "semantic_hash": ""
+  },
+  "financas-app/index.html": {
+    "mtime": 1788115521.0,
+    "ast_hash": "928e696b5dbf5a3857db06b55b5ac903",
+    "semantic_hash": ""
+  },
+  "financas-app/public/favicon.svg": {
+    "mtime": 1788115484.0,
+    "ast_hash": "098c888910dd3b64d291f1f0dc9e7033",
+    "semantic_hash": ""
+  },
+  "financas-app/public/icons.svg": {
+    "mtime": 1788115484.0,
+    "ast_hash": "3b4fcfcf393eca4d264dca4a4663bc37",
+    "semantic_hash": ""
+  },
+  "financas-app/public/livro.svg": {
+    "mtime": 1788115525.0,
+    "ast_hash": "d7846c4ef0a32ab8d7cd8b0112d01ee5",
+    "semantic_hash": ""
+  },
+  "financas-app/src/assets/hero.png": {
+    "mtime": 1788115484.0,
+    "ast_hash": "aead493361b27e7510691c5d7072dfc1",
+    "semantic_hash": ""
+  },
+  "financas-app/src/assets/javascript.svg": {
+    "mtime": 1788115484.0,
+    "ast_hash": "067c459716da80af65db120e6c0404b9",
+    "semantic_hash": ""
+  },
+  "financas-app/src/assets/vite.svg": {
+    "mtime": 1788115484.0,
+    "ast_hash": "9960a24288958394ac50e57ff638b036",
+    "semantic_hash": ""
+  }
+}
