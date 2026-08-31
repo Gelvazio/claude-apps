@@ -37,7 +37,7 @@ const MESES = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'O
 async function loadData() {
   const { start, end } = monthBounds(state.refDate)
   const [{ data: cats }, { data: txs }] = await Promise.all([
-    supabase.from('categorias').select('*').order('nome'),
+    supabase.from('fin.categorias').select('*').order('nome'),
     supabase
       .from('transacoes')
       .select('*, categorias(nome, cor)')
@@ -51,7 +51,7 @@ async function loadData() {
   if (state.categorias.length === 0) {
     const userId = state.session.user.id
     const rows = DEFAULT_CATS.map((c) => ({ ...c, user_id: userId }))
-    const { data: inserted } = await supabase.from('categorias').insert(rows).select()
+    const { data: inserted } = await supabase.from('fin.categorias').insert(rows).select()
     state.categorias = inserted || []
   }
 }
@@ -212,7 +212,7 @@ async function changeMonth(delta) {
 }
 
 async function deleteTx(id) {
-  await supabase.from('transacoes').delete().eq('id', id)
+  await supabase.from('fin.transacoes').delete().eq('id', id)
   await loadData()
   renderApp()
 }
@@ -260,7 +260,7 @@ function openModal(tipo) {
   document.getElementById('tx-form').onsubmit = async (e) => {
     e.preventDefault()
     const f = e.target
-    const { error } = await supabase.from('transacoes').insert({
+    const { error } = await supabase.from('fin.transacoes').insert({
       user_id: state.session.user.id,
       descricao: f.descricao.value.trim(),
       valor: parseFloat(f.valor.value),
