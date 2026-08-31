@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ERP — Análise de Crédito</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .app-layout {
+        display: flex;
+        min-height: calc(100vh - 56px);
+      }
+      .main {
+        margin-left: 240px;
+        padding: 28px 32px;
+        flex: 1;
+      }
+      @media (max-width: 768px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+        .main {
+          margin-left: 0;
+          padding: 16px;
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+      }
+      .sidebar-icon {
+        font-size: 16px;
+        width: 20px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+      .btn-menu {
+        display: none;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+      }
+      @media (max-width: 768px) {
+        .btn-menu {
+          display: flex;
+        }
+      }
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 49;
+      }
+      .sidebar-overlay.show {
+        display: block;
+      }
+
+      .page-header {
+        margin-bottom: 24px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .page-header h1 {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--color-text);
+      }
+      .page-header p {
+        font-size: 13px;
+        color: var(--color-text-muted);
+        margin-top: 2px;
+      }
+      [data-theme='dark'] .page-header h1 {
+        color: #f8f6ff;
+      }
+
+      /* KPI */
+      .kpi-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      @media (max-width: 900px) {
+        .kpi-row {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 480px) {
+        .kpi-row {
+          grid-template-columns: 1fr;
+        }
+      }
+      .kpi-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border-faint);
+        border-radius: 12px;
+        padding: 16px 18px;
+        border-left: 4px solid var(--kpi-cor, var(--color-primary));
+      }
+      [data-theme='dark'] .kpi-card {
+        background: #0f0c22;
+        border-color: rgba(139, 92, 246, 0.15);
+      }
+      .kpi-label {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--color-text-faint);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+      }
+      .kpi-value {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--color-text);
+      }
+      [data-theme='dark'] .kpi-label {
+        color: #6b5e8a;
+      }
+      [data-theme='dark'] .kpi-value {
+        color: #fff;
+      }
+
+      /* Toolbar */
+      .toolbar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .search-input {
+        flex: 1;
+        min-width: 200px;
+        padding: 8px 12px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        font-size: 13px;
+        font-family: inherit;
+        background: var(--color-surface);
+        color: var(--color-text);
+        outline: none;
+      }
+      .search-input:focus {
+        border-color: var(--color-primary);
+      }
+      [data-theme='dark'] .search-input {
+        background: var(--color-surface-2);
+      }
+      select.filter-sel {
+        padding: 7px 10px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        font-size: 13px;
+        font-family: inherit;
+        background: var(--color-surface);
+        color: var(--color-text);
+        outline: none;
+        min-width: 140px;
+      }
+      [data-theme='dark'] select.filter-sel {
+        background: var(--color-surface-2);
+        border-color: var(--color-border-light);
+      }
+
+      .content-card {
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+      }
+      [data-theme='dark'] .content-card {
+        background: #0f0c22;
+        border: 1px solid rgba(139, 92, 246, 0.12);
+      }
+
+      .crud-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      .crud-table th {
+        text-align: left;
+        padding: 10px 14px;
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--color-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        border-bottom: 2px solid var(--color-border-faint);
+        white-space: nowrap;
+      }
+      .crud-table td {
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--color-border-faint);
+        color: var(--color-text-secondary);
+      }
+      .crud-table tr:last-child td {
+        border-bottom: none;
+      }
+      .crud-table tr:hover td {
+        background: var(--color-surface-2);
+      }
+      [data-theme='dark'] .crud-table th {
+        color: #a78bfa;
+        border-bottom-color: rgba(139, 92, 246, 0.12);
+      }
+      [data-theme='dark'] .crud-table td {
+        border-bottom-color: rgba(139, 92, 246, 0.08);
+        color: #c4b5fd;
+      }
+      [data-theme='dark'] .crud-table tr:hover td {
+        background: #1a1535;
+      }
+
+      .vazio {
+        text-align: center;
+        color: var(--color-text-faint);
+        font-size: 13px;
+        padding: 32px;
+        font-style: italic;
+      }
+      .msg-global {
+        margin-bottom: 14px;
+        display: none;
+      }
+
+      /* Form */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .form-grid .span-2 {
+        grid-column: span 2;
+      }
+      @media (max-width: 600px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+        .form-grid .span-2 {
+          grid-column: span 1;
+        }
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .form-label {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .form-label span {
+        color: var(--color-error);
+      }
+
+      /* Score meter */
+      .score-box {
+        background: var(--color-surface-2);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 16px;
+        text-align: center;
+        border: 2px solid var(--score-cor, #94a3b8);
+        display: none;
+      }
+      [data-theme='dark'] .score-box {
+        background: #1a1535;
+      }
+      .score-letra {
+        font-size: 56px;
+        font-weight: 900;
+        line-height: 1;
+        color: var(--score-cor);
+      }
+      .score-nome {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--color-text-muted);
+        margin-top: 4px;
+      }
+      .score-num {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--color-text);
+        margin-top: 6px;
+      }
+      .score-desc {
+        font-size: 11px;
+        color: var(--color-text-muted);
+        margin-top: 8px;
+        line-height: 1.5;
+      }
+      .score-limite {
+        display: inline-block;
+        margin-top: 10px;
+        background: var(--score-cor);
+        color: #fff;
+        border-radius: 20px;
+        padding: 4px 14px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      /* Letra badge na tabela */
+      .letra-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 28px;
+        border-radius: 6px;
+        font-weight: 900;
+        font-size: 13px;
+        letter-spacing: 0.5px;
+      }
+
+      /* Barra de score */
+      .score-bar-wrap {
+        margin: 8px 0;
+        height: 8px;
+        background: var(--color-border-faint);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+      .score-bar {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 0.4s;
+      }
+    </style>
+    <script>
+      (function () {
+        const t = localStorage.getItem('senai_tema') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="header">
+      <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+      <a class="header-logo" href="../dashboard.html">ERP</a>
+      <span class="header-title">Senai</span>
+      <span class="header-spacer"></span>
+      <span class="role-badge" id="roleBadge"></span>
+      <button class="header-btn" id="btnTema" onclick="alternarTema()">🌙 Escuro</button>
+      <button class="header-btn" onclick="sair()">🚪 Sair</button>
+    </header>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+    <div class="app-layout">
+      <aside class="sidebar" id="sidebar"></aside>
+
+      <main class="main">
+        <div class="page-header">
+          <div>
+            <h1>🔎 Análise de Crédito</h1>
+            <p>
+              Calcule a letra de crédito dos clientes com base nos critérios definidos pela empresa.
+            </p>
+          </div>
+          <button class="btn btn-primary" onclick="abrirModalNovo()">+ Nova Análise</button>
+        </div>
+
+        <div class="msg-global" id="msgGlobal"></div>
+
+        <!-- KPIs -->
+        <div class="kpi-row">
+          <div class="kpi-card" style="--kpi-cor: #6366f1">
+            <div class="kpi-label">Total de Análises</div>
+            <div class="kpi-value" id="kpiTotal">—</div>
+          </div>
+          <div class="kpi-card" style="--kpi-cor: #16a34a">
+            <div class="kpi-label">Crédito Aprovado (A+)</div>
+            <div class="kpi-value" id="kpiAprovado">—</div>
+          </div>
+          <div class="kpi-card" style="--kpi-cor: #f97316">
+            <div class="kpi-label">Crédito Restrito (BB–B)</div>
+            <div class="kpi-value" id="kpiRestrito">—</div>
+          </div>
+          <div class="kpi-card" style="--kpi-cor: #dc2626">
+            <div class="kpi-label">Crédito Bloqueado (CCC–D)</div>
+            <div class="kpi-value" id="kpiBloqueado">—</div>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <input
+            class="search-input"
+            type="search"
+            id="busca"
+            placeholder="Buscar por cliente ou analista…"
+            oninput="filtrar()"
+          />
+          <select class="filter-sel" id="filLetra" onchange="filtrar()">
+            <option value="">Todas as letras</option>
+            <option>AAA</option>
+            <option>AA</option>
+            <option>A</option>
+            <option>BBB</option>
+            <option>BB</option>
+            <option>B</option>
+            <option>CCC</option>
+            <option>CC</option>
+            <option>C</option>
+            <option>D</option>
+          </select>
+          <select class="filter-sel" id="filStatus" onchange="filtrar()">
+            <option value="">Todos os status</option>
+            <option>Aprovado</option>
+            <option>Em Análise</option>
+            <option>Recusado</option>
+            <option>Revogado</option>
+          </select>
+        </div>
+
+        <div class="content-card">
+          <div class="crud-table-wrap">
+            <table class="crud-table">
+              <thead>
+                <tr>
+                  <th>Nº</th>
+                  <th>Cliente</th>
+                  <th>Letra</th>
+                  <th>Score</th>
+                  <th>Limite Sugerido</th>
+                  <th>Prazo (dias)</th>
+                  <th>Analista</th>
+                  <th>Data</th>
+                  <th>Status</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tbody">
+                <tr>
+                  <td colspan="10" class="vazio">Carregando…</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal análise -->
+    <div
+      id="modalBackdrop"
+      class="crud-backdrop"
+      style="display: none"
+      onclick="if (event.target === this) fecharModal();"
+    >
+      <div class="crud-modal" style="max-width: 720px">
+        <div class="crud-modal-head">
+          <h3 id="modalTitulo">Nova Análise de Crédito</h3>
+          <button class="crud-btn-fechar" onclick="fecharModal()">✕</button>
+        </div>
+        <div class="crud-form-area">
+          <!-- Score meter -->
+          <div class="score-box" id="scoreBox">
+            <div class="score-letra" id="scoreLetra">AAA</div>
+            <div class="score-nome" id="scoreNome">Crédito Excelente</div>
+            <div class="score-num" id="scoreNum">100 pontos</div>
+            <div class="score-bar-wrap">
+              <div class="score-bar" id="scoreBar" style="width: 100%; background: #16a34a"></div>
+            </div>
+            <div class="score-desc" id="scoreDesc"></div>
+            <span class="score-limite" id="scoreLimite"></span>
+          </div>
+
+          <form id="formAnalise" onsubmit="salvar(event)">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="fCliente">Cliente <span>*</span></label>
+                <select class="form-select" id="fCliente" required>
+                  <option value="">— Selecione —</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="fAnalista">Analista</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="fAnalista"
+                  placeholder="Nome do analista"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="fData">Data <span>*</span></label>
+                <input class="form-input" type="date" id="fData" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="fStatus">Status</label>
+                <select class="form-select" id="fStatus">
+                  <option>Aprovado</option>
+                  <option>Em Análise</option>
+                  <option>Recusado</option>
+                  <option>Revogado</option>
+                </select>
+              </div>
+
+              <!-- Variáveis dinâmicas do creditscore.json -->
+              <div
+                id="variaveisContainer"
+                class="span-2"
+                style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px"
+              ></div>
+
+              <div class="form-group span-2">
+                <label class="form-label" for="fObs">Observações</label>
+                <textarea
+                  class="form-textarea"
+                  id="fObs"
+                  rows="3"
+                  placeholder="Justificativa ou informações adicionais…"
+                ></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn-confirmar"
+            onclick="document.getElementById('formAnalise').requestSubmit()"
+          >
+            Salvar Análise
+          </button>
+          <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal excluir -->
+    <div
+      id="modalExcluirBackdrop"
+      class="crud-backdrop"
+      style="display: none"
+      onclick="if (event.target === this) fecharModalExcluir();"
+    >
+      <div class="crud-modal" style="max-width: 420px">
+        <div class="crud-modal-head">
+          <h3>Confirmar Exclusão</h3>
+          <button class="crud-btn-fechar" onclick="fecharModalExcluir()">✕</button>
+        </div>
+        <div class="crud-form-area" style="padding: 20px">
+          <p style="font-size: 14px; color: var(--color-text)">
+            Deseja excluir a análise do cliente <strong id="nomeExcluir"></strong>?
+          </p>
+          <p style="font-size: 12px; color: var(--color-text-muted); margin-top: 8px">
+            Esta ação não pode ser desfeita.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-confirmar" style="background: #dc2626" onclick="excluirConfirmado()">
+            Excluir
+          </button>
+          <button class="btn-cancelar" onclick="fecharModalExcluir()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+    <script>
+      sbVerificarSessao('../index.html');
+      document.getElementById('roleBadge').textContent = sbPerfil() || '';
+      sbIniciarBtnTema('btnTema');
+      function alternarTema() {
+        const n = sbToggleTema();
+        document.getElementById('btnTema').textContent = n === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+        location.reload();
+      }
+      function sair() {
+        sbLogout('../index.html');
+      }
+      function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+        document.getElementById('sidebarOverlay').classList.toggle('show');
+      }
+
+      const TABELA = 'fin_analise_credito';
+      let SCORE_CONFIG = null;
+      let todos = [],
+        modoEdicao = false,
+        idEdicao = null,
+        idExcluir = null;
+
+      function moeda(v) {
+        return v != null
+          ? 'R$ ' +
+              Number(v).toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              })
+          : '—';
+      }
+      function dataFmt(d) {
+        if (!d) return '—';
+        const [a, m, dd] = d.split('-');
+        return `${dd}/${m}/${a}`;
+      }
+      function hoje() {
+        return new Date().toISOString().split('T')[0];
+      }
+      function msgGlobal(txt, tipo = 'ok') {
+        const el = document.getElementById('msgGlobal');
+        el.textContent = txt;
+        el.className = `crud-msg ${tipo}`;
+        el.style.display = 'block';
+        setTimeout(() => (el.style.display = 'none'), 3500);
+      }
+
+      // ── Carrega creditscore.json da internet (GitHub raw) ────────────────────────
+      const CREDITSCORE_URL =
+        'https://raw.githubusercontent.com/Gelvazio/professor-senai/main/erp-victor-anato-senai/financeiro/creditscore.json';
+
+      async function carregarConfig() {
+        try {
+          const res = await fetch(CREDITSCORE_URL, { cache: 'no-cache' });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          SCORE_CONFIG = await res.json();
+        } catch (err) {
+          console.warn('Falha ao buscar creditscore.json remoto, tentando local…', err);
+          const res = await fetch('./creditscore.json');
+          SCORE_CONFIG = await res.json();
+        }
+        renderVariaveis();
+      }
+
+      // ── Renderiza campos do formulário conforme as variáveis do JSON ──────────────
+      function renderVariaveis() {
+        if (!SCORE_CONFIG) return;
+        const cont = document.getElementById('variaveisContainer');
+        cont.innerHTML = SCORE_CONFIG.variaveis
+          .map((v) => {
+            if (v.tipo === 'select') {
+              const opts = v.opcoes
+                .map((o) => `<option value="${o.valor}">${o.label}</option>`)
+                .join('');
+              return `
+        <div class="form-group" style="grid-column:span 2">
+          <label class="form-label" for="var_${v.id}">${v.nome} <span>*</span>
+            <small style="font-weight:400;text-transform:none;letter-spacing:0">(peso ${Math.round(v.peso * 100)}%)</small>
+          </label>
+          <select class="form-select" id="var_${v.id}" required onchange="calcularScore()">
+            <option value="">— Selecione —</option>${opts}
+          </select>
+        </div>`;
+            }
+            // faixa_numerica → input number
+            return `
+      <div class="form-group">
+        <label class="form-label" for="var_${v.id}">${v.nome} <span>*</span>
+          <small style="font-weight:400;text-transform:none;letter-spacing:0">(peso ${Math.round(v.peso * 100)}%)</small>
+        </label>
+        <input class="form-input" type="number" id="var_${v.id}" min="0" step="any" required
+          placeholder="Digite o valor" oninput="calcularScore()">
+      </div>`;
+          })
+          .join('');
+      }
+
+      // ── Cálculo de score em tempo real ───────────────────────────────────────────
+      function calcularScore() {
+        if (!SCORE_CONFIG) return;
+        let scoreTotal = 0;
+        let completo = true;
+
+        for (const v of SCORE_CONFIG.variaveis) {
+          const el = document.getElementById('var_' + v.id);
+          if (!el || el.value === '') {
+            completo = false;
+            break;
+          }
+
+          let pontos = 0;
+          if (v.tipo === 'select') {
+            pontos = parseFloat(el.value) || 0;
+          } else {
+            const num = parseFloat(el.value);
+            for (const f of v.faixas) {
+              const ok = (f.de == null || num >= f.de) && (f.ate == null || num <= f.ate);
+              if (ok) {
+                pontos = f.valor;
+                break;
+              }
+            }
+          }
+          scoreTotal += pontos * v.peso;
+        }
+
+        if (!completo) {
+          document.getElementById('scoreBox').style.display = 'none';
+          return;
+        }
+
+        const score = Math.round(scoreTotal);
+        const letra =
+          SCORE_CONFIG.letras.find((l) => score >= l.de && score <= l.ate) ||
+          SCORE_CONFIG.letras[SCORE_CONFIG.letras.length - 1];
+
+        const box = document.getElementById('scoreBox');
+        box.style.display = 'block';
+        box.style.setProperty('--score-cor', letra.cor);
+        box.style.borderColor = letra.cor;
+        document.getElementById('scoreLetra').textContent = letra.letra;
+        document.getElementById('scoreNome').textContent = letra.nome;
+        document.getElementById('scoreNum').textContent = score + ' pontos';
+        document.getElementById('scoreDesc').textContent = letra.descricao;
+        document.getElementById('scoreLimite').textContent =
+          `Limite sugerido: ${moeda(letra.limite_sugerido)}  |  Prazo: ${letra.prazo_dias} dias`;
+        document.getElementById('scoreBar').style.width = score + '%';
+        document.getElementById('scoreBar').style.background = letra.cor;
+      }
+
+      function obterResultadoAtual() {
+        if (!SCORE_CONFIG) return null;
+        let scoreTotal = 0;
+        for (const v of SCORE_CONFIG.variaveis) {
+          const el = document.getElementById('var_' + v.id);
+          if (!el) return null;
+          let pontos = 0;
+          if (v.tipo === 'select') {
+            pontos = parseFloat(el.value) || 0;
+          } else {
+            const num = parseFloat(el.value);
+            for (const f of v.faixas) {
+              const ok = (f.de == null || num >= f.de) && (f.ate == null || num <= f.ate);
+              if (ok) {
+                pontos = f.valor;
+                break;
+              }
+            }
+          }
+          scoreTotal += pontos * v.peso;
+        }
+        const score = Math.round(scoreTotal);
+        const letra =
+          SCORE_CONFIG.letras.find((l) => score >= l.de && score <= l.ate) ||
+          SCORE_CONFIG.letras[SCORE_CONFIG.letras.length - 1];
+        return { score, letra };
+      }
+
+      // ── CRUD ─────────────────────────────────────────────────────────────────────
+      async function carregarTudo() {
+        todos = await sbListar(TABELA, 'select=*,clientes(nome)&order=created_at.desc');
+        sbPopularSelect('fCliente', 'clientes', 'ativo=eq.true&order=nome.asc');
+        atualizarKPIs();
+        filtrar();
+      }
+
+      function atualizarKPIs() {
+        let total = todos.length,
+          aprovado = 0,
+          restrito = 0,
+          bloqueado = 0;
+        todos.forEach((r) => {
+          const l = r.letra_credito || '';
+          if (['AAA', 'AA', 'A', 'BBB'].includes(l)) aprovado++;
+          else if (['BB', 'B'].includes(l)) restrito++;
+          else if (['CCC', 'CC', 'C', 'D'].includes(l)) bloqueado++;
+        });
+        document.getElementById('kpiTotal').textContent = total;
+        document.getElementById('kpiAprovado').textContent = aprovado;
+        document.getElementById('kpiRestrito').textContent = restrito;
+        document.getElementById('kpiBloqueado').textContent = bloqueado;
+      }
+
+      function filtrar() {
+        const busca = document.getElementById('busca').value.toLowerCase();
+        const letra = document.getElementById('filLetra').value;
+        const st = document.getElementById('filStatus').value;
+        const lista = todos.filter((r) => {
+          const matchB =
+            !busca ||
+            (r.clientes?.nome || '').toLowerCase().includes(busca) ||
+            (r.analista || '').toLowerCase().includes(busca);
+          const matchL = !letra || r.letra_credito === letra;
+          const matchS = !st || r.status === st;
+          return matchB && matchL && matchS;
+        });
+        renderTabela(lista);
+      }
+
+      function letraCor(l) {
+        if (!SCORE_CONFIG) return { cor: '#94a3b8', fundo: '#f1f5f9' };
+        const def = SCORE_CONFIG.letras.find((x) => x.letra === l);
+        return def ? { cor: def.cor, fundo: def.cor_fundo } : { cor: '#94a3b8', fundo: '#f1f5f9' };
+      }
+
+      const STATUS_COR = {
+        Aprovado: 'badge-verde',
+        'Em Análise': 'badge-azul',
+        Recusado: 'badge-vermelho',
+        Revogado: 'badge-cinza'
+      };
+
+      function renderTabela(lista) {
+        const tbody = document.getElementById('tbody');
+        if (!lista.length) {
+          tbody.innerHTML =
+            '<tr><td colspan="10" class="vazio">Nenhuma análise encontrada.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = lista
+          .map((r) => {
+            const { cor, fundo } = letraCor(r.letra_credito);
+            return `<tr>
+      <td style="font-family:monospace;font-size:11px">${r.numero || '—'}</td>
+      <td>${r.clientes?.nome || '—'}</td>
+      <td><span class="letra-badge" style="background:${fundo};color:${cor}">${r.letra_credito || '—'}</span></td>
+      <td>
+        <div style="font-weight:700;font-size:13px">${r.score_total != null ? r.score_total + ' pts' : '—'}</div>
+        <div class="score-bar-wrap" style="width:80px;margin-top:4px"><div class="score-bar" style="width:${r.score_total || 0}%;background:${cor}"></div></div>
+      </td>
+      <td style="font-weight:600">${moeda(r.limite_sugerido)}</td>
+      <td>${r.prazo_dias != null ? r.prazo_dias + ' dias' : '—'}</td>
+      <td>${r.analista || '—'}</td>
+      <td>${dataFmt(r.data)}</td>
+      <td><span class="badge ${STATUS_COR[r.status] || 'badge-cinza'}">${r.status || '—'}</span></td>
+      <td>
+        <button class="btn-acao btn-editar" onclick="abrirEdicao('${r.id}')">✏️</button>
+        <button class="btn-acao btn-excluir" onclick="confirmarExcluir('${r.id}','${(r.clientes?.nome || '').replace(/'/g, '')}')">🗑️</button>
+      </td>
+    </tr>`;
+          })
+          .join('');
+      }
+
+      // ── Modal ─────────────────────────────────────────────────────────────────────
+      async function abrirModalNovo() {
+        modoEdicao = false;
+        idEdicao = null;
+        document.getElementById('modalTitulo').textContent = 'Nova Análise de Crédito';
+        document.getElementById('formAnalise').reset();
+        document.getElementById('fData').value = hoje();
+        document.getElementById('scoreBox').style.display = 'none';
+        renderVariaveis();
+        await sbPopularSelect('fCliente', 'clientes', 'ativo=eq.true&order=nome.asc');
+        document.getElementById('modalBackdrop').style.display = 'flex';
+      }
+
+      async function abrirEdicao(id) {
+        modoEdicao = true;
+        idEdicao = id;
+        const r = todos.find((x) => x.id === id);
+        if (!r) return;
+        document.getElementById('modalTitulo').textContent = 'Editar Análise de Crédito';
+        renderVariaveis();
+        await sbPopularSelect('fCliente', 'clientes', 'ativo=eq.true&order=nome.asc');
+        document.getElementById('fCliente').value = r.cliente_id || '';
+        document.getElementById('fAnalista').value = r.analista || '';
+        document.getElementById('fData').value = r.data || hoje();
+        document.getElementById('fStatus').value = r.status || 'Aprovado';
+        document.getElementById('fObs').value = r.observacoes || '';
+
+        // Repopular variáveis
+        if (SCORE_CONFIG && r.variaveis_json) {
+          const vars = r.variaveis_json;
+          SCORE_CONFIG.variaveis.forEach((v) => {
+            const el = document.getElementById('var_' + v.id);
+            if (el && vars[v.id] !== undefined) el.value = vars[v.id];
+          });
+        }
+        calcularScore();
+        document.getElementById('modalBackdrop').style.display = 'flex';
+      }
+
+      function fecharModal() {
+        document.getElementById('modalBackdrop').style.display = 'none';
+      }
+
+      async function salvar(e) {
+        e.preventDefault();
+        const resultado = obterResultadoAtual();
+        if (!resultado) {
+          msgGlobal('Preencha todas as variáveis de crédito.', 'err');
+          return;
+        }
+
+        const varsJson = {};
+        SCORE_CONFIG.variaveis.forEach((v) => {
+          const el = document.getElementById('var_' + v.id);
+          if (el) varsJson[v.id] = el.value;
+        });
+
+        const dados = {
+          cliente_id: document.getElementById('fCliente').value || null,
+          analista: document.getElementById('fAnalista').value.trim() || null,
+          data: document.getElementById('fData').value,
+          status: document.getElementById('fStatus').value,
+          observacoes: document.getElementById('fObs').value.trim() || null,
+          score_total: resultado.score,
+          letra_credito: resultado.letra.letra,
+          limite_sugerido: resultado.letra.limite_sugerido,
+          prazo_dias: resultado.letra.prazo_dias,
+          variaveis_json: varsJson
+        };
+
+        try {
+          if (modoEdicao) {
+            await sbAtualizar(TABELA, idEdicao, dados);
+            msgGlobal('Análise atualizada com sucesso!');
+          } else {
+            dados.numero = await sbProximoNumero(TABELA, 'numero', 'AC');
+            await sbInserir(TABELA, dados);
+            msgGlobal('Análise registrada com sucesso!');
+          }
+          fecharModal();
+          await carregarTudo();
+        } catch (err) {
+          msgGlobal('Erro: ' + err.message, 'err');
+        }
+      }
+
+      // ── Excluir ───────────────────────────────────────────────────────────────────
+      function confirmarExcluir(id, nome) {
+        idExcluir = id;
+        document.getElementById('nomeExcluir').textContent = nome;
+        document.getElementById('modalExcluirBackdrop').style.display = 'flex';
+      }
+      function fecharModalExcluir() {
+        document.getElementById('modalExcluirBackdrop').style.display = 'none';
+        idExcluir = null;
+      }
+      async function excluirConfirmado() {
+        if (!idExcluir) return;
+        try {
+          await sbExcluir(TABELA, idExcluir);
+          fecharModalExcluir();
+          msgGlobal('Análise excluída.');
+          await carregarTudo();
+        } catch (err) {
+          msgGlobal('Erro: ' + err.message, 'err');
+        }
+      }
+
+      // ── Init ─────────────────────────────────────────────────────────────────────
+      (async () => {
+        await carregarConfig();
+        await carregarTudo();
+        // Abrir modal automático se vier com ?cliente_id=
+        const params = new URLSearchParams(window.location.search);
+        const clienteIdParam = params.get('cliente_id');
+        if (clienteIdParam) {
+          await abrirModalNovo();
+          document.getElementById('fCliente').value = clienteIdParam;
+        }
+      })();
+    </script>
+    <script>
+      (function () {
+        if (localStorage.getItem('erp_role') === 'Administrador') {
+          var el = document.getElementById('linkAdmin');
+          if (el) el.style.display = 'flex';
+        }
+      })();
+    </script>
+  </body>
+</html>

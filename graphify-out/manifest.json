@@ -5,18 +5,13 @@
     "semantic_hash": ""
   },
   "financas-app/src/main.js": {
-    "mtime": 1788115625.0,
-    "ast_hash": "ac88a04e0cc7be85663bd7f442ae873e",
+    "mtime": 1788174823.571216,
+    "ast_hash": "6d304812565f01c42e46138f0db7c177",
     "semantic_hash": ""
   },
   "financas-app/src/supabase.js": {
-    "mtime": 1788116989.1315668,
-    "ast_hash": "3dbcd62a1dacad2276536d566ec1e30f",
-    "semantic_hash": ""
-  },
-  "financas-app/supabase-schema.sql": {
-    "mtime": 1788115514.0,
-    "ast_hash": "09b5450077f8ce9fc76842dbcb061835",
+    "mtime": 1788175316.124187,
+    "ast_hash": "434600ce72bd30d7d5452ade156a377b",
     "semantic_hash": ""
   },
   "README.md": {
@@ -70,8 +65,138 @@
     "semantic_hash": ""
   },
   "financas-app/database.sql": {
-    "mtime": 1788117025.5756514,
-    "ast_hash": "b59c249109f19f9da16ec9f3ea8e253b",
+    "mtime": 1788173033.2461555,
+    "ast_hash": "222cd7c882187cf05bbd50ec44bfa9c2",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/.claude/settings.local.json": {
+    "mtime": 1779751623.8888602,
+    "ast_hash": "c9db62536df4814eba4e6c68e7e57a78",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/INSERT_RELATORIO_TRANSACOES_MOBILLS.sql": {
+    "mtime": 1788179873.5904133,
+    "ast_hash": "42a65b8aedcde97c0927171ea443bf44",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/dados_mobills.json": {
+    "mtime": 1788179846.4623063,
+    "ast_hash": "4caab365bf6dc1337772d940a8c66525",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/docs/financeiro.json": {
+    "mtime": 1779900508.8539898,
+    "ast_hash": "d81e6a4bef006c7017cff4fa5997b51a",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/financeiro.json": {
+    "mtime": 1780432185.7712972,
+    "ast_hash": "0e71459cdae3d9242511933ebf7afd07",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/package.json": {
+    "mtime": 1780434418.0928936,
+    "ast_hash": "4a2d895fd4fb3261ffc4ba843eb3facd",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/src/login.js": {
+    "mtime": 1780434449.735814,
+    "ast_hash": "76d9edd3c4a5eadcdd53998051d6bc70",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/src/main.js": {
+    "mtime": 1780585142.3524325,
+    "ast_hash": "58c120f1c83ca25160e93d4b1876ceec",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/vite.config.js": {
+    "mtime": 1779741836.1449132,
+    "ast_hash": "74eaf52d7e6e553638882610b313796f",
+    "semantic_hash": ""
+  },
+  "financas-app/email.md": {
+    "mtime": 1788174285.3386366,
+    "ast_hash": "054a9c9ed68627454fa81e43a1907303",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_1d00b6b3.md": {
+    "mtime": 1788179894.707921,
+    "ast_hash": "6f9730fca232bc9170fae0b222b954e3",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_8eb3b9d2.md": {
+    "mtime": 1788179893.7203577,
+    "ast_hash": "6f9730fca232bc9170fae0b222b954e3",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/CLAUDE.md": {
+    "mtime": 1780539247.8807194,
+    "ast_hash": "97c34f751e9be15c858632d70aebda70",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/MEMORY.md": {
+    "mtime": 1779741843.1914058,
+    "ast_hash": "478cf6e9fa3c2ba297ef43fe26c2b63a",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/SUMMARY.md": {
+    "mtime": 1780434591.147992,
+    "ast_hash": "d1eccb507a389895176c79fadd93bad3",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/index.html": {
+    "mtime": 1780585065.020609,
+    "ast_hash": "8b637d12a6a31ceee135372ddea5ce1f",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/login.html": {
+    "mtime": 1780434459.4798384,
+    "ast_hash": "91d24846db41523718e274ad00dfc0cf",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/pnpm-workspace.yaml": {
+    "mtime": 1780428271.9360237,
+    "ast_hash": "7bb23c19c0343fac40d375bacca550d0",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/docs/543977-FLORIANO DE OLIVEIRA - ESP\u00d3LIO.pdf": {
+    "mtime": 1779899208.9079926,
+    "ast_hash": "66dae49cd3afc683bd584323186eb664",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/docs/BoletosBlusol.pdf": {
+    "mtime": 1779737642.1307645,
+    "ast_hash": "14cb5109a973a7a0a74fe03b008bea6c",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/docs/CELESC_TUDO.pdf": {
+    "mtime": 1779746647.3838928,
+    "ast_hash": "5c4c07729c65bbcd26934ec3a9ee45ab",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/docs/IPTU_ROSEMERI.pdf": {
+    "mtime": 1779899241.2730749,
+    "ast_hash": "44a62ebdf3d8804baebfc0d66925f25b",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/docs/PROCESSO_JUDICIAL_FLORIANO.PDF": {
+    "mtime": 1779899234.9446332,
+    "ast_hash": "da2af811a85e9c7e694a804054e4ba6d",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/docs/comprovante_floriano.jpeg": {
+    "mtime": 1779899593.4780984,
+    "ast_hash": "6578e4cf5feb9f688c9806e55f1d14a9",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/docs/comprovante_pagto_processo_floriano.jpeg": {
+    "mtime": 1779899617.603787,
+    "ast_hash": "6aa8006bde2cc8e0311331a098bfa238",
+    "semantic_hash": ""
+  },
+  "sistemafinanceiro/docs/comprovante_rosimeri.jpeg": {
+    "mtime": 1779899573.2360528,
+    "ast_hash": "8795c8b5b5e15c0dfa1788142b3ce285",
     "semantic_hash": ""
   }
 }

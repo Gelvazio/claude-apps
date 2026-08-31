@@ -1,0 +1,560 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Retornos de Marketing</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+    .sidebar { width: 240px; background: var(--color-surface); border-right: 1px solid var(--color-border-faint); display: flex; flex-direction: column; position: fixed; top: 56px; left: 0; bottom: 0; overflow-y: auto; z-index: 50; transition: transform .25s; }
+    [data-theme="dark"] .sidebar { border-right-color: var(--color-border-light); }
+    .sidebar-section { padding: 20px 0 4px; }
+    .sidebar-section-label { font-size: 10px; font-weight: 700; color: var(--color-text-disabled); letter-spacing: 1.2px; text-transform: uppercase; padding: 0 20px 6px; }
+    .sidebar-link { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 13px; font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-left: 3px solid transparent; transition: background .15s, color .15s, border-color .15s; }
+    .sidebar-link:hover { background: #e8f0fe; color: var(--color-primary); }
+    .sidebar-link.ativo { background: #e8f0fe; color: var(--color-primary); border-left-color: var(--color-primary); font-weight: 600; }
+    [data-theme="dark"] .sidebar-link:hover, [data-theme="dark"] .sidebar-link.ativo { background: #1e2554; color: #7aa3d4; }
+    [data-theme="dark"] .sidebar-link.ativo { border-left-color: #7aa3d4; }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+    /* KPIs */
+    .kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 24px; }
+    @media (max-width: 900px) { .kpi-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 480px) { .kpi-grid { grid-template-columns: 1fr; } }
+    .kpi-card { background: var(--color-surface); border: 1px solid var(--color-border-faint); border-radius: var(--radius-lg); padding: 18px 20px; }
+    .kpi-label { font-size: 10px; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .kpi-value { font-size: 26px; font-weight: 800; color: var(--color-text); }
+    .kpi-sub { font-size: 11px; color: var(--color-text-faint); margin-top: 4px; }
+    .kpi-roi { color: #16a34a; }
+    /* ROI table */
+    .roi-section { background: var(--color-surface); border: 1px solid var(--color-border-faint); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 24px; }
+    .roi-section h3 { font-size: 14px; font-weight: 700; color: var(--color-text); margin-bottom: 14px; }
+    .roi-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .roi-table th { text-align: left; padding: 8px 12px; font-size: 10px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--color-border-faint); }
+    .roi-table td { padding: 9px 12px; border-bottom: 1px solid var(--color-border-faint); color: var(--color-text-secondary); }
+    .roi-table tr:last-child td { border-bottom: none; }
+    .roi-table tr:hover td { background: #f5f8ff; }
+    [data-theme="dark"] .roi-table tr:hover td { background: #22252e; }
+    .roi-bar-wrap { background: var(--color-border-faint); border-radius: 4px; height: 8px; min-width: 80px; overflow: hidden; }
+    .roi-bar { height: 100%; background: #16a34a; border-radius: 4px; transition: width .4s; }
+    /* Page header */
+    .page-header { margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .page-header h1 { font-size: 22px; font-weight: 700; color: var(--color-text); }
+    .page-header p { font-size: 13px; color: var(--color-text-muted); margin-top: 2px; }
+    /* Toolbar */
+    .toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .search-input { flex: 1; min-width: 200px; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); font-family: inherit; outline: none; }
+    .search-input:focus { border-color: var(--color-primary); }
+    .filter-select { padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 12px; background: var(--color-surface); color: var(--color-text); font-family: inherit; cursor: pointer; }
+    /* Tabela */
+    .content-section { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+    #msgGlobal { display: none; padding: 10px 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600; margin-bottom: 14px; }
+    #msgGlobal.ok  { background: var(--color-success-bg); border: 1px solid var(--color-success-border); color: var(--color-success); display: block; }
+    #msgGlobal.err { background: var(--color-error-bg); border: 1px solid var(--color-error-border); color: var(--color-error); display: block; }
+    /* Modal */
+    .crud-modal { max-width: 640px !important; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-grid .span-2 { grid-column: span 2; }
+    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } .form-grid .span-2 { grid-column: span 1; } }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-label { font-size: 10px; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.3px; }
+    .form-label span { color: var(--color-error); }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 9px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; color: var(--color-text); background: var(--color-surface-3); font-family: inherit; outline: none; transition: border-color .15s; box-sizing: border-box; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(0,67,132,0.12); }
+    .form-textarea { resize: vertical; min-height: 70px; }
+    [data-theme="dark"] .form-input, [data-theme="dark"] .form-select, [data-theme="dark"] .form-textarea { background: var(--color-surface-2); border-color: var(--color-border); color: var(--color-text); }
+    .modal-footer { padding: 12px 20px; display: flex; justify-content: center; gap: 10px; border-top: 1px solid var(--color-border-light); background: var(--color-surface-2); }
+    .modal-body-scroll { overflow-y: auto; padding: 20px; flex: 1; max-height: 70vh; }
+    /* Paginação */
+    .paginacao { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--color-border-faint); font-size: 12px; color: var(--color-text-muted); }
+    .paginacao-btns { display: flex; gap: 6px; }
+    .pag-btn { padding: 4px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-text-muted); font-size: 12px; cursor: pointer; font-family: inherit; }
+    .pag-btn:disabled { opacity: 0.4; cursor: default; }
+    .plat-chip { display: inline-block; padding: 2px 8px; background: #e8f0fe; color: #1557b0; border-radius: 20px; font-size: 10px; font-weight: 700; }
+    [data-theme="dark"] .plat-chip { background: #1e2554; color: #7aa3d4; }
+    @media (max-width: 480px) { .modal-footer { flex-direction: column; } }
+  </style>
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>📈 Retornos de Marketing</h1>
+        <p>Clientes captados por campanhas — rastreie o ROI de cada canal</p>
+      </div>
+      <button class="btn" onclick="abrirModalNovo()">+ Novo Retorno</button>
+    </div>
+
+    <div id="msgGlobal"></div>
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total de Retornos</div>
+        <div class="kpi-value" id="kpiTotal">—</div>
+        <div class="kpi-sub">registros</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Valor Total (Vendas)</div>
+        <div class="kpi-value" id="kpiValor">—</div>
+        <div class="kpi-sub">gerado pelas campanhas</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Campanhas com Retorno</div>
+        <div class="kpi-value" id="kpiCampanhas">—</div>
+        <div class="kpi-sub">campanhas distintas</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Clientes Captados</div>
+        <div class="kpi-value" id="kpiClientes">—</div>
+        <div class="kpi-sub">clientes únicos</div>
+      </div>
+    </div>
+
+    <!-- ROI por campanha -->
+    <div class="roi-section">
+      <h3>📊 ROI por Campanha</h3>
+      <div style="overflow-x:auto">
+        <table class="roi-table" id="roiTable">
+          <thead>
+            <tr>
+              <th>Campanha</th>
+              <th>Custo Real</th>
+              <th>Retorno (Vendas)</th>
+              <th>ROI %</th>
+              <th>Progresso</th>
+            </tr>
+          </thead>
+          <tbody id="roiTbody">
+            <tr><td colspan="5" style="text-align:center;color:var(--color-text-faint);padding:20px">Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <input class="search-input" type="text" id="campoBusca" placeholder="🔍  Buscar por campanha, cliente ou plataforma..." oninput="filtrar()">
+      <select class="filter-select" id="filtroCampanha" onchange="filtrar()">
+        <option value="">Todas as campanhas</option>
+      </select>
+      <select class="filter-select" id="filtroPlataforma" onchange="filtrar()">
+        <option value="">Todas as plataformas</option>
+        <option>Instagram ADS</option>
+        <option>Facebook ADS</option>
+        <option>WhatsApp</option>
+        <option>TikTok</option>
+        <option>Rádio</option>
+        <option>TV</option>
+        <option>Carro de Rua</option>
+        <option>Panfletos</option>
+      </select>
+    </div>
+
+    <!-- Tabela -->
+    <div class="content-section">
+      <div class="crud-table-wrap">
+        <table class="crud-table">
+          <thead>
+            <tr>
+              <th>Campanha</th>
+              <th>Cliente</th>
+              <th>Pedido de Venda</th>
+              <th>Plataforma</th>
+              <th>Valor Venda</th>
+              <th>Data</th>
+              <th style="width:80px">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyRetornos">
+            <tr><td colspan="7" class="crud-vazio">Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="paginacao">
+        <span id="paginacaoInfo">—</span>
+        <div class="paginacao-btns">
+          <button class="pag-btn" id="btnAnterior" onclick="mudarPagina(-1)">‹ Anterior</button>
+          <button class="pag-btn" id="btnProximo" onclick="mudarPagina(1)">Próxima ›</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal Formulário -->
+<div class="crud-backdrop" id="modalFormulario" style="display:none" onclick="fecharSeClicouFora(event,'modalFormulario')">
+  <div class="crud-modal">
+    <div class="crud-modal-head">
+      <h3 id="modalTitulo">Novo Retorno</h3>
+      <button class="crud-btn-fechar" onclick="fecharModal()">✕</button>
+    </div>
+    <div class="modal-body-scroll">
+      <div class="form-grid">
+        <div class="form-group span-2">
+          <label class="form-label">Campanha <span>*</span></label>
+          <select class="form-select" id="fCampanha">
+            <option value="">Selecione a campanha...</option>
+          </select>
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label">Cliente <span>*</span></label>
+          <select class="form-select" id="fCliente">
+            <option value="">Selecione o cliente...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Pedido de Venda</label>
+          <select class="form-select" id="fPedido">
+            <option value="">Nenhum / Não vinculado</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Plataforma de Origem</label>
+          <select class="form-select" id="fPlataforma">
+            <option value="">Não especificada</option>
+            <option>Instagram ADS</option>
+            <option>Facebook ADS</option>
+            <option>WhatsApp</option>
+            <option>TikTok</option>
+            <option>Rádio</option>
+            <option>TV</option>
+            <option>Carro de Rua</option>
+            <option>Panfletos</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Valor da Venda (R$)</label>
+          <input class="form-input" type="number" id="fValor" placeholder="0,00" min="0" step="0.01">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Data</label>
+          <input class="form-input" type="date" id="fData">
+        </div>
+        <div class="form-group span-2">
+          <label class="form-label">Observações</label>
+          <textarea class="form-textarea" id="fObservacoes" placeholder="Como o cliente chegou, contexto da conversão..."></textarea>
+        </div>
+      </div>
+      <input type="hidden" id="fId">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
+      <button class="btn" onclick="salvar()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao('../index.html');
+  document.getElementById('roleBadge').textContent = sbPerfil() || '';
+
+  (function () {
+    const t   = localStorage.getItem('senai_tema') || 'light';
+    const btn = document.getElementById('btnTema');
+    if (btn) btn.textContent = t === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  })();
+
+  function alternarTema() {
+    const novo = sbToggleTema();
+    const btn  = document.getElementById('btnTema');
+    if (btn) btn.textContent = novo === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  }
+
+  function sair() { sbLogout('../index.html'); }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  }
+
+  function fecharSeClicouFora(e, id) {
+    if (e.target.id === id) fecharModal();
+  }
+
+  // ── Estado ─────────────────────────────────────────────
+  let todosRetornos  = [];
+  let campanhasCache = [];
+  let clientesCache  = [];
+  let pedidosCache   = [];
+  let pagAtual       = 1;
+  const POR_PAGINA   = 15;
+
+  // ── Init ───────────────────────────────────────────────
+  async function init() {
+    try {
+      [campanhasCache, clientesCache, pedidosCache, todosRetornos] = await Promise.all([
+        sbListar('marketing_campanhas', 'ativo=eq.true&order=titulo.asc'),
+        sbListar('clientes', 'ativo=eq.true&order=nome.asc'),
+        sbListar('vendas_pedidos', 'order=numero.desc&limit=200'),
+        sbListar('marketing_retornos', 'order=data.desc')
+      ]);
+      preencherSelectCampanhas();
+      preencherSelectClientes();
+      preencherSelectPedidos();
+      preencherFiltros();
+      filtrar();
+      renderROI();
+      atualizarKPIs();
+    } catch (e) {
+      document.getElementById('tbodyRetornos').innerHTML =
+        `<tr><td colspan="7" class="crud-vazio">Erro: ${e.message}</td></tr>`;
+    }
+  }
+
+  function preencherSelectCampanhas() {
+    const sel  = document.getElementById('fCampanha');
+    sel.innerHTML = '<option value="">Selecione a campanha...</option>' +
+      campanhasCache.map(c => `<option value="${c.id}">${c.numero} — ${escHtml(c.titulo)}</option>`).join('');
+  }
+
+  function preencherSelectClientes() {
+    const sel = document.getElementById('fCliente');
+    sel.innerHTML = '<option value="">Selecione o cliente...</option>' +
+      clientesCache.map(c => `<option value="${c.id}">${escHtml(c.nome)}</option>`).join('');
+  }
+
+  function preencherSelectPedidos() {
+    const sel = document.getElementById('fPedido');
+    sel.innerHTML = '<option value="">Nenhum / Não vinculado</option>' +
+      pedidosCache.map(p => `<option value="${p.id}">${p.numero}</option>`).join('');
+  }
+
+  function preencherFiltros() {
+    const sel = document.getElementById('filtroCampanha');
+    sel.innerHTML = '<option value="">Todas as campanhas</option>' +
+      campanhasCache.map(c => `<option value="${c.id}">${escHtml(c.titulo)}</option>`).join('');
+  }
+
+  function atualizarKPIs() {
+    const total     = todosRetornos.length;
+    const valor     = todosRetornos.reduce((s, r) => s + (parseFloat(r.valor_venda) || 0), 0);
+    const campanhas = new Set(todosRetornos.map(r => r.campanha_id)).size;
+    const clientes  = new Set(todosRetornos.map(r => r.cliente_id)).size;
+    document.getElementById('kpiTotal').textContent     = total;
+    document.getElementById('kpiValor').textContent     = 'R$ ' + valor.toLocaleString('pt-BR', {minimumFractionDigits:2});
+    document.getElementById('kpiCampanhas').textContent = campanhas;
+    document.getElementById('kpiClientes').textContent  = clientes;
+  }
+
+  function renderROI() {
+    const roiMap = {};
+    todosRetornos.forEach(r => {
+      if (!roiMap[r.campanha_id]) roiMap[r.campanha_id] = 0;
+      roiMap[r.campanha_id] += parseFloat(r.valor_venda) || 0;
+    });
+    const tbody  = document.getElementById('roiTbody');
+    const linhas = campanhasCache
+      .map(c => ({ c, retorno: roiMap[c.id] || 0 }))
+      .filter(x => x.retorno > 0 || (parseFloat(x.c.custo_real) || 0) > 0)
+      .sort((a, b) => b.retorno - a.retorno);
+
+    if (!linhas.length) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--color-text-faint);padding:16px">Nenhum dado de ROI ainda.</td></tr>';
+      return;
+    }
+    const maxRetorno = Math.max(...linhas.map(x => x.retorno), 1);
+    tbody.innerHTML = linhas.map(({ c, retorno }) => {
+      const custo = parseFloat(c.custo_real) || 0;
+      const roi   = custo > 0 ? ((retorno - custo) / custo * 100).toFixed(1) : '—';
+      const roiCor = roi !== '—' ? (parseFloat(roi) >= 0 ? '#16a34a' : '#dc2626') : 'var(--color-text-faint)';
+      const pct   = Math.round(retorno / maxRetorno * 100);
+      return `<tr>
+        <td style="font-weight:600">${escHtml(c.titulo)}</td>
+        <td>R$ ${custo.toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>
+        <td>R$ ${retorno.toLocaleString('pt-BR',{minimumFractionDigits:2})}</td>
+        <td style="font-weight:700;color:${roiCor}">${roi !== '—' ? roi + '%' : '—'}</td>
+        <td><div class="roi-bar-wrap"><div class="roi-bar" style="width:${pct}%"></div></div></td>
+      </tr>`;
+    }).join('');
+  }
+
+  // ── Filtro / Busca ─────────────────────────────────────
+  function filtrar() {
+    const busca     = (document.getElementById('campoBusca').value || '').toLowerCase().trim();
+    const campId    = document.getElementById('filtroCampanha').value;
+    const plataforma = document.getElementById('filtroPlataforma').value;
+
+    const lista = todosRetornos.filter(r => {
+      const campNome = campanhasCache.find(c => c.id === r.campanha_id)?.titulo || '';
+      const cliNome  = clientesCache.find(c => c.id === r.cliente_id)?.nome || '';
+      const matchB   = !busca || campNome.toLowerCase().includes(busca) ||
+                       cliNome.toLowerCase().includes(busca) ||
+                       (r.plataforma||'').toLowerCase().includes(busca);
+      const matchC   = !campId || r.campanha_id === campId;
+      const matchP   = !plataforma || r.plataforma === plataforma;
+      return matchB && matchC && matchP;
+    });
+    renderizar(lista);
+  }
+
+  function renderizar(lista) {
+    const inicio = (pagAtual - 1) * POR_PAGINA;
+    const pagina = lista.slice(inicio, inicio + POR_PAGINA);
+    const tbody  = document.getElementById('tbodyRetornos');
+
+    if (!pagina.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="crud-vazio">Nenhum retorno encontrado.</td></tr>';
+    } else {
+      tbody.innerHTML = pagina.map(r => {
+        const campNome = escHtml(campanhasCache.find(c => c.id === r.campanha_id)?.titulo || '—');
+        const cliNome  = escHtml(clientesCache.find(c => c.id === r.cliente_id)?.nome || '—');
+        const pedNum   = pedidosCache.find(p => p.id === r.pedido_id)?.numero || '—';
+        const plat     = r.plataforma ? `<span class="plat-chip">${escHtml(r.plataforma)}</span>` : '<span style="color:var(--color-text-faint);font-size:12px">—</span>';
+        const val      = r.valor_venda ? 'R$ ' + parseFloat(r.valor_venda).toLocaleString('pt-BR',{minimumFractionDigits:2}) : '—';
+        const data     = r.data ? new Date(r.data + 'T00:00:00').toLocaleDateString('pt-BR') : '—';
+        return `<tr>
+          <td style="font-weight:600;color:var(--color-text)">${campNome}</td>
+          <td>${cliNome}</td>
+          <td style="font-family:monospace;font-size:12px">${pedNum}</td>
+          <td>${plat}</td>
+          <td style="font-weight:600">${val}</td>
+          <td style="font-size:12px">${data}</td>
+          <td>
+            <div class="crud-acoes">
+              <button class="crud-btn-edit"   onclick='editar(${JSON.stringify(r)})'>✏️</button>
+              <button class="crud-btn-delete" onclick="excluir('${r.id}')">🗑️</button>
+            </div>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    const total = lista.length;
+    const totalPag = Math.ceil(total / POR_PAGINA) || 1;
+    document.getElementById('paginacaoInfo').textContent =
+      `Mostrando ${Math.min(inicio+1, total)}–${Math.min(inicio+POR_PAGINA, total)} de ${total}`;
+    document.getElementById('btnAnterior').disabled = pagAtual <= 1;
+    document.getElementById('btnProximo').disabled  = pagAtual >= totalPag;
+  }
+
+  function mudarPagina(d) { pagAtual += d; filtrar(); }
+
+  // ── Modal ──────────────────────────────────────────────
+  function abrirModalNovo() {
+    document.getElementById('fId').value          = '';
+    document.getElementById('fCampanha').value    = '';
+    document.getElementById('fCliente').value     = '';
+    document.getElementById('fPedido').value      = '';
+    document.getElementById('fPlataforma').value  = '';
+    document.getElementById('fValor').value       = '';
+    document.getElementById('fData').value        = new Date().toISOString().split('T')[0];
+    document.getElementById('fObservacoes').value = '';
+    document.getElementById('modalTitulo').textContent = 'Novo Retorno';
+    document.getElementById('modalFormulario').style.display = 'flex';
+  }
+
+  function editar(r) {
+    document.getElementById('fId').value          = r.id;
+    document.getElementById('fCampanha').value    = r.campanha_id   || '';
+    document.getElementById('fCliente').value     = r.cliente_id    || '';
+    document.getElementById('fPedido').value      = r.pedido_id     || '';
+    document.getElementById('fPlataforma').value  = r.plataforma    || '';
+    document.getElementById('fValor').value       = r.valor_venda   || '';
+    document.getElementById('fData').value        = r.data          || '';
+    document.getElementById('fObservacoes').value = r.observacoes   || '';
+    document.getElementById('modalTitulo').textContent = 'Editar Retorno';
+    document.getElementById('modalFormulario').style.display = 'flex';
+  }
+
+  function fecharModal() {
+    document.getElementById('modalFormulario').style.display = 'none';
+  }
+
+  async function salvar() {
+    const campanha_id = document.getElementById('fCampanha').value;
+    const cliente_id  = document.getElementById('fCliente').value;
+    if (!campanha_id) { sbMensagem('msgGlobal', 'Selecione uma campanha.', 'err'); return; }
+    if (!cliente_id)  { sbMensagem('msgGlobal', 'Selecione um cliente.',   'err'); return; }
+
+    const dados = {
+      campanha_id,
+      cliente_id,
+      pedido_id:   document.getElementById('fPedido').value      || null,
+      plataforma:  document.getElementById('fPlataforma').value  || null,
+      valor_venda: parseFloat(document.getElementById('fValor').value) || 0,
+      data:        document.getElementById('fData').value        || null,
+      observacoes: document.getElementById('fObservacoes').value.trim() || null
+    };
+
+    try {
+      const id = document.getElementById('fId').value;
+      if (id) {
+        await sbAtualizar('marketing_retornos', id, dados);
+        sbMensagem('msgGlobal', 'Retorno atualizado.', 'ok');
+      } else {
+        await sbInserir('marketing_retornos', dados);
+        sbMensagem('msgGlobal', 'Retorno registrado.', 'ok');
+      }
+      fecharModal();
+      todosRetornos = await sbListar('marketing_retornos', 'order=data.desc');
+      filtrar();
+      renderROI();
+      atualizarKPIs();
+    } catch (e) {
+      sbMensagem('msgGlobal', 'Erro ao salvar: ' + e.message, 'err');
+    }
+  }
+
+  async function excluir(id) {
+    if (!confirm('Excluir este retorno?\nEsta ação não pode ser desfeita.')) return;
+    try {
+      await sbExcluir('marketing_retornos', id);
+      sbMensagem('msgGlobal', 'Retorno excluído.', 'ok');
+      todosRetornos = await sbListar('marketing_retornos', 'order=data.desc');
+      filtrar();
+      renderROI();
+      atualizarKPIs();
+    } catch (e) {
+      sbMensagem('msgGlobal', 'Erro ao excluir: ' + e.message, 'err');
+    }
+  }
+
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  init();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

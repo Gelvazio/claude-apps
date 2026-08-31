@@ -1,0 +1,661 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Dashboard Professor</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}
+    .sidebar{width:240px;background:var(--color-surface);border-right:1px solid var(--color-border-faint);display:flex;flex-direction:column;position:fixed;top:56px;left:0;bottom:0;overflow-y:auto;z-index:50;transition:transform .25s}
+    .sidebar-section{padding:20px 0 4px}
+    .sidebar-section-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:1.2px;text-transform:uppercase;padding:0 20px 6px}
+    .sidebar-link{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--color-text-muted);text-decoration:none;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s}
+    .sidebar-link:hover{background:#e8f0fe;color:var(--color-primary)}
+    .sidebar-link.ativo{background:#e8f0fe;color:var(--color-primary);border-left-color:var(--color-primary);font-weight:600}
+    [data-theme="dark"] .sidebar-link:hover,[data-theme="dark"] .sidebar-link.ativo{background:#1e2554;color:#7aa3d4}
+    .sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+    .main{margin-left:240px;padding:28px 32px;flex:1}
+    @media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:16px}.sidebar.open{transform:translateX(0)}}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}
+    .sidebar-overlay.show{display:block}
+    .btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}
+    @media(max-width:768px){.btn-menu{display:flex}}
+    @media(max-width:480px){.header-title{display:none}}
+
+    .ctrl-bar{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;background:var(--color-surface);border:1px solid var(--color-border-faint);border-radius:var(--radius-md);padding:14px 16px;margin-bottom:16px}
+    .ctrl-sessao{flex:1;min-width:180px}
+    .ctrl-sessao label{font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:4px}
+    .ctrl-sessao select{border:1px solid var(--color-border);border-radius:6px;padding:7px 10px;font-size:13px;background:var(--color-surface-2);color:var(--color-text);width:100%;max-width:260px}
+    .btn-play{display:flex;align-items:center;gap:6px;padding:9px 20px;border-radius:8px;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:all .2s;white-space:nowrap}
+    .btn-play.play{background:#16a34a;color:#fff}
+    .btn-play.play:hover{background:#15803d}
+    .btn-play.pause{background:#d97706;color:#fff}
+    .btn-play.pause:hover{background:#b45309}
+    .btn-play:disabled{opacity:.45;cursor:not-allowed}
+    .speed-grp label{font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:4px}
+    .speed-btns{display:flex;gap:4px}
+    .speed-btn{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--color-text-muted);cursor:pointer;transition:all .15s}
+    .speed-btn.ativo{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+    .rodada-grp{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+    .rodada-grp label{font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase;letter-spacing:.8px}
+    .rodada-val{font-size:20px;font-weight:800;color:var(--color-text)}
+    .btn-sm{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:6px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--color-text-muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+    .btn-sm:hover{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+
+    .info-strip{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+    .info-card{background:var(--color-surface);border:1px solid var(--color-border-faint);border-radius:var(--radius-md);padding:12px 18px;flex:1;min-width:90px}
+    .info-label{font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase;margin-bottom:3px}
+    .info-value{font-size:26px;font-weight:800;color:var(--color-text);line-height:1}
+
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+    @media(max-width:900px){.grid2{grid-template-columns:1fr}}
+    .panel{background:var(--color-surface);border:1px solid var(--color-border-faint);border-radius:var(--radius-lg);overflow:hidden}
+    .panel-hdr{padding:12px 16px;border-bottom:1px solid var(--color-border-faint);font-size:13px;font-weight:700;color:var(--color-text);display:flex;align-items:center;justify-content:space-between;gap:8px}
+    .panel-body{max-height:360px;overflow-y:auto}
+
+    .ev-item{padding:11px 16px;border-bottom:1px solid var(--color-border-faint);display:flex;align-items:flex-start;gap:10px}
+    .ev-item:last-child{border-bottom:none}
+    .ev-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+    .ev-dot.urgente{background:#ef4444} .ev-dot.alta{background:#f59e0b} .ev-dot.normal{background:#22c55e}
+    .ev-body{flex:1;min-width:0}
+    .ev-titulo{font-size:12px;font-weight:600;color:var(--color-text);margin-bottom:2px;word-break:break-word}
+    .ev-meta{font-size:11px;color:var(--color-text-muted)}
+    .ev-cd{font-size:11px;font-weight:700;flex-shrink:0;padding:3px 7px;border-radius:100px;white-space:nowrap}
+    .ev-cd.verde{background:#d1fae5;color:#065f46} .ev-cd.amarelo{background:#fef3c7;color:#92400e} .ev-cd.vermelho{background:#fee2e2;color:#991b1b}
+    [data-theme="dark"] .ev-cd.verde{background:#064e3b;color:#6ee7b7}
+    [data-theme="dark"] .ev-cd.amarelo{background:#451a03;color:#fcd34d}
+    [data-theme="dark"] .ev-cd.vermelho{background:#450a0a;color:#fca5a5}
+    .setor-tag{font-size:10px;font-weight:700;padding:1px 6px;border-radius:100px;background:var(--color-surface-2);color:var(--color-text-muted);text-transform:uppercase;display:inline-block}
+
+    .rank-row{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--color-border-faint)}
+    .rank-row:last-child{border-bottom:none}
+    .rank-pos{font-size:18px;width:28px;text-align:center;flex-shrink:0}
+    .rank-cor{width:10px;height:28px;border-radius:3px;flex-shrink:0}
+    .rank-info{flex:1;min-width:0}
+    .rank-nome{font-size:13px;font-weight:700;color:var(--color-text)}
+    .rank-setor{font-size:11px;color:var(--color-text-muted)}
+    .rank-pts{font-size:15px;font-weight:800;color:var(--color-primary)}
+
+    .hist-row{display:flex;align-items:center;gap:8px;padding:7px 16px;border-bottom:1px solid var(--color-border-faint);font-size:12px}
+    .hist-row:last-child{border-bottom:none}
+    .hist-badge{font-size:10px;font-weight:700;padding:2px 6px;border-radius:100px;white-space:nowrap;flex-shrink:0}
+    .hist-badge.resolvido{background:#d1fae5;color:#065f46}
+    .hist-badge.expirado{background:#fee2e2;color:#991b1b}
+    .hist-badge.pendente{background:#fef3c7;color:#92400e}
+    .hist-titulo{flex:1;color:var(--color-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .hist-time{color:var(--color-text-disabled);font-size:10px;flex-shrink:0}
+
+    .vazio{text-align:center;padding:32px;color:var(--color-text-muted);font-size:13px}
+  </style>
+  <script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t)})();</script>
+</head>
+<body>
+<script>(function(){
+  const r=localStorage.getItem('erp_role');
+  if(!r)window.location.replace('../index.html');
+  if(r!=='Administrador'){alert('Acesso restrito ao professor (Administrador).');window.location.replace('../dashboard.html');}
+})();</script>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<header style="position:fixed;top:0;left:0;right:0;height:56px;background:var(--color-primary);display:flex;align-items:center;padding:0 20px;gap:14px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.18)">
+  <button class="btn-menu" onclick="toggleSidebar()">☰</button>
+  <span class="header-title" style="color:#fff;font-weight:700;font-size:16px;flex:1">👨‍🏫 Dashboard Professor</span>
+  <button onclick="abrirPlacar()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px">📺 Placar</button>
+  <button onclick="toggleTema()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px">🌙 Tema</button>
+  <button onclick="sair()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px">Sair</button>
+</header>
+
+<div class="app-layout" style="margin-top:56px">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px">
+      <div>
+        <h1 style="font-size:22px;font-weight:700;color:var(--color-text)">👨‍🏫 Dashboard Professor</h1>
+        <p style="font-size:13px;color:var(--color-text-muted);margin-top:2px">Controle a simulação em tempo real</p>
+      </div>
+      <a href="config-sessao.html" style="background:var(--color-primary);color:#fff;text-decoration:none;border-radius:8px;padding:8px 16px;font-size:13px;font-weight:600">+ Nova Sessão</a>
+    </div>
+
+    <!-- Barra de controle -->
+    <div class="ctrl-bar">
+      <div class="ctrl-sessao">
+        <label>Sessão ativa</label>
+        <select id="selSessao" onchange="selecionarSessao(this.value)">
+          <option value="">Carregando...</option>
+        </select>
+      </div>
+      <button class="btn-play play" id="btnPlay" onclick="toggleMotor()" disabled>▶ Play</button>
+      <div class="speed-grp">
+        <label>Velocidade</label>
+        <div class="speed-btns">
+          <button class="speed-btn ativo" onclick="setVel(1,this)">1×</button>
+          <button class="speed-btn" onclick="setVel(2,this)">2×</button>
+          <button class="speed-btn" onclick="setVel(5,this)">5×</button>
+        </div>
+      </div>
+      <div class="rodada-grp">
+        <label>Rodada</label>
+        <div class="rodada-val" id="rodadaNum">—</div>
+      </div>
+      <button class="btn-sm" onclick="avancarRodada()">⏭ Avançar Rodada</button>
+    </div>
+
+    <!-- KPI strip -->
+    <div class="info-strip">
+      <div class="info-card"><div class="info-label">Ativos</div><div class="info-value" id="kpiAtivos">0</div></div>
+      <div class="info-card"><div class="info-label">Resolvidos</div><div class="info-value" id="kpiResolvidos">0</div></div>
+      <div class="info-card"><div class="info-label">Expirados</div><div class="info-value" id="kpiExpirados">0</div></div>
+      <div class="info-card"><div class="info-label">Equipes</div><div class="info-value" id="kpiEquipes">—</div></div>
+    </div>
+
+    <!-- Grid eventos + ranking -->
+    <div class="grid2">
+      <div class="panel">
+        <div class="panel-hdr">
+          ⚡ Eventos Ativos
+          <span id="badgeAtivos" style="font-size:11px;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:100px;padding:2px 8px;font-weight:700;color:var(--color-text-muted)">0</span>
+        </div>
+        <div class="panel-body" id="panelEventos"><div class="vazio">Selecione uma sessão</div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-hdr">🏆 Ranking de Equipes</div>
+        <div class="panel-body" id="panelRanking"><div class="vazio">Selecione uma sessão</div></div>
+      </div>
+    </div>
+
+    <!-- Histórico -->
+    <div class="panel">
+      <div class="panel-hdr">
+        📜 Histórico de Eventos
+        <button class="btn-sm" onclick="document.getElementById('panelHistorico').innerHTML=\'<div class=vazio>Histórico limpo na tela</div>\'">Limpar</button>
+      </div>
+      <div class="panel-body" id="panelHistorico" style="max-height:280px"><div class="vazio">Selecione uma sessão</div></div>
+    </div>
+
+    <!-- Agente Tele Vendas -->
+    <div class="panel" style="margin-top:16px">
+      <div class="panel-hdr">
+        📞 Agente Tele Vendas
+        <span id="agenteStatusBadge" style="font-size:11px;font-weight:600;color:var(--color-text-muted)">Parado</span>
+      </div>
+      <div style="padding:14px 16px;display:flex;flex-direction:column;gap:12px">
+
+        <!-- Linha 1: qtd / intervalo / prazo / prioridade -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <label style="font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase">Pedidos</label>
+            <input type="number" id="agQtd" value="10" min="1" max="50" class="crud-input" style="width:80px">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <label style="font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase">Intervalo (s)</label>
+            <input type="number" id="agIntervalo" value="5" min="1" max="60" class="crud-input" style="width:90px">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <label style="font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase">Prazo (min)</label>
+            <input type="number" id="agPrazo" value="8" min="1" max="30" class="crud-input" style="width:90px">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <label style="font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase">Prioridade</label>
+            <select id="agPrioridade" class="crud-input" style="min-width:110px">
+              <option value="normal">Normal</option>
+              <option value="alta">Alta</option>
+              <option value="urgente">Urgente</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Linha 2: faixa de valores -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <label style="font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase">Valor Mín (R$)</label>
+            <input type="number" id="agValMin" value="100" min="1" class="crud-input" style="width:110px">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <label style="font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase">Valor Máx (R$)</label>
+            <input type="number" id="agValMax" value="5000" min="1" class="crud-input" style="width:110px">
+          </div>
+        </div>
+
+        <!-- Linha 3: modo produto -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <label style="font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase">Modo Produto</label>
+            <select id="agModoProduto" class="crud-input" style="min-width:180px" onchange="toggleProdutoEspecifico()">
+              <option value="aleatorio">🎲 Aleatório</option>
+              <option value="especifico">📦 Produto Específico</option>
+            </select>
+          </div>
+          <div id="agProdutoEspecificoWrap" style="display:none;flex-direction:column;gap:4px">
+            <label style="font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase">Produto</label>
+            <select id="agProduto" class="crud-input" style="min-width:220px"><option value="">Selecione a sessão primeiro</option></select>
+          </div>
+        </div>
+
+        <!-- Barra de progresso -->
+        <div id="agenteProgresso" style="display:none">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px;font-weight:600;color:var(--color-text-muted)">
+            <span id="agenteProgressoLabel">0 / 10 pedidos enviados</span>
+            <span id="agenteProximoLabel"></span>
+          </div>
+          <div style="height:6px;background:var(--color-border);border-radius:100px;overflow:hidden">
+            <div id="agenteProgressoBar" style="height:100%;background:#16a34a;border-radius:100px;transition:width .3s;width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Botões -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button id="btnAgenteStart" class="btn" onclick="iniciarAgente()" style="background:#16a34a">▶ Iniciar Agente</button>
+          <button id="btnAgenteStop"  class="btn" onclick="pararAgente()"   style="background:#dc2626;display:none">⏹ Parar</button>
+          <a href="../vendas/televendas.html" target="_blank" class="btn-sm" style="padding:8px 14px;text-decoration:none;display:inline-flex;align-items:center;gap:6px">📋 Abrir Tele Vendas</a>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const SB  = 'https://vdhahqicqlrdvcpesiwk.supabase.co/rest/v1';
+const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkaGFocWljcWxyZHZjcGVzaXdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MTI3OTYsImV4cCI6MjEwMjI4ODc5Nn0.7ACHuUUv6VMyy4-BbQcdAcmabMtqhiuVgrTGUUcV7RY';
+const H   = { 'apikey': KEY, 'Authorization': `Bearer ${KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' };
+
+async function req(method, table, q='', body=null) {
+  const opts = { method, headers: H };
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch(`${SB}/${table}?${q}`, opts);
+  if (!r.ok) { console.error(method, table, await r.text()); throw new Error('API'); }
+  const ct = r.headers.get('content-type') || '';
+  return ct.includes('json') ? r.json() : null;
+}
+const GET   = (t,q='')  => req('GET',t,q);
+const POST  = (t,d)     => req('POST',t,'',d);
+const PATCH = (t,id,d)  => req('PATCH',t,`id=eq.${id}`,d);
+
+const SETOR = { vendas:'Vendas', compras:'Compras', estoque:'Estoque', logistica:'Logística', financeiro:'Financeiro', marketing:'Marketing' };
+const MEDAL = ['🥇','🥈','🥉'];
+
+const TIPOS = {
+  pedido_venda:       { setor:'vendas',     pts:15, prazo:5,  prio:'normal',  titulo:(p,c)=>`Pedido de Venda — ${c.nome} quer ${p.nome}` },
+  solicitacao_compra: { setor:'compras',    pts:10, prazo:8,  prio:'normal',  titulo:(p)=>`Solicitação de Compra — Reposição de ${p.nome}` },
+  chegada_mercadoria: { setor:'estoque',    pts:10, prazo:6,  prio:'normal',  titulo:(p)=>`Chegada de Mercadoria — ${p.nome} no depósito` },
+  pedido_urgente:     { setor:'logistica',  pts:25, prazo:3,  prio:'urgente', titulo:(p,c)=>`⚠️ URGENTE — ${c.nome} precisa de entrega hoje` },
+  campanha_lead:      { setor:'marketing',  pts:12, prazo:10, prio:'normal',  titulo:()=>`📣 Lead de Marketing — Novo cliente interessado` },
+  conta_vencendo:     { setor:'financeiro', pts:15, prazo:7,  prio:'normal',  titulo:()=>`💸 Financeiro — Conta a pagar vencendo em 24h` },
+  ruptura_estoque:    { setor:'estoque',    pts:20, prazo:4,  prio:'alta',    titulo:(p)=>`🔴 Ruptura de estoque: ${p.nome}` },
+  televendas_pedido:  { setor:'vendas',     pts:10, prazo:8,  prio:'normal',  titulo:(p)=>`📞 Pedido Tele Vendas — ${p?.nome||'Produto'}` }
+};
+
+let sessao=null, equipes=[], config=null, produtos=[], clientes=[], vel=1;
+let _motor=null, _refresh=null;
+
+function rnd(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+async function carregarSessoes() {
+  try {
+    const rows = await GET('gamificacao_sessoes','order=created_at.desc&select=id,titulo,status,rodada_atual');
+    const sel  = document.getElementById('selSessao');
+    if (!rows.length) { sel.innerHTML='<option value="">Nenhuma sessão — clique em "+ Nova Sessão"</option>'; return; }
+    sel.innerHTML = '<option value="">— Selecionar sessão —</option>' +
+      rows.map(s=>`<option value="${s.id}">${s.titulo} [${s.status}]</option>`).join('');
+    const ativa = rows.find(s=>s.status==='ativa');
+    if (ativa) { sel.value=ativa.id; selecionarSessao(ativa.id); }
+  } catch(e) { console.error(e); }
+}
+
+async function selecionarSessao(id) {
+  pararMotor();
+  if (!id) { sessao=null; zerarUI(); return; }
+  const rows = await GET('gamificacao_sessoes',`id=eq.${id}&select=*`);
+  if (!rows.length) return;
+  sessao = rows[0];
+  document.getElementById('rodadaNum').textContent = sessao.rodada_atual;
+
+  equipes  = await GET('gamificacao_equipes',`sessao_id=eq.${id}&order=pontos.desc`);
+  const cf = await GET('gamificacao_config_motor',`sessao_id=eq.${id}&limit=1`);
+  config   = cf[0] || { intervalo_segundos:60, max_eventos_ativos:5, chance_urgente:20 };
+
+  [produtos, clientes] = await Promise.all([
+    GET('produtos','ativo=eq.true&select=id,nome,preco_venda&limit=50'),
+    GET('clientes','ativo=eq.true&select=id,nome&limit=50')
+  ]);
+
+  document.getElementById('kpiEquipes').textContent = equipes.length;
+  document.getElementById('btnPlay').disabled = false;
+  carregarProdutosAgente();
+
+  if (sessao.status === 'ativa') { setBtnPause(); iniciarRefresh(); }
+  else setBtnPlay();
+
+  await atualizarUI();
+}
+
+function zerarUI() {
+  ['panelEventos','panelRanking','panelHistorico'].forEach(id=>{
+    document.getElementById(id).innerHTML='<div class="vazio">Selecione uma sessão</div>';
+  });
+  document.getElementById('rodadaNum').textContent='—';
+  document.getElementById('btnPlay').disabled=true;
+  ['kpiAtivos','kpiResolvidos','kpiExpirados'].forEach(id=>document.getElementById(id).textContent='0');
+  document.getElementById('kpiEquipes').textContent='—';
+  document.getElementById('badgeAtivos').textContent='0';
+}
+
+async function atualizarUI() {
+  if (!sessao) return;
+  try {
+    const [evs, eqs] = await Promise.all([
+      GET('gamificacao_eventos',`sessao_id=eq.${sessao.id}&order=created_at.desc&limit=60`),
+      GET('gamificacao_equipes',`sessao_id=eq.${sessao.id}&order=pontos.desc`)
+    ]);
+    equipes = eqs;
+    const ativos    = evs.filter(e=>e.status==='pendente');
+    const resolv    = evs.filter(e=>e.status==='resolvido');
+    const expir     = evs.filter(e=>e.status==='expirado');
+    document.getElementById('kpiAtivos').textContent    = ativos.length;
+    document.getElementById('kpiResolvidos').textContent = resolv.length;
+    document.getElementById('kpiExpirados').textContent = expir.length;
+    document.getElementById('badgeAtivos').textContent  = ativos.length;
+    renderEventos(ativos);
+    renderRanking(eqs);
+    renderHistorico(evs.slice(0,40));
+    await verificarExpirados(ativos);
+  } catch(e){ console.error(e); }
+}
+
+function renderEventos(ativos) {
+  const el = document.getElementById('panelEventos');
+  if (!ativos.length) { el.innerHTML='<div class="vazio">✅ Sem eventos pendentes</div>'; return; }
+  const agora = Date.now();
+  el.innerHTML = ativos.map(e=>{
+    const ms   = e.prazo_minutos*60*1000 - (agora - new Date(e.created_at).getTime());
+    const min  = Math.max(0,Math.floor(ms/60000));
+    const sec  = Math.max(0,Math.floor((ms%60000)/1000));
+    const perc = ms / (e.prazo_minutos*60*1000);
+    const cls  = ms<=0?'vermelho':perc<0.3?'vermelho':perc<0.6?'amarelo':'verde';
+    const cd   = ms<=0?'EXPIRADO':`${min}:${String(sec).padStart(2,'0')}`;
+    return `<div class="ev-item">
+      <div class="ev-dot ${e.prioridade||'normal'}"></div>
+      <div class="ev-body">
+        <div class="ev-titulo">${e.titulo}</div>
+        <div class="ev-meta"><span class="setor-tag">${SETOR[e.setor_alvo]||e.setor_alvo}</span> +${e.pontos_base} pts</div>
+      </div>
+      <div class="ev-cd ${cls}">${cd}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderRanking(eqs) {
+  const el = document.getElementById('panelRanking');
+  if (!eqs.length) { el.innerHTML='<div class="vazio">Nenhuma equipe</div>'; return; }
+  el.innerHTML = eqs.map((e,i)=>`
+    <div class="rank-row">
+      <div class="rank-pos">${MEDAL[i]||i+1}</div>
+      <div class="rank-cor" style="background:${e.cor||'#3b82f6'}"></div>
+      <div class="rank-info">
+        <div class="rank-nome">${e.nome}</div>
+        <div class="rank-setor">${SETOR[e.setor]||e.setor}</div>
+      </div>
+      <div class="rank-pts">${e.pontos||0} pts</div>
+    </div>`).join('');
+}
+
+function renderHistorico(evs) {
+  const el = document.getElementById('panelHistorico');
+  if (!evs.length) { el.innerHTML='<div class="vazio">Nenhum evento ainda</div>'; return; }
+  el.innerHTML = evs.map(e=>`
+    <div class="hist-row">
+      <span class="hist-badge ${e.status}">${e.status}</span>
+      <span class="hist-titulo" title="${e.titulo}">${e.titulo}</span>
+      <span class="hist-time">${new Date(e.created_at).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</span>
+    </div>`).join('');
+}
+
+async function verificarExpirados(ativos) {
+  const agora = Date.now();
+  for (const ev of ativos) {
+    const ms = (agora - new Date(ev.created_at).getTime()) - ev.prazo_minutos*60*1000;
+    if (ms <= 0) continue;
+    await PATCH('gamificacao_eventos', ev.id, { status:'expirado' });
+    const eq = equipes.find(e=>e.setor===ev.setor_alvo);
+    if (eq) {
+      const pts = Math.max(0,(eq.pontos||0)-5);
+      await Promise.all([
+        PATCH('gamificacao_equipes', eq.id, { pontos:pts }),
+        POST('gamificacao_pontuacoes', { sessao_id:sessao.id, equipe_id:eq.id, evento_id:ev.id, pontos:-5, motivo:'expirado' })
+      ]);
+    }
+  }
+}
+
+async function gerarEvento() {
+  if (!sessao || !produtos.length || !clientes.length) return;
+  try {
+    const ativos = await GET('gamificacao_eventos',`sessao_id=eq.${sessao.id}&status=eq.pendente&select=id`);
+    if (ativos.length >= (config?.max_eventos_ativos||5)) return;
+    const urgente = Math.random()*100 < (config?.chance_urgente||20);
+    const chaves  = Object.keys(TIPOS);
+    const tipo    = urgente ? 'pedido_urgente' : rnd(chaves);
+    const def     = TIPOS[tipo];
+    const prod    = rnd(produtos) || { nome:'Produto' };
+    const cli     = rnd(clientes) || { nome:'Cliente' };
+    await POST('gamificacao_eventos', {
+      sessao_id: sessao.id, rodada: sessao.rodada_atual,
+      tipo, titulo: def.titulo(prod,cli), descricao: `Gerado pelo motor na rodada ${sessao.rodada_atual}`,
+      setor_alvo: def.setor, prioridade: def.prio,
+      prazo_minutos: def.prazo, pontos_base: def.pts, status:'pendente'
+    });
+  } catch(e){ console.error(e); }
+}
+
+async function toggleMotor() {
+  if (!sessao) return;
+  if (sessao.status === 'ativa') {
+    await PATCH('gamificacao_sessoes', sessao.id, { status:'pausada' });
+    sessao.status = 'pausada';
+    pararMotor(); setBtnPlay();
+  } else {
+    await PATCH('gamificacao_sessoes', sessao.id, { status:'ativa', iniciada_em: new Date().toISOString() });
+    sessao.status = 'ativa';
+    iniciarMotor(); iniciarRefresh(); setBtnPause();
+    await gerarEvento(); await atualizarUI();
+  }
+}
+
+function iniciarMotor() {
+  if (_motor) clearInterval(_motor);
+  const ms = Math.max(5000, (config?.intervalo_segundos||60)*1000/vel);
+  _motor = setInterval(async()=>{ await gerarEvento(); await atualizarUI(); }, ms);
+}
+
+function pararMotor() {
+  if (_motor)   { clearInterval(_motor);   _motor=null; }
+  if (_refresh) { clearInterval(_refresh); _refresh=null; }
+}
+
+function iniciarRefresh() {
+  if (_refresh) clearInterval(_refresh);
+  _refresh = setInterval(atualizarUI, 5000);
+}
+
+function setBtnPlay()  { const b=document.getElementById('btnPlay'); b.textContent='▶ Play';  b.className='btn-play play'; }
+function setBtnPause() { const b=document.getElementById('btnPlay'); b.textContent='⏸ Pause'; b.className='btn-play pause'; }
+
+function setVel(v, btn) {
+  vel = v;
+  document.querySelectorAll('.speed-btn').forEach(b=>b.classList.remove('ativo'));
+  btn.classList.add('ativo');
+  if (sessao?.status==='ativa') iniciarMotor();
+}
+
+async function avancarRodada() {
+  if (!sessao) return;
+  const nova = (sessao.rodada_atual||1)+1;
+  await PATCH('gamificacao_sessoes', sessao.id, { rodada_atual:nova });
+  sessao.rodada_atual = nova;
+  document.getElementById('rodadaNum').textContent = nova;
+  await gerarEvento(); await atualizarUI();
+}
+
+function abrirPlacar() {
+  const id = sessao?.id || '';
+  window.open(`placar.html${id?'?sessao='+id:''}`, '_blank');
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+}
+function toggleTema() {
+  const t = document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('senai_tema',t);
+}
+function sair() { pararMotor(); localStorage.clear(); window.location.replace('../index.html'); }
+
+// ── AGENTE TELE VENDAS ────────────────────────────────────────────
+let agenteInterval  = null;
+let agenteContador  = 0;
+let agenteProxTimer = null;
+
+function lerConfiguracaoAgente() {
+  return {
+    quantidade:        parseInt(document.getElementById('agQtd').value)      || 10,
+    intervaloSegundos: parseInt(document.getElementById('agIntervalo').value) || 5,
+    prazoMinutos:      parseInt(document.getElementById('agPrazo').value)     || 8,
+    prioridade:        document.getElementById('agPrioridade').value          || 'normal',
+    valorMin:          parseFloat(document.getElementById('agValMin').value)  || 100,
+    valorMax:          parseFloat(document.getElementById('agValMax').value)  || 5000,
+    modoAleatorio:     document.getElementById('agModoProduto').value !== 'especifico',
+    produtoEspecifico: document.getElementById('agProduto').value || null
+  };
+}
+
+function toggleProdutoEspecifico() {
+  const wrap = document.getElementById('agProdutoEspecificoWrap');
+  wrap.style.display = document.getElementById('agModoProduto').value === 'especifico' ? 'flex' : 'none';
+}
+
+function carregarProdutosAgente() {
+  const sel = document.getElementById('agProduto');
+  sel.innerHTML = '<option value="">— Selecionar produto —</option>' +
+    produtos.map(p => `<option value="${p.id}">${p.nome}</option>`).join('');
+}
+
+async function iniciarAgente() {
+  if (!sessao) { alert('Selecione uma sessão ativa primeiro.'); return; }
+  if (agenteInterval) return;
+  agenteContador = 0;
+  const cfg = lerConfiguracaoAgente();
+
+  atualizarBtnAgente(true);
+  document.getElementById('agenteProgresso').style.display = 'block';
+  atualizarProgressoAgente(0, cfg.quantidade, cfg.intervaloSegundos);
+
+  // Enviar o primeiro imediatamente
+  await enviarPedidoTelevendas(cfg);
+  agenteContador++;
+  atualizarProgressoAgente(agenteContador, cfg.quantidade, cfg.intervaloSegundos);
+
+  if (agenteContador >= cfg.quantidade) { pararAgente(); return; }
+
+  agenteInterval = setInterval(async () => {
+    if (agenteContador >= cfg.quantidade) { pararAgente(); return; }
+    await enviarPedidoTelevendas(cfg);
+    agenteContador++;
+    atualizarProgressoAgente(agenteContador, cfg.quantidade, cfg.intervaloSegundos);
+    if (agenteContador >= cfg.quantidade) pararAgente();
+  }, cfg.intervaloSegundos * 1000);
+}
+
+async function enviarPedidoTelevendas(cfg) {
+  try {
+    // Selecionar produto
+    let produtoObj;
+    if (cfg.modoAleatorio || !cfg.produtoEspecifico) {
+      produtoObj = rnd(produtos) || { id: null, nome: 'Produto' };
+    } else {
+      produtoObj = produtos.find(p => p.id === cfg.produtoEspecifico) || { id: cfg.produtoEspecifico, nome: 'Produto' };
+    }
+
+    // Gerar valor e dados do pedido
+    const valor  = (Math.random() * (cfg.valorMax - cfg.valorMin) + cfg.valorMin).toFixed(2);
+    const qtd    = Math.floor(Math.random() * 10) + 1;
+    const seq    = String(agenteContador + 1).padStart(3, '0');
+    const rodada = sessao.rodada_atual || 1;
+    const pedidoD = `TV-R${rodada}-${seq}`;
+    const idChave = `${sessao.id}:R${rodada}`;
+    const obs     = `Agente: ${produtoObj.nome} | Qtd: ${qtd} | Valor: R$ ${parseFloat(valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+
+    // Insert em televendas
+    const tvRows = await POST('televendas', {
+      pedido_d: pedidoD, datahora: new Date().toISOString(),
+      id_chave: idChave, status: 'Em Aberto', observacao: obs
+    });
+    const tvId = Array.isArray(tvRows) ? tvRows[0]?.id : tvRows?.id;
+
+    // Insert evento de gamificação
+    const ptsBase = cfg.prioridade === 'urgente' ? 25 : cfg.prioridade === 'alta' ? 15 : 10;
+    await POST('gamificacao_eventos', {
+      sessao_id: sessao.id, rodada: rodada,
+      tipo: 'televendas_pedido',
+      titulo: `📞 Pedido ${pedidoD} — ${produtoObj.nome}`,
+      descricao: obs,
+      setor_alvo: 'vendas',
+      prioridade: cfg.prioridade,
+      prazo_minutos: cfg.prazoMinutos,
+      status: 'pendente',
+      referencia_id: tvId ? String(tvId) : null,
+      pontos_base: ptsBase
+    });
+  } catch (e) { console.error('[agente]', e); }
+}
+
+function pararAgente() {
+  if (agenteInterval) { clearInterval(agenteInterval); agenteInterval = null; }
+  if (agenteProxTimer) { clearInterval(agenteProxTimer); agenteProxTimer = null; }
+  atualizarBtnAgente(false);
+}
+
+function atualizarBtnAgente(ativo) {
+  const badge = document.getElementById('agenteStatusBadge');
+  const start = document.getElementById('btnAgenteStart');
+  const stop  = document.getElementById('btnAgenteStop');
+  if (ativo) {
+    badge.textContent = '🟢 Enviando...';
+    badge.style.color = '#16a34a';
+    start.style.display = 'none';
+    stop.style.display  = '';
+  } else {
+    badge.textContent = 'Parado';
+    badge.style.color = '';
+    start.style.display = '';
+    stop.style.display  = 'none';
+    document.getElementById('agenteProximoLabel').textContent = '';
+  }
+}
+
+function atualizarProgressoAgente(atual, total, intervaloSeg) {
+  const pct = total > 0 ? Math.min(100, (atual / total) * 100) : 0;
+  document.getElementById('agenteProgressoBar').style.width  = pct + '%';
+  document.getElementById('agenteProgressoLabel').textContent = `${atual} / ${total} pedidos enviados`;
+  if (atual >= total) { document.getElementById('agenteProximoLabel').textContent = '✅ Concluído'; return; }
+  // Contador regressivo até o próximo envio
+  if (agenteProxTimer) clearInterval(agenteProxTimer);
+  let restante = intervaloSeg;
+  document.getElementById('agenteProximoLabel').textContent = `Próximo em ${restante}s`;
+  agenteProxTimer = setInterval(() => {
+    restante--;
+    if (restante <= 0) { clearInterval(agenteProxTimer); agenteProxTimer = null; return; }
+    document.getElementById('agenteProximoLabel').textContent = `Próximo em ${restante}s`;
+  }, 1000);
+}
+
+carregarSessoes();
+</script>
+<script src="../menu.js"></script>
+</body>
+</html>

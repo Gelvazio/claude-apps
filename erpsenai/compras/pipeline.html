@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Pipeline de Compras</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+
+    .page-header { margin-bottom: 28px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .page-header h1 { font-size: 22px; font-weight: 700; color: var(--color-text); }
+    .page-header p  { font-size: 13px; color: var(--color-text-muted); margin-top: 3px; }
+
+    /* Pipeline de etapas */
+    .pipeline { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 28px; }
+    @media (max-width: 1100px) { .pipeline { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 600px)  { .pipeline { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 380px)  { .pipeline { grid-template-columns: 1fr; } }
+
+    .etapa-card {
+      background: var(--color-surface);
+      border: 2px solid var(--color-border-faint);
+      border-radius: 14px;
+      padding: 18px 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s cubic-bezier(.4,0,.2,1);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+    .etapa-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .etapa-card.active { border-color: var(--etapa-cor); box-shadow: 0 0 0 3px color-mix(in srgb, var(--etapa-cor) 20%, transparent); }
+    [data-theme="dark"] .etapa-card { background: #0f0c22; border-color: rgba(139,92,246,.12); }
+    [data-theme="dark"] .etapa-card.active { box-shadow: 0 0 0 3px color-mix(in srgb, var(--etapa-cor) 30%, transparent); }
+    [data-theme="dark"] .etapa-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.4); }
+
+    .etapa-stripe { position: absolute; top:0; left:0; right:0; height:4px; background: var(--etapa-cor); border-radius: 14px 14px 0 0; }
+    .etapa-icon  { font-size: 26px; margin-bottom: 6px; display: block; line-height: 1; }
+    .etapa-count { font-size: 34px; font-weight: 900; color: var(--etapa-cor); line-height: 1; margin-bottom: 4px; }
+    .etapa-label { font-size: 10px; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: .8px; }
+    [data-theme="dark"] .etapa-label { color: #9080b4; }
+    .etapa-pct   { font-size: 10px; color: var(--color-text-faint); margin-top: 4px; }
+    [data-theme="dark"] .etapa-pct { color: #6b5e8a; }
+
+    /* Fluxo visual */
+    .pipeline-flow { display: flex; align-items: center; gap: 4px; margin-bottom: 18px; flex-wrap: wrap; font-size: 11px; color: var(--color-text-faint); }
+    .flow-step  { display: inline-flex; align-items: center; gap: 4px; }
+    .flow-dot   { width: 8px; height: 8px; border-radius: 50%; }
+    .flow-arrow { color: var(--color-text-faint); }
+
+    /* Tabela */
+    .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; gap: 12px; flex-wrap: wrap; }
+    .section-title { font-size: 15px; font-weight: 700; color: var(--color-text); }
+    [data-theme="dark"] .section-title { color: #f0ecff; }
+    .section-count { font-size: 12px; color: var(--color-text-muted); }
+
+    .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+    .search-input { flex: 1; min-width: 200px; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; font-family: inherit; background: var(--color-surface); color: var(--color-text); outline: none; }
+    .search-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(0,67,132,.12); }
+    [data-theme="dark"] .search-input { background: var(--color-surface-2); }
+
+    .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+    .filter-tab { background: var(--color-surface-2); border: 1px solid var(--color-border-faint); border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 500; color: var(--color-text-muted); cursor: pointer; font-family: inherit; transition: all .15s; white-space: nowrap; }
+    .filter-tab.active { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+    [data-theme="dark"] .filter-tab { background: #1a1535; border-color: rgba(139,92,246,.15); }
+    [data-theme="dark"] .filter-tab.active { background: #8b5cf6; border-color: #8b5cf6; }
+    .filter-tab:hover:not(.active) { border-color: var(--color-primary); color: var(--color-primary); }
+
+    .content-card { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+    [data-theme="dark"] .content-card { background: #0f0c22; border: 1px solid rgba(139,92,246,.12); }
+
+    .crud-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .crud-table th { text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--color-border-faint); white-space: nowrap; }
+    .crud-table td { padding: 10px 14px; border-bottom: 1px solid var(--color-border-faint); color: var(--color-text-secondary); vertical-align: middle; }
+    .crud-table tr:last-child td { border-bottom: none; }
+    .crud-table tr:hover td { background: var(--color-surface-2); }
+    [data-theme="dark"] .crud-table th { color: #a78bfa; border-bottom-color: rgba(139,92,246,.12); }
+    [data-theme="dark"] .crud-table td { border-bottom-color: rgba(139,92,246,.08); color: #c4b5fd; }
+    [data-theme="dark"] .crud-table tr:hover td { background: #1a1535; }
+
+    .vazio { text-align: center; color: var(--color-text-faint); font-size: 13px; padding: 32px; font-style: italic; }
+
+    .etapa-badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px; white-space: nowrap;
+      background: color-mix(in srgb, var(--eb-cor,#888) 15%, transparent);
+      color: var(--eb-cor,#888);
+      border: 1px solid color-mix(in srgb, var(--eb-cor,#888) 30%, transparent);
+    }
+
+    .link-etapa { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; font-size: 11px; font-weight: 600; border-radius: 6px; text-decoration: none; color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 10%, transparent); border: 1px solid color-mix(in srgb, var(--color-primary) 25%, transparent); transition: all .15s; }
+    .link-etapa:hover { background: var(--color-primary); color: #fff; }
+  </style>
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>🗺️ Compras — Funil de Aquisições</h1>
+        <p>Acompanhe a distribuição dos registros em cada etapa do fluxo de compras.</p>
+      </div>
+      <button class="btn btn-primary" onclick="atualizarTudo()">↻ Atualizar</button>
+    </div>
+
+    <!-- Fluxo visual -->
+    <div class="pipeline-flow" id="pipelineFlow"></div>
+
+    <!-- Cards de etapas -->
+    <div class="pipeline" id="pipeline">
+      <div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--color-text-faint)">Carregando etapas…</div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <input class="search-input" type="search" id="busca" placeholder="Buscar por número, produto, fornecedor…" oninput="filtrar()">
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" onclick="selecionarEtapa('todos', this)">Todos</button>
+      </div>
+    </div>
+
+    <!-- Tabela -->
+    <div class="section-head">
+      <span class="section-title" id="tabelaTitulo">Pedidos de Compra</span>
+      <span class="section-count" id="tabelaCount"></span>
+    </div>
+    <div class="content-card">
+      <div class="crud-table-wrap">
+        <table class="crud-table" id="tabelaPrincipal">
+          <thead id="tabelaHead">
+            <tr>
+              <th>Número</th><th>Produto</th><th>Fornecedor</th><th>Valor Total</th><th>Status</th><th>Data</th><th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyDados">
+            <tr><td colspan="7" class="vazio">Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+sbVerificarSessao('../index.html');
+sbExigirPermissao('compras', '../dashboard.html');
+document.getElementById('roleBadge').textContent = sbPerfil() || '';
+sbIniciarBtnTema('btnTema');
+function alternarTema() { const n = sbToggleTema(); document.getElementById('btnTema').textContent = n === 'dark' ? '☀️ Claro' : '🌙 Escuro'; location.reload(); }
+function sair() { sbLogout('../index.html'); }
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('show'); }
+
+// ── Configuração das etapas ─────────────────────
+const ETAPAS = [
+  { id: 'planejamento', nome: 'Planejamento', icone: '📋', cor: '#6366f1', url: 'planejamento.html',
+    tabela: 'compras_planejamento',
+    params: 'select=id,titulo,status,data,produto_id,produtos(nome),periodo,tipo&order=created_at.desc',
+    filtroAtivo: r => r.status !== 'Cancelado',
+    colHead: ['Título','Produto','Tipo','Período','Status','Data',''],
+    colSpan: 7,
+    renderRow: r => `
+      <td><strong>${r.titulo}</strong></td>
+      <td>${r.produtos?.nome || '—'}</td>
+      <td>${r.tipo || '—'}</td>
+      <td>${r.periodo || '—'}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td>${dataFmt(r.data)}</td>
+      <td><a class="link-etapa" href="planejamento.html">✏️ Ver</a></td>`,
+    buscaFn: (r, b) => (r.titulo||'').toLowerCase().includes(b) || (r.produtos?.nome||'').toLowerCase().includes(b)
+  },
+  { id: 'solicitacao', nome: 'Solicitação', icone: '📝', cor: '#0ea5e9', url: 'solicitacoes.html',
+    tabela: 'compras_solicitacoes',
+    params: 'select=id,numero,status,data,produto_id,produtos(nome),quantidade,unidade,prioridade,solicitante&order=created_at.desc',
+    filtroAtivo: r => !['Cancelada','Reprovada'].includes(r.status),
+    colHead: ['Número','Produto','Qtd','Solicitante','Prioridade','Status','Data',''],
+    colSpan: 8,
+    renderRow: r => `
+      <td style="font-family:monospace;font-weight:600">${r.numero}</td>
+      <td>${r.produtos?.nome || '—'}</td>
+      <td>${r.quantidade != null ? Number(r.quantidade).toLocaleString('pt-BR') + ' ' + (r.unidade||'') : '—'}</td>
+      <td>${r.solicitante || '—'}</td>
+      <td>${prioridadeBadge(r.prioridade)}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td>${dataFmt(r.data)}</td>
+      <td><a class="link-etapa" href="solicitacoes.html">✏️ Ver</a></td>`,
+    buscaFn: (r, b) => (r.numero||'').toLowerCase().includes(b) || (r.produtos?.nome||'').toLowerCase().includes(b) || (r.solicitante||'').toLowerCase().includes(b)
+  },
+  { id: 'pedido', nome: 'Pedido', icone: '🛒', cor: '#8b5cf6', url: 'pedidos.html',
+    tabela: 'compras_pedidos',
+    params: 'select=id,numero,status,data,data_prevista,valor_total,produto_id,produtos(nome),fornecedor_id,fornecedores(nome)&order=created_at.desc',
+    filtroAtivo: r => !['Cancelado','Recebido'].includes(r.status),
+    colHead: ['Número','Produto','Fornecedor','Valor Total','Status','Data Prev.',''],
+    colSpan: 7,
+    renderRow: r => `
+      <td style="font-family:monospace;font-weight:600">${r.numero}</td>
+      <td>${r.produtos?.nome || '—'}</td>
+      <td>${r.fornecedores?.nome || '—'}</td>
+      <td style="font-weight:600">${moeda(r.valor_total)}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td>${dataFmt(r.data_prevista)}</td>
+      <td><a class="link-etapa" href="pedidos.html">✏️ Ver</a></td>`,
+    buscaFn: (r, b) => (r.numero||'').toLowerCase().includes(b) || (r.produtos?.nome||'').toLowerCase().includes(b) || (r.fornecedores?.nome||'').toLowerCase().includes(b)
+  },
+  { id: 'recebimento', nome: 'Recebimento', icone: '📥', cor: '#f59e0b', url: 'recebimento.html',
+    tabela: 'compras_recebimentos',
+    params: 'select=id,numero,status,data,produto_id,produtos(nome),qtd_esperada,qtd_recebida,responsavel&order=created_at.desc',
+    filtroAtivo: r => !['Recebido Total'].includes(r.status),
+    colHead: ['Número','Produto','Qtd Esperada','Qtd Recebida','Responsável','Status','Data',''],
+    colSpan: 8,
+    renderRow: r => `
+      <td style="font-family:monospace;font-weight:600">${r.numero}</td>
+      <td>${r.produtos?.nome || '—'}</td>
+      <td>${r.qtd_esperada != null ? Number(r.qtd_esperada).toLocaleString('pt-BR') : '—'}</td>
+      <td>${r.qtd_recebida != null ? Number(r.qtd_recebida).toLocaleString('pt-BR') : '—'}</td>
+      <td>${r.responsavel || '—'}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td>${dataFmt(r.data)}</td>
+      <td><a class="link-etapa" href="recebimento.html">✏️ Ver</a></td>`,
+    buscaFn: (r, b) => (r.numero||'').toLowerCase().includes(b) || (r.produtos?.nome||'').toLowerCase().includes(b) || (r.responsavel||'').toLowerCase().includes(b)
+  },
+  { id: 'conferencia', nome: 'Conferência', icone: '✅', cor: '#f97316', url: 'conferencia.html',
+    tabela: 'compras_conferencias',
+    params: 'select=id,status,data,produto_id,produtos(nome),qtd_esperada,qtd_recebida,responsavel,recebimento_id,compras_recebimentos(numero)&order=created_at.desc',
+    filtroAtivo: r => !['Aprovado'].includes(r.status),
+    colHead: ['Recebimento','Produto','Qtd Esperada','Qtd Recebida','Responsável','Status','Data',''],
+    colSpan: 8,
+    renderRow: r => `
+      <td style="font-family:monospace;font-weight:600">${r.compras_recebimentos?.numero || '—'}</td>
+      <td>${r.produtos?.nome || '—'}</td>
+      <td>${r.qtd_esperada != null ? Number(r.qtd_esperada).toLocaleString('pt-BR') : '—'}</td>
+      <td>${r.qtd_recebida != null ? Number(r.qtd_recebida).toLocaleString('pt-BR') : '—'}</td>
+      <td>${r.responsavel || '—'}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td>${dataFmt(r.data)}</td>
+      <td><a class="link-etapa" href="conferencia.html">✏️ Ver</a></td>`,
+    buscaFn: (r, b) => (r.compras_recebimentos?.numero||'').toLowerCase().includes(b) || (r.produtos?.nome||'').toLowerCase().includes(b) || (r.responsavel||'').toLowerCase().includes(b)
+  },
+  { id: 'nota-fiscal', nome: 'Nota Fiscal', icone: '🧾', cor: '#22c55e', url: 'nota-fiscal.html',
+    tabela: 'compras_notas_fiscais',
+    params: 'select=id,numero_nf,status,data,valor,qtd_itens,fornecedor_id,fornecedores(nome)&order=created_at.desc',
+    filtroAtivo: r => !['Cancelada','Devolvida'].includes(r.status),
+    colHead: ['Nº NF','Fornecedor','Valor','Qtd Itens','Status','Data',''],
+    colSpan: 7,
+    renderRow: r => `
+      <td style="font-family:monospace;font-weight:600">${r.numero_nf}</td>
+      <td>${r.fornecedores?.nome || '—'}</td>
+      <td style="font-weight:600">${moeda(r.valor)}</td>
+      <td>${r.qtd_itens ?? '—'}</td>
+      <td>${statusBadge(r.status)}</td>
+      <td>${dataFmt(r.data)}</td>
+      <td><a class="link-etapa" href="nota-fiscal.html">✏️ Ver</a></td>`,
+    buscaFn: (r, b) => (r.numero_nf||'').toLowerCase().includes(b) || (r.fornecedores?.nome||'').toLowerCase().includes(b)
+  },
+];
+
+// ── Estado ──────────────────────────────────────
+let etapaAtiva  = 'pedido';
+let contagens   = {};
+let registrosAtivos = [];
+
+// ── Helpers ─────────────────────────────────────
+function moeda(v) { return v != null ? 'R$ ' + Number(v).toLocaleString('pt-BR', {minimumFractionDigits:2,maximumFractionDigits:2}) : '—'; }
+function dataFmt(d) { if (!d) return '—'; const [a,m,dd] = d.split('-'); return `${dd}/${m}/${a}`; }
+
+function statusBadge(s) {
+  const m = {
+    'Pendente':'badge-cinza','Em Planejamento':'badge-azul','Em Andamento':'badge-laranja',
+    'Concluído':'badge-verde','Cancelado':'badge-vermelho','Aprovada':'badge-verde',
+    'Reprovada':'badge-vermelho','Cancelada':'badge-vermelho','Em Análise':'badge-laranja',
+    'Rascunho':'badge-cinza','Enviado':'badge-azul','Confirmado':'badge-azul',
+    'Recebido':'badge-verde','Aguardando':'badge-cinza','Recebido Parcial':'badge-laranja',
+    'Recebido Total':'badge-verde','Com Divergência':'badge-vermelho','Aprovado':'badge-verde',
+    'Reprovado':'badge-vermelho','Lançada':'badge-verde','Devolvida':'badge-vermelho',
+  };
+  return `<span class="badge ${m[s]||'badge-cinza'}">${s||'—'}</span>`;
+}
+
+function prioridadeBadge(p) {
+  const m = { 'Baixa':'badge-cinza','Média':'badge-azul','Alta':'badge-laranja','Urgente':'badge-vermelho' };
+  return `<span class="badge ${m[p]||'badge-cinza'}">${p||'—'}</span>`;
+}
+
+// ── Carregar contagens ───────────────────────────
+async function carregarContagens() {
+  const resultados = await Promise.allSettled(
+    ETAPAS.map(e => sbListar(e.tabela, e.params))
+  );
+  ETAPAS.forEach((e, i) => {
+    const res = resultados[i];
+    const todos = res.status === 'fulfilled' ? res.value : [];
+    contagens[e.id] = todos.filter(e.filtroAtivo).length;
+    contagens[e.id + '_total'] = todos.length;
+  });
+}
+
+// ── Carregar registros da etapa ──────────────────
+async function carregarEtapa(id) {
+  const et = ETAPAS.find(e => e.id === id);
+  if (!et) return [];
+  return sbListar(et.tabela, et.params);
+}
+
+// ── Renderizar pipeline ──────────────────────────
+function renderPipeline() {
+  const total = ETAPAS.reduce((s, e) => s + (contagens[e.id] || 0), 0);
+
+  document.getElementById('pipelineFlow').innerHTML = ETAPAS.map((e, i) =>
+    `<span class="flow-step"><span class="flow-dot" style="background:${e.cor}"></span>${e.nome}</span>${i < ETAPAS.length-1 ? '<span class="flow-arrow">›</span>' : ''}`
+  ).join('');
+
+  document.getElementById('pipeline').innerHTML = ETAPAS.map(e => {
+    const qtd = contagens[e.id] || 0;
+    const pct = total > 0 ? Math.round((qtd / total) * 100) : 0;
+    const isActive = etapaAtiva === e.id;
+    return `
+      <div class="etapa-card${isActive ? ' active' : ''}" style="--etapa-cor:${e.cor}" onclick="selecionarEtapa('${e.id}', null)">
+        <div class="etapa-stripe"></div>
+        <span class="etapa-icon">${e.icone}</span>
+        <div class="etapa-count">${qtd}</div>
+        <div class="etapa-label">${e.nome}</div>
+        <div class="etapa-pct">${pct}% do total</div>
+      </div>`;
+  }).join('');
+
+  // Filter tabs
+  document.getElementById('filterTabs').innerHTML =
+    `<button class="filter-tab${etapaAtiva==='todos'?' active':''}" onclick="selecionarEtapa('todos',this)">Todos</button>` +
+    ETAPAS.map(e => {
+      const qtd = contagens[e.id] || 0;
+      return `<button class="filter-tab${etapaAtiva===e.id?' active':''}" onclick="selecionarEtapa('${e.id}',this)">${e.icone} ${e.nome} (${qtd})</button>`;
+    }).join('');
+}
+
+// ── Selecionar etapa ─────────────────────────────
+async function selecionarEtapa(id, btn) {
+  etapaAtiva = id;
+  document.querySelectorAll('.etapa-card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  if (id !== 'todos') {
+    document.querySelectorAll('.etapa-card').forEach(c => {
+      const lbl = c.querySelector('.etapa-label');
+      const et  = ETAPAS.find(e => e.nome === lbl?.textContent);
+      if (et?.id === id) c.classList.add('active');
+    });
+  }
+
+  const alvo = id === 'todos' ? ETAPAS.find(e => e.id === 'pedido') : ETAPAS.find(e => e.id === id);
+  if (!alvo) return;
+
+  document.getElementById('tabelaTitulo').textContent = id === 'todos' ? 'Pedidos de Compra' : `${alvo.icone} ${alvo.nome}`;
+  document.getElementById('tabelaHead').innerHTML = `<tr>${alvo.colHead.map(h => `<th>${h}</th>`).join('')}</tr>`;
+  document.getElementById('tbodyDados').innerHTML = `<tr><td colspan="${alvo.colSpan}" class="vazio">Carregando…</td></tr>`;
+
+  try {
+    const rows = await carregarEtapa(alvo.id);
+    registrosAtivos = rows;
+    renderTabela(alvo);
+  } catch(e) {
+    document.getElementById('tbodyDados').innerHTML = `<tr><td colspan="${alvo.colSpan}" class="vazio">Erro: ${e.message}</td></tr>`;
+  }
+}
+
+// ── Filtrar busca ────────────────────────────────
+function filtrar() {
+  const alvo = etapaAtiva === 'todos'
+    ? ETAPAS.find(e => e.id === 'pedido')
+    : ETAPAS.find(e => e.id === etapaAtiva);
+  if (alvo) renderTabela(alvo);
+}
+
+// ── Renderizar tabela ────────────────────────────
+function renderTabela(etapa) {
+  const busca = document.getElementById('busca').value.toLowerCase().trim();
+  let rows = registrosAtivos.filter(etapa.filtroAtivo);
+  if (busca) rows = rows.filter(r => etapa.buscaFn(r, busca));
+
+  document.getElementById('tabelaCount').textContent = `${rows.length} registro(s)`;
+  const tbody = document.getElementById('tbodyDados');
+  if (!rows.length) {
+    tbody.innerHTML = `<tr><td colspan="${etapa.colSpan}" class="vazio">Nenhum registro encontrado.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = rows.map(r => `<tr>${etapa.renderRow(r)}</tr>`).join('');
+}
+
+// ── Atualizar tudo ───────────────────────────────
+async function atualizarTudo() {
+  document.getElementById('pipeline').innerHTML =
+    '<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--color-text-faint)">Carregando etapas…</div>';
+  document.getElementById('tbodyDados').innerHTML =
+    '<tr><td colspan="7" class="vazio">Carregando…</td></tr>';
+
+  await carregarContagens();
+  renderPipeline();
+  await selecionarEtapa(etapaAtiva, null);
+}
+
+// ── Iniciar ──────────────────────────────────────
+atualizarTudo();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

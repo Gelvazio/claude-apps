@@ -1,0 +1,438 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Contas a Pagar</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}
+    .main{margin-left:240px;padding:28px 32px;flex:1}
+    @media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:16px}.sidebar.open{transform:translateX(0)}}
+    .sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+    .btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}
+    @media(max-width:768px){.btn-menu{display:flex}}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}
+    .sidebar-overlay.show{display:block}
+
+    .page-header{margin-bottom:24px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .page-header h1{font-size:20px;font-weight:700;color:var(--color-text)}
+    .page-header p{font-size:13px;color:var(--color-text-muted);margin-top:2px}
+    [data-theme="dark"] .page-header h1{color:#f8f6ff}
+
+    /* KPI row */
+    .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+    @media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.kpi-row{grid-template-columns:1fr}}
+    .kpi-card{background:var(--color-surface);border:1px solid var(--color-border-faint);border-radius:12px;padding:16px 18px;border-left:4px solid var(--kpi-cor,var(--color-primary))}
+    [data-theme="dark"] .kpi-card{background:#0f0c22;border-color:rgba(139,92,246,0.15)}
+    .kpi-label{font-size:10px;font-weight:700;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+    .kpi-value{font-size:22px;font-weight:800;color:var(--color-text)}
+    [data-theme="dark"] .kpi-label{color:#6b5e8a}
+    [data-theme="dark"] .kpi-value{color:#fff}
+
+    /* Toolbar */
+    .toolbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+    .search-input{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:13px;font-family:inherit;background:var(--color-surface);color:var(--color-text);outline:none}
+    .search-input:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(0,67,132,.12)}
+    [data-theme="dark"] .search-input{background:var(--color-surface-2)}
+    select.filter-sel{padding:7px 10px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:13px;font-family:inherit;background:var(--color-surface);color:var(--color-text);outline:none;min-width:160px}
+    [data-theme="dark"] select.filter-sel{background:var(--color-surface-2);border-color:var(--color-border-light)}
+
+    .content-card{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}
+    [data-theme="dark"] .content-card{background:#0f0c22;border:1px solid rgba(139,92,246,0.12)}
+
+    .crud-table{width:100%;border-collapse:collapse;font-size:13px}
+    .crud-table th{text-align:left;padding:10px 14px;font-size:10px;font-weight:700;color:var(--color-primary);text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid var(--color-border-faint);white-space:nowrap}
+    .crud-table td{padding:10px 14px;border-bottom:1px solid var(--color-border-faint);color:var(--color-text-secondary)}
+    .crud-table tr:last-child td{border-bottom:none}
+    .crud-table tr:hover td{background:var(--color-surface-2)}
+    [data-theme="dark"] .crud-table th{color:#a78bfa;border-bottom-color:rgba(139,92,246,0.12)}
+    [data-theme="dark"] .crud-table td{border-bottom-color:rgba(139,92,246,0.08);color:#c4b5fd}
+    [data-theme="dark"] .crud-table tr:hover td{background:#1a1535}
+
+    .vazio{text-align:center;color:var(--color-text-faint);font-size:13px;padding:32px;font-style:italic}
+    .msg-global{margin-bottom:14px;display:none}
+
+    /* Form grid */
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .form-grid .span-2{grid-column:span 2}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr}.form-grid .span-2{grid-column:span 1}}
+    .form-group{display:flex;flex-direction:column;gap:4px}
+    .form-label{font-size:10px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.3px}
+    .form-label span{color:var(--color-error)}
+  </style>
+  <script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t)})();</script>
+</head>
+<body>
+
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>💸 Contas a Pagar</h1>
+        <p>Gerencie todas as obrigações financeiras da empresa.</p>
+      </div>
+      <button class="btn btn-primary" onclick="abrirModalNovo()">+ Nova Conta</button>
+    </div>
+
+    <div class="msg-global" id="msgGlobal"></div>
+
+    <!-- KPIs -->
+    <div class="kpi-row">
+      <div class="kpi-card" style="--kpi-cor:#ef4444">
+        <div class="kpi-label">Total em Aberto</div>
+        <div class="kpi-value" id="kpiAberto">—</div>
+      </div>
+      <div class="kpi-card" style="--kpi-cor:#f97316">
+        <div class="kpi-label">Vencidas</div>
+        <div class="kpi-value" id="kpiVencidas">—</div>
+      </div>
+      <div class="kpi-card" style="--kpi-cor:#eab308">
+        <div class="kpi-label">A Vencer (30 dias)</div>
+        <div class="kpi-value" id="kpiAVencer">—</div>
+      </div>
+      <div class="kpi-card" style="--kpi-cor:#22c55e">
+        <div class="kpi-label">Pagas (mês)</div>
+        <div class="kpi-value" id="kpiPagas">—</div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <input class="search-input" type="search" id="busca" placeholder="Buscar por descrição ou fornecedor…" oninput="filtrar()">
+      <select class="filter-sel" id="filTipoConta" onchange="filtrar()">
+        <option value="">Todos os tipos</option>
+        <option>Passivo</option>
+        <option>Passivo Circulante</option>
+        <option>Ativo</option>
+        <option>Frota</option>
+        <option>Depreciação</option>
+        <option>Financiamento</option>
+        <option>Empréstimo</option>
+        <option>Folha de Pagamento</option>
+        <option>Impostos e Tributos</option>
+        <option>Aluguel</option>
+        <option>Utilities</option>
+        <option>Fornecedores</option>
+        <option>Outros</option>
+      </select>
+      <select class="filter-sel" id="filStatus" onchange="filtrar()">
+        <option value="">Todos os status</option>
+        <option>Em Aberto</option>
+        <option>Pago</option>
+        <option>Vencido</option>
+        <option>Cancelado</option>
+      </select>
+    </div>
+
+    <div class="content-card">
+      <div class="crud-table-wrap">
+        <table class="crud-table">
+          <thead>
+            <tr>
+              <th>Nº</th>
+              <th>Descrição</th>
+              <th>Fornecedor</th>
+              <th>Tipo de Conta</th>
+              <th>Valor</th>
+              <th>Vencimento</th>
+              <th>Competência</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"><tr><td colspan="9" class="vazio">Carregando…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div id="modalBackdrop" class="crud-backdrop" style="display:none" onclick="if(event.target===this)fecharModal()">
+  <div class="crud-modal" style="max-width:680px">
+    <div class="crud-modal-head">
+      <h3 id="modalTitulo">Nova Conta a Pagar</h3>
+      <button class="crud-btn-fechar" onclick="fecharModal()">✕</button>
+    </div>
+    <div class="crud-form-area">
+      <form id="formConta" onsubmit="salvar(event)">
+        <div class="form-grid">
+          <div class="form-group span-2">
+            <label class="form-label" for="fDesc">Descrição <span>*</span></label>
+            <input class="form-input" type="text" id="fDesc" required placeholder="Ex: Fatura fornecedor ABC">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fFornecedor">Fornecedor</label>
+            <select class="form-select" id="fFornecedor"><option value="">— Selecione —</option></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fTipoConta">Tipo de Conta <span>*</span></label>
+            <select class="form-select" id="fTipoConta" required>
+              <option value="">— Selecione —</option>
+              <option>Passivo</option>
+              <option>Passivo Circulante</option>
+              <option>Ativo</option>
+              <option>Frota</option>
+              <option>Depreciação</option>
+              <option>Financiamento</option>
+              <option>Empréstimo</option>
+              <option>Folha de Pagamento</option>
+              <option>Impostos e Tributos</option>
+              <option>Aluguel</option>
+              <option>Utilities</option>
+              <option>Fornecedores</option>
+              <option>Outros</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fValor">Valor (R$) <span>*</span></label>
+            <input class="form-input" type="number" id="fValor" step="0.01" min="0.01" required placeholder="0,00">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fCompetencia">Competência</label>
+            <input class="form-input" type="month" id="fCompetencia">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fVencimento">Data de Vencimento <span>*</span></label>
+            <input class="form-input" type="date" id="fVencimento" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fPagamento">Data de Pagamento</label>
+            <input class="form-input" type="date" id="fPagamento">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fFormaPag">Forma de Pagamento</label>
+            <select class="form-select" id="fFormaPag">
+              <option value="">— Selecione —</option>
+              <option>Boleto</option>
+              <option>PIX</option>
+              <option>Transferência</option>
+              <option>Cheque</option>
+              <option>Cartão</option>
+              <option>Débito Automático</option>
+              <option>Dinheiro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fStatusConta">Status</label>
+            <select class="form-select" id="fStatusConta">
+              <option>Em Aberto</option>
+              <option>Pago</option>
+              <option>Vencido</option>
+              <option>Cancelado</option>
+            </select>
+          </div>
+          <div class="form-group span-2">
+            <label class="form-label" for="fObs">Observações</label>
+            <textarea class="form-textarea" id="fObs" rows="3" placeholder="Informações adicionais…"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-confirmar" onclick="document.getElementById('formConta').requestSubmit()">Confirmar</button>
+      <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal excluir -->
+<div id="modalExcluirBackdrop" class="crud-backdrop" style="display:none" onclick="if(event.target===this)fecharModalExcluir()">
+  <div class="crud-modal" style="max-width:420px">
+    <div class="crud-modal-head"><h3>Confirmar Exclusão</h3><button class="crud-btn-fechar" onclick="fecharModalExcluir()">✕</button></div>
+    <div class="crud-form-area" style="padding:20px">
+      <p style="font-size:14px;color:var(--color-text)">Deseja excluir a conta <strong id="descExcluir"></strong>?</p>
+      <p style="font-size:12px;color:var(--color-text-muted);margin-top:8px">Esta ação não pode ser desfeita.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-confirmar" style="background:#dc2626" onclick="excluirConfirmado()">Excluir</button>
+      <button class="btn-cancelar" onclick="fecharModalExcluir()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+sbVerificarSessao('../index.html');
+document.getElementById('roleBadge').textContent = sbPerfil() || '';
+sbIniciarBtnTema('btnTema');
+function alternarTema(){const n=sbToggleTema();document.getElementById('btnTema').textContent=n==='dark'?'☀️ Claro':'🌙 Escuro';location.reload()}
+function sair(){sbLogout('../index.html')}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('show')}
+
+const TABELA = 'fin_contas_pagar';
+let todos = [], modoEdicao = false, idEdicao = null, idExcluir = null;
+
+function moeda(v){return v!=null?'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'—'}
+function dataFmt(d){if(!d)return'—';const[a,m,dd]=d.split('-');return`${dd}/${m}/${a}`}
+function hoje(){return new Date().toISOString().split('T')[0]}
+
+const STATUS_COR = {'Em Aberto':'badge-azul','Pago':'badge-verde','Vencido':'badge-vermelho','Cancelado':'badge-cinza'};
+
+function statusBadge(s,venc){
+  // Auto-vencido se status em aberto e data < hoje
+  let st = s;
+  if(st==='Em Aberto' && venc && venc < hoje()) st='Vencido';
+  return `<span class="badge ${STATUS_COR[st]||'badge-cinza'}">${st}</span>`;
+}
+
+function msgGlobal(txt,tipo='ok'){const el=document.getElementById('msgGlobal');el.textContent=txt;el.className=`crud-msg ${tipo}`;el.style.display='block';setTimeout(()=>el.style.display='none',3500)}
+
+async function carregarTudo(){
+  todos = await sbListar(TABELA,'select=*,fornecedores(nome)&order=data_vencimento.asc');
+  sbPopularSelect('fFornecedor','fornecedores','ativo=eq.true&order=nome.asc');
+  atualizarKPIs();
+  filtrar();
+}
+
+function atualizarKPIs(){
+  const hj = hoje();
+  const mesAtual = hj.substring(0,7);
+  let aberto=0, vencidas=0, aVencer=0, pagas=0;
+  const d30 = new Date(); d30.setDate(d30.getDate()+30); const d30s = d30.toISOString().split('T')[0];
+  todos.forEach(c=>{
+    const v = parseFloat(c.valor||0);
+    const venc = c.data_vencimento;
+    if(c.status==='Pago' && (c.data_pagamento||'').startsWith(mesAtual)) pagas+=v;
+    if(c.status==='Em Aberto'||c.status==='Vencido'){
+      aberto+=v;
+      if(venc && venc<hj) vencidas+=v;
+      else if(venc && venc>=hj && venc<=d30s) aVencer+=v;
+    }
+  });
+  document.getElementById('kpiAberto').textContent  = moeda(aberto);
+  document.getElementById('kpiVencidas').textContent = moeda(vencidas);
+  document.getElementById('kpiAVencer').textContent  = moeda(aVencer);
+  document.getElementById('kpiPagas').textContent    = moeda(pagas);
+}
+
+function filtrar(){
+  const busca = document.getElementById('busca').value.toLowerCase();
+  const tipo  = document.getElementById('filTipoConta').value;
+  const st    = document.getElementById('filStatus').value;
+  const hj    = hoje();
+  const lista = todos.filter(c=>{
+    const matchB = !busca || (c.descricao||'').toLowerCase().includes(busca) || (c.fornecedores?.nome||'').toLowerCase().includes(busca);
+    const matchT = !tipo  || c.tipo_conta===tipo;
+    let stReal = c.status;
+    if(stReal==='Em Aberto'&&c.data_vencimento&&c.data_vencimento<hj) stReal='Vencido';
+    const matchS = !st || stReal===st;
+    return matchB && matchT && matchS;
+  });
+  renderTabela(lista);
+}
+
+function renderTabela(lista){
+  const hj = hoje();
+  const tbody = document.getElementById('tbody');
+  if(!lista.length){tbody.innerHTML='<tr><td colspan="9" class="vazio">Nenhum lançamento encontrado.</td></tr>';return}
+  tbody.innerHTML = lista.map(c=>`
+    <tr>
+      <td style="font-family:monospace;font-size:11px">${c.numero}</td>
+      <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.descricao}</td>
+      <td>${c.fornecedores?.nome||'—'}</td>
+      <td><span class="badge badge-cinza">${c.tipo_conta||'—'}</span></td>
+      <td style="font-weight:700;color:var(--color-error)">${moeda(c.valor)}</td>
+      <td>${dataFmt(c.data_vencimento)}</td>
+      <td>${c.competencia||'—'}</td>
+      <td>${statusBadge(c.status,c.data_vencimento)}</td>
+      <td>
+        <button class="btn-acao btn-editar" onclick="abrirEdicao('${c.id}')">✏️</button>
+        <button class="btn-acao btn-excluir" onclick="confirmarExcluir('${c.id}','${(c.descricao||'').replace(/'/g,'')}')">🗑️</button>
+      </td>
+    </tr>`).join('');
+}
+
+// Modal novo/editar
+async function abrirModalNovo(){
+  modoEdicao=false;idEdicao=null;
+  document.getElementById('modalTitulo').textContent='Nova Conta a Pagar';
+  document.getElementById('formConta').reset();
+  document.getElementById('fVencimento').value=hoje();
+  document.getElementById('fStatusConta').value='Em Aberto';
+  document.getElementById('modalBackdrop').style.display='flex';
+}
+async function abrirEdicao(id){
+  modoEdicao=true;idEdicao=id;
+  const c=todos.find(x=>x.id===id);if(!c)return;
+  document.getElementById('modalTitulo').textContent='Editar Conta a Pagar';
+  document.getElementById('fDesc').value=c.descricao||'';
+  document.getElementById('fFornecedor').value=c.fornecedor_id||'';
+  document.getElementById('fTipoConta').value=c.tipo_conta||'';
+  document.getElementById('fValor').value=c.valor||'';
+  document.getElementById('fCompetencia').value=c.competencia||'';
+  document.getElementById('fVencimento').value=c.data_vencimento||'';
+  document.getElementById('fPagamento').value=c.data_pagamento||'';
+  document.getElementById('fFormaPag').value=c.forma_pagamento||'';
+  document.getElementById('fStatusConta').value=c.status||'Em Aberto';
+  document.getElementById('fObs').value=c.observacoes||'';
+  document.getElementById('modalBackdrop').style.display='flex';
+}
+function fecharModal(){document.getElementById('modalBackdrop').style.display='none'}
+
+async function salvar(e){
+  e.preventDefault();
+  const dados={
+    descricao:     document.getElementById('fDesc').value.trim(),
+    fornecedor_id: document.getElementById('fFornecedor').value||null,
+    tipo_conta:    document.getElementById('fTipoConta').value,
+    valor:         parseFloat(document.getElementById('fValor').value),
+    competencia:   document.getElementById('fCompetencia').value||null,
+    data_vencimento: document.getElementById('fVencimento').value,
+    data_pagamento:  document.getElementById('fPagamento').value||null,
+    forma_pagamento: document.getElementById('fFormaPag').value||null,
+    status:        document.getElementById('fStatusConta').value,
+    observacoes:   document.getElementById('fObs').value.trim()||null,
+  };
+  try{
+    if(modoEdicao){
+      await sbAtualizar(TABELA,idEdicao,dados);
+      msgGlobal('Conta atualizada com sucesso!');
+    } else {
+      dados.numero = await sbProximoNumero(TABELA,'numero','CP');
+      await sbInserir(TABELA,dados);
+      msgGlobal('Conta cadastrada com sucesso!');
+    }
+    fecharModal();
+    await carregarTudo();
+  } catch(err){msgGlobal('Erro: '+err.message,'err')}
+}
+
+// Excluir
+function confirmarExcluir(id,desc){idExcluir=id;document.getElementById('descExcluir').textContent=desc;document.getElementById('modalExcluirBackdrop').style.display='flex'}
+function fecharModalExcluir(){document.getElementById('modalExcluirBackdrop').style.display='none';idExcluir=null}
+async function excluirConfirmado(){
+  if(!idExcluir)return;
+  try{await sbExcluir(TABELA,idExcluir);fecharModalExcluir();msgGlobal('Conta excluída.');await carregarTudo()}
+  catch(err){msgGlobal('Erro: '+err.message,'err')}
+}
+
+carregarTudo();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

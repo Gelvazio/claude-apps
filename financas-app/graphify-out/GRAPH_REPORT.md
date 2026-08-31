@@ -1,16 +1,16 @@
 # Graph Report - financas-app  (2026-08-31)
 
 ## Corpus Check
-- 6 files · ~5,778 words
+- 7 files · ~5,972 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 83 nodes · 92 edges · 9 communities
+- 85 nodes · 94 edges · 10 communities
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `d88650b6`
+- Built from commit: `d31a6585`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -43,11 +43,11 @@
 ## Import Cycles
 - None detected.
 
-## Communities (9 total, 0 thin omitted)
+## Communities (10 total, 0 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.17
-Nodes (15): app, boot(), changeMonth(), DEFAULT_CATS, deleteTx(), drawChart(), fmt(), loadData() (+7 more)
+Cohesion: 0.16
+Nodes (16): app, boot(), changeMonth(), DEFAULT_CATS, deleteTx(), drawChart(), fmt(), loadData() (+8 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.11
@@ -89,11 +89,11 @@ Nodes (4): Cálculo de Saldo, Cálculos e Formatação, Formatação de Moeda, L
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `Razão — Documentação Técnica` connect `Community 1` to `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`?**
-  _High betweenness centrality (0.244) - this node is a cross-community bridge._
+  _High betweenness centrality (0.232) - this node is a cross-community bridge._
 - **Why does `Fluxo de Dados` connect `Community 4` to `Community 1`?**
-  _High betweenness centrality (0.059) - this node is a cross-community bridge._
+  _High betweenness centrality (0.056) - this node is a cross-community bridge._
 - **Why does `Setup e Configuração` connect `Community 5` to `Community 1`?**
-  _High betweenness centrality (0.048) - this node is a cross-community bridge._
+  _High betweenness centrality (0.045) - this node is a cross-community bridge._
 - **What connects `name`, `version`, `private` to the rest of the system?**
   _52 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 1` be split into smaller, more focused modules?**

@@ -1,0 +1,433 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Balancete Gerencial</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}
+    .main{margin-left:240px;padding:28px 32px;flex:1}
+    @media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:16px}.sidebar.open{transform:translateX(0)}}
+    .sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+    .btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}
+    @media(max-width:768px){.btn-menu{display:flex}}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}
+    .sidebar-overlay.show{display:block}
+
+    .page-header{margin-bottom:24px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+    .page-header h1{font-size:20px;font-weight:700;color:var(--color-text)}
+    .page-header p{font-size:13px;color:var(--color-text-muted);margin-top:2px}
+    [data-theme="dark"] .page-header h1{color:#f8f6ff}
+
+    /* KPIs */
+    .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+    @media(max-width:900px){.kpi-row{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.kpi-row{grid-template-columns:1fr}}
+    .kpi-card{background:var(--color-surface);border:1px solid var(--color-border-faint);border-radius:12px;padding:16px 18px;border-left:4px solid var(--kpi-cor,var(--color-primary))}
+    [data-theme="dark"] .kpi-card{background:#0f0c22;border-color:rgba(139,92,246,0.15)}
+    .kpi-label{font-size:10px;font-weight:700;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+    .kpi-value{font-size:22px;font-weight:800;color:var(--color-text)}
+    .kpi-sub{font-size:11px;color:var(--color-text-muted);margin-top:4px}
+    [data-theme="dark"] .kpi-label{color:#6b5e8a}
+    [data-theme="dark"] .kpi-value{color:#fff}
+
+    /* Period filter */
+    .period-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
+    .period-bar label{font-size:11px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.4px}
+    .period-bar select,.period-bar input{padding:7px 10px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:13px;font-family:inherit;background:var(--color-surface);color:var(--color-text);outline:none}
+    [data-theme="dark"] .period-bar select,[data-theme="dark"] .period-bar input{background:var(--color-surface-2);border-color:var(--color-border-light)}
+
+    /* Two-col grid */
+    .bal-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:24px}
+    @media(max-width:768px){.bal-grid{grid-template-columns:1fr}}
+
+    .bal-card{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}
+    [data-theme="dark"] .bal-card{background:#0f0c22;border:1px solid rgba(139,92,246,0.12)}
+    .bal-card-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--color-border-faint)}
+    [data-theme="dark"] .bal-card-head{border-bottom-color:rgba(139,92,246,0.12)}
+    .bal-card-head h3{font-size:14px;font-weight:700;color:var(--color-text)}
+    [data-theme="dark"] .bal-card-head h3{color:#f0ebff}
+    .bal-total-badge{font-size:14px;font-weight:800;padding:4px 10px;border-radius:20px}
+
+    .bal-table{width:100%;border-collapse:collapse;font-size:12px}
+    .bal-table th{text-align:left;padding:8px 14px;font-size:9px;font-weight:700;color:var(--color-primary);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--color-border-faint)}
+    .bal-table td{padding:8px 14px;border-bottom:1px solid var(--color-border-faint);color:var(--color-text-secondary)}
+    .bal-table tr:last-child td{border-bottom:none}
+    [data-theme="dark"] .bal-table th{color:#a78bfa;border-bottom-color:rgba(139,92,246,0.12)}
+    [data-theme="dark"] .bal-table td{color:#c4b5fd;border-bottom-color:rgba(139,92,246,0.06)}
+
+    /* Chart card */
+    .chart-card{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px;margin-bottom:24px}
+    [data-theme="dark"] .chart-card{background:#0f0c22;border:1px solid rgba(139,92,246,0.12)}
+    .chart-card h3{font-size:14px;font-weight:700;color:var(--color-text);margin-bottom:16px}
+    [data-theme="dark"] .chart-card h3{color:#f0ebff}
+
+    /* Resultado */
+    .resultado-box{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-left:5px solid var(--res-cor,#6366f1)}
+    [data-theme="dark"] .resultado-box{background:#0f0c22;border-color:rgba(139,92,246,0.12)}
+    .resultado-box .res-label{font-size:12px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.5px}
+    .resultado-box .res-value{font-size:28px;font-weight:900;color:var(--color-text)}
+    [data-theme="dark"] .resultado-box .res-value{color:#fff}
+    .resultado-box .res-desc{font-size:12px;color:var(--color-text-muted);margin-top:2px}
+
+    .tipo-group-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:5px 14px 4px;background:var(--color-surface-2);color:var(--color-text-faint)}
+    [data-theme="dark"] .tipo-group-label{background:#1a1535;color:#6b5e8a}
+
+    .vazio-txt{text-align:center;padding:20px;font-size:12px;color:var(--color-text-faint);font-style:italic}
+  </style>
+  <script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t)})();</script>
+</head>
+<body>
+
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>📊 Balancete Gerencial</h1>
+        <p>Conciliação consolidada de contas a pagar e a receber por período.</p>
+      </div>
+      <button class="btn btn-primary" onclick="carregar()">↻ Atualizar</button>
+    </div>
+
+    <!-- Filtro de período -->
+    <div class="period-bar">
+      <label>Competência:</label>
+      <input type="month" id="filtroMes" onchange="carregar()">
+      <label style="margin-left:8px">Ou período:</label>
+      <input type="date" id="filtroIni" onchange="carregar()">
+      <span style="color:var(--color-text-muted)">até</span>
+      <input type="date" id="filtroFim" onchange="carregar()">
+    </div>
+
+    <!-- KPIs -->
+    <div class="kpi-row">
+      <div class="kpi-card" style="--kpi-cor:#22c55e">
+        <div class="kpi-label">Total a Receber</div>
+        <div class="kpi-value" id="kpiReceber">—</div>
+        <div class="kpi-sub" id="kpiReceberSub"></div>
+      </div>
+      <div class="kpi-card" style="--kpi-cor:#ef4444">
+        <div class="kpi-label">Total a Pagar</div>
+        <div class="kpi-value" id="kpiPagar">—</div>
+        <div class="kpi-sub" id="kpiPagarSub"></div>
+      </div>
+      <div class="kpi-card" style="--kpi-cor:#6366f1" id="kpiResCard">
+        <div class="kpi-label">Resultado (Receber − Pagar)</div>
+        <div class="kpi-value" id="kpiResult">—</div>
+        <div class="kpi-sub" id="kpiResultSub"></div>
+      </div>
+      <div class="kpi-card" style="--kpi-cor:#eab308">
+        <div class="kpi-label">Inadimplência</div>
+        <div class="kpi-value" id="kpiInadim">—</div>
+        <div class="kpi-sub" id="kpiInadimSub"></div>
+      </div>
+    </div>
+
+    <!-- Resultado em destaque -->
+    <div class="resultado-box" id="resultadoBox" style="margin-bottom:24px">
+      <div>
+        <div class="res-label">Resultado do Período</div>
+        <div class="res-value" id="resValor">—</div>
+        <div class="res-desc" id="resDesc">—</div>
+      </div>
+    </div>
+
+    <!-- Gráfico -->
+    <div class="chart-card">
+      <h3>Evolução por Tipo de Conta</h3>
+      <canvas id="chartBal" height="100"></canvas>
+    </div>
+
+    <!-- Tabelas lado a lado -->
+    <div class="bal-grid">
+      <!-- Pagar -->
+      <div class="bal-card">
+        <div class="bal-card-head">
+          <h3>💸 Contas a Pagar</h3>
+          <span class="bal-total-badge" style="background:#fee2e2;color:#b91c1c" id="totalPagarBadge">R$ 0,00</span>
+        </div>
+        <div class="crud-table-wrap">
+          <table class="bal-table">
+            <thead><tr><th>Tipo de Conta</th><th>Qtd</th><th>Total</th><th>Status</th></tr></thead>
+            <tbody id="tbodyPagar"><tr><td colspan="4" class="vazio-txt">Carregando…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Receber -->
+      <div class="bal-card">
+        <div class="bal-card-head">
+          <h3>💰 Contas a Receber</h3>
+          <span class="bal-total-badge" style="background:#dcfce7;color:#15803d" id="totalReceberBadge">R$ 0,00</span>
+        </div>
+        <div class="crud-table-wrap">
+          <table class="bal-table">
+            <thead><tr><th>Tipo de Conta</th><th>Qtd</th><th>Total</th><th>Status</th></tr></thead>
+            <tbody id="tbodyReceber"><tr><td colspan="4" class="vazio-txt">Carregando…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lançamentos detalhados -->
+    <div class="bal-card">
+      <div class="bal-card-head"><h3>Lançamentos do Período</h3></div>
+      <div class="crud-table-wrap">
+        <table class="bal-table" style="font-size:12px">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Nº</th>
+              <th>Descrição</th>
+              <th>Conta</th>
+              <th>Valor</th>
+              <th>Vencimento</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyDetalhe"><tr><td colspan="7" class="vazio-txt">Carregando…</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+sbVerificarSessao('../index.html');
+document.getElementById('roleBadge').textContent = sbPerfil() || '';
+sbIniciarBtnTema('btnTema');
+function alternarTema(){const n=sbToggleTema();document.getElementById('btnTema').textContent=n==='dark'?'☀️ Claro':'🌙 Escuro';location.reload()}
+function sair(){sbLogout('../index.html')}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('show')}
+
+function moeda(v){return v!=null?'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}):'R$ 0,00'}
+function dataFmt(d){if(!d)return'—';const[a,m,dd]=d.split('-');return`${dd}/${m}/${a}`}
+function hoje(){return new Date().toISOString().split('T')[0]}
+
+// Set default: current month
+(function(){
+  const d = new Date();
+  const mes = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`;
+  document.getElementById('filtroMes').value = mes;
+})();
+
+let chartInst = null;
+
+async function carregar(){
+  const mes = document.getElementById('filtroMes').value;
+  const ini = document.getElementById('filtroIni').value;
+  const fim = document.getElementById('filtroFim').value;
+
+  // Build query params
+  let qPagar = 'select=*,fornecedores(nome)';
+  let qReceber = 'select=*,clientes(nome)';
+
+  if(mes){
+    qPagar += `&competencia=eq.${mes}`;
+    qReceber += `&competencia=eq.${mes}`;
+  } else if(ini && fim){
+    qPagar += `&data_vencimento=gte.${ini}&data_vencimento=lte.${fim}`;
+    qReceber += `&data_vencimento=gte.${ini}&data_vencimento=lte.${fim}`;
+  }
+
+  const [pagar, receber] = await Promise.all([
+    sbListar('fin_contas_pagar', qPagar),
+    sbListar('fin_contas_receber', qReceber)
+  ]);
+
+  processarDados(pagar, receber);
+}
+
+function sumValor(arr, statusFilter){
+  return arr
+    .filter(c => !statusFilter || c.status===statusFilter)
+    .reduce((s,c)=>s+parseFloat(c.valor||0),0);
+}
+
+function processarDados(pagar, receber){
+  const hj = hoje();
+
+  // KPIs
+  const totalPagar   = sumValor(pagar.filter(c=>c.status!=='Cancelado'));
+  const totalReceber = sumValor(receber.filter(c=>c.status!=='Cancelado'));
+  const resultado    = totalReceber - totalPagar;
+  const inadim       = receber.filter(c=>c.status!=='Cancelado'&&c.status!=='Recebido'&&c.data_vencimento&&c.data_vencimento<hj).reduce((s,c)=>s+parseFloat(c.valor||0),0);
+  const pagarPago    = sumValor(pagar,'Pago');
+  const receberReceb = sumValor(receber,'Recebido');
+
+  document.getElementById('kpiPagar').textContent     = moeda(totalPagar);
+  document.getElementById('kpiPagarSub').textContent  = `Pago: ${moeda(pagarPago)}`;
+  document.getElementById('kpiReceber').textContent   = moeda(totalReceber);
+  document.getElementById('kpiReceberSub').textContent= `Recebido: ${moeda(receberReceb)}`;
+  document.getElementById('kpiResult').textContent    = moeda(Math.abs(resultado));
+  document.getElementById('kpiResultSub').textContent = resultado>=0 ? '▲ Superávit' : '▼ Déficit';
+  document.getElementById('kpiInadim').textContent    = moeda(inadim);
+  document.getElementById('kpiInadimSub').textContent = `${receber.filter(c=>c.status!=='Cancelado'&&c.status!=='Recebido'&&c.data_vencimento&&c.data_vencimento<hj).length} títulos`;
+
+  // KPI resultado card cor
+  document.getElementById('kpiResCard').style.setProperty('--kpi-cor', resultado>=0?'#22c55e':'#ef4444');
+
+  // Resultado box
+  const rBox = document.getElementById('resultadoBox');
+  rBox.style.setProperty('--res-cor', resultado>=0?'#22c55e':'#ef4444');
+  document.getElementById('resValor').textContent = (resultado>=0?'+':'')+moeda(resultado);
+  document.getElementById('resValor').style.color = resultado>=0?'#16a34a':'#dc2626';
+  document.getElementById('resDesc').textContent  = resultado>=0
+    ? 'O período apresenta superávit — mais a receber do que a pagar.'
+    : 'O período apresenta déficit — mais a pagar do que a receber.';
+
+  // Badges
+  document.getElementById('totalPagarBadge').textContent   = moeda(totalPagar);
+  document.getElementById('totalReceberBadge').textContent = moeda(totalReceber);
+
+  // Tabela pagar por tipo
+  renderGrupo(pagar, 'tbodyPagar', 'vermelho');
+  renderGrupo(receber, 'tbodyReceber', 'verde');
+
+  // Lançamentos detalhados
+  renderDetalhe(pagar, receber);
+
+  // Gráfico
+  renderChart(pagar, receber);
+}
+
+function renderGrupo(arr, tbodyId, cor){
+  const tbody = document.getElementById(tbodyId);
+  const naoCancel = arr.filter(c=>c.status!=='Cancelado');
+  if(!naoCancel.length){tbody.innerHTML='<tr><td colspan="4" class="vazio-txt">Sem lançamentos no período.</td></tr>';return}
+
+  // Agrupar por tipo
+  const grupos = {};
+  naoCancel.forEach(c=>{
+    const k = c.tipo_conta||'Outros';
+    if(!grupos[k]) grupos[k]={qtd:0,total:0,statuses:{}};
+    grupos[k].qtd++;
+    grupos[k].total+=parseFloat(c.valor||0);
+    const stKey = c.status||'Em Aberto';
+    grupos[k].statuses[stKey]=(grupos[k].statuses[stKey]||0)+parseFloat(c.valor||0);
+  });
+
+  const statusBadgeCls = {
+    'Em Aberto':'badge-azul','Pago':'badge-verde','Recebido':'badge-verde',
+    'Vencido':'badge-vermelho','Em Atraso':'badge-vermelho','Cancelado':'badge-cinza'
+  };
+
+  tbody.innerHTML = Object.entries(grupos).sort((a,b)=>b[1].total-a[1].total).map(([tipo, g])=>{
+    const statusHtml = Object.entries(g.statuses).map(([st,v])=>
+      `<span class="badge ${statusBadgeCls[st]||'badge-cinza'}" style="font-size:9px">${st}: ${moeda(v)}</span>`
+    ).join(' ');
+    return `<tr>
+      <td style="font-weight:600;color:var(--color-text)">${tipo}</td>
+      <td>${g.qtd}</td>
+      <td style="font-weight:700;color:${cor==='vermelho'?'#b91c1c':'#16a34a'}">${moeda(g.total)}</td>
+      <td style="min-width:140px">${statusHtml}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderDetalhe(pagar, receber){
+  const hj = hoje();
+  const tbody = document.getElementById('tbodyDetalhe');
+  const linhas = [
+    ...pagar.map(c=>({...c, _tipo:'Pagar'})),
+    ...receber.map(c=>({...c, _tipo:'Receber'}))
+  ].sort((a,b)=>(a.data_vencimento||'').localeCompare(b.data_vencimento||''));
+
+  if(!linhas.length){tbody.innerHTML='<tr><td colspan="7" class="vazio-txt">Sem lançamentos no período.</td></tr>';return}
+
+  const statusBadgeCls = {
+    'Em Aberto':'badge-azul','Pago':'badge-verde','Recebido':'badge-verde',
+    'Vencido':'badge-vermelho','Em Atraso':'badge-vermelho','Cancelado':'badge-cinza'
+  };
+
+  tbody.innerHTML = linhas.map(c=>{
+    let st = c.status||'Em Aberto';
+    if(st==='Em Aberto'&&c.data_vencimento&&c.data_vencimento<hj) st=c._tipo==='Pagar'?'Vencido':'Em Atraso';
+    const tipoBadge = c._tipo==='Pagar'
+      ? '<span class="badge badge-vermelho" style="font-size:9px">Pagar</span>'
+      : '<span class="badge badge-verde" style="font-size:9px">Receber</span>';
+    const valorCor = c._tipo==='Pagar'?'#b91c1c':'#16a34a';
+    return `<tr>
+      <td>${tipoBadge}</td>
+      <td style="font-family:monospace;font-size:10px">${c.numero||'—'}</td>
+      <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.descricao||'—'}</td>
+      <td><span class="badge badge-cinza" style="font-size:9px">${c.tipo_conta||'—'}</span></td>
+      <td style="font-weight:700;color:${valorCor}">${moeda(c.valor)}</td>
+      <td>${dataFmt(c.data_vencimento)}</td>
+      <td><span class="badge ${statusBadgeCls[st]||'badge-cinza'}" style="font-size:9px">${st}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+function renderChart(pagar, receber){
+  // Tipos únicos de contas pagar
+  const tiposPagar = [...new Set(pagar.filter(c=>c.status!=='Cancelado').map(c=>c.tipo_conta||'Outros'))];
+  const tiposReceber = [...new Set(receber.filter(c=>c.status!=='Cancelado').map(c=>c.tipo_conta||'Outros'))];
+  const labels = [...new Set([...tiposPagar,...tiposReceber])].slice(0,10);
+
+  const dataPagar = labels.map(l=>
+    pagar.filter(c=>c.status!=='Cancelado'&&(c.tipo_conta||'Outros')===l).reduce((s,c)=>s+parseFloat(c.valor||0),0)
+  );
+  const dataReceber = labels.map(l=>
+    receber.filter(c=>c.status!=='Cancelado'&&(c.tipo_conta||'Outros')===l).reduce((s,c)=>s+parseFloat(c.valor||0),0)
+  );
+
+  const isDark = document.documentElement.getAttribute('data-theme')==='dark';
+  const gridColor = isDark?'rgba(139,92,246,0.1)':'rgba(0,0,0,0.06)';
+  const textColor = isDark?'#a78bfa':'#666';
+
+  if(chartInst) chartInst.destroy();
+  chartInst = new Chart(document.getElementById('chartBal'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'A Pagar', data: dataPagar, backgroundColor: 'rgba(239,68,68,0.7)', borderColor: '#ef4444', borderWidth: 1.5, borderRadius: 5 },
+        { label: 'A Receber', data: dataReceber, backgroundColor: 'rgba(34,197,94,0.7)', borderColor: '#22c55e', borderWidth: 1.5, borderRadius: 5 }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'top', labels: { color: textColor, font: { size: 11 } } },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${moeda(ctx.raw)}` } }
+      },
+      scales: {
+        x: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 10 } } },
+        y: { grid: { color: gridColor }, ticks: { color: textColor, font: { size: 10 }, callback: v => 'R$ '+Number(v).toLocaleString('pt-BR') } }
+      }
+    }
+  });
+}
+
+carregar();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

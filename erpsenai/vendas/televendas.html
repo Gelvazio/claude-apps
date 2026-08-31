@@ -1,0 +1,432 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Tele Vendas</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+    .sidebar-section { padding: 16px 0 4px; }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+
+    .page-header { margin-bottom: 24px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .page-header h1 { font-size: 20px; font-weight: 700; color: var(--color-text); }
+    .page-header p { font-size: 13px; color: var(--color-text-muted); margin-top: 2px; }
+
+    .toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .search-input { flex: 1; min-width: 200px; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; font-family: inherit; background: var(--color-surface); color: var(--color-text); outline: none; }
+    .search-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(0,67,132,.12); }
+    [data-theme="dark"] .search-input { background: var(--color-surface-2); border-color: var(--color-border); color: var(--color-text); }
+
+    .content-card { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+
+    .msg-global { margin-bottom: 14px; display: none; }
+
+    .modal-foot { padding: 12px 20px; display: flex; gap: 10px; justify-content: flex-end; align-items: center; border-top: 1px solid var(--color-border-faint); background: var(--color-surface); flex-shrink: 0; }
+    [data-theme="dark"] .modal-foot { border-top-color: var(--color-border-light); }
+
+    .readonly-field { background: var(--color-surface-2) !important; color: var(--color-text-muted) !important; }
+  </style>
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script src="../gamificacao/gamif.js"></script>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────── -->
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<!-- ── Overlay mobile ─────────────────────────── -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ── Layout ─────────────────────────────────── -->
+<div class="app-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <!-- Conteúdo -->
+  <main class="main">
+
+    <div class="page-header">
+      <div>
+        <h1>📞 Tele Vendas</h1>
+        <p>Pedidos recebidos via sistema externo (IRP)</p>
+      </div>
+      <button class="btn" onclick="abrirModalNovo()">+ Novo Registro</button>
+    </div>
+
+    <!-- Mensagem global -->
+    <div id="msgGlobal" class="crud-msg msg-global"></div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <input class="search-input" type="text" id="campoBusca" placeholder="Buscar por Pedido D ou ID Chave…" oninput="aplicarFiltros()">
+      <select class="search-input" id="filtroStatus" style="flex:0 0 200px" onchange="aplicarFiltros()">
+        <option value="">Todos os status</option>
+        <option>Em Aberto</option>
+        <option>Em Atendimento</option>
+        <option>Aguardando Retorno</option>
+        <option>Concluído</option>
+        <option>Cancelado</option>
+      </select>
+      <button class="btn" onclick="atualizarManual()" style="white-space:nowrap">🔄 Atualizar</button>
+      <span id="autoRefreshLabel" style="font-size:11px;color:var(--color-text-muted);white-space:nowrap;align-self:center"></span>
+    </div>
+
+    <!-- Tabela -->
+    <div class="content-card">
+      <div class="crud-table-wrap">
+        <table class="crud-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Pedido D</th>
+              <th>ID Chave</th>
+              <th>Data / Hora</th>
+              <th>Status</th>
+              <th>Observação</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaBody">
+            <tr><td colspan="7" class="crud-vazio">Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── Modal ──────────────────────────────────── -->
+<div class="crud-backdrop" id="modalBackdrop" style="display:none" onclick="backdropClick(event)">
+  <div class="crud-modal" style="max-width:560px">
+    <div class="crud-modal-head">
+      <h3 id="modalTitulo">Novo Registro</h3>
+      <button class="crud-btn-fechar" onclick="fecharModal()">✕</button>
+    </div>
+    <div style="overflow-y:auto; flex:1;">
+      <div class="crud-form-area">
+
+        <div class="crud-form">
+          <div class="crud-field" style="flex:0 0 100px">
+            <label class="crud-label">ID</label>
+            <input class="crud-input readonly-field" id="fId" readonly>
+          </div>
+          <div class="crud-field" style="flex:1">
+            <label class="crud-label">Pedido D</label>
+            <input class="crud-input" id="fPedidoD" placeholder="ID do pedido externo">
+          </div>
+        </div>
+
+        <div class="crud-form">
+          <div class="crud-field" style="flex:1">
+            <label class="crud-label">ID Chave</label>
+            <input class="crud-input" id="fIdChave" placeholder="Chave do sistema IRP">
+          </div>
+          <div class="crud-field" style="flex:0 0 220px">
+            <label class="crud-label">Data / Hora</label>
+            <input class="crud-input" type="datetime-local" id="fDatahora">
+          </div>
+        </div>
+
+        <div class="crud-form">
+          <div class="crud-field" style="flex:1">
+            <label class="crud-label">Status <span style="color:var(--color-error)">*</span></label>
+            <select class="crud-input" id="fStatus">
+              <option>Em Aberto</option>
+              <option>Em Atendimento</option>
+              <option>Aguardando Retorno</option>
+              <option>Concluído</option>
+              <option>Cancelado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="crud-form">
+          <div class="crud-field">
+            <label class="crud-label">Observação</label>
+            <textarea class="crud-input" id="fObservacao" rows="4" style="resize:vertical" placeholder="Anotações sobre o atendimento…"></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-foot">
+      <div id="msgModal" class="crud-msg" style="flex:1;display:none"></div>
+      <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+      <button class="btn-salvar" onclick="salvar()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao('../index.html');
+  sbExigirPermissao('vendas', '../dashboard.html');
+
+  document.getElementById('roleBadge').textContent = sbPerfil() || '';
+
+  (function () {
+    const t = localStorage.getItem('senai_tema') || 'light';
+    const btn = document.getElementById('btnTema');
+    if (btn) btn.textContent = t === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  })();
+
+  function alternarTema() {
+    const novo = sbToggleTema();
+    const btn = document.getElementById('btnTema');
+    if (btn) btn.textContent = novo === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  }
+
+  function sair() { sbLogout('../index.html'); }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  }
+
+  // ── Estado ─────────────────────────────────────
+  let registros = [];
+  let editId    = null;
+
+  // ── Carregar dados ─────────────────────────────
+  async function carregarDados() {
+    try {
+      const rows = await sbListar('televendas', 'order=id.desc');
+      registros = rows;
+      renderTabela(rows);
+    } catch (e) {
+      document.getElementById('tabelaBody').innerHTML =
+        `<tr><td colspan="7" class="crud-vazio">Erro ao carregar dados: ${e.message}</td></tr>`;
+    }
+  }
+
+  // ── Badges de status ────────────────────────────
+  function statusBadge(s) {
+    const m = {
+      'Em Aberto':        'badge-cinza',
+      'Em Atendimento':   'badge-azul',
+      'Aguardando Retorno':'badge-laranja',
+      'Concluído':        'badge-verde',
+      'Cancelado':        'badge-vermelho'
+    };
+    return `<span class="badge ${m[s] || 'badge-cinza'}">${s}</span>`;
+  }
+
+  // ── Renderizar tabela ───────────────────────────
+  function renderTabela(arr) {
+    const tbody = document.getElementById('tabelaBody');
+    if (!arr.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="crud-vazio">Nenhum registro de Tele Vendas encontrado.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = arr.map(r => {
+      const dh = r.datahora
+        ? new Date(r.datahora).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' })
+        : '—';
+      const obs = r.observacao
+        ? `<span title="${r.observacao.replace(/"/g,'&quot;')}" style="cursor:help">${r.observacao.length > 30 ? r.observacao.slice(0,30) + '…' : r.observacao}</span>`
+        : '<span style="color:var(--color-text-muted)">—</span>';
+      return `
+        <tr>
+          <td style="font-family:monospace;font-size:12px">#${r.id}</td>
+          <td>${r.pedido_d ?? '—'}</td>
+          <td style="font-family:monospace;font-size:12px">${r.id_chave ?? '—'}</td>
+          <td style="white-space:nowrap">${dh}</td>
+          <td>${statusBadge(r.status)}</td>
+          <td>${obs}</td>
+          <td>
+            <button class="crud-btn-acao" onclick="abrirModalEditar(${r.id})">✏️</button>
+            <button class="crud-btn-acao" style="color:var(--color-error)" onclick="excluir(${r.id})">🗑️</button>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  // ── Filtros ─────────────────────────────────────
+  function aplicarFiltros() {
+    const busca  = document.getElementById('campoBusca').value.toLowerCase();
+    const status = document.getElementById('filtroStatus').value;
+    const filtrado = registros.filter(r => {
+      const textMatch = !busca ||
+        (r.pedido_d  ?? '').toLowerCase().includes(busca) ||
+        (r.id_chave  ?? '').toLowerCase().includes(busca);
+      const statusMatch = !status || r.status === status;
+      return textMatch && statusMatch;
+    });
+    renderTabela(filtrado);
+  }
+
+  // ── Modal Novo ──────────────────────────────────
+  function abrirModalNovo() {
+    editId = null;
+    document.getElementById('modalTitulo').textContent = 'Novo Registro';
+    document.getElementById('fId').value        = '(gerado automaticamente)';
+    document.getElementById('fPedidoD').value   = '';
+    document.getElementById('fIdChave').value   = '';
+    document.getElementById('fDatahora').value  = new Date().toISOString().slice(0,16);
+    document.getElementById('fStatus').value    = 'Em Aberto';
+    document.getElementById('fObservacao').value= '';
+
+    document.getElementById('fPedidoD').removeAttribute('readonly');
+    document.getElementById('fIdChave').removeAttribute('readonly');
+    document.getElementById('fDatahora').removeAttribute('readonly');
+    document.getElementById('fPedidoD').classList.remove('readonly-field');
+    document.getElementById('fIdChave').classList.remove('readonly-field');
+    document.getElementById('fDatahora').classList.remove('readonly-field');
+
+    mostrarMsgModal('', false);
+    document.getElementById('modalBackdrop').style.display = 'flex';
+  }
+
+  // ── Modal Editar ────────────────────────────────
+  function abrirModalEditar(id) {
+    const r = registros.find(x => x.id === id);
+    if (!r) return;
+    editId = id;
+    document.getElementById('modalTitulo').textContent = `Editar Registro #${id}`;
+    document.getElementById('fId').value = r.id;
+    document.getElementById('fPedidoD').value   = r.pedido_d  ?? '';
+    document.getElementById('fIdChave').value   = r.id_chave  ?? '';
+    document.getElementById('fDatahora').value  = r.datahora
+      ? r.datahora.slice(0,16)
+      : '';
+    document.getElementById('fStatus').value    = r.status    ?? 'Em Aberto';
+    document.getElementById('fObservacao').value= r.observacao ?? '';
+
+    // campos do sistema externo: somente leitura na edição
+    document.getElementById('fPedidoD').setAttribute('readonly', true);
+    document.getElementById('fIdChave').setAttribute('readonly', true);
+    document.getElementById('fDatahora').setAttribute('readonly', true);
+    document.getElementById('fPedidoD').classList.add('readonly-field');
+    document.getElementById('fIdChave').classList.add('readonly-field');
+    document.getElementById('fDatahora').classList.add('readonly-field');
+
+    mostrarMsgModal('', false);
+    document.getElementById('modalBackdrop').style.display = 'flex';
+  }
+
+  function fecharModal() {
+    document.getElementById('modalBackdrop').style.display = 'none';
+    editId = null;
+  }
+
+  function backdropClick(e) {
+    if (e.target === document.getElementById('modalBackdrop')) fecharModal();
+  }
+
+  // ── Salvar ──────────────────────────────────────
+  async function salvar() {
+    const status = document.getElementById('fStatus').value.trim();
+    if (!status) { mostrarMsgModal('Selecione um status.', true); return; }
+
+    const btn = document.querySelector('.btn-salvar');
+    btn.disabled = true;
+
+    try {
+      if (editId) {
+        // Edição: atualizar apenas status e observacao
+        await sbAtualizar('televendas', editId, {
+          status:     status,
+          observacao: document.getElementById('fObservacao').value.trim() || null
+        });
+        mostrarMsg('Registro atualizado com sucesso!', false);
+      } else {
+        // Novo registro
+        const dados = {
+          pedido_d:   document.getElementById('fPedidoD').value.trim()  || null,
+          id_chave:   document.getElementById('fIdChave').value.trim()  || null,
+          datahora:   document.getElementById('fDatahora').value        || null,
+          status:     status,
+          observacao: document.getElementById('fObservacao').value.trim() || null
+        };
+        await sbInserir('televendas', dados);
+        mostrarMsg('Registro criado com sucesso!', false);
+      }
+      fecharModal();
+      await carregarDados();
+    } catch (e) {
+      mostrarMsgModal(`Erro ao salvar: ${e.message}`, true);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  // ── Excluir ─────────────────────────────────────
+  async function excluir(id) {
+    if (!confirm(`Deseja excluir o registro #${id}? Esta ação não pode ser desfeita.`)) return;
+    try {
+      await sbExcluir('televendas', id);
+      mostrarMsg('Registro excluído.', false);
+      await carregarDados();
+    } catch (e) {
+      mostrarMsg(`Erro ao excluir: ${e.message}`, true);
+    }
+  }
+
+  // ── Mensagens ───────────────────────────────────
+  function mostrarMsg(texto, erro) {
+    const el = document.getElementById('msgGlobal');
+    el.textContent = texto;
+    el.className   = `crud-msg msg-global ${erro ? 'crud-msg-erro' : 'crud-msg-ok'}`;
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 4000);
+  }
+
+  function mostrarMsgModal(texto, erro) {
+    const el = document.getElementById('msgModal');
+    if (!texto) { el.style.display = 'none'; return; }
+    el.textContent = texto;
+    el.className   = `crud-msg ${erro ? 'crud-msg-erro' : 'crud-msg-ok'}`;
+    el.style.display = 'block';
+  }
+
+  // ── Atualização manual / auto-refresh ──────────
+  function atualizarManual() {
+    carregarDados();
+    contadorRefresh = REFRESH_SEG;
+  }
+
+  const REFRESH_SEG = 300;
+  let contadorRefresh = REFRESH_SEG;
+
+  setInterval(() => {
+    contadorRefresh--;
+    const min = Math.floor(contadorRefresh / 60);
+    const seg = String(contadorRefresh % 60).padStart(2, '0');
+    const lbl = document.getElementById('autoRefreshLabel');
+    if (lbl) lbl.textContent = `Atualiza em ${min}:${seg}`;
+    if (contadorRefresh <= 0) {
+      carregarDados();
+      contadorRefresh = REFRESH_SEG;
+    }
+  }, 1000);
+
+  // ── Init ────────────────────────────────────────
+  carregarDados();
+</script>
+</body>
+</html>

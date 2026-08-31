@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Progressão de Carreira</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}.sidebar{width:240px;background:var(--color-surface);border-right:1px solid var(--color-border-faint);display:flex;flex-direction:column;position:fixed;top:56px;left:0;bottom:0;overflow-y:auto;z-index:50;transition:transform .25s}.sidebar-section{padding:20px 0 4px}.sidebar-section-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:1.2px;text-transform:uppercase;padding:0 20px 6px}.sidebar-link{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--color-text-muted);text-decoration:none;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s}.sidebar-link:hover{background:#e8f0fe;color:var(--color-primary)}.sidebar-link.ativo{background:#e8f0fe;color:var(--color-primary);border-left-color:var(--color-primary);font-weight:600}[data-theme="dark"] .sidebar-link:hover,[data-theme="dark"] .sidebar-link.ativo{background:#1e2554;color:#7aa3d4}.sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}.main{margin-left:240px;padding:28px 32px;flex:1}@media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:16px}.sidebar.open{transform:translateX(0)}}.page-header{margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}.page-header h1{font-size:22px;font-weight:700;color:var(--color-text)}.page-header p{font-size:13px;color:var(--color-text-muted);margin-top:2px}.btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}@media(max-width:768px){.btn-menu{display:flex}}.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}.sidebar-overlay.show{display:block}.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}.search-input{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:13px;background:var(--color-surface);color:var(--color-text);font-family:inherit;outline:none}.search-input:focus{border-color:var(--color-primary)}.filter-select{padding:7px 12px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:12px;background:var(--color-surface);color:var(--color-text-muted);cursor:pointer;font-family:inherit}.content-section{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}#msgGlobal{display:none;padding:10px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;margin-bottom:14px}#msgGlobal.ok{background:var(--color-success-bg);border:1px solid var(--color-success-border);color:var(--color-success);display:block}#msgGlobal.err{background:var(--color-error-bg);border:1px solid var(--color-error-border);color:var(--color-error);display:block}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-grid .span-2{grid-column:span 2}.form-grid .span-3{grid-column:span 2}@media(max-width:600px){.form-grid{grid-template-columns:1fr}.form-grid .span-2,.form-grid .span-3{grid-column:span 1}}.form-group{display:flex;flex-direction:column;gap:4px}.form-label{font-size:10px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.3px}.form-label span{color:var(--color-error)}.form-input,.form-select,.form-textarea{width:100%;padding:9px 12px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:13px;color:var(--color-text);background:var(--color-surface-3);font-family:inherit;outline:none}.form-input:focus,.form-select:focus{border-color:var(--color-primary)}.form-textarea{resize:vertical;min-height:60px}[data-theme="dark"] .form-input,[data-theme="dark"] .form-select,[data-theme="dark"] .form-textarea{background:var(--color-surface-2);border-color:var(--color-border);color:var(--color-text)}.modal-footer{padding:12px 20px;display:flex;justify-content:center;gap:10px;border-top:1px solid var(--color-border-light);background:var(--color-surface-2)}.modal-body-scroll{overflow-y:auto;padding:20px;flex:1;max-height:75vh}.paginacao{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--color-border-faint);font-size:12px;color:var(--color-text-muted)}.paginacao-btns{display:flex;gap:6px}.pag-btn{padding:4px 10px;border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface);color:var(--color-text-muted);font-size:12px;cursor:pointer;font-family:inherit}.pag-btn:disabled{opacity:.4;cursor:default}.toggle-wrap{display:flex;align-items:center;gap:10px}.toggle{position:relative;display:inline-block;width:40px;height:22px}.toggle input{opacity:0;width:0;height:0}.toggle-slider{position:absolute;cursor:pointer;inset:0;background:#ccc;border-radius:22px;transition:.3s}.toggle-slider:before{content:"";position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s}.toggle input:checked+.toggle-slider{background:var(--color-primary)}.toggle input:checked+.toggle-slider:before{transform:translateX(18px)}.toggle-label{font-size:13px;color:var(--color-text-muted)}.faixa-salarios{background:var(--color-surface-2);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--color-text-muted);margin-top:4px}.faixa-bar{flex:1;height:8px;background:var(--color-border);border-radius:4px;overflow:hidden;position:relative}.faixa-fill{position:absolute;top:0;left:0;height:100%;background:var(--color-primary);border-radius:4px}
+    @media(max-width:600px){.form-input,.form-select,.form-textarea{font-size:16px}}
+  </style>
+  <script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <script src="../gamificacao/gamif.js"></script>
+</head>
+<body>
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page-header">
+      <div><h1>📈 Progressão de Carreira</h1><p>Tabelas salariais e critérios de progressão por cargo</p></div>
+      <button class="btn" onclick="abrirModalNovo()">+ Nova Progressão</button>
+    </div>
+    <div id="msgGlobal"></div>
+    <div class="toolbar">
+      <input class="search-input" type="text" id="campoBusca" placeholder="🔍  Buscar por cargo ou nível..." oninput="filtrar()">
+      <select class="filter-select" id="filtroCargo" onchange="filtrar()"><option value="">Todos os Cargos</option></select>
+      <select class="filter-select" id="filtroAtivo" onchange="filtrar()"><option value="">Todos</option><option value="true">Ativo</option><option value="false">Inativo</option></select>
+    </div>
+    <div class="content-section">
+      <div class="crud-table-wrap">
+        <table class="crud-table">
+          <thead><tr><th>Cargo</th><th>Nível</th><th>Ordem</th><th>Sal. Mínimo</th><th>Sal. Médio</th><th>Sal. Máximo</th><th>Tempo Mín.</th><th>Nota Mín.</th><th>Ativo</th><th style="width:80px">Ações</th></tr></thead>
+          <tbody id="tbodyProg"><tr><td colspan="10" class="crud-vazio">Carregando…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="paginacao"><span id="paginacaoInfo">—</span><div class="paginacao-btns"><button class="pag-btn" id="btnAnterior" onclick="mudarPagina(-1)">‹ Anterior</button><button class="pag-btn" id="btnProximo" onclick="mudarPagina(1)">Próxima ›</button></div></div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div class="crud-backdrop" id="modalFormulario" style="display:none" onclick="fecharSeClicouFora(event,'modalFormulario')">
+  <div class="crud-modal" style="max-width:720px">
+    <div class="crud-modal-head"><h3 id="modalTitulo">Nova Progressão</h3><button class="crud-btn-fechar" onclick="fecharModal()">✕</button></div>
+    <div class="modal-body-scroll">
+      <div id="msgModal" style="display:none;margin-bottom:12px;padding:10px 14px;border-radius:6px;font-size:13px;font-weight:600;"></div>
+      <form id="formProg" onsubmit="salvar(event)">
+        <div class="form-grid">
+          <div class="form-group span-2"><label class="form-label">Cargo <span>*</span></label><select class="form-select" id="fCargo" required><option value="">— Selecione —</option></select></div>
+          <div class="form-group"><label class="form-label">Nível <span>*</span></label><input class="form-input" type="text" id="fNivel" required placeholder="Ex: Júnior, Pleno, Sênior, I, II"></div>
+          <div class="form-group"><label class="form-label">Ordem <span>*</span></label><input class="form-input" type="number" id="fOrdem" required min="1" placeholder="Ex: 1, 2, 3"></div>
+          <div class="form-group"><label class="form-label">Salário Mínimo (R$) <span>*</span></label><input class="form-input" type="number" id="fSalMin" required min="0" step="0.01" placeholder="0,00"></div>
+          <div class="form-group"><label class="form-label">Salário Médio (R$)</label><input class="form-input" type="number" id="fSalMedio" min="0" step="0.01" placeholder="0,00"></div>
+          <div class="form-group"><label class="form-label">Salário Máximo (R$) <span>*</span></label><input class="form-input" type="number" id="fSalMax" required min="0" step="0.01" placeholder="0,00"></div>
+          <div class="form-group"><label class="form-label">Tempo Mínimo (meses)</label><input class="form-input" type="number" id="fTempoMin" min="0" placeholder="12"></div>
+          <div class="form-group"><label class="form-label">Nota Mínima</label><input class="form-input" type="number" id="fNotaMin" min="0" max="10" step="0.1" placeholder="7,0"></div>
+          <div class="form-group span-2"><label class="form-label">Requisitos</label><textarea class="form-textarea" id="fRequisitos" placeholder="Descreva os requisitos necessários para atingir este nível…"></textarea></div>
+          <div class="form-group">
+            <label class="form-label">Situação</label>
+            <div class="toggle-wrap"><label class="toggle"><input type="checkbox" id="fAtivo" checked><span class="toggle-slider"></span></label><span class="toggle-label">Ativo</span></div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer"><button class="btn-cancelar" onclick="fecharModal()">Cancelar</button><button class="btn-salvar" onclick="document.getElementById('formProg').requestSubmit()">Confirmar</button></div>
+  </div>
+</div>
+
+<div class="crud-backdrop" id="modalExcluir" style="display:none" onclick="fecharSeClicouFora(event,'modalExcluir')">
+  <div class="crud-modal" style="max-width:440px">
+    <div class="crud-modal-head" style="background:#c62828"><h3>Confirmar Exclusão</h3><button class="crud-btn-fechar" onclick="fecharModalExcluir()">✕</button></div>
+    <div class="modal-body-scroll" style="padding:20px"><p style="font-size:14px">Excluir esta faixa de progressão?</p></div>
+    <div class="modal-footer"><button class="btn-cancelar" onclick="fecharModalExcluir()">Cancelar</button><button class="btn-salvar" style="background:#c62828" onclick="excluirConfirmado()">🗑️ Excluir</button></div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao();
+  document.getElementById('roleBadge').textContent=sbPerfil()||'';
+  (function(){const t=localStorage.getItem('senai_tema')||'light';const btn=document.getElementById('btnTema');btn.textContent=t==='dark'?'☀️ Claro':'🌙 Escuro';btn.onclick=()=>{const n=sbToggleTema();btn.textContent=n==='dark'?'☀️ Claro':'🌙 Escuro';};})();
+  function sair(){sbLogout('../index.html');}
+  function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('show');}
+
+  let todos=[],filtrados=[],paginaAtual=0;
+  const POR_PAGINA=50;
+  let idParaExcluir=null,modoEdicao=false,idEdicao=null;
+  let cargos=[];
+
+  function msg(t,tipo='ok',ms=4000){const el=document.getElementById('msgGlobal');el.textContent=t;el.className=tipo;el.style.display='block';if(ms>0)setTimeout(()=>el.style.display='none',ms);}
+  function msgModal(t,tipo='err'){const el=document.getElementById('msgModal');el.textContent=t;el.style.cssText=tipo==='err'?'display:block;background:#fce8e6;border:1px solid #f44336;color:#c62828':'display:block;background:#e8f5e9;border:1px solid #c8e6c9;color:#2e7d32';}
+
+  function nomeCargo(id){const c=cargos.find(x=>x.id===id);return c?c.nome:'—';}
+  const fmtVal=v=>v!=null?'R$ '+parseFloat(v).toLocaleString('pt-BR',{minimumFractionDigits:2}):'—';
+  const badgeAtivo=a=>`<span class="badge ${a?'badge-verde':'badge-cinza'}">${a?'Ativo':'Inativo'}</span>`;
+
+  async function carregar(){
+    document.getElementById('tbodyProg').innerHTML='<tr><td colspan="10" class="crud-vazio">Carregando…</td></tr>';
+    try{
+      cargos=await sbListar('rh_cargos','ativo=eq.true&order=nome.asc');
+      const sel=document.getElementById('fCargo');
+      sel.innerHTML='<option value="">— Selecione —</option>'+cargos.map(c=>`<option value="${c.id}">${c.nome}</option>`).join('');
+      const fc=document.getElementById('filtroCargo');
+      fc.innerHTML='<option value="">Todos os Cargos</option>'+cargos.map(c=>`<option value="${c.id}">${c.nome}</option>`).join('');
+      todos=await sbListar('progressao_desempenho','order=cargo_id.asc,nivel_ordem.asc');
+      filtrar();
+    }catch(e){document.getElementById('tbodyProg').innerHTML=`<tr><td colspan="10" class="crud-vazio">Erro: ${e.message}</td></tr>`;}
+  }
+
+  function filtrar(){
+    const t=document.getElementById('campoBusca').value.toLowerCase().trim();
+    const fc=document.getElementById('filtroCargo').value;
+    const fa=document.getElementById('filtroAtivo').value;
+    filtrados=todos.filter(r=>{
+      if(fc&&r.cargo_id!==fc)return false;
+      if(fa!==''&&String(r.ativo)!==fa)return false;
+      if(!t)return true;
+      return nomeCargo(r.cargo_id).toLowerCase().includes(t)||(r.nivel||'').toLowerCase().includes(t);
+    });
+    paginaAtual=0;renderTabela();
+  }
+
+  function renderTabela(){
+    const tbody=document.getElementById('tbodyProg');
+    const inicio=paginaAtual*POR_PAGINA;const pag=filtrados.slice(inicio,inicio+POR_PAGINA);
+    document.getElementById('paginacaoInfo').textContent=`${filtrados.length} registro(s) · página ${paginaAtual+1} de ${Math.max(1,Math.ceil(filtrados.length/POR_PAGINA))}`;
+    document.getElementById('btnAnterior').disabled=paginaAtual===0;
+    document.getElementById('btnProximo').disabled=inicio+POR_PAGINA>=filtrados.length;
+    if(!pag.length){tbody.innerHTML='<tr><td colspan="10" class="crud-vazio">Nenhum registro encontrado.</td></tr>';return;}
+    tbody.innerHTML=pag.map(r=>`<tr>
+      <td>${nomeCargo(r.cargo_id)}</td>
+      <td>${r.nivel||'—'}</td>
+      <td style="text-align:center">${r.nivel_ordem||'—'}</td>
+      <td>${fmtVal(r.salario_minimo)}</td>
+      <td>${fmtVal(r.salario_medio)}</td>
+      <td>${fmtVal(r.salario_maximo)}</td>
+      <td style="text-align:center">${r.tempo_minimo_meses||0} mês</td>
+      <td style="text-align:center">${r.nota_minima||'—'}</td>
+      <td>${badgeAtivo(r.ativo)}</td>
+      <td class="crud-acts"><button class="btn-ed" onclick="abrirModalEditar('${r.id}')">✏️</button><button class="btn-del" onclick="confirmarExcluir('${r.id}')">🗑️</button></td>
+    </tr>`).join('');
+  }
+
+  function mudarPagina(dir){paginaAtual+=dir;renderTabela();window.scrollTo(0,0);}
+
+  function abrirModalNovo(){
+    modoEdicao=false;idEdicao=null;
+    document.getElementById('modalTitulo').textContent='Nova Progressão';
+    document.getElementById('formProg').reset();
+    document.getElementById('fAtivo').checked=true;
+    document.getElementById('msgModal').style.display='none';
+    document.getElementById('modalFormulario').style.display='flex';
+  }
+
+  function abrirModalEditar(id){
+    modoEdicao=true;idEdicao=id;
+    document.getElementById('modalTitulo').textContent='Editar Progressão';
+    const r=todos.find(x=>x.id===id);if(!r)return;
+    document.getElementById('fCargo').value=r.cargo_id||'';
+    document.getElementById('fNivel').value=r.nivel||'';
+    document.getElementById('fOrdem').value=r.nivel_ordem||'';
+    document.getElementById('fSalMin').value=r.salario_minimo||'';
+    document.getElementById('fSalMedio').value=r.salario_medio||'';
+    document.getElementById('fSalMax').value=r.salario_maximo||'';
+    document.getElementById('fTempoMin').value=r.tempo_minimo_meses||'';
+    document.getElementById('fNotaMin').value=r.nota_minima||'';
+    document.getElementById('fRequisitos').value=r.requisitos||'';
+    document.getElementById('fAtivo').checked=r.ativo!==false;
+    document.getElementById('modalFormulario').style.display='flex';
+  }
+
+  function fecharModal(){document.getElementById('modalFormulario').style.display='none';}
+  function fecharSeClicouFora(e,id){if(e.target.id===id)document.getElementById(id).style.display='none';}
+
+  async function salvar(e){
+    e.preventDefault();
+    const cargoId=document.getElementById('fCargo').value;
+    const nivel=document.getElementById('fNivel').value.trim();
+    const ordem=parseInt(document.getElementById('fOrdem').value);
+    const salMin=parseFloat(document.getElementById('fSalMin').value);
+    const salMax=parseFloat(document.getElementById('fSalMax').value);
+    if(!cargoId){msgModal('Selecione o cargo.');return;}
+    if(!nivel){msgModal('Informe o nível.');return;}
+    if(!ordem){msgModal('Informe a ordem.');return;}
+    if(!salMin){msgModal('Informe o salário mínimo.');return;}
+    if(!salMax){msgModal('Informe o salário máximo.');return;}
+    if(salMax<salMin){msgModal('Salário máximo não pode ser menor que o mínimo.');return;}
+    const salMed=parseFloat(document.getElementById('fSalMedio').value)||null;
+    const dados={
+      cargo_id:cargoId,
+      nivel,
+      nivel_ordem:ordem,
+      salario_minimo:salMin,
+      salario_medio:salMed,
+      salario_maximo:salMax,
+      tempo_minimo_meses:parseInt(document.getElementById('fTempoMin').value)||12,
+      nota_minima:parseFloat(document.getElementById('fNotaMin').value)||7.0,
+      requisitos:document.getElementById('fRequisitos').value.trim()||null,
+      ativo:document.getElementById('fAtivo').checked
+    };
+    try{
+      if(modoEdicao)await sbAtualizar('progressao_desempenho',idEdicao,dados);
+      else          await sbInserir('progressao_desempenho',dados);
+      fecharModal();await carregar();msg(modoEdicao?'Progressão atualizada!':'Progressão registrada!');
+    }catch(err){msgModal('Erro: '+err.message);}
+  }
+
+  function confirmarExcluir(id){idParaExcluir=id;document.getElementById('modalExcluir').style.display='flex';}
+  function fecharModalExcluir(){document.getElementById('modalExcluir').style.display='none';}
+  async function excluirConfirmado(){try{await sbExcluir('progressao_desempenho',idParaExcluir);fecharModalExcluir();await carregar();msg('Excluído.','ok');}catch(e){fecharModalExcluir();msg('Erro: '+e.message,'err');}}
+
+  carregar();
+</script>
+</body>
+</html>

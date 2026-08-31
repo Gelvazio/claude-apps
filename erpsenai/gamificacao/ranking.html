@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Ranking</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="gamif.js"></script>
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}
+    .sidebar{width:240px;background:var(--color-surface);border-right:1px solid var(--color-border-faint);display:flex;flex-direction:column;position:fixed;top:56px;left:0;bottom:0;overflow-y:auto;z-index:50;transition:transform .25s}
+    .sidebar-section{padding:20px 0 4px}
+    .sidebar-section-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:1.2px;text-transform:uppercase;padding:0 20px 6px}
+    .sidebar-link{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--color-text-muted);text-decoration:none;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s}
+    .sidebar-link:hover{background:#e8f0fe;color:var(--color-primary)}
+    .sidebar-link.ativo{background:#e8f0fe;color:var(--color-primary);border-left-color:var(--color-primary);font-weight:600}
+    [data-theme="dark"] .sidebar-link:hover,[data-theme="dark"] .sidebar-link.ativo{background:#1e2554;color:#7aa3d4}
+    .sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+    .main{margin-left:240px;padding:28px 32px;flex:1}
+    @media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:16px}.sidebar.open{transform:translateX(0)}}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}
+    .sidebar-overlay.show{display:block}
+    .btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}
+    @media(max-width:768px){.btn-menu{display:flex}}
+    .ranking-card{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}
+    .ranking-header{padding:16px 20px;border-bottom:1px solid var(--color-border-faint);font-weight:700;font-size:15px;color:var(--color-text)}
+    .ranking-row{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--color-border-faint)}
+    .ranking-row:last-child{border-bottom:none}
+    .ranking-row.eu{background:#e8f0fe}
+    [data-theme="dark"] .ranking-row.eu{background:#1e2554}
+    .rank-pos{font-size:20px;width:36px;text-align:center;flex-shrink:0}
+    .rank-nome{flex:1;font-size:14px;font-weight:600;color:var(--color-text)}
+    .rank-nivel{font-size:12px;color:var(--color-text-muted)}
+    .rank-xp{font-size:13px;font-weight:700;color:var(--color-primary)}
+    .sem-grupo{text-align:center;padding:40px;color:var(--color-text-muted)}
+    #loading{text-align:center;padding:40px;color:var(--color-text-muted)}
+  </style>
+  <script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t)})();</script>
+</head>
+<body>
+<script>(function(){if(!localStorage.getItem('erp_role'))window.location.replace('../index.html')})();</script>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<header style="position:fixed;top:0;left:0;right:0;height:56px;background:var(--color-primary);display:flex;align-items:center;padding:0 20px;gap:14px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.18)">
+  <button class="btn-menu" onclick="toggleSidebar()">☰</button>
+  <span style="color:#fff;font-weight:700;font-size:16px;flex:1">🏆 ERP SENAI</span>
+  <button onclick="toggleTema()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px">🌙 Tema</button>
+  <button onclick="sair()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px">Sair</button>
+</header>
+
+<div class="app-layout" style="margin-top:56px">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div style="margin-bottom:20px">
+      <h1 style="font-size:22px;font-weight:700;color:var(--color-text)">🏆 Ranking do Grupo</h1>
+      <p style="font-size:13px;color:var(--color-text-muted);margin-top:2px" id="nomeGrupo">Carregando...</p>
+    </div>
+    <div id="loading">Carregando ranking...</div>
+    <div id="conteudo" style="display:none">
+      <div class="ranking-card">
+        <div class="ranking-header" id="rankHeader"></div>
+        <div id="rankList"></div>
+      </div>
+    </div>
+    <div id="semGrupo" style="display:none" class="sem-grupo">
+      <p style="font-size:32px">🎮</p>
+      <p style="font-weight:700;margin:8px 0">Você ainda não está em nenhum grupo</p>
+      <p style="font-size:13px">Peça ao administrador para adicioná-lo a um grupo para ver o ranking.</p>
+    </div>
+  </main>
+</div>
+
+<script>
+  const SB_URL = 'https://vdhahqicqlrdvcpesiwk.supabase.co/rest/v1';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkaGFocWljcWxyZHZjcGVzaXdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MTI3OTYsImV4cCI6MjEwMjI4ODc5Nn0.7ACHuUUv6VMyy4-BbQcdAcmabMtqhiuVgrTGUUcV7RY';
+  const HDR    = { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` };
+  const uid    = localStorage.getItem('erp_user_id');
+  const role   = localStorage.getItem('erp_role');
+
+  if (role === 'Administrador') document.getElementById('linkAdmin').style.display = 'flex';
+
+  const NIVEL_NOMES = ['','Iniciante','Aprendiz','Operador','Analista','Especialista','Sênior','Master ERP'];
+
+  async function get(path) {
+    const r = await fetch(`${SB_URL}/${path}`, { headers: HDR });
+    return r.json();
+  }
+
+  const MEDALHAS = ['🥇','🥈','🥉'];
+
+  async function init() {
+    const grupos = await get(`gamif_usuario_grupo?usuario_id=eq.${uid}&select=grupo_id`);
+    if (!grupos.length) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('semGrupo').style.display = 'block';
+      return;
+    }
+
+    const gid      = grupos[0].grupo_id;
+    const grupo    = await get(`gamif_grupos?id=eq.${gid}&select=nome`);
+    const membros  = await get(`gamif_usuario_grupo?grupo_id=eq.${gid}&select=usuario_id`);
+    const ids      = membros.map(m => m.usuario_id).join(',');
+    const perfis   = await get(`gamif_perfil?usuario_id=in.(${ids})&order=xp_total.desc&select=usuario_id,xp_total,nivel`);
+    const usuarios = await get(`erp_usuarios?id=in.(${ids})&select=id,nome`);
+
+    const nomeMap = {};
+    usuarios.forEach(u => { nomeMap[u.id] = u.nome; });
+
+    document.getElementById('nomeGrupo').textContent = grupo[0]?.nome || '';
+    document.getElementById('rankHeader').textContent = `${grupo[0]?.nome || 'Grupo'} — ${perfis.length} participante${perfis.length !== 1 ? 's' : ''}`;
+
+    document.getElementById('rankList').innerHTML = perfis.map((p, i) => `
+      <div class="ranking-row ${p.usuario_id === uid ? 'eu' : ''}">
+        <div class="rank-pos">${MEDALHAS[i] || (i + 1)}</div>
+        <div class="rank-nome">
+          ${nomeMap[p.usuario_id] || 'Usuário'}
+          ${p.usuario_id === uid ? ' <span style="font-size:11px;color:var(--color-primary)">(você)</span>' : ''}
+          <div class="rank-nivel">Nível ${p.nivel} — ${NIVEL_NOMES[p.nivel] || ''}</div>
+        </div>
+        <div class="rank-xp">${p.xp_total.toLocaleString('pt-BR')} XP</div>
+      </div>
+    `).join('');
+
+    document.getElementById('loading').style.display  = 'none';
+    document.getElementById('conteudo').style.display = 'block';
+  }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  }
+  function toggleTema() {
+    const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('senai_tema', t);
+  }
+  function sair() { localStorage.clear(); window.location.replace('../index.html'); }
+
+  init();
+</script>
+<script src="../menu.js"></script>
+</body>
+</html>

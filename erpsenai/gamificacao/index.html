@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Minha Jornada</title>
+  <link rel="stylesheet" href="../styles.css">
+  <script src="gamif.js"></script>
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}
+    .sidebar{width:240px;background:var(--color-surface);border-right:1px solid var(--color-border-faint);display:flex;flex-direction:column;position:fixed;top:56px;left:0;bottom:0;overflow-y:auto;z-index:50;transition:transform .25s}
+    .sidebar-section{padding:20px 0 4px}
+    .sidebar-section-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:1.2px;text-transform:uppercase;padding:0 20px 6px}
+    .sidebar-link{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--color-text-muted);text-decoration:none;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s}
+    .sidebar-link:hover{background:#e8f0fe;color:var(--color-primary)}
+    .sidebar-link.ativo{background:#e8f0fe;color:var(--color-primary);border-left-color:var(--color-primary);font-weight:600}
+    [data-theme="dark"] .sidebar-link:hover,[data-theme="dark"] .sidebar-link.ativo{background:#1e2554;color:#7aa3d4}
+    .sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+    .main{margin-left:240px;padding:28px 32px;flex:1}
+    @media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:16px}.sidebar.open{transform:translateX(0)}}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}
+    .sidebar-overlay.show{display:block}
+    .btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}
+    @media(max-width:768px){.btn-menu{display:flex}}
+    /* Accordion sidebar */
+    .sidebar-section-label{cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:0 20px 6px;user-select:none}
+    .sidebar-section-label::after{content:'▸';font-size:11px;transition:transform .2s;color:var(--color-text-disabled)}
+    .sidebar-section.open>.sidebar-section-label::after{transform:rotate(90deg)}
+    .sidebar-section-links{display:none;overflow:hidden}
+    .sidebar-section.open>.sidebar-section-links{display:block}
+    /* Perfil card */
+    .perfil-card{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:24px;margin-bottom:20px}
+    .perfil-nome{font-size:20px;font-weight:700;color:var(--color-text);margin-bottom:4px}
+    .perfil-nivel{font-size:13px;color:var(--color-text-muted);margin-bottom:14px}
+    .xp-bar-wrap{background:var(--color-border-light);border-radius:100px;height:10px;margin-bottom:6px;overflow:hidden}
+    .xp-bar{height:100%;background:var(--color-primary);border-radius:100px;transition:width .5s}
+    .xp-label{font-size:12px;color:var(--color-text-muted)}
+    .badges-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .badge-pill{display:flex;align-items:center;gap:6px;background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:100px;padding:4px 12px;font-size:12px;color:var(--color-text-muted)}
+    .badge-pill.ganho{background:#fff8e1;border-color:#f59e0b;color:#92400e}
+    [data-theme="dark"] .badge-pill.ganho{background:#2d2000;border-color:#f59e0b;color:#fcd34d}
+    /* Filtros */
+    .filter-btn{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:100px;padding:4px 12px;font-size:12px;font-weight:500;color:var(--color-text-muted);cursor:pointer;transition:background .15s,color .15s}
+    .filter-btn:hover{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+    .filter-btn.ativo{background:var(--color-primary);border-color:var(--color-primary);color:#fff;font-weight:600}
+    /* Missões */
+    .section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px}
+    .section-title{font-size:16px;font-weight:700;color:var(--color-text)}
+    .missoes-list{display:flex;flex-direction:column;gap:10px}
+    .missao-card{background:var(--color-surface);border:1px solid var(--color-border-faint);border-radius:var(--radius-md);padding:14px 16px;display:flex;align-items:center;gap:14px}
+    .missao-card.concluida{opacity:.6}
+    .missao-icon{font-size:22px;flex-shrink:0}
+    .missao-info{flex:1;min-width:0}
+    .missao-titulo{font-size:13px;font-weight:600;color:var(--color-text);margin-bottom:2px}
+    .missao-desc{font-size:12px;color:var(--color-text-muted)}
+    .missao-xp{font-size:12px;font-weight:700;color:var(--color-primary);flex-shrink:0}
+    .missao-status{font-size:11px;font-weight:600;padding:3px 8px;border-radius:100px;flex-shrink:0}
+    .missao-status.pendente{background:var(--color-warning-bg,#fff8e1);color:var(--color-warning,#b45309)}
+    .missao-status.concluida{background:var(--color-success-bg,#ecfdf5);color:var(--color-success,#065f46)}
+    .missao-prog{font-size:11px;color:var(--color-text-disabled);margin-top:3px}
+    .link-ranking{font-size:13px;color:var(--color-primary);text-decoration:none;font-weight:600}
+    .link-ranking:hover{text-decoration:underline}
+    #loading{text-align:center;padding:40px;color:var(--color-text-muted)}
+    @media(max-width:600px){.missao-card{flex-wrap:wrap}.missao-xp{order:3}.missao-status{order:4}}
+    @media(max-width:480px){.header-title{display:none}}
+  </style>
+  <script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t)})();</script>
+</head>
+<body>
+<script>(function(){if(!localStorage.getItem('erp_role'))window.location.replace('../index.html')})();</script>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<header style="position:fixed;top:0;left:0;right:0;height:56px;background:var(--color-primary);display:flex;align-items:center;padding:0 20px;gap:14px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.18)">
+  <button class="btn-menu" onclick="toggleSidebar()">☰</button>
+  <span class="header-title" style="color:#fff;font-weight:700;font-size:16px;flex:1">🎮 ERP SENAI</span>
+  <button onclick="toggleTema()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px">🌙 Tema</button>
+  <button onclick="sair()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px">Sair</button>
+</header>
+
+<div class="app-layout" style="margin-top:56px">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+      <div>
+        <h1 style="font-size:22px;font-weight:700;color:var(--color-text)">🎮 Minha Jornada</h1>
+        <p style="font-size:13px;color:var(--color-text-muted);margin-top:2px">Acompanhe seu progresso no ERP</p>
+      </div>
+      <a class="link-ranking" href="ranking.html">Ver Ranking →</a>
+    </div>
+
+    <div id="loading">Carregando seu progresso...</div>
+    <div id="conteudo" style="display:none">
+      <!-- Perfil -->
+      <div class="perfil-card">
+        <div class="perfil-nome" id="pNome"></div>
+        <div class="perfil-nivel" id="pNivel"></div>
+        <div class="xp-bar-wrap"><div class="xp-bar" id="pBar" style="width:0%"></div></div>
+        <div class="xp-label" id="pXpLabel"></div>
+        <div class="badges-row" id="pBadges"></div>
+      </div>
+
+      <!-- Missões -->
+      <div class="section-header">
+        <div class="section-title">Missões</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="filter-btn ativo" onclick="filtrar('todas',this)">Todas</button>
+          <button class="filter-btn" onclick="filtrar('pendente',this)">Pendentes</button>
+          <button class="filter-btn" onclick="filtrar('concluida',this)">Concluídas</button>
+        </div>
+      </div>
+      <div class="missoes-list" id="missoesList"></div>
+    </div>
+  </main>
+</div>
+
+<script>
+  const SB_URL = 'https://vdhahqicqlrdvcpesiwk.supabase.co/rest/v1';
+  const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkaGFocWljcWxyZHZjcGVzaXdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MTI3OTYsImV4cCI6MjEwMjI4ODc5Nn0.7ACHuUUv6VMyy4-BbQcdAcmabMtqhiuVgrTGUUcV7RY';
+  const HDR    = { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` };
+
+  const uid  = localStorage.getItem('erp_user_id');
+  const nome = localStorage.getItem('erp_user_nome') || 'Usuário';
+  const role = localStorage.getItem('erp_role');
+
+  if (role === 'Administrador') document.getElementById('linkAdmin').style.display = 'flex';
+
+  let _missoes = [];
+  let _filtro  = 'todas';
+
+  async function get(path) {
+    const r = await fetch(`${SB_URL}/${path}`, { headers: HDR });
+    return r.json();
+  }
+
+  async function init() {
+    try {
+      const perfil = await window.gamif.carregarPerfil();
+
+      document.getElementById('pNome').textContent  = nome;
+      document.getElementById('pNivel').textContent = `⭐ Nível ${perfil.nivel} — ${perfil.nome_nivel}`;
+      document.getElementById('pBar').style.width   = perfil.percentual + '%';
+
+      const proxNivel = perfil.NIVEIS.find(n => n.nivel === perfil.nivel + 1);
+      document.getElementById('pXpLabel').textContent = proxNivel
+        ? `${perfil.xp_total} / ${proxNivel.xp} XP para o próximo nível`
+        : `${perfil.xp_total} XP — Nível máximo atingido! 🌟`;
+
+      const badgesEl = document.getElementById('pBadges');
+      badgesEl.innerHTML = perfil.BADGES_DEF.map(b => {
+        const ganhou = perfil.badges.includes(b.slug);
+        return `<span class="badge-pill ${ganhou ? 'ganho' : ''}" title="${b.nome}">${b.emoji} ${b.nome}</span>`;
+      }).join('');
+
+      const prog    = await get(`gamif_progresso?usuario_id=eq.${uid}&select=missao_id,progresso,concluida`);
+      const missoes = await get(`gamif_missoes?ativo=eq.true&order=tipo.asc&select=id,titulo,descricao,evento,meta,xp,tipo`);
+
+      const progMap = {};
+      prog.forEach(p => { progMap[p.missao_id] = p; });
+
+      _missoes = missoes.map(m => ({ ...m, prog: progMap[m.id] || { progresso: 0, concluida: false } }));
+
+      renderMissoes();
+      document.getElementById('loading').style.display  = 'none';
+      document.getElementById('conteudo').style.display = 'block';
+    } catch (e) {
+      document.getElementById('loading').textContent = 'Erro ao carregar perfil. Verifique sua conexão.';
+      console.error('[gamif/index]', e);
+    }
+  }
+
+  function renderMissoes() {
+    const list = document.getElementById('missoesList');
+    const itens = _filtro === 'todas' ? _missoes
+      : _missoes.filter(m => _filtro === 'concluida' ? m.prog.concluida : !m.prog.concluida);
+
+    if (!itens.length) {
+      list.innerHTML = '<p style="color:var(--color-text-muted);padding:20px 0">Nenhuma missão encontrada.</p>';
+      return;
+    }
+
+    list.innerHTML = itens.map(m => `
+      <div class="missao-card ${m.prog.concluida ? 'concluida' : ''}">
+        <div class="missao-icon">${m.tipo === 'onboarding' ? '📘' : m.tipo === 'especial' ? '⭐' : '🎯'}</div>
+        <div class="missao-info">
+          <div class="missao-titulo">${m.titulo}</div>
+          <div class="missao-desc">${m.descricao || ''}</div>
+          ${m.meta > 1 ? `<div class="missao-prog">Progresso: ${m.prog.progresso}/${m.meta}</div>` : ''}
+        </div>
+        <div class="missao-xp">+${m.xp} XP</div>
+        <span class="missao-status ${m.prog.concluida ? 'concluida' : 'pendente'}">${m.prog.concluida ? '✅ Feita' : '⏳ Pendente'}</span>
+      </div>
+    `).join('');
+  }
+
+  function filtrar(f, btn) {
+    _filtro = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('ativo'));
+    btn.classList.add('ativo');
+    renderMissoes();
+  }
+
+  // Accordion sidebar
+  document.querySelectorAll('.sidebar-section-label').forEach(label => {
+    label.addEventListener('click', () => {
+      label.closest('.sidebar-section').classList.toggle('open');
+    });
+  });
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  }
+  function toggleTema() {
+    const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('senai_tema', t);
+  }
+  function sair() {
+    localStorage.clear();
+    window.location.replace('../index.html');
+  }
+
+  init();
+</script>
+<script src="../menu.js"></script>
+</body>
+</html>

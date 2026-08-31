@@ -1,0 +1,508 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Solicitações de Compra</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+    .sidebar { width: 240px; background: var(--color-surface); border-right: 1px solid var(--color-border-faint); display: flex; flex-direction: column; position: fixed; top: 56px; left: 0; bottom: 0; overflow-y: auto; z-index: 50; transition: transform .25s; }
+    [data-theme="dark"] .sidebar { border-right-color: var(--color-border-light); }
+    .sidebar-section { padding: 20px 0 4px; }
+    .sidebar-section-label { font-size: 10px; font-weight: 700; color: var(--color-text-disabled); letter-spacing: 1.2px; text-transform: uppercase; padding: 0 20px 6px; }
+    .sidebar-link { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 13px; font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-left: 3px solid transparent; transition: background .15s, color .15s, border-color .15s; }
+    .sidebar-link:hover { background: #e8f0fe; color: var(--color-primary); }
+    .sidebar-link.ativo { background: #e8f0fe; color: var(--color-primary); border-left-color: var(--color-primary); font-weight: 600; }
+    [data-theme="dark"] .sidebar-link:hover, [data-theme="dark"] .sidebar-link.ativo { background: #1e2554; color: #7aa3d4; }
+    [data-theme="dark"] .sidebar-link.ativo { border-left-color: #7aa3d4; }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+    .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .page-header h1 { font-size: 22px; font-weight: 700; color: var(--color-text); }
+    .page-header p { font-size: 13px; color: var(--color-text-muted); margin-top: 2px; }
+    .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+    .search-input { flex: 1; min-width: 200px; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); }
+    .search-input:focus { outline: none; border-color: var(--color-primary); }
+    .filter-select { padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); }
+    .data-table-wrap { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .data-table th { text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--color-border-faint); white-space: nowrap; background: var(--color-surface); }
+    .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--color-border-faint); color: var(--color-text-secondary); vertical-align: middle; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #f5f8ff; }
+    [data-theme="dark"] .data-table th { color: #7aa3d4; border-bottom-color: var(--color-border-light); }
+    [data-theme="dark"] .data-table td { border-bottom-color: var(--color-border-light); }
+    [data-theme="dark"] .data-table tr:hover td { background: #22252e; }
+    .acoes { display: flex; gap: 6px; }
+    .crud-msg { display: none; padding: 10px 14px; border-radius: var(--radius-md); font-size: 13px; margin-bottom: 14px; }
+    .crud-msg.ok   { background: #e6f4ea; color: #1e7e34; border: 1px solid #b7dfbb; }
+    .crud-msg.err  { background: #fce8e6; color: #c62828; border: 1px solid #f5b9b4; }
+    .crud-msg.warn { background: #fef3e2; color: #b06000; border: 1px solid #f9d79f; }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 200; align-items: center; justify-content: center; }
+    .modal-overlay.show { display: flex; }
+    .modal { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; }
+    .modal-header { padding: 18px 20px 14px; border-bottom: 1px solid var(--color-border-faint); display: flex; align-items: center; justify-content: space-between; }
+    .modal-header h2 { font-size: 16px; font-weight: 700; color: var(--color-text); }
+    .modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--color-text-muted); line-height: 1; }
+    .modal-body { padding: 20px; }
+    .modal-footer { padding: 14px 20px; border-top: 1px solid var(--color-border-faint); display: flex; justify-content: center; gap: 10px; }
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 12px; font-weight: 600; color: var(--color-text-muted); margin-bottom: 4px; }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 8px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); box-sizing: border-box; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--color-primary); }
+    .form-select.campo-invalido, .form-select.campo-invalido:focus { border-color: #dc2626; box-shadow: 0 0 0 3px rgba(220, 38, 38, .18); }
+    .form-textarea { resize: vertical; min-height: 72px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-input[readonly] { background: var(--color-bg); color: var(--color-text-muted); cursor: not-allowed; }
+    .vazio { text-align: center; color: var(--color-text-faint); font-size: 13px; padding: 28px; font-style: italic; }
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+  </style>
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script src="../gamificacao/gamif.js"></script>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sbLogout('../index.html')">🚪 Sair</button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>📝 Solicitações de Compra</h1>
+        <p>Registre necessidades de compra de produtos</p>
+      </div>
+      <button class="btn btn-primary" onclick="abrirModalNovo()">+ Nova Solicitação</button>
+    </div>
+
+    <div id="msgCrud" class="crud-msg"></div>
+
+    <div class="toolbar">
+      <input type="text" id="inputBusca" class="search-input" placeholder="Buscar por nº ou produto..." oninput="filtrar()">
+      <select id="filtroStatus" class="filter-select" onchange="filtrar()">
+        <option value="">Todos os status</option>
+        <option>Pendente</option>
+        <option>Em Análise</option>
+        <option>Aprovada</option>
+        <option>Reprovada</option>
+        <option>Cancelada</option>
+      </select>
+      <select id="filtroPrioridade" class="filter-select" onchange="filtrar()">
+        <option value="">Todas as prioridades</option>
+        <option>Baixa</option>
+        <option>Média</option>
+        <option>Alta</option>
+        <option>Urgente</option>
+      </select>
+    </div>
+
+    <div class="data-table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nº</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Unidade</th>
+            <th>Solicitante</th>
+            <th>Prioridade</th>
+            <th>Status</th>
+            <th>Data</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyDados">
+          <tr><td colspan="9" class="vazio">Carregando...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<!-- Modal Form -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitulo">Nova Solicitação</h2>
+      <button class="modal-close" onclick="fecharModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="msgModal" class="crud-msg"></div>
+      <input type="hidden" id="fId">
+      <div class="form-group" id="grupoNumero" style="display:none">
+        <label class="form-label">Número da Solicitação</label>
+        <input type="text" id="fNumero" class="form-input" readonly>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Produto *</label>
+        <select id="selProduto" class="form-select" onchange="onProdutoChange()">
+          <option value="">— Selecione o produto —</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Quantidade *</label>
+          <input type="number" id="fQuantidade" class="form-input" min="0" step="0.001" placeholder="0">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Unidade</label>
+          <input type="text" id="fUnidade" class="form-input" readonly placeholder="Preenchido automaticamente">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Solicitante</label>
+        <input type="text" id="fSolicitante" class="form-input" placeholder="Nome do solicitante">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Fornecedor *</label>
+        <select id="selFornecedor" class="form-select" onchange="limparErroFornecedor()">
+          <option value="">— Selecione o fornecedor —</option>
+        </select>
+        <small style="color:var(--color-text-secondary)">Obrigatório para aprovar ou concluir a solicitação.</small>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Prioridade</label>
+          <select id="fPrioridade" class="form-select">
+            <option>Baixa</option>
+            <option selected>Média</option>
+            <option>Alta</option>
+            <option>Urgente</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select id="fStatus" class="form-select">
+            <option>Pendente</option>
+            <option>Em Análise</option>
+            <option>Aprovada</option>
+            <option>Concluída</option>
+            <option>Reprovada</option>
+            <option>Cancelada</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Data</label>
+        <input type="date" id="fData" class="form-input">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Observações</label>
+        <textarea id="fObs" class="form-textarea" placeholder="Observações..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="salvar()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Confirmar Exclusão -->
+<div class="modal-overlay" id="modalExcluir">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-header">
+      <h2>Confirmar Exclusão</h2>
+      <button class="modal-close" onclick="fecharModalExcluir()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:var(--color-text-secondary)">Tem certeza que deseja excluir este registro? Esta ação não pode ser desfeita.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="fecharModalExcluir()">Cancelar</button>
+      <button class="btn btn-danger" onclick="confirmarExcluir()">Excluir</button>
+    </div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao();
+  sbExigirPermissao('compras');
+
+  document.getElementById('roleBadge').textContent = sbPerfil() || '';
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  }
+
+  let registros = [];
+  let produtosCache = [];
+  let idParaExcluir = null;
+
+  // ── Badges ─────────────────────────────────────
+  function statusBadge(s) {
+    const m = { 'Pendente': 'badge-cinza', 'Em Análise': 'badge-azul', 'Aprovada': 'badge-verde', 'Reprovada': 'badge-vermelho', 'Cancelada': 'badge-vermelho' };
+    return `<span class="badge ${m[s] || 'badge-cinza'}">${s}</span>`;
+  }
+
+  function prioridadeBadge(p) {
+    const m = { 'Baixa': 'badge-cinza', 'Média': 'badge-azul', 'Alta': 'badge-laranja', 'Urgente': 'badge-vermelho' };
+    return `<span class="badge ${m[p] || 'badge-cinza'}">${p}</span>`;
+  }
+
+  // ── Produto autopreenchimento ───────────────────
+  function onProdutoChange() {
+    const id = document.getElementById('selProduto').value;
+    const prod = produtosCache.find(p => p.id === id);
+    document.getElementById('fUnidade').value = prod ? (prod.unidade || '') : '';
+  }
+
+  // ── Carregar dados ─────────────────────────────
+  async function carregar() {
+    try {
+      const rows = await sbListar('compras_solicitacoes',
+        'select=*,produtos(nome,unidade)&order=numero.desc');
+      registros = rows;
+      renderizar(rows);
+    } catch (e) {
+      document.getElementById('tbodyDados').innerHTML =
+        `<tr><td colspan="9" class="vazio">Erro ao carregar: ${e.message}</td></tr>`;
+    }
+  }
+
+  function renderizar(rows) {
+    const tbody = document.getElementById('tbodyDados');
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="9" class="vazio">Nenhuma solicitação encontrada.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = rows.map(r => `
+      <tr>
+        <td style="font-family:monospace;font-size:12px;font-weight:600">${r.numero}</td>
+        <td>${r.produtos?.nome || '—'}</td>
+        <td>${r.quantidade != null ? Number(r.quantidade).toLocaleString('pt-BR') : '—'}</td>
+        <td>${r.unidade || r.produtos?.unidade || '—'}</td>
+        <td>${r.solicitante || '—'}</td>
+        <td>${prioridadeBadge(r.prioridade)}</td>
+        <td>${statusBadge(r.status)}</td>
+        <td>${sbData(r.data)}</td>
+        <td>
+          <div class="acoes">
+            <button class="btn btn-sm btn-secondary" onclick="editar('${r.id}')">Editar</button>
+            <button class="btn btn-sm btn-danger" onclick="excluir('${r.id}')">Excluir</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function filtrar() {
+    const busca = document.getElementById('inputBusca').value.toLowerCase();
+    const status = document.getElementById('filtroStatus').value;
+    const prioridade = document.getElementById('filtroPrioridade').value;
+    const filtrado = registros.filter(r => {
+      const texto = (r.numero + ' ' + (r.produtos?.nome || '')).toLowerCase();
+      const okBusca = !busca || texto.includes(busca);
+      const okStatus = !status || r.status === status;
+      const okPrioridade = !prioridade || r.prioridade === prioridade;
+      return okBusca && okStatus && okPrioridade;
+    });
+    renderizar(filtrado);
+  }
+
+  // ── Modal ──────────────────────────────────────
+  async function abrirModalNovo() {
+    document.getElementById('modalTitulo').textContent = 'Nova Solicitação';
+    document.getElementById('fId').value = '';
+    document.getElementById('grupoNumero').style.display = 'none';
+    document.getElementById('selProduto').value = '';
+    document.getElementById('fQuantidade').value = '';
+    document.getElementById('fUnidade').value = '';
+    document.getElementById('fSolicitante').value = sbUserNome();
+    document.getElementById('selFornecedor').value = '';
+    limparErroFornecedor();
+    document.getElementById('fPrioridade').value = 'Média';
+    document.getElementById('fStatus').value = 'Pendente';
+    document.getElementById('fData').value = new Date().toISOString().split('T')[0];
+    document.getElementById('fObs').value = '';
+    document.getElementById('msgModal').style.display = 'none';
+    document.getElementById('modalOverlay').classList.add('show');
+  }
+
+  function fecharModal() { document.getElementById('modalOverlay').classList.remove('show'); }
+
+  function limparErroFornecedor() {
+    document.getElementById('selFornecedor').classList.remove('campo-invalido');
+  }
+
+  function editar(id) {
+    const r = registros.find(x => x.id === id);
+    if (!r) return;
+    document.getElementById('modalTitulo').textContent = 'Editar Solicitação';
+    document.getElementById('fId').value = r.id;
+    document.getElementById('grupoNumero').style.display = '';
+    document.getElementById('fNumero').value = r.numero;
+    document.getElementById('selProduto').value = r.produto_id || '';
+    document.getElementById('fQuantidade').value = r.quantidade ?? '';
+    document.getElementById('fUnidade').value = r.unidade || r.produtos?.unidade || '';
+    document.getElementById('fSolicitante').value = r.solicitante || '';
+    document.getElementById('selFornecedor').value = r.fornecedor_id || '';
+    limparErroFornecedor();
+    document.getElementById('fPrioridade').value = r.prioridade || 'Média';
+    document.getElementById('fStatus').value = r.status || 'Pendente';
+    document.getElementById('fData').value = r.data || '';
+    document.getElementById('fObs').value = r.observacoes || '';
+    document.getElementById('msgModal').style.display = 'none';
+    document.getElementById('modalOverlay').classList.add('show');
+  }
+
+  async function salvar() {
+    const produtoId = document.getElementById('selProduto').value;
+    const quantidade = parseFloat(document.getElementById('fQuantidade').value);
+
+    if (!produtoId) { sbMensagem('msgModal', 'O produto é obrigatório.', 'err'); return; }
+    if (!quantidade || quantidade <= 0) { sbMensagem('msgModal', 'A quantidade deve ser maior que zero.', 'err'); return; }
+
+    const prod = produtosCache.find(p => p.id === produtoId);
+    const novoStatus = document.getElementById('fStatus').value;
+    const fornecedorId = document.getElementById('selFornecedor').value;
+    const finalizada = ['Aprovada', 'Concluída'].includes(novoStatus);
+
+    if (finalizada && !fornecedorId) {
+      const campoFornecedor = document.getElementById('selFornecedor');
+      campoFornecedor.classList.add('campo-invalido');
+      campoFornecedor.focus();
+      sbMensagem('msgModal', 'Selecione o fornecedor antes de aprovar ou concluir a solicitação.', 'err');
+      return;
+    }
+    limparErroFornecedor();
+
+    const dados = {
+      produto_id:  produtoId,
+      fornecedor_id: fornecedorId || null,
+      quantidade,
+      unidade:     prod?.unidade || document.getElementById('fUnidade').value || null,
+      solicitante: document.getElementById('fSolicitante').value || null,
+      prioridade:  document.getElementById('fPrioridade').value,
+      status:      novoStatus,
+      data:        document.getElementById('fData').value || null,
+      observacoes: document.getElementById('fObs').value || null,
+    };
+
+    try {
+      const id = document.getElementById('fId').value;
+      let savedId = id;
+      let statusAnterior = '';
+
+      if (id) {
+        const anterior = registros.find(x => x.id === id);
+        statusAnterior = anterior?.status || '';
+        await sbAtualizar('compras_solicitacoes', id, dados);
+      } else {
+        dados.numero = await Numerar.solicitacao();
+        const nova = await sbInserir('compras_solicitacoes', dados);
+        savedId = nova?.id;
+        statusAnterior = '';
+        if (window.gamif) await gamif.registrarEvento('solicitacao_criada');
+      }
+
+      fecharModal();
+
+      const estavaFinalizada = ['Aprovada', 'Concluída'].includes(statusAnterior);
+      if (finalizada && !estavaFinalizada && savedId) {
+        const numeroPedido = await gerarPedidoAutomatico(savedId, fornecedorId, produtoId, quantidade);
+        sbMensagem('msgCrud',
+          `Solicitação concluída! Pedido de Compra <strong>${numeroPedido}</strong> gerado automaticamente como Pendente.`,
+          'ok');
+      } else {
+        sbMensagem('msgCrud', 'Solicitação salva com sucesso!', 'ok');
+      }
+
+      await carregar();
+    } catch (e) {
+      sbMensagem('msgModal', 'Erro ao salvar: ' + e.message, 'err');
+    }
+  }
+
+  async function gerarPedidoAutomatico(scId, fornecedorId, produtoId, quantidade) {
+    const existentes = await sbListar('compras_pedidos',
+      `solicitacao_id=eq.${encodeURIComponent(scId)}&select=id,numero&limit=1`);
+    if (existentes.length) return existentes[0].numero;
+    const numeroPedido = await Numerar.pedidoCompra();
+    await sbInserir('compras_pedidos', {
+      numero:         numeroPedido,
+      solicitacao_id: scId,
+      fornecedor_id:  fornecedorId,
+      produto_id:     produtoId,
+      quantidade,
+      status:         'Pendente',
+      data:           new Date().toISOString().split('T')[0],
+      observacoes:    'Gerado automaticamente via aprovação da Solicitação de Compra',
+    });
+    return numeroPedido;
+  }
+
+  // ── Exclusão ───────────────────────────────────
+  function excluir(id) {
+    idParaExcluir = id;
+    document.getElementById('modalExcluir').classList.add('show');
+  }
+
+  function fecharModalExcluir() {
+    document.getElementById('modalExcluir').classList.remove('show');
+    idParaExcluir = null;
+  }
+
+  async function confirmarExcluir() {
+    if (!idParaExcluir) return;
+    try {
+      await sbExcluir('compras_solicitacoes', idParaExcluir);
+      fecharModalExcluir();
+      sbMensagem('msgCrud', 'Registro excluído.', 'ok');
+      await carregar();
+    } catch (e) {
+      fecharModalExcluir();
+      sbMensagem('msgCrud', 'Erro ao excluir: ' + e.message, 'err');
+    }
+  }
+
+  // ── Inicializar ────────────────────────────────
+  async function inicializar() {
+    await Promise.all([
+      sbPopularSelect('selProduto', 'produtos', 'ativo=eq.true&order=nome.asc&select=id,nome,unidade'),
+      sbPopularSelect('selFornecedor', 'fornecedores', 'ativo=eq.true&order=nome.asc&select=id,nome')
+    ]);
+    try {
+      produtosCache = await sbListar('produtos', 'select=id,nome,unidade&ativo=eq.true');
+    } catch {}
+    await carregar();
+  }
+
+  inicializar();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

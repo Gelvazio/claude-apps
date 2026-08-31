@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Fila de Crédito</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}
+    .main{margin-left:240px;padding:28px 32px;flex:1}
+    @media(max-width:768px){.main{margin-left:0;padding:16px}}
+    .sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+    .btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}
+    @media(max-width:768px){.btn-menu{display:flex}}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}
+    .sidebar-overlay.show{display:block}
+
+    .page-header{margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .page-header h1{font-size:22px;font-weight:700;color:var(--color-text)}
+    .page-header p{font-size:13px;color:var(--color-text-muted);margin-top:2px}
+
+    .kpi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+    @media(max-width:600px){.kpi-row{grid-template-columns:1fr}}
+    .kpi-card{background:var(--color-surface);border:1px solid var(--color-border-faint);border-radius:12px;padding:16px 18px;border-left:4px solid var(--kpi-cor,var(--color-primary))}
+    .kpi-label{font-size:10px;font-weight:700;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+    .kpi-valor{font-size:26px;font-weight:800;color:var(--color-text)}
+    .kpi-sub{font-size:11px;color:var(--color-text-muted);margin-top:2px}
+
+    .toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+    .search-input{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:13px;background:var(--color-surface);color:var(--color-text);font-family:inherit;outline:none}
+    .search-input:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(0,67,132,0.12)}
+    .content-section{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}
+    #msgGlobal{display:none;padding:10px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;margin-bottom:14px}
+    #msgGlobal.ok{background:var(--color-success-bg);border:1px solid var(--color-success-border);color:var(--color-success);display:block}
+    #msgGlobal.err{background:var(--color-error-bg);border:1px solid var(--color-error-border);color:var(--color-error);display:block}
+
+    .badge-aguardando{background:#fff3e0;color:#e65100;border:1px solid #ffb74d;border-radius:12px;padding:2px 10px;font-size:11px;font-weight:700}
+    .badge-aprovado{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;border-radius:12px;padding:2px 10px;font-size:11px;font-weight:700}
+    .badge-recusado{background:#fce8e6;color:#c62828;border:1px solid #ef9a9a;border-radius:12px;padding:2px 10px;font-size:11px;font-weight:700}
+    .badge-avista{background:#e3f2fd;color:#1565c0;border:1px solid #90caf9;border-radius:12px;padding:2px 10px;font-size:11px;font-weight:700}
+
+    .btn-aprovar{background:#2e7d32;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit;font-weight:600}
+    .btn-aprovar:hover{background:#1b5e20}
+    .btn-recusar{background:#c62828;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:12px;cursor:pointer;font-family:inherit;font-weight:600}
+    .btn-recusar:hover{background:#b71c1c}
+
+    /* Modal de análise */
+    .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:16px}
+    .modal-box{background:var(--color-surface);border-radius:14px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--color-border-faint);background:#e65100;border-radius:14px 14px 0 0}
+    .modal-head h3{color:#fff;font-size:15px;font-weight:700;margin:0}
+    .modal-head button{background:rgba(255,255,255,.25);border:none;color:#fff;font-size:18px;width:30px;height:30px;border-radius:6px;cursor:pointer}
+    .modal-body{padding:20px}
+    .modal-footer{display:flex;gap:10px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--color-border-faint);background:var(--color-surface-2);border-radius:0 0 14px 14px}
+    .limite-card{background:linear-gradient(135deg,#e3f0ff,#f0f7ff);border:1px solid #90caf9;border-radius:12px;padding:16px 20px;margin-bottom:16px}
+    .limite-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+    .limite-item{text-align:center;background:#fff;border-radius:8px;padding:10px 6px}
+    .limite-bar{background:#e3f2fd;border-radius:20px;height:10px;overflow:hidden;margin-top:8px}
+    .limite-bar-fill{height:100%;border-radius:20px;transition:width .4s}
+    .campo-obs{width:100%;padding:9px 12px;border:1px solid var(--color-border);border-radius:8px;font-size:13px;font-family:inherit;outline:none;resize:vertical;min-height:60px;background:var(--color-surface);color:var(--color-text)}
+    .campo-obs:focus{border-color:var(--color-primary)}
+    .campo-novo-limite{width:100%;padding:9px 12px;border:1px solid var(--color-border);border-radius:8px;font-size:14px;font-family:inherit;font-weight:700;outline:none;background:var(--color-surface);color:var(--color-text)}
+    .campo-novo-limite:focus{border-color:#2e7d32;box-shadow:0 0 0 3px rgba(46,125,50,.15)}
+  </style>
+</head>
+<body>
+<script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+<header class="header">
+  <button class="btn-menu" onclick="toggleSidebar()">☰</button>
+  <span class="header-logo">⏳ Fila de Crédito</span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>⏳ Fila de Crédito</h1>
+        <p>Pedidos aguardando análise de crédito para liberação</p>
+      </div>
+    </div>
+
+    <div id="msgGlobal"></div>
+
+    <!-- KPIs -->
+    <div class="kpi-row">
+      <div class="kpi-card" style="--kpi-cor:#e65100">
+        <div class="kpi-label">Aguardando Análise</div>
+        <div class="kpi-valor" id="kpiAguardando">—</div>
+        <div class="kpi-sub">pedidos na fila</div>
+      </div>
+      <div class="kpi-card" style="--kpi-cor:#1565c0">
+        <div class="kpi-label">Valor Total em Fila</div>
+        <div class="kpi-valor" id="kpiValor">—</div>
+        <div class="kpi-sub">soma dos pedidos pendentes</div>
+      </div>
+      <div class="kpi-card" style="--kpi-cor:#c62828">
+        <div class="kpi-label">Limite Insuficiente</div>
+        <div class="kpi-valor" id="kpiRecusados">—</div>
+        <div class="kpi-sub">recusados hoje</div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <input class="search-input" type="text" placeholder="🔍 Buscar por cliente, número..." oninput="filtrar()" id="busca">
+      <button class="filter-btn ativo" onclick="setFiltro('aguardando', this)" id="btnAguardando">⏳ Aguardando</button>
+      <button class="filter-btn" onclick="setFiltro('todos', this)" id="btnTodos">📋 Todos</button>
+    </div>
+
+    <div class="content-section">
+      <div class="crud-table-wrap">
+        <table class="crud-table">
+          <thead>
+            <tr>
+              <th>Pedido</th>
+              <th>Cliente</th>
+              <th>Produto</th>
+              <th>Valor</th>
+              <th>Forma Pgto</th>
+              <th>Data</th>
+              <th>Status</th>
+              <th style="width:160px">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaCorpo">
+            <tr><td colspan="8" style="text-align:center;color:var(--color-text-muted);padding:32px">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal Análise -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modalTitulo">Análise de Crédito</h3>
+      <button onclick="fecharModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <!-- conteúdo dinâmico -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn-recusar" onclick="executarAcao('recusar')">⛔ Recusar — Limite Insuficiente</button>
+      <button class="btn-aprovar" onclick="abrirFormAprovar()">✅ Aprovar e Liberar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Aprovar (novo limite) -->
+<div class="modal-backdrop" id="modalAprovar">
+  <div class="modal-box" style="max-width:440px">
+    <div class="modal-head" style="background:#2e7d32">
+      <h3>✅ Aprovar Crédito</h3>
+      <button onclick="fecharModalAprovar()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--color-text-muted);margin-bottom:16px">Defina o novo limite de crédito para o cliente. O pedido será liberado automaticamente.</p>
+      <label style="font-size:11px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase">Novo Limite de Crédito (R$)</label>
+      <input class="campo-novo-limite" type="number" id="novoLimite" placeholder="Ex: 5000.00" min="0" step="0.01" style="margin-top:6px">
+      <div id="msgAprovar" style="display:none;margin-top:8px;font-size:12px;padding:8px 12px;border-radius:6px"></div>
+    </div>
+    <div class="modal-footer" style="border-radius:0 0 14px 14px">
+      <button class="btn-recusar" onclick="fecharModalAprovar()">Cancelar</button>
+      <button class="btn-aprovar" onclick="executarAcao('aprovar')">Confirmar Aprovação</button>
+    </div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao('../index.html');
+  document.getElementById('roleBadge').textContent = sbPerfil() || '';
+  (function(){const t=localStorage.getItem('senai_tema')||'light';const btn=document.getElementById('btnTema');if(btn)btn.textContent=t==='dark'?'☀️ Claro':'🌙 Escuro';})();
+
+  const fmt = v => 'R$ ' + (parseFloat(v)||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const fmtData = d => d ? d.split('-').reverse().join('/') : '—';
+
+  let todos = [];
+  let filtroAtual = 'aguardando';
+  let pedidoAtual = null;
+
+  function statusBadge(s) {
+    if (s === 'Aguardando Análise Financeira') return `<span class="badge-aguardando">⏳ Aguardando</span>`;
+    if (s === 'Limite Insuficiente') return `<span class="badge-recusado">⛔ Recusado</span>`;
+    if (s === 'Confirmado') return `<span class="badge-aprovado">✅ Aprovado</span>`;
+    return `<span class="badge-avista">${s}</span>`;
+  }
+
+  function setFiltro(filtro, btn) {
+    filtroAtual = filtro;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('ativo'));
+    btn.classList.add('ativo');
+    renderTabela();
+  }
+
+  function filtrar() { renderTabela(); }
+
+  function renderTabela() {
+    const busca = (document.getElementById('busca').value || '').toLowerCase();
+    let lista = todos;
+    if (filtroAtual === 'aguardando') lista = lista.filter(p => p.status === 'Aguardando Análise Financeira');
+    if (busca) lista = lista.filter(p =>
+      (p.numero||'').toLowerCase().includes(busca) ||
+      (p.clientes?.nome||'').toLowerCase().includes(busca)
+    );
+    const corpo = document.getElementById('tabelaCorpo');
+    if (lista.length === 0) {
+      corpo.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--color-text-muted);padding:32px">Nenhum registro encontrado.</td></tr>';
+      return;
+    }
+    corpo.innerHTML = lista.map(p => `<tr>
+      <td style="font-family:monospace;font-size:12px">${p.numero}</td>
+      <td>${p.clientes?.nome||'—'}</td>
+      <td>${p.produtos?.nome||'—'}</td>
+      <td style="font-weight:700">${fmt(p.valor_total||p.quantidade*p.preco_unitario)}</td>
+      <td>${p.forma_pagamento||'—'}</td>
+      <td>${fmtData(p.data)}</td>
+      <td>${statusBadge(p.status)}</td>
+      <td class="crud-acts">
+        ${p.status === 'Aguardando Análise Financeira' ? `
+          <button class="btn-aprovar" onclick="abrirModal('${p.id}')">🔍 Analisar</button>
+        ` : `<span style="font-size:11px;color:var(--color-text-muted)">${p.status}</span>`}
+      </td>
+    </tr>`).join('');
+  }
+
+  async function carregarDados() {
+    try {
+      const [pedidos] = await Promise.all([
+        sbListar('vendas_pedidos',
+          `forma_pagamento=eq.Crediário&select=id,numero,cliente_id,produto_id,quantidade,preco_unitario,valor_total,status,forma_pagamento,data,observacoes,clientes(nome),produtos(nome)&order=created_at.desc`)
+      ]);
+      todos = pedidos;
+
+      const aguardando = pedidos.filter(p => p.status === 'Aguardando Análise Financeira');
+      const recusados  = pedidos.filter(p => p.status === 'Limite Insuficiente');
+      const valorFila  = aguardando.reduce((s,p) => s+(parseFloat(p.valor_total||0)||p.quantidade*p.preco_unitario||0),0);
+
+      document.getElementById('kpiAguardando').textContent = aguardando.length;
+      document.getElementById('kpiValor').textContent      = fmt(valorFila);
+      document.getElementById('kpiRecusados').textContent  = recusados.length;
+
+      renderTabela();
+    } catch(e) {
+      console.error(e);
+    }
+  }
+
+  async function abrirModal(id) {
+    pedidoAtual = todos.find(p => p.id === id);
+    if (!pedidoAtual) return;
+
+    document.getElementById('modalTitulo').textContent = `Análise — Pedido ${pedidoAtual.numero}`;
+
+    // Buscar dados do cliente
+    const [clientes, parcelas] = await Promise.all([
+      sbListar('clientes', `id=eq.${pedidoAtual.cliente_id}&select=nome,limite_credito`),
+      sbListar('fin_parcelas', `cliente_id=eq.${pedidoAtual.cliente_id}&status=in.(A Vencer,Vencida)&select=valor`)
+    ]);
+    const cliente       = clientes[0] || {};
+    const limiteTotal   = parseFloat(cliente.limite_credito) || 0;
+    const limiteUtil    = parcelas.reduce((s,p)=>s+(parseFloat(p.valor)||0),0);
+    const limiteDisp    = Math.max(0, limiteTotal - limiteUtil);
+    const valorPedido   = parseFloat(pedidoAtual.valor_total) || (pedidoAtual.quantidade * pedidoAtual.preco_unitario) || 0;
+    const pct           = limiteTotal > 0 ? Math.min(100,(limiteUtil/limiteTotal)*100) : 0;
+    const corBarra      = pct >= 90 ? '#c62828' : pct >= 60 ? '#f57c00' : '#2e7d32';
+    const temCredito    = valorPedido <= limiteDisp;
+
+    document.getElementById('modalBody').innerHTML = `
+      <div style="margin-bottom:12px">
+        <div style="font-size:13px;color:var(--color-text-muted)">Cliente</div>
+        <div style="font-size:16px;font-weight:700">${cliente.nome||'—'}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+        <div><div style="font-size:11px;color:var(--color-text-muted)">Pedido</div><div style="font-weight:700;font-family:monospace">${pedidoAtual.numero}</div></div>
+        <div><div style="font-size:11px;color:var(--color-text-muted)">Produto</div><div style="font-weight:700">${pedidoAtual.produtos?.nome||'—'}</div></div>
+        <div><div style="font-size:11px;color:var(--color-text-muted)">Valor do Pedido</div><div style="font-size:18px;font-weight:800;color:#1565c0">${fmt(valorPedido)}</div></div>
+        <div><div style="font-size:11px;color:var(--color-text-muted)">Data</div><div style="font-weight:600">${fmtData(pedidoAtual.data)}</div></div>
+      </div>
+
+      <div class="limite-card">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <span style="font-size:18px">💳</span>
+          <strong style="color:#1565c0;font-size:13px">Situação de Crédito do Cliente</strong>
+        </div>
+        <div class="limite-row">
+          <div class="limite-item" style="border:1px solid #bbdefb">
+            <div style="font-size:10px;color:#5c6bc0;font-weight:700">🏦 TOTAL</div>
+            <div style="font-size:15px;font-weight:800;color:#1565c0">${fmt(limiteTotal)}</div>
+          </div>
+          <div class="limite-item" style="border:1px solid #ffccbc">
+            <div style="font-size:10px;color:#bf360c;font-weight:700">📤 UTILIZADO</div>
+            <div style="font-size:15px;font-weight:800;color:#d84315">${fmt(limiteUtil)}</div>
+          </div>
+          <div class="limite-item" style="border:1px solid ${temCredito?'#c8e6c9':'#ffcdd2'}">
+            <div style="font-size:10px;color:${temCredito?'#2e7d32':'#c62828'};font-weight:700">✅ DISPONÍVEL</div>
+            <div style="font-size:15px;font-weight:800;color:${temCredito?'#2e7d32':'#c62828'}">${fmt(limiteDisp)}</div>
+          </div>
+        </div>
+        <div class="limite-bar"><div class="limite-bar-fill" style="width:${pct.toFixed(1)}%;background:${corBarra}"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#78909c;margin-top:4px">
+          <span>${pct.toFixed(1)}% utilizado</span><span>${(100-pct).toFixed(1)}% disponível</span>
+        </div>
+      </div>
+
+      <div style="padding:12px 16px;border-radius:10px;background:${temCredito?'#e8f5e9':'#fce8e6'};border:1px solid ${temCredito?'#a5d6a7':'#ef9a9a'};font-size:13px;font-weight:600;color:${temCredito?'#2e7d32':'#c62828'}">
+        ${temCredito
+          ? '✅ Cliente possui crédito suficiente para este pedido. Pode ser aprovado normalmente.'
+          : `⛔ Crédito insuficiente: pedido de ${fmt(valorPedido)} excede o disponível de ${fmt(limiteDisp)}. Para aprovar, aumente o limite do cliente.`}
+      </div>
+    `;
+
+    document.getElementById('modalBackdrop').style.display = 'flex';
+  }
+
+  function fecharModal() {
+    document.getElementById('modalBackdrop').style.display = 'none';
+    pedidoAtual = null;
+  }
+
+  function abrirFormAprovar() {
+    if (!pedidoAtual) return;
+    document.getElementById('novoLimite').value = '';
+    document.getElementById('msgAprovar').style.display = 'none';
+    document.getElementById('modalAprovar').style.display = 'flex';
+  }
+
+  function fecharModalAprovar() {
+    document.getElementById('modalAprovar').style.display = 'none';
+  }
+
+  async function executarAcao(acao) {
+    if (!pedidoAtual) return;
+
+    if (acao === 'aprovar') {
+      const novoLimite = parseFloat(document.getElementById('novoLimite').value);
+      if (!novoLimite || novoLimite <= 0) {
+        const msg = document.getElementById('msgAprovar');
+        msg.textContent = 'Informe um valor válido para o novo limite.';
+        msg.style.cssText = 'display:block;background:#fce8e6;color:#c62828;padding:8px 12px;border-radius:6px';
+        return;
+      }
+      try {
+        await Promise.all([
+          sbAtualizar('clientes', pedidoAtual.cliente_id, { limite_credito: novoLimite }),
+          sbAtualizar('vendas_pedidos', pedidoAtual.id,   { status: 'Confirmado' })
+        ]);
+        fecharModalAprovar();
+        fecharModal();
+        sbMensagem('msgGlobal', `✅ Pedido ${pedidoAtual.numero} aprovado e limite atualizado para ${fmt(novoLimite)}!`, 'ok');
+        document.getElementById('msgGlobal').style.display = 'block';
+        await carregarDados();
+      } catch(e) {
+        const msg = document.getElementById('msgAprovar');
+        msg.textContent = 'Erro: ' + e.message;
+        msg.style.cssText = 'display:block;background:#fce8e6;color:#c62828;padding:8px 12px;border-radius:6px';
+      }
+    }
+
+    if (acao === 'recusar') {
+      if (!confirm(`Tem certeza que deseja recusar o pedido ${pedidoAtual.numero}? O status será alterado para "Limite Insuficiente".`)) return;
+      try {
+        await sbAtualizar('vendas_pedidos', pedidoAtual.id, { status: 'Limite Insuficiente' });
+        fecharModal();
+        sbMensagem('msgGlobal', `⛔ Pedido ${pedidoAtual.numero} recusado por limite insuficiente.`, 'err');
+        document.getElementById('msgGlobal').style.display = 'block';
+        await carregarDados();
+      } catch(e) {
+        alert('Erro: ' + e.message);
+      }
+    }
+  }
+
+  carregarDados();
+</script>
+</body>
+</html>

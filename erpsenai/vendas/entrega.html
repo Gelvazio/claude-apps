@@ -1,0 +1,406 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Entrega</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+    .sidebar-section { padding: 16px 0 4px; }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+
+    .page-header { margin-bottom: 24px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .page-header h1 { font-size: 20px; font-weight: 700; color: var(--color-text); }
+    .page-header p { font-size: 13px; color: var(--color-text-muted); margin-top: 2px; }
+
+    .toolbar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .search-input { flex: 1; min-width: 200px; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; font-family: inherit; background: var(--color-surface); color: var(--color-text); outline: none; }
+    .search-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(0,67,132,.12); }
+    [data-theme="dark"] .search-input { background: var(--color-surface-2); border-color: var(--color-border); color: var(--color-text); }
+
+    .content-card { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+    .msg-global { margin-bottom: 14px; display: none; }
+    .modal-foot { padding: 12px 20px; display: flex; gap: 10px; justify-content: flex-end; align-items: center; border-top: 1px solid var(--color-border-faint); background: var(--color-surface); flex-shrink: 0; }
+    [data-theme="dark"] .modal-foot { border-top-color: var(--color-border-light); }
+
+    /* Campos de rastreio em destaque */
+    .rastreio-chip {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 12px;
+      background: var(--color-border-light);
+      padding: 2px 8px;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-secondary);
+    }
+    [data-theme="dark"] .rastreio-chip { background: var(--color-surface-3); color: var(--color-text-muted); }
+  </style>
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script src="../gamificacao/gamif.js"></script>
+</head>
+<body>
+
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>📍 Entrega</h1>
+        <p>Rastreamento e confirmação de entregas ao cliente</p>
+      </div>
+      <button class="btn" onclick="abrirModalNovo()">+ Nova Entrega</button>
+    </div>
+
+    <div id="msgGlobal" class="crud-msg msg-global"></div>
+
+    <div class="toolbar">
+      <input class="search-input" type="text" id="campoBusca" placeholder="Buscar por número ou cliente…" oninput="aplicarFiltros()">
+      <select class="search-input" id="filtroStatus" style="flex:0 0 200px" onchange="aplicarFiltros()">
+        <option value="">Todos os status</option>
+        <option>Em Trânsito</option>
+        <option>Entregue</option>
+        <option>Tentativa de Entrega</option>
+        <option>Devolvido</option>
+        <option>Extraviado</option>
+      </select>
+    </div>
+
+    <div class="content-card">
+      <div class="crud-table-wrap">
+        <table class="crud-table">
+          <thead>
+            <tr>
+              <th>Nº</th>
+              <th>Cliente</th>
+              <th>Transportadora</th>
+              <th>Cód. Rastreio</th>
+              <th>Status</th>
+              <th>Data Envio</th>
+              <th>Data Entrega</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaBody">
+            <tr><td colspan="8" class="crud-vazio">Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div class="crud-backdrop" id="modalBackdrop" style="display:none" onclick="backdropClick(event)">
+  <div class="crud-modal" style="max-width:680px">
+    <div class="crud-modal-head">
+      <h3 id="modalTitulo">Nova Entrega</h3>
+      <button class="crud-btn-fechar" onclick="fecharModal()">✕</button>
+    </div>
+    <div style="overflow-y:auto; flex:1;">
+      <div class="crud-form-area">
+        <div class="crud-form">
+          <div class="crud-field" style="flex:0 0 140px">
+            <label class="crud-label">Nº da Entrega</label>
+            <input class="crud-input" id="fNumero" readonly style="background:var(--color-surface-2);color:var(--color-text-muted)">
+          </div>
+          <div class="crud-field" style="flex:1; min-width:180px">
+            <label class="crud-label">Expedição</label>
+            <select class="crud-input" id="fExpedicao"></select>
+          </div>
+        </div>
+        <div class="crud-form">
+          <div class="crud-field" style="flex:1; min-width:180px">
+            <label class="crud-label">Transportadora <span style="color:var(--color-error)">*</span></label>
+            <select class="crud-input" id="fTransportadora"></select>
+          </div>
+          <div class="crud-field" style="flex:1; min-width:180px">
+            <label class="crud-label">Cliente <span style="color:var(--color-error)">*</span></label>
+            <select class="crud-input" id="fCliente"></select>
+          </div>
+        </div>
+        <div class="crud-form">
+          <div class="crud-field" style="flex:1; min-width:200px">
+            <label class="crud-label">Código de Rastreio</label>
+            <input class="crud-input" id="fRastreio" placeholder="Ex: BR123456789BR">
+          </div>
+          <div class="crud-field" style="flex:0 0 200px">
+            <label class="crud-label">Status</label>
+            <select class="crud-input" id="fStatus" onchange="onStatusChange()">
+              <option>Em Trânsito</option>
+              <option>Entregue</option>
+              <option>Tentativa de Entrega</option>
+              <option>Devolvido</option>
+              <option>Extraviado</option>
+            </select>
+          </div>
+        </div>
+        <div class="crud-form">
+          <div class="crud-field" style="flex:0 0 150px">
+            <label class="crud-label">Data de Envio</label>
+            <input class="crud-input" type="date" id="fData">
+          </div>
+          <div class="crud-field" style="flex:0 0 150px">
+            <label class="crud-label">Data de Entrega</label>
+            <input class="crud-input" type="date" id="fDataEntrega">
+          </div>
+          <div class="crud-field" style="flex:1; min-width:160px">
+            <label class="crud-label">Responsável</label>
+            <input class="crud-input" id="fResponsavel" placeholder="Nome do responsável">
+          </div>
+        </div>
+        <div class="crud-form">
+          <div class="crud-field">
+            <label class="crud-label">Observações</label>
+            <textarea class="crud-input" id="fObs" rows="3" style="resize:vertical"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <div id="msgModal" class="crud-msg" style="flex:1;display:none"></div>
+      <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+      <button class="btn-salvar" onclick="salvar()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao('../index.html');
+  sbExigirPermissao('vendas', '../dashboard.html');
+
+  document.getElementById('roleBadge').textContent = sbPerfil() || '';
+
+  (function () {
+    const t = localStorage.getItem('senai_tema') || 'light';
+    const btn = document.getElementById('btnTema');
+    if (btn) btn.textContent = t === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  })();
+
+  function alternarTema() {
+    const novo = sbToggleTema();
+    const btn = document.getElementById('btnTema');
+    if (btn) btn.textContent = novo === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  }
+
+  function sair() { sbLogout('../index.html'); }
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  }
+
+  let registros = [];
+  let editId    = null;
+
+  async function carregarDados() {
+    try {
+      const rows = await sbListar(
+        'vendas_entregas',
+        'select=*,clientes(nome),transportadoras(nome),vendas_expedicoes(numero)&order=created_at.desc'
+      );
+      registros = rows;
+      renderTabela(rows);
+    } catch (e) {
+      document.getElementById('tabelaBody').innerHTML =
+        `<tr><td colspan="8" class="crud-vazio">Erro ao carregar: ${e.message}</td></tr>`;
+    }
+  }
+
+  function statusBadge(s) {
+    const m = {
+      'Em Trânsito': 'badge-azul',
+      'Entregue': 'badge-verde',
+      'Tentativa de Entrega': 'badge-laranja',
+      'Devolvido': 'badge-vermelho',
+      'Extraviado': 'badge-vermelho'
+    };
+    return `<span class="badge ${m[s] || 'badge-cinza'}">${s}</span>`;
+  }
+
+  function renderTabela(arr) {
+    const tbody = document.getElementById('tabelaBody');
+    if (!arr.length) {
+      tbody.innerHTML = '<tr><td colspan="8" class="crud-vazio">Nenhuma entrega encontrada.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = arr.map(r => `
+      <tr>
+        <td style="font-family:monospace;font-size:12px">${r.numero}</td>
+        <td>${r.clientes?.nome ?? '—'}</td>
+        <td>${r.transportadoras?.nome ?? '—'}</td>
+        <td>${r.codigo_rastreio ? `<span class="rastreio-chip">${r.codigo_rastreio}</span>` : '—'}</td>
+        <td>${statusBadge(r.status)}</td>
+        <td>${sbData(r.data)}</td>
+        <td>${r.data_entrega ? sbData(r.data_entrega) : '—'}</td>
+        <td class="crud-acts">
+          <button class="btn-ed" onclick="abrirModalEditar('${r.id}')">✏️</button>
+          <button class="btn-del" onclick="confirmarExcluir('${r.id}')">🗑️</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function aplicarFiltros() {
+    const busca  = document.getElementById('campoBusca').value.toLowerCase();
+    const status = document.getElementById('filtroStatus').value;
+    const filtrado = registros.filter(r => {
+      const textoOk  = !busca || r.numero.toLowerCase().includes(busca) || (r.clientes?.nome ?? '').toLowerCase().includes(busca);
+      const statusOk = !status || r.status === status;
+      return textoOk && statusOk;
+    });
+    renderTabela(filtrado);
+  }
+
+  // Quando status = 'Entregue', sugerir preencher a data de entrega
+  function onStatusChange() {
+    const s = document.getElementById('fStatus').value;
+    const fDataEntrega = document.getElementById('fDataEntrega');
+    if (s === 'Entregue' && !fDataEntrega.value) {
+      fDataEntrega.value = new Date().toISOString().split('T')[0];
+    }
+  }
+
+  async function popularSelects() {
+    await Promise.all([
+      sbPopularSelect('fExpedicao', 'vendas_expedicoes', 'select=id,numero&order=numero.desc', 'id', 'numero', 'Nenhuma'),
+      sbPopularSelect('fTransportadora', 'transportadoras', 'ativa=eq.true&select=id,nome&order=nome.asc', 'id', 'nome', 'Selecione a transportadora'),
+      sbPopularSelect('fCliente', 'clientes', 'ativo=eq.true&select=id,nome&order=nome.asc', 'id', 'nome', 'Selecione o cliente'),
+    ]);
+  }
+
+  function resetForm() {
+    ['fNumero','fExpedicao','fTransportadora','fCliente',
+     'fRastreio','fData','fDataEntrega','fResponsavel','fObs'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.getElementById('fStatus').value = 'Em Trânsito';
+    document.getElementById('msgModal').style.display = 'none';
+  }
+
+  async function abrirModalNovo() {
+    editId = null;
+    document.getElementById('modalTitulo').textContent = 'Nova Entrega';
+    resetForm();
+    document.getElementById('fData').value = new Date().toISOString().split('T')[0];
+    document.getElementById('fNumero').value = await Numerar.entrega();
+    await popularSelects();
+    document.getElementById('modalBackdrop').style.display = 'flex';
+  }
+
+  async function abrirModalEditar(id) {
+    editId = id;
+    document.getElementById('modalTitulo').textContent = 'Editar Entrega';
+    resetForm();
+    const r = await sbBuscar('vendas_entregas', id);
+    await popularSelects();
+    document.getElementById('fNumero').value         = r.numero;
+    document.getElementById('fExpedicao').value      = r.expedicao_id || '';
+    document.getElementById('fTransportadora').value = r.transportadora_id || '';
+    document.getElementById('fCliente').value        = r.cliente_id || '';
+    document.getElementById('fRastreio').value       = r.codigo_rastreio || '';
+    document.getElementById('fStatus').value         = r.status || 'Em Trânsito';
+    document.getElementById('fData').value           = r.data || '';
+    document.getElementById('fDataEntrega').value    = r.data_entrega || '';
+    document.getElementById('fResponsavel').value    = r.responsavel || '';
+    document.getElementById('fObs').value            = r.observacoes || '';
+    document.getElementById('modalBackdrop').style.display = 'flex';
+  }
+
+  async function salvar() {
+    const transportadora_id = document.getElementById('fTransportadora').value;
+    const cliente_id        = document.getElementById('fCliente').value;
+    const expedicao_id      = document.getElementById('fExpedicao').value || null;
+    const codigo_rastreio   = document.getElementById('fRastreio').value.trim() || null;
+    const status            = document.getElementById('fStatus').value;
+    const data              = document.getElementById('fData').value || null;
+    const data_entrega      = document.getElementById('fDataEntrega').value || null;
+    const responsavel       = document.getElementById('fResponsavel').value.trim() || null;
+    const observacoes       = document.getElementById('fObs').value.trim() || null;
+    const numero            = document.getElementById('fNumero').value;
+
+    if (!transportadora_id) { mostrarMsgModal('Selecione a transportadora.', 'err'); return; }
+    if (!cliente_id)        { mostrarMsgModal('Selecione o cliente.', 'err'); return; }
+
+    const dados = { expedicao_id, transportadora_id, cliente_id, codigo_rastreio, status, data, data_entrega, responsavel, observacoes };
+    if (!editId) dados.numero = numero;
+
+    try {
+      if (editId) {
+        await sbAtualizar('vendas_entregas', editId, dados);
+      } else {
+        await sbInserir('vendas_entregas', dados);
+        if (window.gamif) await gamif.registrarEvento('entrega_confirmada');
+      }
+      fecharModal();
+      sbMensagem('msgGlobal', editId ? 'Entrega atualizada!' : 'Entrega registrada com sucesso!', 'ok');
+      document.getElementById('msgGlobal').style.display = 'block';
+      await carregarDados();
+    } catch (e) {
+      mostrarMsgModal('Erro ao salvar: ' + e.message, 'err');
+    }
+  }
+
+  function mostrarMsgModal(texto, tipo) {
+    const el = document.getElementById('msgModal');
+    el.textContent = texto;
+    el.className   = 'crud-msg ' + tipo;
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 4000);
+  }
+
+  async function confirmarExcluir(id) {
+    if (!confirm('Tem certeza que deseja excluir esta entrega? Esta ação não pode ser desfeita.')) return;
+    try {
+      await sbExcluir('vendas_entregas', id);
+      sbMensagem('msgGlobal', 'Entrega excluída.', 'ok');
+      document.getElementById('msgGlobal').style.display = 'block';
+      await carregarDados();
+    } catch (e) {
+      sbMensagem('msgGlobal', 'Erro ao excluir: ' + e.message, 'err');
+      document.getElementById('msgGlobal').style.display = 'block';
+    }
+  }
+
+  function fecharModal() { document.getElementById('modalBackdrop').style.display = 'none'; }
+  function backdropClick(e) { if (e.target === document.getElementById('modalBackdrop')) fecharModal(); }
+
+  carregarDados();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

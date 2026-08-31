@@ -1,0 +1,188 @@
+{
+  "versao": "1.0",
+  "descricao": "Critérios de pontuação de crédito para análise de clientes — ERP Senai",
+  "variaveis": [
+    {
+      "id": "pontualidade_pagamentos",
+      "nome": "Pontualidade em Pagamentos",
+      "peso": 0.30,
+      "tipo": "select",
+      "descricao": "Histórico de pontualidade nos pagamentos ao longo do relacionamento",
+      "opcoes": [
+        { "label": "Sempre em dia",                    "valor": 100 },
+        { "label": "Raramente atrasa (< 5%)",          "valor": 75  },
+        { "label": "Atrasa às vezes (5–20%)",          "valor": 50  },
+        { "label": "Frequentemente atrasa (> 20%)",    "valor": 25  },
+        { "label": "Inadimplente / Protestado",        "valor": 0   }
+      ]
+    },
+    {
+      "id": "tempo_relacionamento",
+      "nome": "Tempo de Relacionamento (meses)",
+      "peso": 0.15,
+      "tipo": "faixa_numerica",
+      "descricao": "Tempo de relacionamento comercial com a empresa em meses",
+      "faixas": [
+        { "de": 36,  "ate": null, "valor": 100 },
+        { "de": 24,  "ate": 35,   "valor": 80  },
+        { "de": 12,  "ate": 23,   "valor": 60  },
+        { "de": 6,   "ate": 11,   "valor": 40  },
+        { "de": 0,   "ate": 5,    "valor": 20  }
+      ]
+    },
+    {
+      "id": "faturamento_mensal",
+      "nome": "Faturamento Mensal (R$)",
+      "peso": 0.20,
+      "tipo": "faixa_numerica",
+      "descricao": "Faturamento médio mensal declarado pelo cliente",
+      "faixas": [
+        { "de": 500000, "ate": null,   "valor": 100 },
+        { "de": 100000, "ate": 499999, "valor": 80  },
+        { "de": 50000,  "ate": 99999,  "valor": 60  },
+        { "de": 10000,  "ate": 49999,  "valor": 40  },
+        { "de": 0,      "ate": 9999,   "valor": 20  }
+      ]
+    },
+    {
+      "id": "nivel_endividamento",
+      "nome": "Nível de Endividamento (%)",
+      "peso": 0.20,
+      "tipo": "faixa_numerica",
+      "descricao": "Percentual de endividamento total sobre a receita bruta anual",
+      "faixas": [
+        { "de": 0,  "ate": 19,   "valor": 100 },
+        { "de": 20, "ate": 39,   "valor": 75  },
+        { "de": 40, "ate": 59,   "valor": 50  },
+        { "de": 60, "ate": 79,   "valor": 25  },
+        { "de": 80, "ate": null,  "valor": 0   }
+      ]
+    },
+    {
+      "id": "percentual_limite_utilizado",
+      "nome": "% do Limite de Crédito Utilizado",
+      "peso": 0.15,
+      "tipo": "faixa_numerica",
+      "descricao": "Percentual do limite de crédito concedido que está atualmente comprometido",
+      "faixas": [
+        { "de": 0,  "ate": 29,   "valor": 100 },
+        { "de": 30, "ate": 49,   "valor": 75  },
+        { "de": 50, "ate": 69,   "valor": 50  },
+        { "de": 70, "ate": 89,   "valor": 25  },
+        { "de": 90, "ate": null,  "valor": 0   }
+      ]
+    }
+  ],
+  "letras": [
+    {
+      "letra":           "AAA",
+      "nome":            "Crédito Excelente",
+      "de":              90,
+      "ate":             100,
+      "cor":             "#16a34a",
+      "cor_fundo":       "#dcfce7",
+      "limite_sugerido": 200000,
+      "prazo_dias":      90,
+      "descricao":       "Risco mínimo. Liberação de crédito máxima sem restrições."
+    },
+    {
+      "letra":           "AA",
+      "nome":            "Crédito Muito Bom",
+      "de":              80,
+      "ate":             89,
+      "cor":             "#15803d",
+      "cor_fundo":       "#d1fae5",
+      "limite_sugerido": 150000,
+      "prazo_dias":      60,
+      "descricao":       "Risco muito baixo. Crédito amplo com condições favoráveis."
+    },
+    {
+      "letra":           "A",
+      "nome":            "Crédito Bom",
+      "de":              70,
+      "ate":             79,
+      "cor":             "#4d7c0f",
+      "cor_fundo":       "#ecfccb",
+      "limite_sugerido": 100000,
+      "prazo_dias":      45,
+      "descricao":       "Risco baixo. Crédito aprovado com boas condições."
+    },
+    {
+      "letra":           "BBB",
+      "nome":            "Crédito Satisfatório",
+      "de":              60,
+      "ate":             69,
+      "cor":             "#a16207",
+      "cor_fundo":       "#fef9c3",
+      "limite_sugerido": 50000,
+      "prazo_dias":      30,
+      "descricao":       "Risco moderado. Crédito aprovado com condições padrão."
+    },
+    {
+      "letra":           "BB",
+      "nome":            "Crédito Regular",
+      "de":              50,
+      "ate":             59,
+      "cor":             "#c2410c",
+      "cor_fundo":       "#ffedd5",
+      "limite_sugerido": 25000,
+      "prazo_dias":      21,
+      "descricao":       "Risco moderado-alto. Crédito aprovado com exigência de garantias."
+    },
+    {
+      "letra":           "B",
+      "nome":            "Crédito Limitado",
+      "de":              40,
+      "ate":             49,
+      "cor":             "#ea580c",
+      "cor_fundo":       "#fee2e2",
+      "limite_sugerido": 10000,
+      "prazo_dias":      14,
+      "descricao":       "Risco alto. Crédito restrito; exige análise individual e garantias."
+    },
+    {
+      "letra":           "CCC",
+      "nome":            "Crédito de Alto Risco",
+      "de":              30,
+      "ate":             39,
+      "cor":             "#dc2626",
+      "cor_fundo":       "#fecaca",
+      "limite_sugerido": 5000,
+      "prazo_dias":      7,
+      "descricao":       "Risco muito alto. Crédito mínimo com garantias reforçadas."
+    },
+    {
+      "letra":           "CC",
+      "nome":            "Crédito Muito Alto Risco",
+      "de":              20,
+      "ate":             29,
+      "cor":             "#b91c1c",
+      "cor_fundo":       "#fee2e2",
+      "limite_sugerido": 2000,
+      "prazo_dias":      0,
+      "descricao":       "Risco crítico. Apenas venda à vista ou garantias totais."
+    },
+    {
+      "letra":           "C",
+      "nome":            "Crédito em Recuperação",
+      "de":              10,
+      "ate":             19,
+      "cor":             "#991b1b",
+      "cor_fundo":       "#fca5a5",
+      "limite_sugerido": 0,
+      "prazo_dias":      0,
+      "descricao":       "Em recuperação financeira. Suspensão de crédito recomendada."
+    },
+    {
+      "letra":           "D",
+      "nome":            "Crédito Bloqueado",
+      "de":              0,
+      "ate":             9,
+      "cor":             "#7f1d1d",
+      "cor_fundo":       "#fecaca",
+      "limite_sugerido": 0,
+      "prazo_dias":      0,
+      "descricao":       "Bloqueado. Proibida qualquer concessão de crédito."
+    }
+  ]
+}

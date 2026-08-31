@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Placar Gamificação</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0a0f1e;
+      --surface:  #111827;
+      --border:   #1f2937;
+      --text:     #f1f5f9;
+      --muted:    #94a3b8;
+      --primary:  #6366f1;
+      --gold:     #f59e0b;
+      --silver:   #94a3b8;
+      --bronze:   #b45309;
+      --green:    #22c55e;
+      --red:      #ef4444;
+      --orange:   #f97316;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .placar-root {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+      padding: 28px 36px;
+      gap: 24px;
+    }
+
+    /* Header */
+    .placar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .placar-titulo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: var(--text);
+    }
+    .placar-titulo span { color: var(--primary); }
+    .placar-info {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .info-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .info-pill .val { color: var(--text); }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+      flex-shrink: 0;
+    }
+    .status-dot.ativa { background: var(--green); animation: blink 1.2s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    /* Ranking */
+    .ranking-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+    .rank-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s;
+    }
+    .rank-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: var(--team-cor, var(--primary));
+    }
+    .rank-card.pos-1 { border-color: var(--gold); background: #1a1507; }
+    .rank-card.pos-2 { border-color: var(--silver); }
+    .rank-card.pos-3 { border-color: var(--bronze); }
+    .rank-pos {
+      font-size: 32px;
+      width: 48px;
+      text-align: center;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .rank-cor-barra {
+      width: 14px;
+      height: 56px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .rank-info { flex: 1; min-width: 0; }
+    .rank-nome { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 3px; }
+    .rank-setor { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .rank-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+    .rank-pts { font-size: 36px; font-weight: 900; color: var(--text); line-height: 1; }
+    .rank-pts-label { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .8px; }
+    .rank-bar-wrap { flex: 1; max-width: 240px; min-width: 60px; }
+    .rank-bar-bg { height: 8px; background: var(--border); border-radius: 100px; overflow: hidden; }
+    .rank-bar-fill { height: 100%; border-radius: 100px; background: var(--team-cor, var(--primary)); transition: width 1s ease; }
+
+    /* Eventos urgentes */
+    .urgentes-section { }
+    .urgentes-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 10px;
+    }
+    .urgentes-list { display: flex; gap: 12px; flex-wrap: wrap; }
+    .urgente-card {
+      background: #1a0505;
+      border: 1px solid var(--red);
+      border-radius: 10px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: shake 2s ease-in-out infinite;
+    }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 10%,30%,50%,70%,90%{transform:translateX(-2px)} 20%,40%,60%,80%{transform:translateX(2px)} }
+    .urgente-titulo { font-size: 13px; font-weight: 700; color: #fca5a5; }
+    .urgente-cd { font-size: 13px; font-weight: 900; color: var(--red); min-width: 50px; text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* Footer */
+    .placar-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .refresh-label { font-size: 11px; color: var(--muted); }
+    .btn-fullscreen {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .btn-fullscreen:hover { color: var(--text); border-color: var(--muted); }
+
+    .vazio { text-align: center; padding: 60px; color: var(--muted); font-size: 16px; }
+
+    @media(max-width:768px) {
+      .placar-root { padding: 16px; gap: 16px; }
+      .placar-titulo { font-size: 20px; }
+      .rank-pts { font-size: 26px; }
+      .rank-nome { font-size: 16px; }
+      .rank-pos { font-size: 24px; width: 36px; }
+      .rank-bar-wrap { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="placar-root">
+  <!-- Header -->
+  <div class="placar-header">
+    <div class="placar-titulo">🏆 <span>Placar</span> ERP Senai</div>
+    <div class="placar-info">
+      <div class="info-pill">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusLabel">Carregando...</span>
+      </div>
+      <div class="info-pill">🎮 Rodada <span class="val" id="rodadaVal">—</span></div>
+      <div class="info-pill">⏱ <span class="val" id="clockVal"></span></div>
+      <button class="btn-fullscreen" onclick="toggleFullscreen()">⛶ Tela cheia</button>
+    </div>
+  </div>
+
+  <!-- Ranking -->
+  <div class="ranking-grid" id="rankingGrid">
+    <div class="vazio">Aguardando sessão...</div>
+  </div>
+
+  <!-- Eventos urgentes -->
+  <div class="urgentes-section" id="urgentesSection" style="display:none">
+    <div class="urgentes-label">⚠️ Eventos Urgentes em Andamento</div>
+    <div class="urgentes-list" id="urgentesList"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="placar-footer">
+    <div class="refresh-label" id="refreshLabel">Atualizando a cada 5s...</div>
+    <div style="display:flex;gap:8px">
+      <a href="professor.html" style="background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;text-decoration:none;transition:all .15s">👨‍🏫 Voltar ao Professor</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const SB  = 'https://vdhahqicqlrdvcpesiwk.supabase.co/rest/v1';
+const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkaGFocWljcWxyZHZjcGVzaXdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MTI3OTYsImV4cCI6MjEwMjI4ODc5Nn0.7ACHuUUv6VMyy4-BbQcdAcmabMtqhiuVgrTGUUcV7RY';
+const H   = { 'apikey': KEY, 'Authorization': `Bearer ${KEY}` };
+
+const SETOR = { vendas:'Vendas', compras:'Compras', estoque:'Estoque', logistica:'Logística', financeiro:'Financeiro', marketing:'Marketing' };
+const MEDAL = ['🥇','🥈','🥉'];
+
+async function GET(t,q='') {
+  const r = await fetch(`${SB}/${t}?${q}`, { headers: H });
+  return r.json();
+}
+
+const urlParams  = new URLSearchParams(window.location.search);
+let sessaoId     = urlParams.get('sessao') || null;
+let sessao       = null;
+
+async function carregarSessao() {
+  if (sessaoId) {
+    const rows = await GET('gamificacao_sessoes',`id=eq.${sessaoId}&select=*`);
+    sessao = rows[0] || null;
+  } else {
+    const rows = await GET('gamificacao_sessoes','status=in.(ativa,pausada)&order=created_at.desc&limit=1&select=*');
+    sessao = rows[0] || null;
+    if (sessao) sessaoId = sessao.id;
+  }
+}
+
+async function atualizar() {
+  await carregarSessao();
+
+  const dot   = document.getElementById('statusDot');
+  const label = document.getElementById('statusLabel');
+
+  if (!sessao) {
+    label.textContent = 'Sem sessão ativa';
+    dot.className     = 'status-dot';
+    document.getElementById('rankingGrid').innerHTML = '<div class="vazio">Aguardando o professor iniciar uma sessão...</div>';
+    document.getElementById('urgentesSection').style.display = 'none';
+    return;
+  }
+
+  const ativa = sessao.status === 'ativa';
+  dot.className       = ativa ? 'status-dot ativa' : 'status-dot';
+  label.textContent   = `${sessao.titulo} — ${ativa ? 'Em andamento' : 'Pausada'}`;
+  document.getElementById('rodadaVal').textContent = sessao.rodada_atual || 1;
+
+  const [equipes, eventos] = await Promise.all([
+    GET('gamificacao_equipes',`sessao_id=eq.${sessaoId}&order=pontos.desc`),
+    GET('gamificacao_eventos',`sessao_id=eq.${sessaoId}&status=eq.pendente&prioridade=eq.urgente&select=id,titulo,prazo_minutos,created_at`)
+  ]);
+
+  renderRanking(equipes);
+  renderUrgentes(eventos);
+}
+
+function renderRanking(equipes) {
+  const el = document.getElementById('rankingGrid');
+  if (!equipes.length) { el.innerHTML='<div class="vazio">Nenhuma equipe cadastrada</div>'; return; }
+  const maxPts = Math.max(...equipes.map(e=>e.pontos||0), 1);
+  el.innerHTML = equipes.map((e,i)=>{
+    const perc = Math.round(((e.pontos||0)/maxPts)*100);
+    const cor  = e.cor || '#6366f1';
+    return `<div class="rank-card pos-${i+1}" style="--team-cor:${cor}">
+      <div class="rank-pos">${MEDAL[i]||i+1}</div>
+      <div class="rank-cor-barra" style="background:${cor}"></div>
+      <div class="rank-info">
+        <div class="rank-nome">${e.nome}</div>
+        <div class="rank-setor">${SETOR[e.setor]||e.setor}</div>
+      </div>
+      <div class="rank-bar-wrap">
+        <div class="rank-bar-bg"><div class="rank-bar-fill" style="width:${perc}%;background:${cor}"></div></div>
+      </div>
+      <div class="rank-right">
+        <div class="rank-pts">${(e.pontos||0).toLocaleString('pt-BR')}</div>
+        <div class="rank-pts-label">pontos</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderUrgentes(evs) {
+  const sec = document.getElementById('urgentesSection');
+  const lst = document.getElementById('urgentesList');
+  if (!evs.length) { sec.style.display='none'; return; }
+  sec.style.display = 'block';
+  const agora = Date.now();
+  lst.innerHTML = evs.map(e=>{
+    const ms  = e.prazo_minutos*60*1000 - (agora - new Date(e.created_at).getTime());
+    const min = Math.max(0,Math.floor(ms/60000));
+    const sec = Math.max(0,Math.floor((ms%60000)/1000));
+    return `<div class="urgente-card">
+      <span style="font-size:18px">⚠️</span>
+      <span class="urgente-titulo">${e.titulo}</span>
+      <span class="urgente-cd">${ms<=0?'EXPIROU':`${min}:${String(sec).padStart(2,'0')}`}</span>
+    </div>`;
+  }).join('');
+}
+
+function updateClock() {
+  document.getElementById('clockVal').textContent = new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+  else document.exitFullscreen();
+}
+
+// Inicializar
+atualizar();
+updateClock();
+setInterval(atualizar, 5000);
+setInterval(updateClock, 1000);
+
+// Atualizar contador no footer
+let countdown = 5;
+setInterval(()=>{
+  countdown--;
+  if (countdown <= 0) countdown = 5;
+  document.getElementById('refreshLabel').textContent = `Atualizando em ${countdown}s...`;
+}, 1000);
+</script>
+</body>
+</html>

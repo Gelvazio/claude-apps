@@ -1,0 +1,915 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* ── Layout ── */
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+
+    /* ── Sidebar ── */
+    .sidebar { width: 240px; background: var(--color-surface); border-right: 1px solid var(--color-border-faint); display: flex; flex-direction: column; position: fixed; top: 56px; left: 0; bottom: 0; overflow-y: auto; z-index: 50; transition: transform .25s; }
+    [data-theme="dark"] .sidebar { background: var(--color-surface); border-right-color: var(--color-border-light); }
+
+    .sidebar-section { padding: 20px 0 4px; }
+    .sidebar-section-label { font-size: 10px; font-weight: 700; color: var(--color-text-disabled); letter-spacing: 1.2px; text-transform: uppercase; padding: 0 20px 6px; }
+    .sidebar-link { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 13px; font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-left: 3px solid transparent; transition: background .15s, color .15s, border-color .15s; }
+    .sidebar-link:hover { background: #e8f0fe; color: var(--color-primary); }
+    .sidebar-link.ativo { background: #e8f0fe; color: var(--color-primary); border-left-color: var(--color-primary); font-weight: 600; }
+    [data-theme="dark"] .sidebar-link:hover, [data-theme="dark"] .sidebar-link.ativo { background: #2d1f5e; color: #c4b5fd; }
+    [data-theme="dark"] .sidebar-link.ativo { border-left-color: #8b5cf6; }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+
+    /* ── Conteúdo principal ── */
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; min-height: calc(100vh - 56px); }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+
+    /* ── Hamburguer ── */
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+
+    /* ══════════════════════════════════════════
+       DASHBOARD — Novo visual
+       ══════════════════════════════════════════ */
+
+    /* ── Hero ── */
+    .dash-hero { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 28px; gap: 16px; flex-wrap: wrap; }
+    .dash-hero h1 { font-size: 26px; font-weight: 800; color: var(--color-text); line-height: 1.1; }
+    .dash-hero p  { font-size: 13px; color: var(--color-text-muted); margin-top: 4px; }
+    [data-theme="dark"] .dash-hero h1 { color: #f8f6ff; }
+    [data-theme="dark"] .dash-hero p  { color: #9080b4; }
+
+    /* ── Period selector ── */
+    .period-selector { display: flex; gap: 2px; background: rgba(0,67,132,0.08); border-radius: 8px; padding: 3px; }
+    [data-theme="dark"] .period-selector { background: rgba(139,92,246,0.10); }
+    .period-btn { background: none; border: none; color: var(--color-text-muted); font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: all .15s; font-family: inherit; }
+    .period-btn.active { background: var(--color-primary); color: #fff; }
+    .period-btn:hover:not(.active) { color: var(--color-text); }
+    [data-theme="dark"] .period-btn.active { background: #8b5cf6; }
+    [data-theme="dark"] .period-btn:hover:not(.active) { color: #c4b5fd; }
+
+    /* ── KPI row ── */
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+    @media (max-width: 900px) { .kpi-row { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 480px)  { .kpi-row { grid-template-columns: 1fr; } }
+
+    .kpi-flat { background: var(--color-surface); border: 1px solid var(--color-border-faint); border-radius: 12px; padding: 20px 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: background .2s, box-shadow .2s; }
+    .kpi-flat:hover { background: var(--color-surface-2); box-shadow: var(--shadow-md); }
+    [data-theme="dark"] .kpi-flat { background: #0f0c22; border-color: rgba(139,92,246,0.15); }
+    [data-theme="dark"] .kpi-flat:hover { background: #14112a; box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 0 1px rgba(139,92,246,0.2); }
+    .kpi-flat-label { font-size: 10px; font-weight: 700; color: var(--color-text-faint); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px; }
+    .kpi-flat-value { font-size: 26px; font-weight: 800; color: var(--color-text); line-height: 1; margin-bottom: 6px; }
+    .kpi-flat-meta  { font-size: 11px; color: var(--color-text-muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    [data-theme="dark"] .kpi-flat-label { color: #6b5e8a; }
+    [data-theme="dark"] .kpi-flat-value { color: #ffffff; }
+    [data-theme="dark"] .kpi-flat-meta  { color: #9080b4; }
+    .kpi-flat-icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(0,67,132,0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    [data-theme="dark"] .kpi-flat-icon { background: rgba(139,92,246,0.18); }
+
+    /* ── Badges de variação ── */
+    .badge-up   { display: inline-block; background: rgba(34,197,94,0.15);  color: #16a34a; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
+    .badge-down { display: inline-block; background: rgba(239,68,68,0.15);  color: #dc2626; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
+    [data-theme="dark"] .badge-up   { background: rgba(34,197,94,0.15);  color: #22c55e; }
+    [data-theme="dark"] .badge-down { background: rgba(239,68,68,0.15);  color: #ef4444; }
+
+    /* ── Tabs ── */
+    .dash-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--color-border-faint); margin-bottom: 24px; overflow-x: auto; }
+    [data-theme="dark"] .dash-tabs { border-bottom-color: rgba(139,92,246,0.15); }
+    .dash-tab { background: none; border: none; border-bottom: 2px solid transparent; color: var(--color-text-muted); font-size: 13px; font-weight: 500; padding: 8px 16px; cursor: pointer; transition: all .15s; margin-bottom: -1px; font-family: inherit; white-space: nowrap; }
+    .dash-tab.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+    .dash-tab:hover:not(.active) { color: var(--color-text); }
+    [data-theme="dark"] .dash-tab.active { color: #a78bfa; border-bottom-color: #8b5cf6; }
+    [data-theme="dark"] .dash-tab:hover:not(.active) { color: #c4b5fd; }
+
+    /* ── Painéis de tab ── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Charts grid ── */
+    .charts-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
+    @media (max-width: 900px) { .charts-grid { grid-template-columns: 1fr; } }
+
+    .chart-card { background: var(--color-surface); border: 1px solid var(--color-border-faint); border-radius: 12px; padding: 20px; }
+    [data-theme="dark"] .chart-card { background: #0f0c22; border-color: rgba(139,92,246,0.12); }
+
+    .chart-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; gap: 8px; }
+    .chart-title    { font-size: 13px; font-weight: 700; color: var(--color-text); }
+    .chart-subtitle { font-size: 11px; color: var(--color-text-muted); margin-top: 2px; }
+    [data-theme="dark"] .chart-title    { color: #f0ecff; }
+    [data-theme="dark"] .chart-subtitle { color: #6b5e8a; }
+
+    .chart-toggle { display: flex; gap: 3px; }
+    .chart-toggle-btn { background: none; border: 1px solid var(--color-border); color: var(--color-text-muted); font-size: 11px; padding: 3px 10px; border-radius: 5px; cursor: pointer; font-family: inherit; transition: all .15s; }
+    .chart-toggle-btn.active { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+    [data-theme="dark"] .chart-toggle-btn { border-color: rgba(139,92,246,0.25); color: #6b5e8a; }
+    [data-theme="dark"] .chart-toggle-btn.active { background: #8b5cf6; border-color: #8b5cf6; color: #fff; }
+
+    /* ── Legenda de rosca ── */
+    .donut-legend { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+    .donut-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--color-text-secondary); }
+    [data-theme="dark"] .donut-legend-item { color: #c4b5fd; }
+    .donut-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ── Tabelas recentes ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+    .data-card { background: var(--color-surface); border: 1px solid var(--color-border-faint); border-radius: 12px; overflow: hidden; }
+    [data-theme="dark"] .data-card { background: #0f0c22; border-color: rgba(139,92,246,0.12); }
+
+    .data-card-head { padding: 14px 18px; border-bottom: 1px solid var(--color-border-faint); display: flex; align-items: center; justify-content: space-between; }
+    [data-theme="dark"] .data-card-head { border-bottom-color: rgba(139,92,246,0.12); }
+    .data-card-title { font-size: 13px; font-weight: 700; color: var(--color-text); }
+    [data-theme="dark"] .data-card-title { color: #f0ecff; }
+    .data-card-link  { font-size: 11px; color: var(--color-primary); text-decoration: none; }
+    [data-theme="dark"] .data-card-link { color: #a78bfa; }
+
+    .mov-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .mov-table th { text-align: left; padding: 8px 14px; font-size: 10px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: .4px; border-bottom: 1px solid var(--color-border-faint); white-space: nowrap; }
+    .mov-table td { padding: 9px 14px; border-bottom: 1px solid var(--color-border-faint); color: var(--color-text-secondary); }
+    .mov-table tr:last-child td { border-bottom: none; }
+    .mov-table tr:hover td { background: var(--color-surface-2); }
+    [data-theme="dark"] .mov-table th { color: #a78bfa; border-bottom-color: rgba(139,92,246,0.10); }
+    [data-theme="dark"] .mov-table td { color: #c4b5fd; border-bottom-color: rgba(139,92,246,0.08); }
+    [data-theme="dark"] .mov-table tr:hover td { background: #1a1535; }
+
+    .tipo-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+    .tipo-entrada  { background: rgba(34,197,94,0.15);   color: #16a34a; }
+    .tipo-saida    { background: rgba(239,68,68,0.15);   color: #dc2626; }
+    .tipo-ajuste   { background: rgba(251,191,36,0.15);  color: #b45309; }
+    .tipo-transf   { background: rgba(139,92,246,0.15);  color: #7c3aed; }
+    [data-theme="dark"] .tipo-entrada { background: rgba(52,211,153,0.15);  color: #6ee7b7; }
+    [data-theme="dark"] .tipo-saida   { background: rgba(248,113,113,0.15); color: #fca5a5; }
+    [data-theme="dark"] .tipo-ajuste  { background: rgba(251,191,36,0.15);  color: #fde68a; }
+    [data-theme="dark"] .tipo-transf  { background: rgba(167,139,250,0.15); color: #c4b5fd; }
+
+    .vazio { text-align: center; color: var(--color-text-faint); font-size: 12px; padding: 20px; font-style: italic; }
+
+    /* ── Alerta estoque ── */
+    .estoque-alerta { background: #fff3cd; border: 1px solid #ffc107; border-radius: 10px; padding: 10px 16px; margin-bottom: 20px; font-size: 13px; color: #856404; display: none; }
+    .estoque-alerta.show { display: flex; align-items: center; gap: 10px; }
+    [data-theme="dark"] .estoque-alerta { background: #1e1200; border-color: #fbbf24; color: #fbbf24; box-shadow: 0 0 16px rgba(251,191,36,0.12); }
+
+    /* ── Painel Clientes ── */
+    .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 16px; }
+    @media (max-width: 600px) { .stats-row { grid-template-columns: 1fr; } }
+    .stat-mini { background: var(--color-surface); border: 1px solid var(--color-border-faint); border-radius: 10px; padding: 16px 18px; }
+    [data-theme="dark"] .stat-mini { background: #0f0c22; border-color: rgba(139,92,246,0.12); }
+    .stat-mini-label { font-size: 10px; font-weight: 700; color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+    .stat-mini-value { font-size: 22px; font-weight: 800; color: var(--color-text); }
+    [data-theme="dark"] .stat-mini-label { color: #6b5e8a; }
+    [data-theme="dark"] .stat-mini-value { color: #ffffff; }
+  </style>
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────── -->
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<!-- ── Overlay mobile ─────────────────────────── -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ── Layout ─────────────────────────────────── -->
+<div class="app-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <!-- Conteúdo -->
+  <main class="main">
+
+    <!-- Alerta estoque crítico -->
+    <div class="estoque-alerta" id="alertaEstoque">
+      ⚠️ <span id="alertaEstoqueTexto"></span>
+    </div>
+
+    <!-- ── Hero ── -->
+    <div class="dash-hero">
+      <div>
+        <h1>Painel operacional</h1>
+        <p id="saudacao">Visão consolidada de clientes, vendas, estoque e logística.</p>
+      </div>
+      <div class="period-selector">
+        <button class="period-btn" onclick="setPeriod(7,this)">7 dias</button>
+        <button class="period-btn active" onclick="setPeriod(30,this)">30 dias</button>
+        <button class="period-btn" onclick="setPeriod(90,this)">Trimestre</button>
+        <button class="period-btn" onclick="setPeriod(365,this)">Ano</button>
+      </div>
+    </div>
+
+    <!-- ── KPI Row ── -->
+    <div class="kpi-row">
+      <div class="kpi-flat">
+        <div>
+          <div class="kpi-flat-label">Receita do Mês</div>
+          <div class="kpi-flat-value" id="kpiReceita">—</div>
+          <div class="kpi-flat-meta"><span class="badge-up" id="kpiReceitaBadge">+0%</span> <span>vs. mês anterior</span></div>
+        </div>
+        <div class="kpi-flat-icon">💰</div>
+      </div>
+      <div class="kpi-flat">
+        <div>
+          <div class="kpi-flat-label">Pedidos de Venda</div>
+          <div class="kpi-flat-value" id="kpiPedidos">—</div>
+          <div class="kpi-flat-meta"><span class="badge-up" id="kpiPedidosBadge">em aberto</span></div>
+        </div>
+        <div class="kpi-flat-icon">🛍️</div>
+      </div>
+      <div class="kpi-flat">
+        <div>
+          <div class="kpi-flat-label">Estoque Crítico</div>
+          <div class="kpi-flat-value" id="kpiCritico">—</div>
+          <div class="kpi-flat-meta"><span id="kpiCriticoBadge">produtos abaixo do mínimo</span></div>
+        </div>
+        <div class="kpi-flat-icon">⚠️</div>
+      </div>
+      <div class="kpi-flat">
+        <div>
+          <div class="kpi-flat-label">Clientes Ativos</div>
+          <div class="kpi-flat-value" id="kpiClientes">—</div>
+          <div class="kpi-flat-meta"><span id="kpiFornecedores">—</span> fornecedores</div>
+        </div>
+        <div class="kpi-flat-icon">👥</div>
+      </div>
+    </div>
+
+    <!-- ── Tabs ── -->
+    <div class="dash-tabs">
+      <button class="dash-tab active" onclick="showTab('visao',this)">Visão geral</button>
+      <button class="dash-tab" onclick="showTab('clientes',this)">Clientes</button>
+      <button class="dash-tab" onclick="showTab('estoque',this)">Estoque</button>
+      <button class="dash-tab" onclick="showTab('compras',this)">Compras</button>
+    </div>
+
+    <!-- ═══ Tab: Visão Geral ═══ -->
+    <div class="tab-panel active" id="tab-visao">
+
+      <!-- Charts linha 1 -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-head">
+            <div>
+              <div class="chart-title">Pedidos de Venda por mês</div>
+              <div class="chart-subtitle" id="chartReceitaSubtitle">Valor total (R$)</div>
+            </div>
+            <div class="chart-toggle">
+              <button class="chart-toggle-btn active" onclick="switchChartReceita('receita',this)">Receita</button>
+              <button class="chart-toggle-btn" onclick="switchChartReceita('pedidos',this)">Pedidos</button>
+            </div>
+          </div>
+          <canvas id="chartReceita" height="220"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-head">
+            <div>
+              <div class="chart-title">Status dos Pedidos</div>
+              <div class="chart-subtitle">Distribuição por status</div>
+            </div>
+          </div>
+          <canvas id="chartStatus" height="200"></canvas>
+          <div class="donut-legend" id="donutLegend"></div>
+        </div>
+      </div>
+
+      <!-- Charts linha 2 -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-head">
+            <div>
+              <div class="chart-title">Pedidos de Compra por mês</div>
+              <div class="chart-subtitle">Valor total (R$)</div>
+            </div>
+          </div>
+          <canvas id="chartCompras" height="220"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-head">
+            <div>
+              <div class="chart-title">Estoque — Top produtos críticos</div>
+              <div class="chart-subtitle">% do mínimo atingido</div>
+            </div>
+          </div>
+          <canvas id="chartEstoque" height="220"></canvas>
+        </div>
+      </div>
+
+      <!-- Tabelas recentes -->
+      <div class="two-col">
+        <div class="data-card">
+          <div class="data-card-head">
+            <span class="data-card-title">🔄 Últimas Movimentações</span>
+            <a class="data-card-link" href="estoque/movimentacoes.html">Ver todas →</a>
+          </div>
+          <div class="crud-table-wrap">
+            <table class="mov-table">
+              <thead><tr><th>Nº</th><th>Produto</th><th>Tipo</th><th>Qtd</th><th>Data</th></tr></thead>
+              <tbody id="tbodyMov"><tr><td colspan="5" class="vazio">Carregando…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="data-card">
+          <div class="data-card-head">
+            <span class="data-card-title">🛍️ Pedidos de Venda Recentes</span>
+            <a class="data-card-link" href="vendas/pedidos-venda.html">Ver todos →</a>
+          </div>
+          <div class="crud-table-wrap">
+            <table class="mov-table">
+              <thead><tr><th>Nº</th><th>Cliente</th><th>Valor</th><th>Status</th><th>Data</th></tr></thead>
+              <tbody id="tbodyPV"><tr><td colspan="5" class="vazio">Carregando…</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pedidos compra -->
+      <div class="data-card" style="margin-top:16px">
+        <div class="data-card-head">
+          <span class="data-card-title">🛒 Pedidos de Compra Recentes</span>
+          <a class="data-card-link" href="compras/pedidos.html">Ver todos →</a>
+        </div>
+        <div class="crud-table-wrap">
+          <table class="mov-table">
+            <thead><tr><th>Nº</th><th>Fornecedor</th><th>Produto</th><th>Valor Total</th><th>Status</th><th>Data</th></tr></thead>
+            <tbody id="tbodyPC"><tr><td colspan="6" class="vazio">Carregando…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Tab: Clientes ═══ -->
+    <div class="tab-panel" id="tab-clientes">
+      <div class="stats-row">
+        <div class="stat-mini">
+          <div class="stat-mini-label">Total de Clientes</div>
+          <div class="stat-mini-value" id="statTotalClientes">—</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-label">Clientes Ativos</div>
+          <div class="stat-mini-value" id="statAtivosClientes">—</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-label">Clientes Inativos</div>
+          <div class="stat-mini-value" id="statInativosClientes">—</div>
+        </div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-head"><div><div class="chart-title">Clientes por Segmento</div><div class="chart-subtitle">Distribuição</div></div></div>
+          <canvas id="chartClientesSegmento" height="240"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-head"><div><div class="chart-title">Clientes por Estado</div><div class="chart-subtitle">Top 8 estados</div></div></div>
+          <canvas id="chartClientesEstado" height="240"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Tab: Estoque ═══ -->
+    <div class="tab-panel" id="tab-estoque">
+      <div class="stats-row">
+        <div class="stat-mini">
+          <div class="stat-mini-label">Total de Produtos</div>
+          <div class="stat-mini-value" id="statTotalProdutos">—</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-label">Estoque Normal</div>
+          <div class="stat-mini-value" id="statNormal">—</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-label">Estoque Crítico</div>
+          <div class="stat-mini-value" id="statCritico">—</div>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-head"><div><div class="chart-title">Produtos — Estoque Atual vs. Mínimo</div><div class="chart-subtitle">Top 10 produtos</div></div></div>
+        <canvas id="chartEstoqueDetalhe" height="250"></canvas>
+      </div>
+    </div>
+
+    <!-- ═══ Tab: Compras ═══ -->
+    <div class="tab-panel" id="tab-compras">
+      <div class="stats-row">
+        <div class="stat-mini">
+          <div class="stat-mini-label">Pedidos em Aberto</div>
+          <div class="stat-mini-value" id="statPCAberto">—</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-label">Total de Fornecedores</div>
+          <div class="stat-mini-value" id="statFornecedores">—</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-label">Solicitações Pendentes</div>
+          <div class="stat-mini-value" id="statSCPendentes">—</div>
+        </div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <div class="chart-head"><div><div class="chart-title">Pedidos de Compra por Status</div></div></div>
+          <canvas id="chartComprasStatus" height="240"></canvas>
+        </div>
+        <div class="chart-card">
+          <div class="chart-head"><div><div class="chart-title">Fornecedores por Segmento</div></div></div>
+          <canvas id="chartFornSegmento" height="240"></canvas>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div><!-- /.app-layout -->
+
+<script src="menu.js"></script>
+<script src="SUPABASE.js"></script>
+<script>
+// ── Sessão ──────────────────────────────────────
+sbVerificarSessao('index.html');
+document.getElementById('roleBadge').textContent = sbPerfil() || '';
+
+// ── Tema ───────────────────────────────────────
+(function () {
+  const t   = localStorage.getItem('senai_tema') || 'light';
+  const btn = document.getElementById('btnTema');
+  if (btn) btn.textContent = t === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+})();
+function alternarTema() {
+  const novo = sbToggleTema();
+  const btn  = document.getElementById('btnTema');
+  if (btn) btn.textContent = novo === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  location.reload();
+}
+function sair() { sbLogout('index.html'); }
+
+// ── Sidebar mobile ─────────────────────────────
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+}
+
+// ── Period selector ────────────────────────────
+function setPeriod(days, btn) {
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── Tabs ───────────────────────────────────────
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.dash-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  if (id === 'clientes') carregarTabClientes();
+  if (id === 'estoque')  carregarTabEstoque();
+  if (id === 'compras')  carregarTabCompras();
+}
+
+// ── Paleta de cores ────────────────────────────
+const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+const paleta = {
+  purple:  '#8b5cf6',
+  purple2: '#a78bfa',
+  purple3: '#6d28d9',
+  green:   '#22c55e',
+  red:     '#ef4444',
+  yellow:  '#eab308',
+  blue:    '#60a5fa',
+  orange:  '#fb923c',
+  teal:    '#2dd4bf',
+  grid:    dark ? 'rgba(139,92,246,0.08)' : 'rgba(0,0,0,0.05)',
+  text:    dark ? '#9080b4' : '#888888',
+  bg:      dark ? '#0f0c22' : '#ffffff',
+};
+
+// ── Defaults do Chart.js ───────────────────────
+Chart.defaults.color = paleta.text;
+Chart.defaults.borderColor = paleta.grid;
+Chart.defaults.font.family = "'Google Sans', Roboto, Arial, sans-serif";
+Chart.defaults.font.size   = 11;
+
+// ── Helpers ────────────────────────────────────
+function sbDataLocal(d) { if (!d) return '—'; return new Date(d + 'T00:00').toLocaleDateString('pt-BR'); }
+function moeda(v) { return v != null ? 'R$ ' + Number(v).toLocaleString('pt-BR', {minimumFractionDigits:0,maximumFractionDigits:0}) : '—'; }
+
+function statusBadge(status) {
+  const map = { 'Confirmado':'badge-azul','Rascunho':'badge-cinza','Cancelado':'badge-vermelho','Recebido':'badge-verde','Enviado':'badge-laranja','Em Separação':'badge-laranja','Em Expedição':'badge-laranja','Entregue':'badge-verde' };
+  return `<span class="badge ${map[status]||'badge-cinza'}">${status}</span>`;
+}
+function tipoBadge(tipo) {
+  if (!tipo) return '<span class="tipo-badge">—</span>';
+  const t = tipo.toLowerCase();
+  let cls = t.includes('entrada') ? 'tipo-entrada' : t.includes('saída')||t.includes('saida') ? 'tipo-saida' : t.includes('transfer') ? 'tipo-transf' : t.includes('ajuste') ? 'tipo-ajuste' : '';
+  return `<span class="tipo-badge ${cls}">${tipo}</span>`;
+}
+
+// ── Meses ── (para labels dos gráficos)
+const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+function ultMeses(n) {
+  const hoje = new Date(); const arr = [];
+  for (let i = n-1; i >= 0; i--) {
+    const d = new Date(hoje.getFullYear(), hoje.getMonth() - i, 1);
+    arr.push(MESES[d.getMonth()]);
+  }
+  return arr;
+}
+
+// ── Gráfico de área — Receita/Pedidos ─────────
+let chartReceita, modoReceita = 'receita';
+function initChartReceita(dadosPV) {
+  // Agrupa por mês
+  const agr = {};
+  const hoje = new Date();
+  for (let i = 7; i >= 0; i--) {
+    const d = new Date(hoje.getFullYear(), hoje.getMonth() - i, 1);
+    agr[d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0')] = { receita: 0, pedidos: 0 };
+  }
+  dadosPV.forEach(p => {
+    if (!p.data) return;
+    const k = p.data.substring(0, 7);
+    if (agr[k] !== undefined) { agr[k].receita += parseFloat(p.valor_total||0); agr[k].pedidos++; }
+  });
+
+  const labels = Object.keys(agr).map(k => { const [a,m] = k.split('-'); return MESES[parseInt(m)-1]; });
+  const recArr = Object.values(agr).map(v => v.receita);
+  const pedArr = Object.values(agr).map(v => v.pedidos);
+
+  const ctx = document.getElementById('chartReceita').getContext('2d');
+  chartReceita = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Receita (R$)',
+        data: recArr,
+        borderColor: paleta.purple,
+        backgroundColor: dark ? 'rgba(139,92,246,0.18)' : 'rgba(139,92,246,0.08)',
+        fill: true,
+        tension: 0.4,
+        pointBackgroundColor: paleta.purple,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        borderWidth: 2,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { color: paleta.grid } },
+        y: { grid: { color: paleta.grid }, ticks: { callback: v => 'R$' + (v>=1000?(v/1000).toFixed(0)+'k':v) } }
+      }
+    }
+  });
+
+  window._chartReceitaData = { labels, recArr, pedArr };
+}
+
+function switchChartReceita(modo, btn) {
+  document.querySelectorAll('.chart-toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  modoReceita = modo;
+  const d = window._chartReceitaData;
+  if (!d || !chartReceita) return;
+  const isReceita = modo === 'receita';
+  chartReceita.data.datasets[0].label = isReceita ? 'Receita (R$)' : 'Pedidos';
+  chartReceita.data.datasets[0].data  = isReceita ? d.recArr : d.pedArr;
+  chartReceita.options.scales.y.ticks.callback = isReceita ? (v => 'R$'+(v>=1000?(v/1000).toFixed(0)+'k':v)) : (v=>v);
+  document.getElementById('chartReceitaSubtitle').textContent = isReceita ? 'Valor total (R$)' : 'Quantidade de pedidos';
+  chartReceita.update();
+}
+
+// ── Gráfico de rosca — Status dos pedidos ─────
+function initChartStatus(dadosPV) {
+  const contagem = {};
+  dadosPV.forEach(p => { const s = p.status || 'Sem status'; contagem[s] = (contagem[s]||0) + 1; });
+  const labels = Object.keys(contagem);
+  const data   = Object.values(contagem);
+  const cores  = [paleta.purple, paleta.blue, paleta.green, paleta.yellow, paleta.orange, paleta.red, paleta.teal, paleta.purple3];
+
+  const ctx = document.getElementById('chartStatus').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data, backgroundColor: cores.slice(0, data.length), borderWidth: 0, hoverOffset: 6 }] },
+    options: {
+      responsive: true,
+      cutout: '65%',
+      plugins: { legend: { display: false } }
+    }
+  });
+
+  // Legenda manual
+  const leg = document.getElementById('donutLegend');
+  leg.innerHTML = labels.map((l,i) =>
+    `<div class="donut-legend-item"><span class="donut-dot" style="background:${cores[i]||'#888'}"></span>${l} <strong>(${data[i]})</strong></div>`
+  ).join('');
+}
+
+// ── Gráfico de barras — Compras ───────────────
+function initChartCompras(dadosPC) {
+  const agr = {};
+  const hoje = new Date();
+  for (let i = 7; i >= 0; i--) {
+    const d = new Date(hoje.getFullYear(), hoje.getMonth() - i, 1);
+    agr[d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0')] = 0;
+  }
+  dadosPC.forEach(p => {
+    if (!p.data) return;
+    const k = p.data.substring(0, 7);
+    if (agr[k] !== undefined) agr[k] += parseFloat(p.valor_total||0);
+  });
+  const labels = Object.keys(agr).map(k => MESES[parseInt(k.split('-')[1])-1]);
+  const data   = Object.values(agr);
+
+  const ctx = document.getElementById('chartCompras').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Compras (R$)',
+        data,
+        backgroundColor: dark ? 'rgba(139,92,246,0.6)' : 'rgba(0,67,132,0.5)',
+        borderColor: paleta.purple,
+        borderWidth: 1,
+        borderRadius: 5,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false } },
+        y: { grid: { color: paleta.grid }, ticks: { callback: v => 'R$'+(v>=1000?(v/1000).toFixed(0)+'k':v) } }
+      }
+    }
+  });
+}
+
+// ── Gráfico de barras horizontais — Estoque ───
+function initChartEstoque(produtos) {
+  const criticos = produtos.filter(p => p.estoque_atual <= p.estoque_minimo && p.estoque_minimo > 0)
+    .slice(0, 8)
+    .sort((a,b) => (a.estoque_atual/a.estoque_minimo) - (b.estoque_atual/b.estoque_minimo));
+
+  const labels = criticos.map(p => p.nome.length > 18 ? p.nome.substring(0,18)+'…' : p.nome);
+  const data   = criticos.map(p => Math.round((p.estoque_atual / p.estoque_minimo)*100));
+
+  if (!criticos.length) {
+    document.getElementById('chartEstoque').closest('.chart-card').querySelector('.chart-subtitle') && '';
+    const canvas = document.getElementById('chartEstoque');
+    canvas.style.display = 'none';
+    canvas.insertAdjacentHTML('afterend','<p class="vazio">✅ Nenhum produto em estoque crítico</p>');
+    return;
+  }
+
+  const ctx = document.getElementById('chartEstoque').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: '% do mínimo',
+        data,
+        backgroundColor: data.map(v => v <= 50 ? 'rgba(239,68,68,0.6)' : 'rgba(251,191,36,0.6)'),
+        borderColor:      data.map(v => v <= 50 ? '#ef4444' : '#eab308'),
+        borderWidth: 1,
+        borderRadius: 4,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { max: 100, grid: { color: paleta.grid }, ticks: { callback: v => v+'%' } },
+        y: { grid: { display: false } }
+      }
+    }
+  });
+}
+
+// ── Carregar KPIs e dados principais ──────────
+let _dadosPV = [], _dadosPC = [], _dadosProdutos = [];
+
+async function carregarTudo() {
+  try {
+    const [clientes, fornecedores, produtos, pedidosCompra, pedidosVenda, movs, pcAll] = await Promise.all([
+      sbContar('clientes', 'ativo=eq.true'),
+      sbContar('fornecedores', 'ativo=eq.true'),
+      sbListar('produtos', 'ativo=eq.true&select=id,nome,estoque_atual,estoque_minimo'),
+      sbContar('compras_pedidos', 'status=in.(Rascunho,Enviado,Confirmado)'),
+      sbListar('vendas_pedidos', 'select=numero,valor_total,status,data,cliente_id,clientes(nome)&order=created_at.desc&limit=100'),
+      sbListar('estoque_movimentacoes', 'select=numero,tipo,quantidade,data,produto_id,produtos(nome)&order=created_at.desc&limit=5'),
+      sbListar('compras_pedidos', 'select=numero,valor_total,status,data,fornecedor_id,fornecedores(nome),produto_id,produtos(nome)&order=created_at.desc&limit=100'),
+    ]);
+
+    _dadosPV       = pedidosVenda;
+    _dadosPC       = pcAll;
+    _dadosProdutos = produtos;
+
+    // KPIs
+    document.getElementById('kpiClientes').textContent    = clientes;
+    document.getElementById('kpiFornecedores').textContent = fornecedores;
+
+    const pvAberto = pedidosVenda.filter(p => ['Confirmado','Em Separação','Em Expedição'].includes(p.status)).length;
+    document.getElementById('kpiPedidos').textContent = pvAberto;
+
+    const criticos = produtos.filter(p => p.estoque_atual <= p.estoque_minimo);
+    document.getElementById('kpiCritico').textContent = criticos.length;
+    if (criticos.length > 0) {
+      const badge = document.getElementById('kpiCriticoBadge');
+      badge.outerHTML = `<span class="badge-down">${criticos.length} críticos</span>`;
+    }
+
+    // Receita do mês
+    const hojeM = new Date(); const mesAtual = hojeM.getFullYear() + '-' + String(hojeM.getMonth()+1).padStart(2,'0');
+    const recMes = pedidosVenda.filter(p => (p.data||'').startsWith(mesAtual)).reduce((s,p) => s + parseFloat(p.valor_total||0), 0);
+    document.getElementById('kpiReceita').textContent = moeda(recMes);
+
+    // Alerta
+    if (criticos.length > 0) {
+      const nomes = criticos.slice(0,3).map(p => p.nome).join(', ');
+      document.getElementById('alertaEstoqueTexto').textContent = `${criticos.length} produto(s) com estoque crítico: ${nomes}${criticos.length>3?' e mais '+(criticos.length-3):'.'}.`;
+      document.getElementById('alertaEstoque').classList.add('show');
+    }
+
+    // Gráficos
+    initChartReceita(pedidosVenda);
+    initChartStatus(pedidosVenda);
+    initChartCompras(pcAll);
+    initChartEstoque(produtos);
+
+    // Tabela movimentações
+    const tbodyMov = document.getElementById('tbodyMov');
+    if (!movs.length) { tbodyMov.innerHTML = '<tr><td colspan="5" class="vazio">Nenhuma movimentação.</td></tr>'; }
+    else tbodyMov.innerHTML = movs.map(r => `
+      <tr>
+        <td style="font-family:monospace;font-size:11px">${r.numero}</td>
+        <td>${r.produtos?.nome||'—'}</td>
+        <td>${tipoBadge(r.tipo)}</td>
+        <td>${Number(r.quantidade).toLocaleString('pt-BR')}</td>
+        <td>${sbDataLocal(r.data)}</td>
+      </tr>`).join('');
+
+    // Tabela PV recentes
+    const tbodyPV = document.getElementById('tbodyPV');
+    const pvRecentes = pedidosVenda.slice(0,5);
+    if (!pvRecentes.length) { tbodyPV.innerHTML = '<tr><td colspan="5" class="vazio">Nenhum pedido.</td></tr>'; }
+    else tbodyPV.innerHTML = pvRecentes.map(r => `
+      <tr>
+        <td style="font-family:monospace;font-size:11px">${r.numero}</td>
+        <td>${r.clientes?.nome||'—'}</td>
+        <td>${moeda(r.valor_total)}</td>
+        <td>${statusBadge(r.status)}</td>
+        <td>${sbDataLocal(r.data)}</td>
+      </tr>`).join('');
+
+    // Tabela PC recentes
+    const tbodyPC = document.getElementById('tbodyPC');
+    const pcRecentes = pcAll.slice(0,5);
+    if (!pcRecentes.length) { tbodyPC.innerHTML = '<tr><td colspan="6" class="vazio">Nenhum pedido.</td></tr>'; }
+    else tbodyPC.innerHTML = pcRecentes.map(r => `
+      <tr>
+        <td style="font-family:monospace;font-size:11px">${r.numero}</td>
+        <td>${r.fornecedores?.nome||'—'}</td>
+        <td>${r.produtos?.nome||'—'}</td>
+        <td>${moeda(r.valor_total)}</td>
+        <td>${statusBadge(r.status)}</td>
+        <td>${sbDataLocal(r.data)}</td>
+      </tr>`).join('');
+
+  } catch(e) {
+    console.error('[Dashboard]', e);
+  }
+}
+
+// ── Tab Clientes ───────────────────────────────
+let _clientesLoaded = false;
+async function carregarTabClientes() {
+  if (_clientesLoaded) return; _clientesLoaded = true;
+  try {
+    const [todos, ativos] = await Promise.all([
+      sbListar('clientes', 'select=id,segmento,estado,ativo'),
+      sbContar('clientes', 'ativo=eq.true'),
+    ]);
+    document.getElementById('statTotalClientes').textContent   = todos.length;
+    document.getElementById('statAtivosClientes').textContent  = ativos;
+    document.getElementById('statInativosClientes').textContent = todos.length - ativos;
+
+    // Segmento
+    const segmentos = {};
+    todos.forEach(c => { const s = c.segmento||'Outros'; segmentos[s] = (segmentos[s]||0)+1; });
+    const segKeys = Object.keys(segmentos).sort((a,b) => segmentos[b]-segmentos[a]);
+    const cores = [paleta.purple, paleta.blue, paleta.green, paleta.yellow, paleta.orange, paleta.red, paleta.teal, paleta.purple3];
+    new Chart(document.getElementById('chartClientesSegmento').getContext('2d'), {
+      type: 'doughnut',
+      data: { labels: segKeys, datasets: [{ data: segKeys.map(k=>segmentos[k]), backgroundColor: cores, borderWidth: 0 }] },
+      options: { responsive: true, cutout: '60%', plugins: { legend: { position:'bottom', labels:{ boxWidth:10, padding:12 } } } }
+    });
+
+    // Estado
+    const estados = {};
+    todos.forEach(c => { const s = c.estado||'?'; estados[s] = (estados[s]||0)+1; });
+    const estKeys = Object.keys(estados).sort((a,b) => estados[b]-estados[a]).slice(0,8);
+    new Chart(document.getElementById('chartClientesEstado').getContext('2d'), {
+      type: 'bar',
+      data: { labels: estKeys, datasets: [{ data: estKeys.map(k=>estados[k]), backgroundColor: paleta.purple+'99', borderColor: paleta.purple, borderWidth:1, borderRadius:4 }] },
+      options: { responsive: true, plugins:{ legend:{display:false} }, scales:{ x:{grid:{display:false}}, y:{grid:{color:paleta.grid}} } }
+    });
+  } catch(e){ console.error('[Tab Clientes]',e); }
+}
+
+// ── Tab Estoque ───────────────────────────────
+let _estoqueLoaded = false;
+async function carregarTabEstoque() {
+  if (_estoqueLoaded) return; _estoqueLoaded = true;
+  try {
+    const produtos = _dadosProdutos.length ? _dadosProdutos : await sbListar('produtos','ativo=eq.true&select=id,nome,estoque_atual,estoque_minimo,estoque_maximo');
+    document.getElementById('statTotalProdutos').textContent = produtos.length;
+    const criticos = produtos.filter(p => p.estoque_atual < p.estoque_minimo);
+    document.getElementById('statCritico').textContent = criticos.length;
+    document.getElementById('statNormal').textContent  = produtos.length - criticos.length;
+
+    const top10 = produtos.slice(0,10);
+    new Chart(document.getElementById('chartEstoqueDetalhe').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: top10.map(p => p.nome.length>14?p.nome.substring(0,14)+'…':p.nome),
+        datasets: [
+          { label:'Atual', data: top10.map(p=>p.estoque_atual), backgroundColor: paleta.purple+'99', borderColor: paleta.purple, borderWidth:1, borderRadius:3 },
+          { label:'Mínimo', data: top10.map(p=>p.estoque_minimo), backgroundColor: paleta.red+'66', borderColor: paleta.red, borderWidth:1, borderRadius:3 },
+        ]
+      },
+      options: { responsive:true, plugins:{ legend:{position:'bottom'} }, scales:{ x:{grid:{display:false}}, y:{grid:{color:paleta.grid}} } }
+    });
+  } catch(e){ console.error('[Tab Estoque]',e); }
+}
+
+// ── Tab Compras ───────────────────────────────
+let _comprasLoaded = false;
+async function carregarTabCompras() {
+  if (_comprasLoaded) return; _comprasLoaded = true;
+  try {
+    const [pcAll, fornAll, scAll] = await Promise.all([
+      sbListar('compras_pedidos','select=id,status'),
+      sbListar('fornecedores','select=id,segmento,ativo'),
+      sbContar('compras_solicitacoes','status=eq.Pendente'),
+    ]);
+    const pcAberto = pcAll.filter(p=>['Rascunho','Enviado','Confirmado'].includes(p.status)).length;
+    document.getElementById('statPCAberto').textContent    = pcAberto;
+    document.getElementById('statFornecedores').textContent = fornAll.length;
+    document.getElementById('statSCPendentes').textContent  = scAll;
+
+    // Status PC
+    const st = {};
+    pcAll.forEach(p => { const s = p.status||'Outro'; st[s]=(st[s]||0)+1; });
+    const stKeys = Object.keys(st);
+    const cores  = [paleta.purple, paleta.blue, paleta.green, paleta.yellow, paleta.orange, paleta.red];
+    new Chart(document.getElementById('chartComprasStatus').getContext('2d'), {
+      type: 'doughnut',
+      data: { labels: stKeys, datasets: [{ data: stKeys.map(k=>st[k]), backgroundColor: cores, borderWidth:0 }] },
+      options: { responsive:true, cutout:'60%', plugins:{ legend:{position:'bottom',labels:{boxWidth:10,padding:12}} } }
+    });
+
+    // Fornecedores por segmento
+    const seg = {};
+    fornAll.forEach(f => { const s=f.segmento||'Outros'; seg[s]=(seg[s]||0)+1; });
+    const segKeys = Object.keys(seg).sort((a,b)=>seg[b]-seg[a]).slice(0,8);
+    new Chart(document.getElementById('chartFornSegmento').getContext('2d'), {
+      type: 'bar',
+      data: { labels: segKeys, datasets:[{ data:segKeys.map(k=>seg[k]), backgroundColor:paleta.purple+'99', borderColor:paleta.purple, borderWidth:1, borderRadius:4 }] },
+      options: { responsive:true, plugins:{legend:{display:false}}, scales:{ x:{grid:{display:false}}, y:{grid:{color:paleta.grid}} } }
+    });
+  } catch(e){ console.error('[Tab Compras]',e); }
+}
+
+// ── Iniciar ────────────────────────────────────
+carregarTudo();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

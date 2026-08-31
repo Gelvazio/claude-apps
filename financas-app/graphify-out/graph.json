@@ -224,10 +224,20 @@
       "norm_label": "renderauth()"
     },
     {
+      "label": "renderReset()",
+      "file_type": "code",
+      "source_file": "src/main.js",
+      "source_location": "L129",
+      "_origin": "ast",
+      "id": "src_main_renderreset",
+      "community": 0,
+      "norm_label": "renderreset()"
+    },
+    {
       "label": "traduzErro()",
       "file_type": "code",
       "source_file": "src/main.js",
-      "source_location": "L114",
+      "source_location": "L174",
       "_origin": "ast",
       "id": "src_main_traduzerro",
       "community": 0,
@@ -237,7 +247,7 @@
       "label": "renderApp()",
       "file_type": "code",
       "source_file": "src/main.js",
-      "source_location": "L122",
+      "source_location": "L182",
       "_origin": "ast",
       "id": "src_main_renderapp",
       "community": 0,
@@ -247,7 +257,7 @@
       "label": "renderLedgerRows()",
       "file_type": "code",
       "source_file": "src/main.js",
-      "source_location": "L178",
+      "source_location": "L238",
       "_origin": "ast",
       "id": "src_main_renderledgerrows",
       "community": 0,
@@ -257,7 +267,7 @@
       "label": "escapeHtml()",
       "file_type": "code",
       "source_file": "src/main.js",
-      "source_location": "L202",
+      "source_location": "L262",
       "_origin": "ast",
       "id": "src_main_escapehtml",
       "community": 0,
@@ -267,7 +277,7 @@
       "label": "changeMonth()",
       "file_type": "code",
       "source_file": "src/main.js",
-      "source_location": "L208",
+      "source_location": "L268",
       "_origin": "ast",
       "id": "src_main_changemonth",
       "community": 0,
@@ -277,7 +287,7 @@
       "label": "deleteTx()",
       "file_type": "code",
       "source_file": "src/main.js",
-      "source_location": "L214",
+      "source_location": "L274",
       "_origin": "ast",
       "id": "src_main_deletetx",
       "community": 0,
@@ -287,7 +297,7 @@
       "label": "openModal()",
       "file_type": "code",
       "source_file": "src/main.js",
-      "source_location": "L221",
+      "source_location": "L281",
       "_origin": "ast",
       "id": "src_main_openmodal",
       "community": 0,
@@ -297,7 +307,7 @@
       "label": "drawChart()",
       "file_type": "code",
       "source_file": "src/main.js",
-      "source_location": "L280",
+      "source_location": "L340",
       "_origin": "ast",
       "id": "src_main_drawchart",
       "community": 0,
@@ -307,7 +317,7 @@
       "label": "boot()",
       "file_type": "code",
       "source_file": "src/main.js",
-      "source_location": "L336",
+      "source_location": "L396",
       "_origin": "ast",
       "id": "src_main_boot",
       "community": 0,
@@ -832,6 +842,16 @@
       "id": "readme_pr\u00f3ximos_passos_poss\u00edveis",
       "community": 3,
       "norm_label": "proximos passos possiveis"
+    },
+    {
+      "label": "email.md",
+      "file_type": "document",
+      "source_file": "email.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "email",
+      "community": 9,
+      "norm_label": "email.md"
     }
   ],
   "links": [
@@ -841,9 +861,9 @@
       "source_file": "package.json",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package",
-      "target": "package_dependencies",
-      "confidence_score": 1.0
+      "target": "package_dependencies"
     },
     {
       "relation": "contains",
@@ -851,9 +871,9 @@
       "source_file": "package.json",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package",
-      "target": "package_devdependencies",
-      "confidence_score": 1.0
+      "target": "package_devdependencies"
     },
     {
       "relation": "contains",
@@ -861,9 +881,9 @@
       "source_file": "package.json",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package",
-      "target": "package_name",
-      "confidence_score": 1.0
+      "target": "package_name"
     },
     {
       "relation": "contains",
@@ -871,9 +891,9 @@
       "source_file": "package.json",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package",
-      "target": "package_private",
-      "confidence_score": 1.0
+      "target": "package_private"
     },
     {
       "relation": "contains",
@@ -881,9 +901,9 @@
       "source_file": "package.json",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package",
-      "target": "package_scripts",
-      "confidence_score": 1.0
+      "target": "package_scripts"
     },
     {
       "relation": "contains",
@@ -891,9 +911,9 @@
       "source_file": "package.json",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package",
-      "target": "package_type",
-      "confidence_score": 1.0
+      "target": "package_type"
     },
     {
       "relation": "contains",
@@ -901,9 +921,9 @@
       "source_file": "package.json",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package",
-      "target": "package_version",
-      "confidence_score": 1.0
+      "target": "package_version"
     },
     {
       "relation": "contains",
@@ -911,9 +931,9 @@
       "source_file": "package.json",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package_scripts",
-      "target": "package_scripts_build",
-      "confidence_score": 1.0
+      "target": "package_scripts_build"
     },
     {
       "relation": "contains",
@@ -921,9 +941,9 @@
       "source_file": "package.json",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package_scripts",
-      "target": "package_scripts_dev",
-      "confidence_score": 1.0
+      "target": "package_scripts_dev"
     },
     {
       "relation": "contains",
@@ -931,9 +951,9 @@
       "source_file": "package.json",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package_scripts",
-      "target": "package_scripts_preview",
-      "confidence_score": 1.0
+      "target": "package_scripts_preview"
     },
     {
       "relation": "contains",
@@ -941,9 +961,9 @@
       "source_file": "package.json",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package_devdependencies",
-      "target": "package_devdependencies_vite",
-      "confidence_score": 1.0
+      "target": "package_devdependencies_vite"
     },
     {
       "relation": "contains",
@@ -951,9 +971,9 @@
       "source_file": "package.json",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "package_dependencies",
-      "target": "package_dependencies_supabase_supabase_js",
-      "confidence_score": 1.0
+      "target": "package_dependencies_supabase_supabase_js"
     },
     {
       "relation": "contains",
@@ -961,9 +981,9 @@
       "source_file": "src/main.js",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_app",
-      "confidence_score": 1.0
+      "target": "src_main_app"
     },
     {
       "relation": "contains",
@@ -971,9 +991,9 @@
       "source_file": "src/main.js",
       "source_location": "L336",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_boot",
-      "confidence_score": 1.0
+      "target": "src_main_boot"
     },
     {
       "relation": "contains",
@@ -981,9 +1001,9 @@
       "source_file": "src/main.js",
       "source_location": "L208",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_changemonth",
-      "confidence_score": 1.0
+      "target": "src_main_changemonth"
     },
     {
       "relation": "contains",
@@ -991,9 +1011,9 @@
       "source_file": "src/main.js",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_default_cats",
-      "confidence_score": 1.0
+      "target": "src_main_default_cats"
     },
     {
       "relation": "contains",
@@ -1001,9 +1021,9 @@
       "source_file": "src/main.js",
       "source_location": "L214",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_deletetx",
-      "confidence_score": 1.0
+      "target": "src_main_deletetx"
     },
     {
       "relation": "contains",
@@ -1011,9 +1031,9 @@
       "source_file": "src/main.js",
       "source_location": "L280",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_drawchart",
-      "confidence_score": 1.0
+      "target": "src_main_drawchart"
     },
     {
       "relation": "contains",
@@ -1021,9 +1041,9 @@
       "source_file": "src/main.js",
       "source_location": "L202",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_escapehtml",
-      "confidence_score": 1.0
+      "target": "src_main_escapehtml"
     },
     {
       "relation": "contains",
@@ -1031,9 +1051,9 @@
       "source_file": "src/main.js",
       "source_location": "L16",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_fmt",
-      "confidence_score": 1.0
+      "target": "src_main_fmt"
     },
     {
       "relation": "contains",
@@ -1041,9 +1061,9 @@
       "source_file": "src/main.js",
       "source_location": "L37",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_loaddata",
-      "confidence_score": 1.0
+      "target": "src_main_loaddata"
     },
     {
       "relation": "contains",
@@ -1051,9 +1071,9 @@
       "source_file": "src/main.js",
       "source_location": "L34",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_meses",
-      "confidence_score": 1.0
+      "target": "src_main_meses"
     },
     {
       "relation": "contains",
@@ -1061,9 +1081,9 @@
       "source_file": "src/main.js",
       "source_location": "L27",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_monthbounds",
-      "confidence_score": 1.0
+      "target": "src_main_monthbounds"
     },
     {
       "relation": "contains",
@@ -1071,9 +1091,9 @@
       "source_file": "src/main.js",
       "source_location": "L221",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_openmodal",
-      "confidence_score": 1.0
+      "target": "src_main_openmodal"
     },
     {
       "relation": "contains",
@@ -1081,9 +1101,9 @@
       "source_file": "src/main.js",
       "source_location": "L122",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_renderapp",
-      "confidence_score": 1.0
+      "target": "src_main_renderapp"
     },
     {
       "relation": "contains",
@@ -1091,9 +1111,9 @@
       "source_file": "src/main.js",
       "source_location": "L60",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_renderauth",
-      "confidence_score": 1.0
+      "target": "src_main_renderauth"
     },
     {
       "relation": "contains",
@@ -1101,8 +1121,18 @@
       "source_file": "src/main.js",
       "source_location": "L178",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_renderledgerrows",
+      "target": "src_main_renderledgerrows"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.js",
+      "source_location": "L129",
+      "weight": 1.0,
+      "source": "src_main",
+      "target": "src_main_renderreset",
       "confidence_score": 1.0
     },
     {
@@ -1111,9 +1141,9 @@
       "source_file": "src/main.js",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_state",
-      "confidence_score": 1.0
+      "target": "src_main_state"
     },
     {
       "relation": "contains",
@@ -1121,9 +1151,9 @@
       "source_file": "src/main.js",
       "source_location": "L114",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_main_traduzerro",
-      "confidence_score": 1.0
+      "target": "src_main_traduzerro"
     },
     {
       "relation": "imports_from",
@@ -1132,9 +1162,9 @@
       "source_file": "src/main.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_supabase",
-      "confidence_score": 1.0
+      "target": "src_supabase"
     },
     {
       "relation": "imports",
@@ -1143,9 +1173,9 @@
       "source_file": "src/main.js",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main",
-      "target": "src_supabase_supabase",
-      "confidence_score": 1.0
+      "target": "src_supabase_supabase"
     },
     {
       "relation": "calls",
@@ -1154,9 +1184,9 @@
       "source_file": "src/main.js",
       "source_location": "L141",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_renderapp",
-      "target": "src_main_fmt",
-      "confidence_score": 1.0
+      "target": "src_main_fmt"
     },
     {
       "relation": "calls",
@@ -1165,9 +1195,9 @@
       "source_file": "src/main.js",
       "source_location": "L295",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_drawchart",
-      "target": "src_main_monthbounds",
-      "confidence_score": 1.0
+      "target": "src_main_monthbounds"
     },
     {
       "relation": "calls",
@@ -1176,9 +1206,9 @@
       "source_file": "src/main.js",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_loaddata",
-      "target": "src_main_monthbounds",
-      "confidence_score": 1.0
+      "target": "src_main_monthbounds"
     },
     {
       "relation": "calls",
@@ -1187,9 +1217,9 @@
       "source_file": "src/main.js",
       "source_location": "L341",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_boot",
-      "target": "src_main_loaddata",
-      "confidence_score": 1.0
+      "target": "src_main_loaddata"
     },
     {
       "relation": "calls",
@@ -1198,9 +1228,9 @@
       "source_file": "src/main.js",
       "source_location": "L210",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_changemonth",
-      "target": "src_main_loaddata",
-      "confidence_score": 1.0
+      "target": "src_main_loaddata"
     },
     {
       "relation": "calls",
@@ -1209,9 +1239,9 @@
       "source_file": "src/main.js",
       "source_location": "L216",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_deletetx",
-      "target": "src_main_loaddata",
-      "confidence_score": 1.0
+      "target": "src_main_loaddata"
     },
     {
       "relation": "calls",
@@ -1220,8 +1250,19 @@
       "source_file": "src/main.js",
       "source_location": "L338",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_boot",
-      "target": "src_main_renderauth",
+      "target": "src_main_renderauth"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.js",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "src_main_renderauth",
+      "target": "src_main_renderreset",
       "confidence_score": 1.0
     },
     {
@@ -1231,9 +1272,9 @@
       "source_file": "src/main.js",
       "source_location": "L342",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_boot",
-      "target": "src_main_renderapp",
-      "confidence_score": 1.0
+      "target": "src_main_renderapp"
     },
     {
       "relation": "calls",
@@ -1242,9 +1283,9 @@
       "source_file": "src/main.js",
       "source_location": "L211",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_changemonth",
-      "target": "src_main_renderapp",
-      "confidence_score": 1.0
+      "target": "src_main_renderapp"
     },
     {
       "relation": "calls",
@@ -1253,9 +1294,9 @@
       "source_file": "src/main.js",
       "source_location": "L217",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_deletetx",
-      "target": "src_main_renderapp",
-      "confidence_score": 1.0
+      "target": "src_main_renderapp"
     },
     {
       "relation": "calls",
@@ -1264,9 +1305,9 @@
       "source_file": "src/main.js",
       "source_location": "L175",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_renderapp",
-      "target": "src_main_drawchart",
-      "confidence_score": 1.0
+      "target": "src_main_drawchart"
     },
     {
       "relation": "calls",
@@ -1275,9 +1316,9 @@
       "source_file": "src/main.js",
       "source_location": "L157",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_renderapp",
-      "target": "src_main_renderledgerrows",
-      "confidence_score": 1.0
+      "target": "src_main_renderledgerrows"
     },
     {
       "relation": "contains",
@@ -1285,9 +1326,9 @@
       "source_file": "src/supabase.js",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_supabase",
-      "target": "src_supabase_supabase",
-      "confidence_score": 1.0
+      "target": "src_supabase_supabase"
     },
     {
       "relation": "contains",
@@ -1295,9 +1336,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude",
-      "target": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "confidence_score": 1.0
+      "target": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica"
     },
     {
       "relation": "contains",
@@ -1305,9 +1346,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_arquitetura",
-      "confidence_score": 1.0
+      "target": "claude_arquitetura"
     },
     {
       "relation": "contains",
@@ -1315,9 +1356,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L431",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_arquivo_env",
-      "confidence_score": 1.0
+      "target": "claude_arquivo_env"
     },
     {
       "relation": "contains",
@@ -1325,9 +1366,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L214",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_banco_de_dados_supabase",
-      "confidence_score": 1.0
+      "target": "claude_banco_de_dados_supabase"
     },
     {
       "relation": "contains",
@@ -1335,9 +1376,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L454",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_comandos_\u00fateis",
-      "confidence_score": 1.0
+      "target": "claude_comandos_\u00fateis"
     },
     {
       "relation": "contains",
@@ -1345,9 +1386,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L262",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_componentes_visuais",
-      "confidence_score": 1.0
+      "target": "claude_componentes_visuais"
     },
     {
       "relation": "contains",
@@ -1355,9 +1396,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L160",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "claude_c\u00e1lculos_e_formata\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1365,9 +1406,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L335",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_deploy_vercel",
-      "confidence_score": 1.0
+      "target": "claude_deploy_vercel"
     },
     {
       "relation": "contains",
@@ -1375,9 +1416,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L69",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_fluxo_de_dados",
-      "confidence_score": 1.0
+      "target": "claude_fluxo_de_dados"
     },
     {
       "relation": "contains",
@@ -1385,9 +1426,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L345",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_fluxos_principais",
-      "confidence_score": 1.0
+      "target": "claude_fluxos_principais"
     },
     {
       "relation": "contains",
@@ -1395,9 +1436,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L395",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_fun\u00e7\u00f5es_utilit\u00e1rias",
-      "confidence_score": 1.0
+      "target": "claude_fun\u00e7\u00f5es_utilit\u00e1rias"
     },
     {
       "relation": "contains",
@@ -1405,9 +1446,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L192",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_gr\u00e1fico_\u00faltimos_6_meses",
-      "confidence_score": 1.0
+      "target": "claude_gr\u00e1fico_\u00faltimos_6_meses"
     },
     {
       "relation": "contains",
@@ -1415,9 +1456,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L444",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_links_\u00fateis",
-      "confidence_score": 1.0
+      "target": "claude_links_\u00fateis"
     },
     {
       "relation": "contains",
@@ -1425,9 +1466,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L421",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_poss\u00edveis_bugs_melhorias",
-      "confidence_score": 1.0
+      "target": "claude_poss\u00edveis_bugs_melhorias"
     },
     {
       "relation": "contains",
@@ -1435,9 +1476,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L404",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_pr\u00f3ximos_passos_roadmap",
-      "confidence_score": 1.0
+      "target": "claude_pr\u00f3ximos_passos_roadmap"
     },
     {
       "relation": "contains",
@@ -1445,9 +1486,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L382",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_seguran\u00e7a_rls",
-      "confidence_score": 1.0
+      "target": "claude_seguran\u00e7a_rls"
     },
     {
       "relation": "contains",
@@ -1455,9 +1496,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L300",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_setup_e_configura\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "claude_setup_e_configura\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1465,9 +1506,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_stack_t\u00e9cnico",
-      "confidence_score": 1.0
+      "target": "claude_stack_t\u00e9cnico"
     },
     {
       "relation": "contains",
@@ -1475,9 +1516,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_state_estado_da_aplica\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "claude_state_estado_da_aplica\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1485,9 +1526,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "claude_vis\u00e3o_geral",
-      "confidence_score": 1.0
+      "target": "claude_vis\u00e3o_geral"
     },
     {
       "relation": "contains",
@@ -1495,9 +1536,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L59",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_state_estado_da_aplica\u00e7\u00e3o",
-      "target": "claude_fluxo_de_state",
-      "confidence_score": 1.0
+      "target": "claude_fluxo_de_state"
     },
     {
       "relation": "contains",
@@ -1505,9 +1546,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L71",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_fluxo_de_dados",
-      "target": "claude_1_autentica\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "claude_1_autentica\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1515,9 +1556,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L89",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_fluxo_de_dados",
-      "target": "claude_2_carregamento_de_dados",
-      "confidence_score": 1.0
+      "target": "claude_2_carregamento_de_dados"
     },
     {
       "relation": "contains",
@@ -1525,9 +1566,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L115",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_fluxo_de_dados",
-      "target": "claude_3_navega\u00e7\u00e3o_de_m\u00eas",
-      "confidence_score": 1.0
+      "target": "claude_3_navega\u00e7\u00e3o_de_m\u00eas"
     },
     {
       "relation": "contains",
@@ -1535,9 +1576,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L129",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_fluxo_de_dados",
-      "target": "claude_4_cria\u00e7\u00e3o_de_transa\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "claude_4_cria\u00e7\u00e3o_de_transa\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1545,9 +1586,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L146",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_fluxo_de_dados",
-      "target": "claude_5_exclus\u00e3o_de_transa\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "claude_5_exclus\u00e3o_de_transa\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1555,9 +1596,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L162",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
-      "target": "claude_c\u00e1lculo_de_saldo",
-      "confidence_score": 1.0
+      "target": "claude_c\u00e1lculo_de_saldo"
     },
     {
       "relation": "contains",
@@ -1565,9 +1606,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L170",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
-      "target": "claude_formata\u00e7\u00e3o_de_moeda",
-      "confidence_score": 1.0
+      "target": "claude_formata\u00e7\u00e3o_de_moeda"
     },
     {
       "relation": "contains",
@@ -1575,9 +1616,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L180",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
-      "target": "claude_limites_de_m\u00eas",
-      "confidence_score": 1.0
+      "target": "claude_limites_de_m\u00eas"
     },
     {
       "relation": "contains",
@@ -1585,9 +1626,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L244",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_banco_de_dados_supabase",
-      "target": "claude_categorias_padr\u00e3o_seed_no_app",
-      "confidence_score": 1.0
+      "target": "claude_categorias_padr\u00e3o_seed_no_app"
     },
     {
       "relation": "contains",
@@ -1595,9 +1636,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L216",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_banco_de_dados_supabase",
-      "target": "claude_tabela_categorias",
-      "confidence_score": 1.0
+      "target": "claude_tabela_categorias"
     },
     {
       "relation": "contains",
@@ -1605,9 +1646,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L229",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_banco_de_dados_supabase",
-      "target": "claude_tabela_transacoes",
-      "confidence_score": 1.0
+      "target": "claude_tabela_transacoes"
     },
     {
       "relation": "contains",
@@ -1615,9 +1656,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L286",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_componentes_visuais",
-      "target": "claude_css_classes_principais",
-      "confidence_score": 1.0
+      "target": "claude_css_classes_principais"
     },
     {
       "relation": "contains",
@@ -1625,9 +1666,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L264",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_componentes_visuais",
-      "target": "claude_telas_principais",
-      "confidence_score": 1.0
+      "target": "claude_telas_principais"
     },
     {
       "relation": "contains",
@@ -1635,9 +1676,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L302",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_setup_e_configura\u00e7\u00e3o",
-      "target": "claude_1_criar_projeto_supabase",
-      "confidence_score": 1.0
+      "target": "claude_1_criar_projeto_supabase"
     },
     {
       "relation": "contains",
@@ -1645,9 +1686,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L308",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_setup_e_configura\u00e7\u00e3o",
-      "target": "claude_2_configurar_credenciais",
-      "confidence_score": 1.0
+      "target": "claude_2_configurar_credenciais"
     },
     {
       "relation": "contains",
@@ -1655,9 +1696,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L319",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_setup_e_configura\u00e7\u00e3o",
-      "target": "claude_3_habilitar_email_auth",
-      "confidence_score": 1.0
+      "target": "claude_3_habilitar_email_auth"
     },
     {
       "relation": "contains",
@@ -1665,9 +1706,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L324",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_setup_e_configura\u00e7\u00e3o",
-      "target": "claude_4_instalar_e_rodar",
-      "confidence_score": 1.0
+      "target": "claude_4_instalar_e_rodar"
     },
     {
       "relation": "contains",
@@ -1675,9 +1716,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L373",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_fluxos_principais",
-      "target": "claude_gr\u00e1fico_de_6_meses",
-      "confidence_score": 1.0
+      "target": "claude_gr\u00e1fico_de_6_meses"
     },
     {
       "relation": "contains",
@@ -1685,9 +1726,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L366",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_fluxos_principais",
-      "target": "claude_navega\u00e7\u00e3o_mensal",
-      "confidence_score": 1.0
+      "target": "claude_navega\u00e7\u00e3o_mensal"
     },
     {
       "relation": "contains",
@@ -1695,9 +1736,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L347",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_fluxos_principais",
-      "target": "claude_novo_usu\u00e1rio_signup_primeiro_acesso",
-      "confidence_score": 1.0
+      "target": "claude_novo_usu\u00e1rio_signup_primeiro_acesso"
     },
     {
       "relation": "contains",
@@ -1705,9 +1746,9 @@
       "source_file": "CLAUDE.md",
       "source_location": "L359",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "claude_fluxos_principais",
-      "target": "claude_usu\u00e1rio_existente",
-      "confidence_score": 1.0
+      "target": "claude_usu\u00e1rio_existente"
     },
     {
       "relation": "contains",
@@ -1715,9 +1756,9 @@
       "source_file": "README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme",
-      "target": "readme_raz\u00e3o_controle_financeiro_pessoal",
-      "confidence_score": 1.0
+      "target": "readme_raz\u00e3o_controle_financeiro_pessoal"
     },
     {
       "relation": "contains",
@@ -1725,9 +1766,9 @@
       "source_file": "README.md",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme_raz\u00e3o_controle_financeiro_pessoal",
-      "target": "readme_deploy_vercel",
-      "confidence_score": 1.0
+      "target": "readme_deploy_vercel"
     },
     {
       "relation": "contains",
@@ -1735,9 +1776,9 @@
       "source_file": "README.md",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme_raz\u00e3o_controle_financeiro_pessoal",
-      "target": "readme_o_que_tem",
-      "confidence_score": 1.0
+      "target": "readme_o_que_tem"
     },
     {
       "relation": "contains",
@@ -1745,9 +1786,9 @@
       "source_file": "README.md",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme_raz\u00e3o_controle_financeiro_pessoal",
-      "target": "readme_pr\u00f3ximos_passos_poss\u00edveis",
-      "confidence_score": 1.0
+      "target": "readme_pr\u00f3ximos_passos_poss\u00edveis"
     },
     {
       "relation": "contains",
@@ -1755,9 +1796,9 @@
       "source_file": "README.md",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme_raz\u00e3o_controle_financeiro_pessoal",
-      "target": "readme_rodar_localmente",
-      "confidence_score": 1.0
+      "target": "readme_rodar_localmente"
     },
     {
       "relation": "contains",
@@ -1765,11 +1806,11 @@
       "source_file": "README.md",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme_raz\u00e3o_controle_financeiro_pessoal",
-      "target": "readme_setup",
-      "confidence_score": 1.0
+      "target": "readme_setup"
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "d88650b6f5edf3254e6aed95108308f22b98f29d"
+  "built_at_commit": "d31a65856ae7360b4b2a8c063661d6e3c531657a"
 }

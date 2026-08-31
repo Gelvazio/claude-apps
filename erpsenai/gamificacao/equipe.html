@@ -1,0 +1,363 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Minha Equipe</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}
+    .sidebar{width:240px;background:var(--color-surface);border-right:1px solid var(--color-border-faint);display:flex;flex-direction:column;position:fixed;top:56px;left:0;bottom:0;overflow-y:auto;z-index:50;transition:transform .25s}
+    .sidebar-section{padding:20px 0 4px}
+    .sidebar-section-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:1.2px;text-transform:uppercase;padding:0 20px 6px}
+    .sidebar-link{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--color-text-muted);text-decoration:none;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s}
+    .sidebar-link:hover{background:#e8f0fe;color:var(--color-primary)}
+    .sidebar-link.ativo{background:#e8f0fe;color:var(--color-primary);border-left-color:var(--color-primary);font-weight:600}
+    [data-theme="dark"] .sidebar-link:hover,[data-theme="dark"] .sidebar-link.ativo{background:#1e2554;color:#7aa3d4}
+    .sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+    .main{margin-left:240px;padding:28px 32px;flex:1}
+    @media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:16px}.sidebar.open{transform:translateX(0)}}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}
+    .sidebar-overlay.show{display:block}
+    .btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}
+    @media(max-width:768px){.btn-menu{display:flex}}
+    @media(max-width:480px){.header-title{display:none}}
+
+    /* Selector de equipe */
+    .sel-equipe-wrap{background:var(--color-surface);border:1px solid var(--color-border-faint);border-radius:var(--radius-md);padding:16px;margin-bottom:16px}
+    .sel-equipe-wrap label{font-size:11px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:6px}
+    .sel-equipe-wrap select{border:1px solid var(--color-border);border-radius:6px;padding:8px 12px;font-size:14px;background:var(--color-surface-2);color:var(--color-text);width:100%;max-width:340px}
+
+    /* Header da equipe */
+    .equipe-header{display:flex;align-items:center;gap:16px;background:var(--color-surface);border:1px solid var(--color-border-faint);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px;flex-wrap:wrap}
+    .equipe-cor{width:48px;height:48px;border-radius:12px;flex-shrink:0}
+    .equipe-info{flex:1;min-width:150px}
+    .equipe-nome{font-size:20px;font-weight:800;color:var(--color-text)}
+    .equipe-setor{font-size:13px;color:var(--color-text-muted);margin-top:2px}
+    .equipe-pts{display:flex;flex-direction:column;align-items:flex-end;flex-shrink:0}
+    .equipe-pts-val{font-size:32px;font-weight:900;color:var(--color-primary);line-height:1}
+    .equipe-pts-label{font-size:11px;color:var(--color-text-muted);font-weight:600}
+    .equipe-pos{font-size:13px;font-weight:700;color:var(--color-text-muted);margin-top:4px}
+
+    /* Eventos */
+    .eventos-titulo{font-size:16px;font-weight:700;color:var(--color-text);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .ev-card{background:var(--color-surface);border:1px solid var(--color-border-faint);border-radius:var(--radius-md);padding:16px;margin-bottom:10px;position:relative;overflow:hidden}
+    .ev-card.urgente{border-left:4px solid #ef4444}
+    .ev-card.alta{border-left:4px solid #f59e0b}
+    .ev-card.normal{border-left:4px solid #22c55e}
+    .ev-card-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+    .ev-card-prio{font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
+    .ev-card-prio.urgente{background:#fee2e2;color:#991b1b}
+    .ev-card-prio.alta{background:#fef3c7;color:#92400e}
+    .ev-card-prio.normal{background:#d1fae5;color:#065f46}
+    .ev-card-titulo{font-size:14px;font-weight:700;color:var(--color-text);flex:1}
+    .ev-card-desc{font-size:12px;color:var(--color-text-muted);margin-bottom:12px;line-height:1.5}
+    .ev-card-footer{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .ev-pts{font-size:12px;font-weight:700;color:var(--color-primary)}
+
+    /* Countdown */
+    .countdown{font-size:24px;font-weight:900;padding:6px 14px;border-radius:8px;min-width:80px;text-align:center;font-variant-numeric:tabular-nums;flex-shrink:0}
+    .countdown.verde{background:#d1fae5;color:#065f46}
+    .countdown.amarelo{background:#fef3c7;color:#92400e;animation:pulse 1s ease-in-out infinite}
+    .countdown.vermelho{background:#fee2e2;color:#991b1b;animation:pulse .5s ease-in-out infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+    [data-theme="dark"] .countdown.verde{background:#064e3b;color:#6ee7b7}
+    [data-theme="dark"] .countdown.amarelo{background:#451a03;color:#fcd34d}
+    [data-theme="dark"] .countdown.vermelho{background:#450a0a;color:#fca5a5}
+
+    /* Botões do evento */
+    .btn-resolver{background:#16a34a;border:none;color:#fff;border-radius:6px;padding:7px 14px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+    .btn-resolver:hover{background:#15803d}
+    .btn-resolver:disabled{opacity:.4;cursor:not-allowed}
+    .btn-ir{background:var(--color-surface-2);border:1px solid var(--color-border);color:var(--color-text-muted);border-radius:6px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:4px;transition:all .15s}
+    .btn-ir:hover{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+
+    /* Sem sessão / sem eventos */
+    .sem-sessao{text-align:center;padding:60px 20px;color:var(--color-text-muted)}
+    .sem-sessao .icon{font-size:48px;margin-bottom:12px}
+    .sem-sessao h3{font-size:16px;font-weight:700;color:var(--color-text);margin-bottom:6px}
+
+    /* Badge resolvido */
+    .ev-card.resolvido{opacity:.55}
+    .ev-card.resolvido .ev-card-titulo::after{content:' ✅';font-size:12px}
+
+    @media(max-width:600px){.equipe-pts{align-items:flex-start;width:100%}.equipe-pts-val{font-size:24px}}
+  </style>
+  <script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t)})();</script>
+</head>
+<body>
+<script>(function(){if(!localStorage.getItem('erp_role'))window.location.replace('../index.html')})();</script>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<header style="position:fixed;top:0;left:0;right:0;height:56px;background:var(--color-primary);display:flex;align-items:center;padding:0 20px;gap:14px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.18)">
+  <button class="btn-menu" onclick="toggleSidebar()">☰</button>
+  <span class="header-title" style="color:#fff;font-weight:700;font-size:16px;flex:1">👥 Minha Equipe</span>
+  <button onclick="toggleTema()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px">🌙 Tema</button>
+  <button onclick="sair()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px">Sair</button>
+</header>
+
+<div class="app-layout" style="margin-top:56px">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div style="margin-bottom:16px">
+      <h1 style="font-size:22px;font-weight:700;color:var(--color-text)">👥 Minha Equipe</h1>
+      <p style="font-size:13px;color:var(--color-text-muted);margin-top:2px">Resolva os eventos do seu setor antes do prazo</p>
+    </div>
+
+    <!-- Seletor de equipe -->
+    <div class="sel-equipe-wrap" id="selWrap">
+      <label>Selecionar equipe</label>
+      <select id="selEquipe" onchange="carregarEquipe(this.value)">
+        <option value="">Carregando...</option>
+      </select>
+    </div>
+
+    <!-- Info da equipe -->
+    <div id="equipeHeader" style="display:none" class="equipe-header">
+      <div class="equipe-cor" id="equipeCorEl"></div>
+      <div class="equipe-info">
+        <div class="equipe-nome" id="equipeNomeEl"></div>
+        <div class="equipe-setor" id="equipeSetorEl"></div>
+      </div>
+      <div class="equipe-pts">
+        <div class="equipe-pts-val" id="equipePtsEl">0</div>
+        <div class="equipe-pts-label">pontos</div>
+        <div class="equipe-pos" id="equipePosEl"></div>
+      </div>
+    </div>
+
+    <!-- Eventos -->
+    <div id="conteudo">
+      <div class="sem-sessao">
+        <div class="icon">👥</div>
+        <h3>Selecione sua equipe acima</h3>
+        <p style="font-size:13px">Os eventos do seu setor aparecerão aqui quando o professor iniciar a sessão.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const SB  = 'https://vdhahqicqlrdvcpesiwk.supabase.co/rest/v1';
+const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkaGFocWljcWxyZHZjcGVzaXdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MTI3OTYsImV4cCI6MjEwMjI4ODc5Nn0.7ACHuUUv6VMyy4-BbQcdAcmabMtqhiuVgrTGUUcV7RY';
+const H   = { 'apikey': KEY, 'Authorization': `Bearer ${KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' };
+
+async function req(m,t,q='',b=null){
+  const o={method:m,headers:H};
+  if(b)o.body=JSON.stringify(b);
+  const r=await fetch(`${SB}/${t}?${q}`,o);
+  if(!r.ok){console.error(await r.text());throw new Error('API');}
+  const ct=r.headers.get('content-type')||'';
+  return ct.includes('json')?r.json():null;
+}
+const GET   = (t,q='') => req('GET',t,q);
+const PATCH = (t,id,d) => req('PATCH',t,`id=eq.${id}`,d);
+const POST  = (t,d)    => req('POST',t,'',d);
+
+const SETOR_LABEL = { vendas:'Vendas', compras:'Compras', estoque:'Estoque', logistica:'Logística', financeiro:'Financeiro', marketing:'Marketing' };
+const SETOR_LINK  = {
+  vendas:      '../vendas/pedidos-venda.html',
+  compras:     '../compras/solicitacoes.html',
+  estoque:     '../estoque/movimentacoes.html',
+  logistica:   '../vendas/romaneio.html',
+  financeiro:  '../financeiro/contas-pagar.html',
+  marketing:   '../marketing/campanhas.html'
+};
+
+const role = localStorage.getItem('erp_role');
+if (role === 'Administrador') {
+  ['linkProfessor','linkConfig','linkAdmin'].forEach(id=>document.getElementById(id).style.display='flex');
+}
+
+let equipeAtual=null, sessaoAtual=null, _refresh=null;
+
+// Ler parâmetro ?equipe= da URL
+const urlParams = new URLSearchParams(window.location.search);
+const equipeIdURL = urlParams.get('equipe');
+
+async function init() {
+  // Carregar sessão ativa
+  const sessoes = await GET('gamificacao_sessoes','status=in.(ativa,pausada)&order=created_at.desc&limit=1&select=id,titulo,status');
+  sessaoAtual = sessoes[0] || null;
+
+  // Carregar equipes da sessão ativa (ou todas se não há sessão)
+  let equipes;
+  if (sessaoAtual) {
+    equipes = await GET('gamificacao_equipes',`sessao_id=eq.${sessaoAtual.id}&order=nome.asc&select=id,nome,setor,cor,pontos,sessao_id`);
+  } else {
+    equipes = await GET('gamificacao_equipes','order=nome.asc&select=id,nome,setor,cor,pontos,sessao_id&limit=50');
+  }
+
+  const sel = document.getElementById('selEquipe');
+  if (!equipes.length) {
+    sel.innerHTML='<option value="">Nenhuma equipe encontrada</option>';
+    return;
+  }
+  sel.innerHTML = '<option value="">— Selecione sua equipe —</option>' +
+    equipes.map(e=>`<option value="${e.id}">${e.nome} (${SETOR_LABEL[e.setor]||e.setor})</option>`).join('');
+
+  if (equipeIdURL) { sel.value=equipeIdURL; carregarEquipe(equipeIdURL); }
+}
+
+async function carregarEquipe(id) {
+  if (_refresh) { clearInterval(_refresh); _refresh=null; }
+  if (!id) { document.getElementById('equipeHeader').style.display='none'; renderSemEquipe(); return; }
+
+  const rows = await GET('gamificacao_equipes',`id=eq.${id}&select=*`);
+  if (!rows.length) return;
+  equipeAtual = rows[0];
+
+  // Atualizar URL
+  history.replaceState(null,'',`?equipe=${id}`);
+
+  // Mostrar header
+  const hdr = document.getElementById('equipeHeader');
+  hdr.style.display = 'flex';
+  document.getElementById('equipeCorEl').style.background   = equipeAtual.cor || '#3b82f6';
+  document.getElementById('equipeNomeEl').textContent       = equipeAtual.nome;
+  document.getElementById('equipeSetorEl').textContent      = `Setor: ${SETOR_LABEL[equipeAtual.setor]||equipeAtual.setor}`;
+  document.getElementById('equipePtsEl').textContent        = equipeAtual.pontos || 0;
+
+  // Posição no ranking
+  const todas = await GET('gamificacao_equipes',`sessao_id=eq.${equipeAtual.sessao_id}&order=pontos.desc&select=id`);
+  const pos   = todas.findIndex(e=>e.id===id)+1;
+  document.getElementById('equipePosEl').textContent = pos ? `${pos}º lugar` : '';
+
+  if (!sessaoAtual || sessaoAtual.id !== equipeAtual.sessao_id) {
+    const s = await GET('gamificacao_sessoes',`id=eq.${equipeAtual.sessao_id}&select=id,status`);
+    sessaoAtual = s[0] || null;
+  }
+
+  await renderEventos();
+  _refresh = setInterval(async()=>{ await atualizarEquipe(); await renderEventos(); }, 10000);
+}
+
+async function atualizarEquipe() {
+  if (!equipeAtual) return;
+  const rows = await GET('gamificacao_equipes',`id=eq.${equipeAtual.id}&select=pontos`);
+  if (rows[0]) {
+    equipeAtual.pontos = rows[0].pontos;
+    document.getElementById('equipePtsEl').textContent = equipeAtual.pontos;
+  }
+}
+
+async function renderEventos() {
+  if (!equipeAtual || !sessaoAtual) { renderSemSessao(); return; }
+  const evs = await GET('gamificacao_eventos',
+    `sessao_id=eq.${sessaoAtual.id}&setor_alvo=eq.${equipeAtual.setor}&order=created_at.desc&limit=30`);
+
+  const pendentes  = evs.filter(e=>e.status==='pendente');
+  const resolvidos = evs.filter(e=>e.status==='resolvido');
+  const expirados  = evs.filter(e=>e.status==='expirado');
+
+  const conteudo = document.getElementById('conteudo');
+
+  if (!evs.length) {
+    conteudo.innerHTML=`<div class="sem-sessao">
+      <div class="icon">⏳</div>
+      <h3>Aguardando eventos</h3>
+      <p style="font-size:13px">Quando o professor iniciar o motor, os eventos do setor <strong>${SETOR_LABEL[equipeAtual.setor]||equipeAtual.setor}</strong> aparecerão aqui.</p>
+    </div>`;
+    return;
+  }
+
+  const agora = Date.now();
+  const linkErp = SETOR_LINK[equipeAtual.setor] || '../dashboard.html';
+
+  let html = `<div class="eventos-titulo">⚡ Eventos Pendentes <span style="font-size:13px;font-weight:600;color:var(--color-text-muted)">(${pendentes.length})</span></div>`;
+
+  if (!pendentes.length) {
+    html += '<div style="text-align:center;padding:24px;color:var(--color-text-muted);font-size:13px">✅ Nenhum evento pendente no momento.</div>';
+  } else {
+    html += pendentes.map(e=>{
+      const ms   = e.prazo_minutos*60*1000 - (agora - new Date(e.created_at).getTime());
+      const min  = Math.max(0,Math.floor(ms/60000));
+      const sec  = Math.max(0,Math.floor((ms%60000)/1000));
+      const perc = ms/(e.prazo_minutos*60*1000);
+      const cls  = ms<=0?'vermelho':perc<0.3?'vermelho':perc<0.6?'amarelo':'verde';
+      const cd   = ms<=0?'EXPIROU':`${min}:${String(sec).padStart(2,'0')}`;
+      const bonus = ms>0&&perc>0.5 ? ` (+${Math.round(e.pontos_base*1.5)} pts bônus rápido!)` : '';
+      return `<div class="ev-card ${e.prioridade||'normal'}" id="ev_${e.id}">
+        <div class="ev-card-top">
+          <span class="ev-card-prio ${e.prioridade||'normal'}">${e.prioridade||'normal'}</span>
+          <div class="ev-card-titulo">${e.titulo}</div>
+          <div class="countdown ${cls}" id="cd_${e.id}">${cd}</div>
+        </div>
+        <div class="ev-card-desc">${e.descricao||''}</div>
+        <div class="ev-card-footer">
+          <span class="ev-pts">+${e.pontos_base} pts${bonus}</span>
+          <a class="btn-ir" href="${linkErp}" target="_blank">🔗 Abrir ${SETOR_LABEL[equipeAtual.setor]||'módulo'}</a>
+          <button class="btn-resolver" onclick="resolver('${e.id}',${e.pontos_base},${e.prazo_minutos},this)" id="btn_${e.id}">✅ Marcar Resolvido</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  if (resolvidos.length||expirados.length) {
+    html += `<div class="eventos-titulo" style="margin-top:20px">📋 Histórico <span style="font-size:13px;font-weight:600;color:var(--color-text-muted)">(${resolvidos.length} resolvidos, ${expirados.length} expirados)</span></div>`;
+    html += [...resolvidos,...expirados].slice(0,10).map(e=>`
+      <div class="ev-card ${e.prioridade||'normal'}" style="opacity:.5">
+        <div class="ev-card-top">
+          <span class="ev-card-prio ${e.prioridade||'normal'}">${e.status}</span>
+          <div class="ev-card-titulo">${e.titulo}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  conteudo.innerHTML = html;
+}
+
+async function resolver(eventoId, ptBase, prazoMin, btn) {
+  btn.disabled = true; btn.textContent = 'Salvando...';
+  const agora   = Date.now();
+  const ev      = await GET('gamificacao_eventos',`id=eq.${eventoId}&select=created_at,status,sessao_id`);
+  if (!ev[0] || ev[0].status !== 'pendente') { btn.textContent='Já resolvido'; return; }
+  const decMs   = agora - new Date(ev[0].created_at).getTime();
+  const prazoMs = prazoMin * 60000;
+  const rapido  = decMs < prazoMs * 0.5;
+  const pts     = rapido ? Math.round(ptBase * 1.5) : ptBase;
+  const motivo  = rapido ? 'resolucao_rapida' : 'resolucao_no_prazo';
+
+  await PATCH('gamificacao_eventos', eventoId, { status:'resolvido', resolvido_em: new Date().toISOString() });
+  await Promise.all([
+    PATCH('gamificacao_equipes', equipeAtual.id, { pontos: (equipeAtual.pontos||0)+pts }),
+    POST('gamificacao_pontuacoes', { sessao_id:equipeAtual.sessao_id, equipe_id:equipeAtual.id, evento_id:eventoId, pontos:pts, motivo })
+  ]);
+  equipeAtual.pontos = (equipeAtual.pontos||0)+pts;
+  document.getElementById('equipePtsEl').textContent = equipeAtual.pontos;
+
+  const card = document.getElementById(`ev_${eventoId}`);
+  if (card) { card.classList.add('resolvido'); card.querySelector('.btn-resolver').style.display='none'; }
+  alert(`✅ Evento resolvido! +${pts} pts${rapido?' (bônus velocidade!)':''}`);
+  await renderEventos();
+}
+
+function renderSemEquipe() {
+  document.getElementById('conteudo').innerHTML=`<div class="sem-sessao"><div class="icon">👥</div><h3>Selecione sua equipe acima</h3></div>`;
+}
+function renderSemSessao() {
+  document.getElementById('conteudo').innerHTML=`<div class="sem-sessao"><div class="icon">⏸</div><h3>Nenhuma sessão ativa</h3><p style="font-size:13px">Aguarde o professor iniciar uma sessão.</p></div>`;
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+}
+function toggleTema() {
+  const t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('senai_tema',t);
+}
+function sair() {
+  if (_refresh) clearInterval(_refresh);
+  localStorage.clear(); window.location.replace('../index.html');
+}
+
+init();
+</script>
+<script src="../menu.js"></script>
+</body>
+</html>

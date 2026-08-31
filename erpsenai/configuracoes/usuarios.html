@@ -1,0 +1,825 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Usuários</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* ── Layout ── */
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+
+    /* ── Sidebar ── */
+    .sidebar { width: 240px; background: var(--color-surface); border-right: 1px solid var(--color-border-faint); display: flex; flex-direction: column; position: fixed; top: 56px; left: 0; bottom: 0; overflow-y: auto; z-index: 50; transition: transform .25s; }
+    [data-theme="dark"] .sidebar { background: var(--color-surface); border-right-color: var(--color-border-light); }
+
+    .sidebar-section { padding: 20px 0 4px; }
+    .sidebar-section-label { font-size: 10px; font-weight: 700; color: var(--color-text-disabled); letter-spacing: 1.2px; text-transform: uppercase; padding: 0 20px 6px; }
+    .sidebar-link { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 13px; font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-left: 3px solid transparent; transition: background .15s, color .15s, border-color .15s; }
+    .sidebar-link:hover { background: #e8f0fe; color: var(--color-primary); }
+    .sidebar-link.ativo { background: #e8f0fe; color: var(--color-primary); border-left-color: var(--color-primary); font-weight: 600; }
+    [data-theme="dark"] .sidebar-link:hover, [data-theme="dark"] .sidebar-link.ativo { background: #1e2554; color: #7aa3d4; }
+    [data-theme="dark"] .sidebar-link.ativo { border-left-color: #7aa3d4; }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+
+    /* ── Main ── */
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+
+    /* ── Page header ── */
+    .page-header { margin-bottom: 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .page-header-left h1 { font-size: 22px; font-weight: 700; color: var(--color-text); }
+    .page-header-left p  { font-size: 13px; color: var(--color-text-muted); margin-top: 2px; }
+
+    /* ── Toolbar ── */
+    .toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .search-input { flex: 1; min-width: 200px; max-width: 360px; height: 38px; padding: 0 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); }
+    .search-input:focus { outline: none; border-color: var(--color-primary); }
+
+    /* ── Tabela ── */
+    .table-wrap { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 10px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--color-border-faint); white-space: nowrap; background: var(--color-surface); }
+    .data-table td { padding: 11px 16px; border-bottom: 1px solid var(--color-border-faint); color: var(--color-text-secondary); vertical-align: middle; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #f5f8ff; }
+    [data-theme="dark"] .data-table th { color: #7aa3d4; border-bottom-color: var(--color-border-light); }
+    [data-theme="dark"] .data-table td { border-bottom-color: var(--color-border-light); }
+    [data-theme="dark"] .data-table tr:hover td { background: #22252e; }
+    .col-acoes { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .vazio { text-align: center; color: var(--color-text-faint); font-size: 13px; padding: 32px; font-style: italic; }
+
+    /* ── Badges ── */
+    .badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 20px; }
+    .badge-azul    { background: #e8f0fe; color: #1557b0; }
+    .badge-cinza   { background: #f1f3f4; color: #5f6368; }
+    .badge-verde   { background: #e6f4ea; color: #1e7e34; }
+    .badge-vermelho{ background: #fce8e6; color: #c62828; }
+    [data-theme="dark"] .badge-azul     { background: #1e2554; color: #7aa3d4; }
+    [data-theme="dark"] .badge-cinza    { background: #2a2d36; color: #9aa0a6; }
+    [data-theme="dark"] .badge-verde    { background: #1b3a23; color: #81c995; }
+    [data-theme="dark"] .badge-vermelho { background: #3c1c1c; color: #f28b82; }
+
+    /* ── Botões ── */
+    .btn { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: background .15s, transform .1s; text-decoration: none; }
+    .btn:active { transform: scale(.97); }
+    .btn-primary   { background: var(--color-primary); color: #fff; }
+    .btn-primary:hover { background: #003070; }
+    .btn-secondary { background: var(--color-surface); color: var(--color-text); border: 1px solid var(--color-border); }
+    .btn-secondary:hover { background: var(--color-bg); }
+    .btn-danger    { background: #fce8e6; color: #c62828; border: 1px solid #f5c6c2; }
+    .btn-danger:hover { background: #f5c6c2; }
+    .btn-warn      { background: #fef3e2; color: #b06000; border: 1px solid #ffdead; }
+    .btn-warn:hover { background: #ffdead; }
+    .btn-sm { height: 30px; padding: 0 10px; font-size: 12px; }
+
+    /* ── Modal ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .modal-overlay.hidden { display: none; }
+    .modal { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); width: 100%; max-width: 560px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 22px 14px; border-bottom: 1px solid var(--color-border-faint); }
+    .modal-header h2 { font-size: 16px; font-weight: 700; color: var(--color-text); }
+    .modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--color-text-muted); line-height: 1; padding: 0 2px; }
+    .modal-close:hover { color: var(--color-text); }
+    .modal-body { padding: 22px; overflow-y: auto; flex: 1; }
+    .modal-footer { padding: 14px 22px; border-top: 1px solid var(--color-border-faint); display: flex; gap: 10px; justify-content: center; }
+
+    /* ── Formulário ── */
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 12px; font-weight: 600; color: var(--color-text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .4px; }
+    .form-label span.req { color: #c62828; margin-left: 2px; }
+    .form-input, .form-select {
+      width: 100%; height: 38px; padding: 0 12px;
+      border: 1px solid var(--color-border); border-radius: var(--radius-md);
+      font-size: 13px; background: var(--color-surface); color: var(--color-text);
+      box-sizing: border-box;
+    }
+    .form-input:focus, .form-select:focus { outline: none; border-color: var(--color-primary); }
+    .form-input[readonly] { background: var(--color-bg); color: var(--color-text-muted); cursor: not-allowed; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+
+    /* ── Toggle Status ── */
+    .toggle-wrap { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
+    .toggle-switch { position: relative; width: 44px; height: 24px; }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; inset: 0; background: #ccc; border-radius: 24px; cursor: pointer; transition: background .2s; }
+    .toggle-slider::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: transform .2s; }
+    .toggle-switch input:checked + .toggle-slider { background: #1e7e34; }
+    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); }
+    .toggle-label { font-size: 13px; color: var(--color-text-secondary); }
+
+    /* ── Permissões ── */
+    .perms-section { margin-top: 4px; padding: 14px 16px; background: var(--color-bg); border-radius: var(--radius-md); border: 1px solid var(--color-border-faint); }
+    .perms-title { font-size: 12px; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 10px; }
+    .perm-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .perm-item:last-child { margin-bottom: 0; }
+    .perm-item label { font-size: 13px; color: var(--color-text-secondary); cursor: pointer; }
+    .perm-item input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: var(--color-primary); flex-shrink: 0; }
+
+    /* ── Feedback ── */
+    .crud-msg { display: none; padding: 10px 16px; border-radius: var(--radius-md); font-size: 13px; margin-bottom: 16px; font-weight: 500; }
+    .crud-msg.ok   { background: #e6f4ea; color: #1e7e34; border: 1px solid #a8d5b1; }
+    .crud-msg.err  { background: #fce8e6; color: #c62828; border: 1px solid #f5c6c2; }
+    .crud-msg.warn { background: #fef3e2; color: #b06000; border: 1px solid #ffdead; }
+
+    /* ── Modal confirm ── */
+    .confirm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 300; display: flex; align-items: center; justify-content: center; padding: 16px; }
+    .confirm-overlay.hidden { display: none; }
+    .confirm-box { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 28px 28px 22px; max-width: 400px; width: 100%; }
+    .confirm-box h3 { font-size: 16px; font-weight: 700; color: var(--color-text); margin-bottom: 10px; }
+    .confirm-box p  { font-size: 13px; color: var(--color-text-muted); margin-bottom: 22px; line-height: 1.6; }
+    .confirm-btns   { display: flex; gap: 10px; justify-content: flex-end; }
+
+    /* ── Hamburguer ── */
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+
+    /* ── Info cell ── */
+    .user-nome  { font-weight: 600; color: var(--color-text); }
+    .user-email { font-size: 11px; color: var(--color-text-faint); margin-top: 2px; }
+  </style>
+
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────── -->
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<!-- ── Overlay mobile ─────────────────────────── -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ── Layout ─────────────────────────────────── -->
+<div class="app-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <!-- Conteúdo -->
+  <main class="main">
+
+    <!-- Cabeçalho da página -->
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>👤 Usuários</h1>
+        <p>Gerencie os usuários e suas permissões de acesso ao sistema</p>
+      </div>
+      <button class="btn btn-primary" onclick="abrirModalCriar()">+ Novo Usuário</button>
+    </div>
+
+    <!-- Feedback global -->
+    <div class="crud-msg" id="msgGlobal"></div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <input class="search-input" type="search" id="inputBusca" placeholder="🔍  Buscar por nome, e-mail ou cargo…" oninput="filtrarTabela()">
+      <select class="form-select" style="width:auto;min-width:150px" id="filtroPerfil" onchange="filtrarTabela()">
+        <option value="">Todos os perfis</option>
+      </select>
+      <select class="form-select" style="width:auto;min-width:150px" id="filtroStatus" onchange="filtrarTabela()">
+        <option value="">Todos os status</option>
+        <option value="true">Ativo</option>
+        <option value="false">Inativo</option>
+      </select>
+    </div>
+
+    <!-- Tabela -->
+    <div class="table-wrap">
+      <table class="data-table" id="tabelaUsuarios">
+        <thead>
+          <tr>
+            <th>Usuário</th>
+            <th>Cargo</th>
+            <th>Perfil</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyUsuarios">
+          <tr><td colspan="5" class="vazio">Carregando…</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL — CRIAR / EDITAR USUÁRIO
+════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay hidden" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+    <div class="modal-header">
+      <h2 id="modalTitulo">Novo Usuário</h2>
+      <button class="modal-close" onclick="fecharModal()" aria-label="Fechar">×</button>
+    </div>
+    <div class="modal-body">
+
+      <div class="crud-msg" id="msgModal"></div>
+
+      <!-- Nome -->
+      <div class="form-group">
+        <label class="form-label" for="fNome">Nome Completo <span class="req">*</span></label>
+        <input class="form-input" type="text" id="fNome" placeholder="Nome completo do usuário" autocomplete="off">
+      </div>
+
+      <!-- E-mail -->
+      <div class="form-group">
+        <label class="form-label" for="fEmail">E-mail <span class="req">*</span></label>
+        <input class="form-input" type="email" id="fEmail" placeholder="email@empresa.com" autocomplete="off">
+      </div>
+
+      <!-- Senha (criar) / Nova Senha (editar) -->
+      <div class="form-group" id="groupSenha">
+        <label class="form-label" for="fSenha" id="labelSenha">Senha <span class="req" id="senhaReq">*</span></label>
+        <input class="form-input" type="password" id="fSenha" placeholder="Mínimo 6 caracteres" autocomplete="new-password">
+        <div style="font-size:11px;color:var(--color-text-faint);margin-top:4px" id="senhaHint"></div>
+      </div>
+
+      <!-- Cargo / Telefone -->
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label" for="fCargo">Cargo</label>
+          <input class="form-input" type="text" id="fCargo" placeholder="Ex: Gerente de Estoque">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="fTelefone">Telefone</label>
+          <input class="form-input" type="text" id="fTelefone" placeholder="(00) 00000-0000" maxlength="15">
+        </div>
+      </div>
+
+      <!-- Perfil -->
+      <div class="form-group">
+        <label class="form-label" for="fPerfil">Perfil <span class="req">*</span></label>
+        <select class="form-select" id="fPerfil" onchange="onPerfilChange()">
+          <option value="">— Selecione —</option>
+        </select>
+      </div>
+
+      <!-- Status -->
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <div class="toggle-wrap">
+          <label class="toggle-switch">
+            <input type="checkbox" id="fStatus" checked>
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="toggle-label" id="statusLabel">Ativo</span>
+        </div>
+      </div>
+
+
+    </div><!-- /.modal-body -->
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
+      <button class="btn btn-primary" id="btnSalvar" onclick="salvarUsuario()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MODAL — CONFIRMAÇÃO DE EXCLUSÃO
+════════════════════════════════════════════════════════════ -->
+<div class="confirm-overlay hidden" id="confirmOverlay">
+  <div class="confirm-box">
+    <h3>Excluir Usuário</h3>
+    <p id="confirmTexto">Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita.</p>
+    <div class="confirm-btns">
+      <button class="btn btn-secondary" onclick="fecharConfirm()">Cancelar</button>
+      <button class="btn btn-danger" id="btnConfirmExcluir" onclick="confirmarExclusao()">Excluir</button>
+    </div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  // ── Verificação de acesso ───────────────────────────────────
+  sbVerificarSessao('../index.html');
+  if (!sbIsAdmin()) {
+    alert('Acesso restrito a Administradores.');
+    window.location.replace('../dashboard.html');
+  }
+
+  // ── Header ─────────────────────────────────────────────────
+  document.getElementById('roleBadge').textContent = sbPerfil() || '';
+
+  // ── Tema ───────────────────────────────────────────────────
+  (function () {
+    const t   = localStorage.getItem('senai_tema') || 'light';
+    const btn = document.getElementById('btnTema');
+    if (btn) btn.textContent = t === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  })();
+
+  function alternarTema() {
+    const novo = sbToggleTema();
+    const btn  = document.getElementById('btnTema');
+    if (btn) btn.textContent = novo === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  }
+
+  function sair() {
+    sbLogout('../index.html');
+  }
+
+  // ── Sidebar mobile ─────────────────────────────────────────
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  }
+
+  // ── Estado ─────────────────────────────────────────────────
+  let todosUsuarios = [];    // cache completo da listagem
+  let modoEdicao    = false; // false = criar, true = editar
+  let idEdicao      = null;  // UUID do usuário em edição
+  let idExcluir     = null;  // UUID para confirmar exclusão
+  let perfis        = [];    // lista de perfis do banco
+  let adminPerfilId = null;  // id do perfil Administrador
+
+  // ── Toggle status label ────────────────────────────────────
+  document.getElementById('fStatus').addEventListener('change', function () {
+    document.getElementById('statusLabel').textContent = this.checked ? 'Ativo' : 'Inativo';
+  });
+
+  // ── Máscara de telefone ────────────────────────────────────
+  document.getElementById('fTelefone').addEventListener('input', function () {
+    let v = this.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length <= 10) {
+      v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+    } else {
+      v = v.replace(/^(\d{2})(\d{5})(\d{0,4})$/, '($1) $2-$3');
+    }
+    this.value = v;
+  });
+
+  function onPerfilChange() { /* permissões derivadas do perfil no login */ }
+
+  // ── Abrir modal criar ──────────────────────────────────────
+  function abrirModalCriar() {
+    modoEdicao = false;
+    idEdicao   = null;
+
+    document.getElementById('modalTitulo').textContent = 'Novo Usuário';
+    document.getElementById('labelSenha').innerHTML   = 'Senha <span class="req" id="senhaReq">*</span>';
+    document.getElementById('senhaHint').textContent  = '';
+
+    // Habilitar campos readonly
+    document.getElementById('fNome').removeAttribute('readonly');
+    document.getElementById('fEmail').removeAttribute('readonly');
+
+    // Limpar formulário
+    limparFormulario();
+
+    document.getElementById('modalOverlay').classList.remove('hidden');
+    document.getElementById('fNome').focus();
+  }
+
+  // ── Abrir modal editar ─────────────────────────────────────
+  function abrirModalEditar(id) {
+    const user = todosUsuarios.find(u => u.id === id);
+    if (!user) return;
+
+    modoEdicao = true;
+    idEdicao   = id;
+
+    document.getElementById('modalTitulo').textContent = 'Editar Usuário';
+    document.getElementById('labelSenha').innerHTML   = 'Nova Senha <span class="req" id="senhaReq" style="display:none">*</span>';
+    document.getElementById('senhaHint').textContent  = 'Deixe em branco para manter a senha atual.';
+
+    // Campos readonly em edição
+    document.getElementById('fNome').setAttribute('readonly', 'true');
+    document.getElementById('fEmail').setAttribute('readonly', 'true');
+
+    // Preencher campos
+    document.getElementById('fNome').value    = user.nome    || '';
+    document.getElementById('fEmail').value   = user.email   || '';
+    document.getElementById('fSenha').value   = '';
+    document.getElementById('fCargo').value   = user.cargo   || '';
+    document.getElementById('fTelefone').value = user.telefone || '';
+    document.getElementById('fPerfil').value  = String(user.perfil_id || '');
+    document.getElementById('fStatus').checked = user.status !== false;
+    document.getElementById('statusLabel').textContent = user.status !== false ? 'Ativo' : 'Inativo';
+
+
+    document.getElementById('msgModal').style.display = 'none';
+    document.getElementById('modalOverlay').classList.remove('hidden');
+    document.getElementById('fCargo').focus();
+  }
+
+  // ── Fechar modal ───────────────────────────────────────────
+  function fecharModal() {
+    document.getElementById('modalOverlay').classList.add('hidden');
+    limparFormulario();
+  }
+
+  // ── Limpar formulário ──────────────────────────────────────
+  function limparFormulario() {
+    ['fNome','fEmail','fSenha','fCargo','fTelefone'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('fPerfil').value    = '';
+    document.getElementById('fStatus').checked  = true;
+    document.getElementById('statusLabel').textContent = 'Ativo';
+    document.getElementById('msgModal').style.display = 'none';
+  }
+
+
+  // ── ESC fecha ──────────────────────────────────────────────
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      fecharConfirm();
+    }
+  });
+
+  // ── Coleta permissões do formulário ────────────────────────
+  function coletarPermissoes(perfilId) {
+    const p = perfis.find(x => x.id === perfilId);
+    if (p && p.nome === 'Administrador') {
+      return { visao_geral: true, cadastros: true, compras: true, estoque: true, vendas: true };
+    }
+    return {
+      visao_geral: document.getElementById('pVisaoGeral').checked,
+      cadastros:   document.getElementById('pCadastros').checked,
+      compras:     document.getElementById('pCompras').checked,
+      estoque:     document.getElementById('pEstoque').checked,
+      vendas:      document.getElementById('pVendas').checked
+    };
+  }
+
+  // ── Salvar (criar ou editar) ───────────────────────────────
+  async function salvarUsuario() {
+    const btn = document.getElementById('btnSalvar');
+
+    const nome     = document.getElementById('fNome').value.trim();
+    const email    = document.getElementById('fEmail').value.trim().toLowerCase();
+    const senha    = document.getElementById('fSenha').value;
+    const cargo    = document.getElementById('fCargo').value.trim();
+    const telefone = document.getElementById('fTelefone').value.trim();
+    const perfilId = parseInt(document.getElementById('fPerfil').value) || 0;
+    const status   = document.getElementById('fStatus').checked;
+
+    // Validações
+    if (!modoEdicao && !nome) { sbMensagem('msgModal', 'Nome é obrigatório.', 'err'); return; }
+    if (!modoEdicao && !email) { sbMensagem('msgModal', 'E-mail é obrigatório.', 'err'); return; }
+    if (!modoEdicao && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      sbMensagem('msgModal', 'E-mail inválido.', 'err'); return;
+    }
+    if (!modoEdicao && !senha) { sbMensagem('msgModal', 'Senha é obrigatória para novo usuário.', 'err'); return; }
+    if (!modoEdicao && senha.length < 6) { sbMensagem('msgModal', 'Senha deve ter ao menos 6 caracteres.', 'err'); return; }
+    if (senha && senha.length > 0 && senha.length < 6) { sbMensagem('msgModal', 'Nova senha deve ter ao menos 6 caracteres.', 'err'); return; }
+    if (!perfilId) { sbMensagem('msgModal', 'Selecione um perfil.', 'err'); return; }
+
+    btn.disabled = true;
+    btn.textContent = 'Salvando…';
+
+    try {
+      const permissoes = coletarPermissoes(perfilId);
+
+      if (!modoEdicao) {
+        // ── CRIAR ──────────────────────────────────────────
+        // Verificar e-mail duplicado
+        const existente = await sbListar('erp_usuarios', `email=eq.${encodeURIComponent(email)}&select=id`);
+        if (existente.length) {
+          sbMensagem('msgModal', 'Este e-mail já está cadastrado no sistema.', 'err');
+          return;
+        }
+
+        // Bloquear mais de 3 Administradores
+        if (perfilId === adminPerfilId && await verificarAdminExistente()) {
+          sbMensagem('msgModal', 'Limite de 3 Administradores atingido. Desative um antes de criar outro.', 'err');
+          return;
+        }
+
+        const hash = await sha256(senha);
+        await sbInserir('erp_usuarios', {
+          nome,
+          email,
+          senha_hash: hash,
+          cargo:      cargo || null,
+          telefone:   telefone || null,
+          perfil_id:  perfilId,
+          status,
+          permissoes
+        });
+
+        sbMensagem('msgGlobal', `Usuário "${nome}" criado com sucesso.`, 'ok');
+      } else {
+        // ── EDITAR ─────────────────────────────────────────
+        const userAtual = todosUsuarios.find(u => u.id === idEdicao);
+
+        // Proteção do último admin ao tentar rebaixar
+        if (userAtual && userAtual.perfil_id === adminPerfilId && perfilId !== adminPerfilId) {
+          const ehUltimo = await verificarUltimoAdmin(idEdicao);
+          if (ehUltimo) {
+            sbMensagem('msgModal', 'Não é possível rebaixar o único Administrador ativo do sistema.', 'err');
+            return;
+          }
+        }
+
+        // Bloquear promoção a Administrador se já há 3
+        if (perfilId === adminPerfilId && userAtual && userAtual.perfil_id !== adminPerfilId) {
+          if (await verificarAdminExistente(idEdicao)) {
+            sbMensagem('msgModal', 'Limite de 3 Administradores atingido. Desative um antes de promover outro.', 'err');
+            return;
+          }
+        }
+
+        const updates = {
+          cargo:      cargo || null,
+          telefone:   telefone || null,
+          perfil_id:  perfilId,
+          status,
+          permissoes
+        };
+
+        if (senha) {
+          updates.senha_hash = await sha256(senha);
+        }
+
+        await sbAtualizar('erp_usuarios', idEdicao, updates);
+        sbMensagem('msgGlobal', 'Usuário atualizado com sucesso.', 'ok');
+      }
+
+      fecharModal();
+      await carregarUsuarios();
+
+    } catch (e) {
+      sbMensagem('msgModal', 'Erro: ' + (e.message || 'Tente novamente.'), 'err', 8000);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Confirmar';
+    }
+  }
+
+  // ── Verificar se seria o último admin ativo ─────────────────
+  async function verificarUltimoAdmin(ignorarId = null) {
+    if (!adminPerfilId) return false;
+    const admins = await sbListar('erp_usuarios', `perfil_id=eq.${adminPerfilId}&status=eq.true&select=id`);
+    const ativos = admins.filter(a => a.id !== ignorarId);
+    return ativos.length === 0;
+  }
+
+  // ── Verificar se o limite de 3 Administradores ativos foi atingido ──
+  async function verificarAdminExistente(ignorarId = null) {
+    if (!adminPerfilId) return false;
+    const admins = await sbListar('erp_usuarios', `perfil_id=eq.${adminPerfilId}&status=eq.true&select=id`);
+    return admins.filter(a => a.id !== ignorarId).length >= 3;
+  }
+
+  // ── Toggle rápido de status ─────────────────────────────────
+  async function toggleStatus(id) {
+    const user = todosUsuarios.find(u => u.id === id);
+    if (!user) return;
+
+    const novoStatus = !user.status;
+
+    // Proteção: não desativar o último admin
+    if (!novoStatus && user.perfil_id === adminPerfilId) {
+      const ehUltimo = await verificarUltimoAdmin(id);
+      if (ehUltimo) {
+        sbMensagem('msgGlobal', 'Não é possível desativar o único Administrador ativo.', 'err');
+        return;
+      }
+    }
+
+    try {
+      await sbAtualizar('erp_usuarios', id, { status: novoStatus });
+      sbMensagem('msgGlobal',
+        novoStatus ? `Usuário "${user.nome}" ativado.` : `Usuário "${user.nome}" desativado.`,
+        novoStatus ? 'ok' : 'warn'
+      );
+      await carregarUsuarios();
+    } catch (e) {
+      sbMensagem('msgGlobal', 'Erro ao alterar status.', 'err');
+    }
+  }
+
+  // ── Abrir confirmação de exclusão ───────────────────────────
+  function abrirConfirmExclusao(id) {
+    const user = todosUsuarios.find(u => u.id === id);
+    if (!user) return;
+    idExcluir = id;
+    document.getElementById('confirmTexto').textContent =
+      `Tem certeza que deseja excluir o usuário "${user.nome}" (${user.email})? Esta ação não pode ser desfeita.`;
+    document.getElementById('confirmOverlay').classList.remove('hidden');
+  }
+
+  function fecharConfirm() {
+    document.getElementById('confirmOverlay').classList.add('hidden');
+    idExcluir = null;
+  }
+
+  document.getElementById('confirmOverlay').addEventListener('click', function (e) {
+    if (e.target === this) fecharConfirm();
+  });
+
+  // ── Confirmar exclusão ──────────────────────────────────────
+  async function confirmarExclusao() {
+    if (!idExcluir) return;
+
+    const user = todosUsuarios.find(u => u.id === idExcluir);
+    const btn  = document.getElementById('btnConfirmExcluir');
+
+    // Proteção: não excluir o último admin
+    if (user && user.perfil_id === adminPerfilId) {
+      const ehUltimo = await verificarUltimoAdmin(idExcluir);
+      if (ehUltimo) {
+        fecharConfirm();
+        sbMensagem('msgGlobal', 'Não é possível excluir o único Administrador ativo do sistema.', 'err');
+        return;
+      }
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Excluindo…';
+
+    try {
+      await sbExcluir('erp_usuarios', idExcluir);
+      sbMensagem('msgGlobal', `Usuário "${user?.nome}" excluído com sucesso.`, 'ok');
+      fecharConfirm();
+      await carregarUsuarios();
+    } catch (e) {
+      sbMensagem('msgGlobal', 'Erro ao excluir usuário.', 'err');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Excluir';
+    }
+  }
+
+  // ── Renderizar badges ───────────────────────────────────────
+  function perfilBadge(perfil) {
+    const desc = typeof perfil === 'object' ? (perfil && perfil.nome) : perfil;
+    if (desc === 'Administrador') return '<span class="badge badge-azul">Administrador</span>';
+    return `<span class="badge badge-cinza">${escHtml(desc || 'Usuário')}</span>`;
+  }
+
+  function statusBadge(status) {
+    if (status === false || status === 'false') return '<span class="badge badge-vermelho">Inativo</span>';
+    return '<span class="badge badge-verde">Ativo</span>';
+  }
+
+  function permissoesBadge(perfil, perms) {
+    const desc = typeof perfil === 'object' ? (perfil && perfil.nome) : perfil;
+    if (desc === 'Administrador') return '<span style="font-size:11px;color:var(--color-text-faint)">Acesso total</span>';
+    const perms_obj = perms || {};
+    const ativos = [
+      perms_obj.visao_geral && 'Visão Geral',
+      perms_obj.cadastros   && 'Cadastros',
+      perms_obj.compras     && 'Compras',
+      perms_obj.estoque     && 'Estoque',
+      perms_obj.vendas      && 'Vendas'
+    ].filter(Boolean);
+    if (!ativos.length) return '<span style="font-size:11px;color:var(--color-text-faint)">Sem permissões</span>';
+    return ativos.map(m => `<span class="badge badge-cinza" style="margin:1px;font-size:10px">${m}</span>`).join(' ');
+  }
+
+  // ── Carregar usuários ───────────────────────────────────────
+  async function carregarUsuarios() {
+    const tbody = document.getElementById('tbodyUsuarios');
+    tbody.innerHTML = '<tr><td colspan="5" class="vazio">Carregando…</td></tr>';
+    try {
+      const rows = await sbListar('erp_usuarios', 'order=nome.asc&select=id,nome,email,cargo,perfil_id,status,permissoes,created_at');
+      todosUsuarios = rows.map(u => ({
+        ...u,
+        perfil: perfis.find(p => p.id === u.perfil_id) || null
+      }));
+      renderizarTabela(todosUsuarios);
+    } catch (e) {
+      tbody.innerHTML = '<tr><td colspan="6" class="vazio">Erro ao carregar usuários.</td></tr>';
+      console.error('[usuários]', e);
+    }
+  }
+
+  // ── Renderizar tabela ───────────────────────────────────────
+  function renderizarTabela(rows) {
+    const tbody = document.getElementById('tbodyUsuarios');
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="vazio">Nenhum usuário encontrado.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = rows.map(u => {
+      const isAtivo       = u.status !== false;
+      const toggleLabel   = isAtivo ? '🔴 Desativar' : '🟢 Ativar';
+      const toggleClass   = isAtivo ? 'btn-warn' : 'btn-secondary';
+
+      return `
+        <tr>
+          <td>
+            <div class="user-nome">${escHtml(u.nome)}</div>
+            <div class="user-email">${escHtml(u.email)}</div>
+          </td>
+          <td>${u.cargo ? escHtml(u.cargo) : '<span style="color:var(--color-text-faint)">—</span>'}</td>
+          <td>${perfilBadge(u.perfil)}</td>
+          <td>${statusBadge(u.status)}</td>
+          <td>
+            <div class="col-acoes">
+              <button class="btn btn-secondary btn-sm" onclick="abrirModalEditar('${u.id}')">✏️ Editar</button>
+              <button class="btn ${toggleClass} btn-sm" onclick="toggleStatus('${u.id}')">${toggleLabel}</button>
+              <button class="btn btn-danger btn-sm" onclick="abrirConfirmExclusao('${u.id}')">🗑 Excluir</button>
+            </div>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // ── Filtrar tabela ──────────────────────────────────────────
+  function filtrarTabela() {
+    const busca   = document.getElementById('inputBusca').value.toLowerCase().trim();
+    const perfil  = document.getElementById('filtroPerfil').value;
+    const status  = document.getElementById('filtroStatus').value;
+
+    const filtrados = todosUsuarios.filter(u => {
+      const matchBusca = !busca
+        || u.nome.toLowerCase().includes(busca)
+        || u.email.toLowerCase().includes(busca)
+        || (u.cargo || '').toLowerCase().includes(busca);
+
+      const matchPerfil  = !perfil  || String(u.perfil_id) === perfil;
+      const matchStatus  = status === ''
+        ? true
+        : status === 'true'
+          ? u.status !== false
+          : u.status === false;
+
+      return matchBusca && matchPerfil && matchStatus;
+    });
+
+    renderizarTabela(filtrados);
+  }
+
+  // ── Helper: escape HTML ─────────────────────────────────────
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  // ── Inicializar ─────────────────────────────────────────────
+  async function init() {
+    // Carrega perfis do banco e popula os selects
+    try {
+      perfis = await sbListar('perfil', 'order=id.asc');
+    } catch (e) {
+      perfis = [];
+    }
+    // Fallback hardcoded caso a tabela perfil esteja vazia ou inacessível
+    if (!perfis.length) {
+      perfis = [
+        { id: 1, nome: 'Administrador', ativo: 1 },
+        { id: 2, nome: 'Usuário', ativo: 1 }
+      ];
+    }
+    const adminPerfil = perfis.find(p => p.nome === 'Administrador');
+    adminPerfilId = adminPerfil ? adminPerfil.id : null;
+
+    const selectPerfil  = document.getElementById('fPerfil');
+    const selectFiltro  = document.getElementById('filtroPerfil');
+
+    perfis.forEach(p => {
+      const opt1 = document.createElement('option');
+      opt1.value = p.id;
+      opt1.textContent = p.nome;
+      selectPerfil.appendChild(opt1);
+
+      const opt2 = document.createElement('option');
+      opt2.value = p.id;
+      opt2.textContent = p.nome;
+      selectFiltro.appendChild(opt2);
+    });
+
+    await carregarUsuarios();
+  }
+
+  init();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

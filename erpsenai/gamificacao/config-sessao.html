@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Configurar Sessão</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}
+    .sidebar{width:240px;background:var(--color-surface);border-right:1px solid var(--color-border-faint);display:flex;flex-direction:column;position:fixed;top:56px;left:0;bottom:0;overflow-y:auto;z-index:50;transition:transform .25s}
+    .sidebar-section{padding:20px 0 4px}
+    .sidebar-section-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:1.2px;text-transform:uppercase;padding:0 20px 6px}
+    .sidebar-link{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--color-text-muted);text-decoration:none;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s}
+    .sidebar-link:hover{background:#e8f0fe;color:var(--color-primary)}
+    .sidebar-link.ativo{background:#e8f0fe;color:var(--color-primary);border-left-color:var(--color-primary);font-weight:600}
+    [data-theme="dark"] .sidebar-link:hover,[data-theme="dark"] .sidebar-link.ativo{background:#1e2554;color:#7aa3d4}
+    .sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}
+    .main{margin-left:240px;padding:28px 32px;flex:1;max-width:900px}
+    @media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:16px;max-width:100%}.sidebar.open{transform:translateX(0)}}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}
+    .sidebar-overlay.show{display:block}
+    .btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}
+    @media(max-width:768px){.btn-menu{display:flex}}
+    @media(max-width:480px){.header-title{display:none}}
+    @media(max-width:600px){.form-grid{grid-template-columns:1fr!important}.form-grid .span-2{grid-column:span 1!important}}
+
+    /* Form sections */
+    .section-card{background:var(--color-surface);border:1px solid var(--color-border-faint);border-radius:var(--radius-lg);padding:20px;margin-bottom:16px}
+    .section-title{font-size:15px;font-weight:700;color:var(--color-text);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .form-group{display:flex;flex-direction:column;gap:5px}
+    .form-group.span-2{grid-column:span 2}
+    label{font-size:12px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.5px}
+    input[type=text],input[type=number],select,textarea{
+      border:1px solid var(--color-border);border-radius:6px;padding:8px 12px;font-size:14px;
+      background:var(--color-surface-2);color:var(--color-text);width:100%;
+      transition:border-color .15s;
+    }
+    input[type=text]:focus,input[type=number]:focus,select:focus,textarea:focus{
+      outline:none;border-color:var(--color-primary);
+    }
+    @media(max-width:600px){input,select,textarea{font-size:16px!important}}
+
+    /* Range input */
+    .range-wrap{display:flex;align-items:center;gap:12px}
+    input[type=range]{flex:1;accent-color:var(--color-primary)}
+    .range-val{font-size:14px;font-weight:700;color:var(--color-primary);min-width:40px;text-align:right}
+
+    /* Equipes */
+    .equipes-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+    .equipe-row{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:12px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .equipe-cor-pick{width:32px;height:32px;border-radius:6px;border:2px solid var(--color-border);cursor:pointer;flex-shrink:0;padding:0;background:none}
+    .equipe-nome-inp{flex:1;min-width:120px}
+    .equipe-setor-sel{min-width:130px}
+    .equipe-membros-inp{flex:2;min-width:160px}
+    .btn-rm-equipe{background:none;border:none;color:var(--color-text-disabled);cursor:pointer;font-size:18px;flex-shrink:0;padding:4px;border-radius:4px;transition:color .15s}
+    .btn-rm-equipe:hover{color:#ef4444}
+    .btn-add-equipe{background:var(--color-surface-2);border:1px dashed var(--color-border);border-radius:var(--radius-md);padding:10px;width:100%;font-size:13px;font-weight:600;color:var(--color-text-muted);cursor:pointer;transition:all .15s}
+    .btn-add-equipe:hover{border-color:var(--color-primary);color:var(--color-primary)}
+    .membros-hint{font-size:11px;color:var(--color-text-disabled);margin-top:2px}
+
+    /* Botões footer */
+    .form-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}
+    .btn-salvar{background:var(--color-primary);border:none;color:#fff;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+    .btn-salvar:hover{filter:brightness(1.1)}
+    .btn-salvar:disabled{opacity:.5;cursor:not-allowed}
+    .btn-cancelar{background:var(--color-surface-2);border:1px solid var(--color-border);color:var(--color-text-muted);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer;transition:all .15s}
+    .btn-cancelar:hover{border-color:var(--color-primary);color:var(--color-primary)}
+
+    /* Toast */
+    .toast{position:fixed;bottom:24px;right:24px;background:#1e293b;color:#f1f5f9;border-radius:10px;padding:12px 20px;font-size:14px;font-weight:600;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:9999;display:none;animation:fadeUp .3s ease}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+    .cores-preset{display:flex;gap:6px;flex-wrap:wrap}
+    .cor-btn{width:24px;height:24px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:transform .15s}
+    .cor-btn:hover{transform:scale(1.2)}
+    .cor-btn.sel{border-color:var(--color-text)}
+  </style>
+  <script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t)})();</script>
+</head>
+<body>
+<script>(function(){
+  const r=localStorage.getItem('erp_role');
+  if(!r)window.location.replace('../index.html');
+  if(r!=='Administrador'){alert('Acesso restrito ao professor.');window.location.replace('../dashboard.html');}
+})();</script>
+
+<div class="toast" id="toast"></div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<header style="position:fixed;top:0;left:0;right:0;height:56px;background:var(--color-primary);display:flex;align-items:center;padding:0 20px;gap:14px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.18)">
+  <button class="btn-menu" onclick="toggleSidebar()">☰</button>
+  <span class="header-title" style="color:#fff;font-weight:700;font-size:16px;flex:1">🔧 Configurar Sessão</span>
+  <button onclick="toggleTema()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px">🌙 Tema</button>
+  <button onclick="sair()" style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px">Sair</button>
+</header>
+
+<div class="app-layout" style="margin-top:56px">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div style="margin-bottom:20px">
+      <h1 style="font-size:22px;font-weight:700;color:var(--color-text)" id="pageTitle">🔧 Nova Sessão</h1>
+      <p style="font-size:13px;color:var(--color-text-muted);margin-top:2px">Configure a sessão de simulação para sua aula</p>
+    </div>
+
+    <!-- 1. Dados da sessão -->
+    <div class="section-card">
+      <div class="section-title">📋 Dados da Sessão</div>
+      <div class="form-grid">
+        <div class="form-group span-2">
+          <label>Título da Sessão *</label>
+          <input type="text" id="fTitulo" placeholder="Ex: Aula 03 — Módulo Compras" maxlength="100">
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Motor de simulação -->
+    <div class="section-card">
+      <div class="section-title">⚙️ Motor de Simulação</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Intervalo entre eventos</label>
+          <div class="range-wrap">
+            <input type="range" id="fIntervalo" min="10" max="300" value="60" step="10" oninput="document.getElementById('vIntervalo').textContent=this.value+'s'">
+            <span class="range-val" id="vIntervalo">60s</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Máx. eventos simultâneos</label>
+          <div class="range-wrap">
+            <input type="range" id="fMaxEvt" min="1" max="15" value="5" step="1" oninput="document.getElementById('vMaxEvt').textContent=this.value">
+            <span class="range-val" id="vMaxEvt">5</span>
+          </div>
+        </div>
+        <div class="form-group span-2">
+          <label>Chance de evento urgente (%)</label>
+          <div class="range-wrap">
+            <input type="range" id="fUrgente" min="0" max="50" value="20" step="5" oninput="document.getElementById('vUrgente').textContent=this.value+'%'">
+            <span class="range-val" id="vUrgente">20%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Equipes -->
+    <div class="section-card">
+      <div class="section-title">👥 Equipes</div>
+      <div style="font-size:12px;color:var(--color-text-muted);margin-bottom:12px">Configure as equipes e seus respectivos setores. <strong>Membros</strong>: nomes separados por vírgula.</div>
+      <div class="equipes-list" id="equipesList"></div>
+      <button class="btn-add-equipe" onclick="addEquipe()">+ Adicionar Equipe</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="form-footer">
+      <button class="btn-cancelar" onclick="window.location.href='professor.html'">Cancelar</button>
+      <button class="btn-salvar" id="btnSalvar" onclick="salvar()">💾 Salvar e Ir ao Professor</button>
+    </div>
+  </main>
+</div>
+
+<script>
+const SB  = 'https://vdhahqicqlrdvcpesiwk.supabase.co/rest/v1';
+const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkaGFocWljcWxyZHZjcGVzaXdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MTI3OTYsImV4cCI6MjEwMjI4ODc5Nn0.7ACHuUUv6VMyy4-BbQcdAcmabMtqhiuVgrTGUUcV7RY';
+const H   = { 'apikey': KEY, 'Authorization': `Bearer ${KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' };
+
+async function req(m,t,q='',b=null){
+  const o={method:m,headers:H};
+  if(b)o.body=JSON.stringify(b);
+  const r=await fetch(`${SB}/${t}?${q}`,o);
+  if(!r.ok){console.error(await r.text());throw new Error('API');}
+  const ct=r.headers.get('content-type')||'';
+  return ct.includes('json')?r.json():null;
+}
+const GET    = (t,q='') => req('GET',t,q);
+const POST   = (t,d)    => req('POST',t,'',d);
+const PATCH  = (t,id,d) => req('PATCH',t,`id=eq.${id}`,d);
+
+const SETORES = ['compras','estoque','vendas','logistica','financeiro','marketing'];
+const SETOR_LABEL = { vendas:'Vendas', compras:'Compras', estoque:'Estoque', logistica:'Logística', financeiro:'Financeiro', marketing:'Marketing' };
+const CORES_PRESET = ['#3b82f6','#8b5cf6','#ec4899','#f97316','#22c55e','#eab308','#14b8a6','#ef4444'];
+
+const urlParams = new URLSearchParams(window.location.search);
+const sessaoId  = urlParams.get('sessao') || null;
+let equipeCount = 0;
+
+function addEquipe(dados={}) {
+  equipeCount++;
+  const id  = `eq_${equipeCount}`;
+  const cor = dados.cor || CORES_PRESET[(equipeCount-1) % CORES_PRESET.length];
+  const setor = dados.setor || SETORES[(equipeCount-1) % SETORES.length];
+  const membros = dados.membros || '';
+  const nome = dados.nome || `Equipe ${SETOR_LABEL[setor]||setor}`;
+
+  const row = document.createElement('div');
+  row.className = 'equipe-row';
+  row.id = id;
+  row.dataset.dbId = dados.id || '';
+
+  row.innerHTML = `
+    <input type="color" class="equipe-cor-pick" value="${cor}" title="Cor da equipe" onchange="atualizarCor('${id}',this.value)">
+    <input type="text" class="equipe-nome-inp" placeholder="Nome da equipe" value="${nome}" maxlength="60">
+    <select class="equipe-setor-sel">
+      ${SETORES.map(s=>`<option value="${s}" ${s===setor?'selected':''}>${SETOR_LABEL[s]}</option>`).join('')}
+    </select>
+    <input type="text" class="equipe-membros-inp" placeholder="Membros (João, Maria, Pedro...)" value="${membros}">
+    <button class="btn-rm-equipe" onclick="removerEquipe('${id}')" title="Remover equipe">✕</button>
+  `;
+  document.getElementById('equipesList').appendChild(row);
+}
+
+function atualizarCor(rowId, cor) {
+  // Visual feedback
+}
+
+function removerEquipe(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+function coletarEquipes() {
+  const rows = document.querySelectorAll('.equipe-row');
+  return Array.from(rows).map(row => ({
+    dbId:     row.dataset.dbId || null,
+    nome:     row.querySelector('.equipe-nome-inp').value.trim(),
+    setor:    row.querySelector('.equipe-setor-sel').value,
+    cor:      row.querySelector('.equipe-cor-pick').value,
+    membros:  row.querySelector('.equipe-membros-inp').value.trim()
+  })).filter(e => e.nome);
+}
+
+async function carregarSessao() {
+  if (!sessaoId) { addEquipesDefault(); return; }
+  document.getElementById('pageTitle').textContent = '🔧 Editar Sessão';
+
+  const [rows, eqs, cf] = await Promise.all([
+    GET('gamificacao_sessoes',`id=eq.${sessaoId}&select=*`),
+    GET('gamificacao_equipes',`sessao_id=eq.${sessaoId}&order=created_at.asc`),
+    GET('gamificacao_config_motor',`sessao_id=eq.${sessaoId}&limit=1`)
+  ]);
+
+  if (!rows[0]) { addEquipesDefault(); return; }
+  const s = rows[0];
+  document.getElementById('fTitulo').value = s.titulo;
+
+  if (cf[0]) {
+    const c = cf[0];
+    document.getElementById('fIntervalo').value = c.intervalo_segundos;
+    document.getElementById('vIntervalo').textContent = c.intervalo_segundos+'s';
+    document.getElementById('fMaxEvt').value = c.max_eventos_ativos;
+    document.getElementById('vMaxEvt').textContent = c.max_eventos_ativos;
+    document.getElementById('fUrgente').value = c.chance_urgente;
+    document.getElementById('vUrgente').textContent = c.chance_urgente+'%';
+  }
+
+  if (eqs.length) {
+    eqs.forEach(e => addEquipe({ id:e.id, nome:e.nome, setor:e.setor, cor:e.cor||'#3b82f6', membros:'' }));
+  } else {
+    addEquipesDefault();
+  }
+}
+
+function addEquipesDefault() {
+  const defaults = [
+    { nome:'Equipe Compras',    setor:'compras',    cor:'#3b82f6' },
+    { nome:'Equipe Estoque',    setor:'estoque',    cor:'#8b5cf6' },
+    { nome:'Equipe Vendas',     setor:'vendas',     cor:'#22c55e' },
+    { nome:'Equipe Logística',  setor:'logistica',  cor:'#f97316' },
+    { nome:'Equipe Financeiro', setor:'financeiro', cor:'#eab308' },
+    { nome:'Equipe Marketing',  setor:'marketing',  cor:'#ec4899' },
+  ];
+  defaults.forEach(d => addEquipe(d));
+}
+
+async function salvar() {
+  const titulo = document.getElementById('fTitulo').value.trim();
+  if (!titulo) { toast('Informe o título da sessão', true); document.getElementById('fTitulo').focus(); return; }
+
+  const equipes = coletarEquipes();
+  if (!equipes.length) { toast('Adicione ao menos uma equipe', true); return; }
+
+  const btn = document.getElementById('btnSalvar');
+  btn.disabled = true; btn.textContent = 'Salvando...';
+
+  try {
+    const uid = localStorage.getItem('erp_user_id');
+    let sid = sessaoId;
+
+    if (!sid) {
+      const s = await POST('gamificacao_sessoes', { titulo, professor_id:uid, status:'pausada', rodada_atual:1 });
+      sid = s[0].id;
+    } else {
+      await PATCH('gamificacao_sessoes', sid, { titulo });
+    }
+
+    const intervalo = parseInt(document.getElementById('fIntervalo').value);
+    const maxEvt    = parseInt(document.getElementById('fMaxEvt').value);
+    const urgente   = parseInt(document.getElementById('fUrgente').value);
+
+    const cfRows = await GET('gamificacao_config_motor',`sessao_id=eq.${sid}&limit=1`);
+    if (cfRows[0]) {
+      await PATCH('gamificacao_config_motor', cfRows[0].id, { intervalo_segundos:intervalo, max_eventos_ativos:maxEvt, chance_urgente:urgente });
+    } else {
+      await POST('gamificacao_config_motor', { sessao_id:sid, intervalo_segundos:intervalo, max_eventos_ativos:maxEvt, chance_urgente:urgente });
+    }
+
+    // Salvar equipes
+    for (const eq of equipes) {
+      const payload = { sessao_id:sid, nome:eq.nome, setor:eq.setor, cor:eq.cor, pontos:0 };
+      if (eq.dbId) {
+        await PATCH('gamificacao_equipes', eq.dbId, { nome:eq.nome, setor:eq.setor, cor:eq.cor });
+      } else {
+        const eqRes = await POST('gamificacao_equipes', payload);
+        const eqId  = eqRes[0].id;
+        // Salvar membros
+        if (eq.membros) {
+          const nomes = eq.membros.split(',').map(n=>n.trim()).filter(Boolean);
+          for (const nome of nomes) {
+            await POST('gamificacao_membros', { equipe_id:eqId, nome, sessao_id:sid });
+          }
+        }
+      }
+    }
+
+    toast('Sessão salva! Redirecionando...');
+    setTimeout(()=>window.location.href='professor.html', 1200);
+  } catch(e) {
+    console.error(e);
+    toast('Erro ao salvar. Verifique o console.', true);
+    btn.disabled = false; btn.textContent = '💾 Salvar e Ir ao Professor';
+  }
+}
+
+function toast(msg, erro=false) {
+  const el = document.getElementById('toast');
+  el.textContent = (erro ? '❌ ' : '✅ ') + msg;
+  el.style.background = erro ? '#7f1d1d' : '#1e3a5f';
+  el.style.display = 'block';
+  setTimeout(()=>el.style.display='none', 3000);
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+}
+function toggleTema() {
+  const t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',t);
+  localStorage.setItem('senai_tema',t);
+}
+function sair() { localStorage.clear(); window.location.replace('../index.html'); }
+
+carregarSessao();
+</script>
+<script src="../menu.js"></script>
+</body>
+</html>

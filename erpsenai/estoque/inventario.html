@@ -1,0 +1,738 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Inventário</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* ── Layout ── */
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+
+    /* ── Sidebar ── */
+    .sidebar { width: 240px; background: var(--color-surface); border-right: 1px solid var(--color-border-faint); display: flex; flex-direction: column; position: fixed; top: 56px; left: 0; bottom: 0; overflow-y: auto; z-index: 50; transition: transform .25s; }
+    [data-theme="dark"] .sidebar { background: var(--color-surface); border-right-color: var(--color-border-light); }
+    .sidebar-section { padding: 20px 0 4px; }
+    .sidebar-section-label { font-size: 10px; font-weight: 700; color: var(--color-text-disabled); letter-spacing: 1.2px; text-transform: uppercase; padding: 0 20px 6px; }
+    .sidebar-link { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 13px; font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-left: 3px solid transparent; transition: background .15s, color .15s, border-color .15s; }
+    .sidebar-link:hover { background: #e8f0fe; color: var(--color-primary); }
+    .sidebar-link.ativo { background: #e8f0fe; color: var(--color-primary); border-left-color: var(--color-primary); font-weight: 600; }
+    [data-theme="dark"] .sidebar-link:hover, [data-theme="dark"] .sidebar-link.ativo { background: #1e2554; color: #7aa3d4; }
+    [data-theme="dark"] .sidebar-link.ativo { border-left-color: #7aa3d4; }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+
+    /* ── Principal ── */
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+
+    /* ── Page Header ── */
+    .page-header { margin-bottom: 24px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .page-header h1 { font-size: 22px; font-weight: 700; color: var(--color-text); }
+    .page-header p { font-size: 13px; color: var(--color-text-muted); margin-top: 2px; }
+
+    /* ── Toolbar ── */
+    .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+    .search-input { flex: 1; min-width: 180px; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); }
+    .search-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(0,67,132,.15); }
+    .form-select { padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); cursor: pointer; }
+    .form-select:focus { outline: none; border-color: var(--color-primary); }
+    [data-theme="dark"] .search-input, [data-theme="dark"] .form-select { background: #22252e; border-color: var(--color-border-light); color: var(--color-text); }
+
+    /* ── Botões ── */
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: background .15s, box-shadow .15s; white-space: nowrap; }
+    .btn-primary { background: var(--color-primary); color: #fff; }
+    .btn-primary:hover { background: var(--color-primary-dark); box-shadow: var(--shadow-sm); }
+    .btn-secondary { background: var(--color-surface-2); color: var(--color-text-muted); border: 1px solid var(--color-border); }
+    .btn-secondary:hover { background: var(--color-border-light); }
+    .btn-danger { background: var(--color-error-bg); color: var(--color-error); border: 1px solid var(--color-error-border); }
+    .btn-danger:hover { background: #f8d0d0; }
+
+    /* ── Tabela ── */
+    .table-wrap { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+    .table-header { padding: 16px 20px; border-bottom: 1px solid var(--color-border-faint); display: flex; align-items: center; justify-content: space-between; }
+    .table-title { font-size: 14px; font-weight: 700; color: var(--color-text); }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th { text-align: left; padding: 10px 16px; font-size: 10px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--color-border-faint); white-space: nowrap; background: var(--color-surface); }
+    tbody td { padding: 10px 16px; border-bottom: 1px solid var(--color-border-faint); color: var(--color-text-secondary); }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: #f5f8ff; }
+    [data-theme="dark"] thead th { color: #7aa3d4; border-bottom-color: var(--color-border-light); }
+    [data-theme="dark"] tbody td { color: var(--color-text-secondary); border-bottom-color: var(--color-border-light); }
+    [data-theme="dark"] tbody tr:hover td { background: #22252e; }
+
+    /* ── Badges ── */
+    .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+    .badge-pendente  { background: #f0f0f0; color: #555; }
+    .badge-contagem  { background: #e8f0fe; color: #1557b0; }
+    .badge-conferido { background: #e8f5e9; color: #2e7d32; }
+    .badge-ajustado  { background: #fef3e2; color: #b06000; }
+
+    /* ── Diferença colorida ── */
+    .dif-positivo { color: #2e7d32; font-weight: 700; }
+    .dif-negativo { color: #c62828; font-weight: 700; }
+    .dif-zero     { color: var(--color-text-muted); }
+
+    /* ── Vazio ── */
+    .vazio { text-align: center; color: var(--color-text-faint); font-size: 13px; padding: 32px; font-style: italic; }
+
+    /* ── Paginação ── */
+    .paginacao { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--color-border-faint); font-size: 12px; color: var(--color-text-muted); }
+    .btn-pag { background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: var(--radius-sm); padding: 4px 10px; font-size: 12px; cursor: pointer; color: var(--color-text-muted); }
+    .btn-pag:hover:not(:disabled) { background: #e8f0fe; color: var(--color-primary); }
+    .btn-pag:disabled { opacity: .4; cursor: default; }
+
+    /* ── Modal ── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .modal-overlay.hidden { display: none; }
+    .modal { background: var(--color-surface); border-radius: var(--radius-xl); box-shadow: var(--shadow-modal); width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto; }
+    .modal-header { padding: 20px 24px 16px; border-bottom: 1px solid var(--color-border-faint); display: flex; align-items: center; justify-content: space-between; }
+    .modal-header h2 { font-size: 16px; font-weight: 700; color: var(--color-text); }
+    .modal-close { background: none; border: none; font-size: 20px; cursor: pointer; color: var(--color-text-muted); padding: 4px; border-radius: 4px; }
+    .modal-close:hover { background: var(--color-border-faint); }
+    .modal-body { padding: 20px 24px; }
+    .modal-footer { padding: 16px 24px; border-top: 1px solid var(--color-border-faint); display: flex; gap: 10px; justify-content: center; }
+    [data-theme="dark"] .modal { background: #1e2128; }
+    [data-theme="dark"] .modal-header, [data-theme="dark"] .modal-footer { border-color: var(--color-border-light); }
+
+    /* ── Formulário ── */
+    .form-group { margin-bottom: 14px; }
+    .form-label { display: block; font-size: 12px; font-weight: 600; color: var(--color-text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: .4px; }
+    .form-label .obrigatorio { color: var(--color-error); }
+    .form-input, .form-select-md, .form-textarea { width: 100%; padding: 9px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); transition: border-color .15s, box-shadow .15s; }
+    .form-input:focus, .form-select-md:focus, .form-textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 2px rgba(0,67,132,.12); }
+    .form-input[readonly] { background: var(--color-surface-2); color: var(--color-text-muted); cursor: not-allowed; }
+    .form-textarea { resize: vertical; min-height: 72px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    @media (max-width: 480px) { .form-row, .form-row-3 { grid-template-columns: 1fr; } }
+    [data-theme="dark"] .form-input, [data-theme="dark"] .form-select-md, [data-theme="dark"] .form-textarea { background: #22252e; border-color: var(--color-border-light); color: var(--color-text); }
+    [data-theme="dark"] .form-input[readonly] { background: #1a1d24; }
+
+    /* ── Diferença em tempo real no formulário ── */
+    .dif-preview { font-size: 22px; font-weight: 800; margin-top: 4px; }
+    .dif-preview.positivo { color: #2e7d32; }
+    .dif-preview.negativo { color: #c62828; }
+    .dif-preview.zero     { color: var(--color-text-muted); }
+
+    /* ── Alerta ajuste ── */
+    .alerta-ajuste { background: #fff8e1; border: 1px solid #ffe082; border-radius: var(--radius-md); padding: 10px 14px; margin-top: 8px; font-size: 12px; color: #856404; display: none; }
+    [data-theme="dark"] .alerta-ajuste { background: #2a2000; border-color: #7a5c00; color: #f0c040; }
+
+    /* ── Feedback ── */
+    .crud-msg { display: none; padding: 10px 14px; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; margin-bottom: 14px; }
+    .crud-msg.ok   { background: var(--color-success-bg);  color: var(--color-success); border: 1px solid var(--color-success-border); }
+    .crud-msg.err  { background: var(--color-error-bg);    color: var(--color-error);   border: 1px solid var(--color-error-border); }
+    .crud-msg.warn { background: var(--color-warning-bg);  color: var(--color-warning); border: 1px solid var(--color-warning-border); }
+
+    /* ── Hamburguer ── */
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+
+    /* ── Ações tabela ── */
+    .acao-btn { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: var(--radius-sm); font-size: 11px; font-weight: 600; border: none; cursor: pointer; transition: background .15s; white-space: nowrap; }
+    .acao-editar  { background: var(--color-edit-bg);  color: var(--color-edit-text); }
+    .acao-editar:hover  { background: var(--color-edit-hover); }
+    .acao-excluir { background: var(--color-del-bg);   color: var(--color-del-text); }
+    .acao-excluir:hover { background: var(--color-del-hover); }
+  </style>
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script src="../gamificacao/gamif.js"></script>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────── -->
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<!-- ── Overlay mobile ─────────────────────────── -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ── Layout ─────────────────────────────────── -->
+<div class="app-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <!-- Conteúdo -->
+  <main class="main">
+
+    <div class="page-header">
+      <div>
+        <h1>🔍 Inventário</h1>
+        <p>Contagem física e conciliação com o estoque registrado no sistema</p>
+      </div>
+      <button class="btn btn-primary" onclick="abrirModal()">+ Novo Inventário</button>
+    </div>
+
+    <!-- Feedback global -->
+    <div class="crud-msg" id="msgGlobal"></div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <input type="text" class="search-input" id="busca" placeholder="Buscar por número ou produto…" oninput="filtrar()">
+      <select class="form-select" id="filtroStatus" onchange="filtrar()">
+        <option value="">Todos os status</option>
+        <option value="Pendente">Pendente</option>
+        <option value="Em Contagem">Em Contagem</option>
+        <option value="Conferido">Conferido</option>
+        <option value="Ajustado">Ajustado</option>
+      </select>
+    </div>
+
+    <!-- Tabela -->
+    <div class="table-wrap">
+      <div class="table-header">
+        <span class="table-title">Registros de Inventário</span>
+        <span id="contadorFiltro" style="font-size:12px;color:var(--color-text-muted)"></span>
+      </div>
+      <div style="overflow-x:auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Nº</th>
+              <th>Produto</th>
+              <th>Qtd Sistema</th>
+              <th>Qtd Contada</th>
+              <th>Diferença</th>
+              <th>Status</th>
+              <th>Responsável</th>
+              <th>Data</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <tr><td colspan="9" class="vazio">Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="paginacao">
+        <span id="infoPag"></span>
+        <button class="btn-pag" id="btnAnterior" onclick="paginar(-1)" disabled>← Anterior</button>
+        <button class="btn-pag" id="btnProximo" onclick="paginar(1)">Próximo →</button>
+      </div>
+    </div>
+
+  </main>
+</div><!-- /.app-layout -->
+
+<!-- ── Modal Formulário ─────────────────────────── -->
+<div class="modal-overlay hidden" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitulo">Novo Inventário</h2>
+      <button class="modal-close" onclick="fecharModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="crud-msg" id="msgModal"></div>
+      <input type="hidden" id="editId">
+      <input type="hidden" id="editStatusAnterior">
+
+      <div class="form-group">
+        <label class="form-label">Número</label>
+        <input type="text" class="form-input" id="fNumero" readonly>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Produto <span class="obrigatorio">*</span></label>
+        <select class="form-select-md" id="fProduto" required onchange="aoSelecionarProduto()">
+          <option value="">— Selecione o produto —</option>
+        </select>
+      </div>
+
+      <div class="form-row-3">
+        <div class="form-group">
+          <label class="form-label">Qtd Sistema</label>
+          <input type="number" class="form-input" id="fQtdSistema" readonly placeholder="—">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Qtd Contada <span class="obrigatorio">*</span></label>
+          <input type="number" class="form-input" id="fQtdContada" min="0" step="0.001" placeholder="0,000" oninput="calcularDiferenca()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Diferença</label>
+          <input type="number" class="form-input" id="fDiferenca" readonly placeholder="—">
+          <div class="dif-preview zero" id="difPreview">—</div>
+        </div>
+      </div>
+
+      <!-- Alerta quando status = Ajustado -->
+      <div class="alerta-ajuste" id="alertaAjuste">
+        ⚠️ Ao salvar com status <strong>Ajustado</strong>, será gerada automaticamente uma movimentação de ajuste de estoque para corrigir a diferença.
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Status</label>
+          <select class="form-select-md" id="fStatus" onchange="aoMudarStatus()">
+            <option value="Pendente">Pendente</option>
+            <option value="Em Contagem">Em Contagem</option>
+            <option value="Conferido">Conferido</option>
+            <option value="Ajustado">Ajustado</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Responsável</label>
+          <input type="text" class="form-input" id="fResponsavel" placeholder="Nome do responsável">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Data</label>
+        <input type="date" class="form-input" id="fData">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Observações</label>
+        <textarea class="form-textarea" id="fObservacoes" placeholder="Observações sobre a contagem…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="fecharModal()">Cancelar</button>
+      <button class="btn btn-primary" id="btnSalvar" onclick="salvar()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal Confirmar Exclusão ─────────────────── -->
+<div class="modal-overlay hidden" id="modalExcluir">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <h2>Confirmar Exclusão</h2>
+      <button class="modal-close" onclick="fecharExcluir()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:var(--color-text)">Tem certeza que deseja excluir este inventário?</p>
+      <p style="font-size:12px;color:var(--color-text-muted);margin-top:8px">Esta ação não pode ser desfeita.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="fecharExcluir()">Cancelar</button>
+      <button class="btn btn-danger" id="btnConfExcluir" onclick="confirmarExcluir()">Excluir</button>
+    </div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  // ── Sessão e permissão ─────────────────────────────────────
+  sbVerificarSessao('../index.html');
+  sbExigirPermissao('estoque', '../dashboard.html');
+
+  // ── Header ─────────────────────────────────────────────────
+  document.getElementById('roleBadge').textContent = sbPerfil() || '';
+
+  // ── Tema ───────────────────────────────────────────────────
+  (function () {
+    const t   = localStorage.getItem('senai_tema') || 'light';
+    const btn = document.getElementById('btnTema');
+    if (btn) btn.textContent = t === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  })();
+  function alternarTema() {
+    const novo = sbToggleTema();
+    const btn  = document.getElementById('btnTema');
+    if (btn) btn.textContent = novo === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  }
+  function sair() { sbLogout('../index.html'); }
+
+  // ── Sidebar mobile ─────────────────────────────────────────
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  }
+
+  // ── Estado ─────────────────────────────────────────────────
+  let todosInv = [];
+  let invFiltrados = [];
+  const POR_PAGINA = 25;
+  let paginaAtual = 1;
+  let idExcluir = null;
+  let mapaProdutos = {}; // id → { nome, estoque_atual }
+
+  // ── Badges de status ───────────────────────────────────────
+  function statusBadge(status) {
+    const map = {
+      'Pendente':    'badge-pendente',
+      'Em Contagem': 'badge-contagem',
+      'Conferido':   'badge-conferido',
+      'Ajustado':    'badge-ajustado'
+    };
+    return `<span class="badge ${map[status] || 'badge-pendente'}">${status}</span>`;
+  }
+
+  // ── Renderizar diferença ────────────────────────────────────
+  function difHtml(dif) {
+    if (dif == null) return '—';
+    const n = Number(dif);
+    if (n > 0) return `<span class="dif-positivo">+${n.toLocaleString('pt-BR', {maximumFractionDigits:3})}</span>`;
+    if (n < 0) return `<span class="dif-negativo">${n.toLocaleString('pt-BR', {maximumFractionDigits:3})}</span>`;
+    return `<span class="dif-zero">0</span>`;
+  }
+
+  // ── Carregar dados ──────────────────────────────────────────
+  async function carregar() {
+    try {
+      // Produtos ativos
+      const prods = await sbListar('produtos', 'ativo=eq.true&order=nome.asc&select=id,nome,estoque_atual');
+      mapaProdutos = {};
+      prods.forEach(p => { mapaProdutos[p.id] = { nome: p.nome, estoque_atual: p.estoque_atual }; });
+
+      // Popular select
+      const sel = document.getElementById('fProduto');
+      sel.innerHTML = '<option value="">— Selecione o produto —</option>';
+      prods.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = p.nome;
+        sel.appendChild(opt);
+      });
+
+      // Carregar inventários
+      todosInv = await sbListar(
+        'estoque_inventarios',
+        'order=created_at.desc&select=id,numero,produto_id,qtd_sistema,qtd_contada,diferenca,status,responsavel,data,observacoes,produtos(nome)'
+      );
+
+      filtrar();
+    } catch (e) {
+      console.error('[inventario]', e);
+      document.getElementById('tbody').innerHTML =
+        '<tr><td colspan="9" class="vazio">Erro ao carregar inventários.</td></tr>';
+    }
+  }
+
+  // ── Filtrar ─────────────────────────────────────────────────
+  function filtrar() {
+    const busca  = document.getElementById('busca').value.toLowerCase().trim();
+    const status = document.getElementById('filtroStatus').value;
+
+    invFiltrados = todosInv.filter(inv => {
+      const nomeProd = (inv.produtos?.nome || mapaProdutos[inv.produto_id]?.nome || '').toLowerCase();
+      const textoOk  = !busca || (inv.numero || '').toLowerCase().includes(busca) || nomeProd.includes(busca);
+      const statusOk = !status || inv.status === status;
+      return textoOk && statusOk;
+    });
+
+    paginaAtual = 1;
+    renderizar();
+  }
+
+  // ── Renderizar ──────────────────────────────────────────────
+  function renderizar() {
+    const tbody = document.getElementById('tbody');
+    const total  = invFiltrados.length;
+    const inicio = (paginaAtual - 1) * POR_PAGINA;
+    const fim    = Math.min(inicio + POR_PAGINA, total);
+    const pagina = invFiltrados.slice(inicio, fim);
+
+    document.getElementById('contadorFiltro').textContent =
+      total === todosInv.length
+        ? `${total} registro(s)`
+        : `${total} de ${todosInv.length} registro(s)`;
+
+    document.getElementById('infoPag').textContent =
+      total === 0 ? '' : `${inicio + 1}–${fim} de ${total}`;
+
+    document.getElementById('btnAnterior').disabled = paginaAtual <= 1;
+    document.getElementById('btnProximo').disabled  = fim >= total;
+
+    if (!pagina.length) {
+      tbody.innerHTML = '<tr><td colspan="9" class="vazio">Nenhum inventário encontrado.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = pagina.map(inv => {
+      const nomeProd = inv.produtos?.nome || mapaProdutos[inv.produto_id]?.nome || '—';
+      const qs = inv.qtd_sistema != null ? Number(inv.qtd_sistema).toLocaleString('pt-BR', {maximumFractionDigits:3}) : '—';
+      const qc = inv.qtd_contada != null ? Number(inv.qtd_contada).toLocaleString('pt-BR', {maximumFractionDigits:3}) : '—';
+      return `
+        <tr>
+          <td style="font-family:monospace;font-size:12px;color:var(--color-text-muted)">${inv.numero}</td>
+          <td style="font-weight:500">${nomeProd}</td>
+          <td style="font-family:monospace">${qs}</td>
+          <td style="font-family:monospace;font-weight:600">${qc}</td>
+          <td>${difHtml(inv.diferenca)}</td>
+          <td>${statusBadge(inv.status)}</td>
+          <td style="color:var(--color-text-muted)">${inv.responsavel || '—'}</td>
+          <td>${sbData(inv.data)}</td>
+          <td style="white-space:nowrap">
+            <button class="acao-btn acao-editar" onclick="editar('${inv.id}')">✏️ Editar</button>
+            <button class="acao-btn acao-excluir" onclick="iniciarExcluir('${inv.id}')">🗑️ Excluir</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  function paginar(dir) {
+    paginaAtual += dir;
+    renderizar();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Formulário: ao selecionar produto ──────────────────────
+  function aoSelecionarProduto() {
+    const id = document.getElementById('fProduto').value;
+    if (!id) {
+      document.getElementById('fQtdSistema').value = '';
+      document.getElementById('fDiferenca').value  = '';
+      document.getElementById('difPreview').textContent = '—';
+      document.getElementById('difPreview').className = 'dif-preview zero';
+      return;
+    }
+    const prod = mapaProdutos[id];
+    if (prod) {
+      document.getElementById('fQtdSistema').value = prod.estoque_atual ?? 0;
+      calcularDiferenca();
+    }
+  }
+
+  // ── Formulário: calcular diferença em tempo real ────────────
+  function calcularDiferenca() {
+    const qs = parseFloat(document.getElementById('fQtdSistema').value);
+    const qc = parseFloat(document.getElementById('fQtdContada').value);
+    const difEl = document.getElementById('fDiferenca');
+    const preview = document.getElementById('difPreview');
+
+    if (isNaN(qs) || isNaN(qc)) {
+      difEl.value = '';
+      preview.textContent = '—';
+      preview.className = 'dif-preview zero';
+      return;
+    }
+
+    const dif = qc - qs;
+    difEl.value = dif.toFixed(3);
+
+    if (dif > 0) {
+      preview.textContent = `+${dif.toLocaleString('pt-BR', {maximumFractionDigits:3})}`;
+      preview.className = 'dif-preview positivo';
+    } else if (dif < 0) {
+      preview.textContent = dif.toLocaleString('pt-BR', {maximumFractionDigits:3});
+      preview.className = 'dif-preview negativo';
+    } else {
+      preview.textContent = '0';
+      preview.className = 'dif-preview zero';
+    }
+  }
+
+  // ── Formulário: ao mudar status ─────────────────────────────
+  function aoMudarStatus() {
+    const status = document.getElementById('fStatus').value;
+    const alerta = document.getElementById('alertaAjuste');
+    const dif    = parseFloat(document.getElementById('fDiferenca').value);
+    const statusAnterior = document.getElementById('editStatusAnterior').value;
+
+    if (status === 'Ajustado' && statusAnterior !== 'Ajustado' && !isNaN(dif) && dif !== 0) {
+      alerta.style.display = 'block';
+    } else {
+      alerta.style.display = 'none';
+    }
+  }
+
+  // ── Modal Criar/Editar ──────────────────────────────────────
+  function abrirModal(dados = null) {
+    document.getElementById('editId').value = '';
+    document.getElementById('editStatusAnterior').value = '';
+    document.getElementById('modalTitulo').textContent = 'Novo Inventário';
+    document.getElementById('msgModal').style.display = 'none';
+    document.getElementById('alertaAjuste').style.display = 'none';
+    document.getElementById('fProduto').value     = '';
+    document.getElementById('fQtdSistema').value  = '';
+    document.getElementById('fQtdContada').value  = '';
+    document.getElementById('fDiferenca').value   = '';
+    document.getElementById('fStatus').value      = 'Pendente';
+    document.getElementById('fResponsavel').value = '';
+    document.getElementById('fObservacoes').value = '';
+    document.getElementById('difPreview').textContent = '—';
+    document.getElementById('difPreview').className = 'dif-preview zero';
+
+    const agora = new Date();
+    document.getElementById('fData').value = agora.toISOString().split('T')[0];
+
+    Numerar.inventario().then(n => {
+      document.getElementById('fNumero').value = n;
+    });
+
+    if (dados) {
+      document.getElementById('editId').value              = dados.id;
+      document.getElementById('editStatusAnterior').value  = dados.status;
+      document.getElementById('modalTitulo').textContent   = 'Editar Inventário';
+      document.getElementById('fNumero').value             = dados.numero;
+      document.getElementById('fProduto').value            = dados.produto_id || '';
+      document.getElementById('fQtdSistema').value         = dados.qtd_sistema ?? '';
+      document.getElementById('fQtdContada').value         = dados.qtd_contada ?? '';
+      document.getElementById('fDiferenca').value          = dados.diferenca ?? '';
+      document.getElementById('fStatus').value             = dados.status || 'Pendente';
+      document.getElementById('fResponsavel').value        = dados.responsavel || '';
+      document.getElementById('fData').value               = dados.data || '';
+      document.getElementById('fObservacoes').value        = dados.observacoes || '';
+
+      // Atualizar preview da diferença
+      const dif = parseFloat(dados.diferenca);
+      if (!isNaN(dif)) {
+        const preview = document.getElementById('difPreview');
+        if (dif > 0) {
+          preview.textContent = `+${dif.toLocaleString('pt-BR', {maximumFractionDigits:3})}`;
+          preview.className = 'dif-preview positivo';
+        } else if (dif < 0) {
+          preview.textContent = dif.toLocaleString('pt-BR', {maximumFractionDigits:3});
+          preview.className = 'dif-preview negativo';
+        } else {
+          preview.textContent = '0';
+          preview.className = 'dif-preview zero';
+        }
+      }
+    }
+
+    document.getElementById('modalOverlay').classList.remove('hidden');
+  }
+
+  function fecharModal() {
+    document.getElementById('modalOverlay').classList.add('hidden');
+  }
+
+  async function editar(id) {
+    const inv = todosInv.find(i => i.id === id);
+    if (inv) abrirModal(inv);
+  }
+
+  // ── Salvar ──────────────────────────────────────────────────
+  async function salvar() {
+    const id         = document.getElementById('editId').value;
+    const produto_id = document.getElementById('fProduto').value;
+    const qtd_sistema  = document.getElementById('fQtdSistema').value;
+    const qtd_contada  = document.getElementById('fQtdContada').value;
+    const statusNovo   = document.getElementById('fStatus').value;
+    const statusAnterior = document.getElementById('editStatusAnterior').value;
+    const numero       = document.getElementById('fNumero').value;
+
+    if (!produto_id) { sbMensagem('msgModal', 'Selecione o produto.', 'err'); return; }
+    if (qtd_contada === '' || qtd_contada == null) {
+      sbMensagem('msgModal', 'Informe a quantidade contada.', 'err');
+      return;
+    }
+
+    const btn = document.getElementById('btnSalvar');
+    btn.disabled = true;
+    btn.textContent = 'Salvando…';
+
+    try {
+      const qs  = parseFloat(qtd_sistema) || 0;
+      const qc  = parseFloat(qtd_contada);
+      const dif = qc - qs;
+
+      const dados = {
+        produto_id,
+        qtd_sistema:  qs,
+        qtd_contada:  qc,
+        status:       statusNovo,
+        responsavel:  document.getElementById('fResponsavel').value.trim() || null,
+        data:         document.getElementById('fData').value || null,
+        observacoes:  document.getElementById('fObservacoes').value.trim() || null
+      };
+
+      let registroSalvo;
+      if (id) {
+        registroSalvo = await sbAtualizar('estoque_inventarios', id, dados);
+        sbMensagem('msgGlobal', 'Inventário atualizado com sucesso!', 'ok');
+      } else {
+        dados.numero = numero;
+        registroSalvo = await sbInserir('estoque_inventarios', dados);
+        sbMensagem('msgGlobal', 'Inventário registrado com sucesso!', 'ok');
+        if (window.gamif) await gamif.registrarEvento('inventario_realizado');
+      }
+
+      // ── Regra: ao marcar como Ajustado, gerar movimentação de ajuste ──
+      if (statusNovo === 'Ajustado' && statusAnterior !== 'Ajustado' && dif !== 0) {
+        try {
+          await sbMovimentarEstoque(
+            dif > 0 ? 'Entrada' : 'Saída',
+            produto_id,
+            Math.abs(dif),
+            { observacoes: 'Ajuste de inventário ' + numero }
+          );
+          sbMensagem('msgGlobal', 'Inventário ajustado e movimentação de estoque gerada!', 'ok');
+        } catch (errMov) {
+          console.error('[ajuste estoque]', errMov);
+          sbMensagem('msgGlobal', 'Inventário salvo, mas houve erro ao gerar movimentação de ajuste.', 'warn');
+        }
+      }
+
+      fecharModal();
+      await carregar();
+    } catch (e) {
+      console.error('[salvar inventario]', e);
+      sbMensagem('msgModal', 'Erro ao salvar: ' + e.message, 'err');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Salvar';
+    }
+  }
+
+  // ── Excluir ─────────────────────────────────────────────────
+  function iniciarExcluir(id) {
+    idExcluir = id;
+    document.getElementById('modalExcluir').classList.remove('hidden');
+  }
+
+  function fecharExcluir() {
+    idExcluir = null;
+    document.getElementById('modalExcluir').classList.add('hidden');
+  }
+
+  async function confirmarExcluir() {
+    if (!idExcluir) return;
+    const btn = document.getElementById('btnConfExcluir');
+    btn.disabled = true;
+    btn.textContent = 'Excluindo…';
+    try {
+      await sbExcluir('estoque_inventarios', idExcluir);
+      sbMensagem('msgGlobal', 'Inventário excluído com sucesso!', 'ok');
+      fecharExcluir();
+      await carregar();
+    } catch (e) {
+      console.error('[excluir]', e);
+      sbMensagem('msgGlobal', 'Erro ao excluir: ' + e.message, 'err');
+      fecharExcluir();
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Excluir';
+    }
+  }
+
+  // Fechar modais clicando fora
+  document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) fecharModal();
+  });
+  document.getElementById('modalExcluir').addEventListener('click', function(e) {
+    if (e.target === this) fecharExcluir();
+  });
+
+  // ── Inicializar ─────────────────────────────────────────────
+  carregar();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

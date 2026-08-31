@@ -1,0 +1,427 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Logística</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+
+    /* ── Page header ── */
+    .page-header { margin-bottom: 28px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .page-header h1 { font-size: 22px; font-weight: 700; color: var(--color-text); }
+    .page-header p  { font-size: 13px; color: var(--color-text-muted); margin-top: 3px; }
+    [data-theme="dark"] .page-header h1 { color: #f8f6ff; }
+
+    /* ── Pipeline de etapas ── */
+    .pipeline { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-bottom: 32px; }
+    @media (max-width: 1200px) { .pipeline { grid-template-columns: repeat(4, 1fr); } }
+    @media (max-width: 700px)  { .pipeline { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 400px)  { .pipeline { grid-template-columns: 1fr; } }
+
+    .etapa-card {
+      background: var(--color-surface);
+      border: 2px solid var(--color-border-faint);
+      border-radius: 14px;
+      padding: 20px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s cubic-bezier(.4,0,.2,1);
+      position: relative;
+      overflow: hidden;
+    }
+    .etapa-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .etapa-card.active { border-color: var(--etapa-cor); box-shadow: 0 0 0 3px color-mix(in srgb, var(--etapa-cor) 20%, transparent); }
+    [data-theme="dark"] .etapa-card { background: #0f0c22; border-color: rgba(139,92,246,0.12); }
+    [data-theme="dark"] .etapa-card.active { box-shadow: 0 0 0 3px color-mix(in srgb, var(--etapa-cor) 30%, transparent); }
+    [data-theme="dark"] .etapa-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+
+    .etapa-stripe {
+      position: absolute; top: 0; left: 0; right: 0; height: 4px;
+      background: var(--etapa-cor);
+      border-radius: 14px 14px 0 0;
+    }
+
+    .etapa-icon { font-size: 28px; margin-bottom: 8px; display: block; line-height: 1; }
+    .etapa-count {
+      font-size: 36px; font-weight: 900; color: var(--etapa-cor);
+      line-height: 1; margin-bottom: 4px;
+    }
+    .etapa-label {
+      font-size: 11px; font-weight: 700; color: var(--color-text-muted);
+      text-transform: uppercase; letter-spacing: .8px;
+    }
+    [data-theme="dark"] .etapa-label { color: #9080b4; }
+    .etapa-pct {
+      font-size: 10px; color: var(--color-text-faint); margin-top: 4px;
+    }
+    [data-theme="dark"] .etapa-pct { color: #6b5e8a; }
+
+    /* ── Seta de fluxo ── */
+    .pipeline-flow {
+      display: flex; align-items: center; gap: 4px;
+      margin-bottom: 20px; flex-wrap: wrap;
+      font-size: 11px; color: var(--color-text-faint);
+    }
+    .flow-step { display: inline-flex; align-items: center; gap: 4px; }
+    .flow-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .flow-arrow { color: var(--color-text-faint); }
+
+    /* ── Tabela de pedidos ── */
+    .section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 14px; gap: 12px; flex-wrap: wrap;
+    }
+    .section-title { font-size: 15px; font-weight: 700; color: var(--color-text); }
+    [data-theme="dark"] .section-title { color: #f0ecff; }
+    .section-count { font-size: 12px; color: var(--color-text-muted); }
+
+    .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+    .search-input { flex: 1; min-width: 200px; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; font-family: inherit; background: var(--color-surface); color: var(--color-text); outline: none; }
+    .search-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(0,67,132,.12); }
+    [data-theme="dark"] .search-input { background: var(--color-surface-2); }
+
+    .filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+    .filter-tab { background: var(--color-surface-2); border: 1px solid var(--color-border-faint); border-radius: 20px; padding: 4px 14px; font-size: 12px; font-weight: 500; color: var(--color-text-muted); cursor: pointer; font-family: inherit; transition: all .15s; white-space: nowrap; }
+    .filter-tab.active { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+    [data-theme="dark"] .filter-tab { background: #1a1535; border-color: rgba(139,92,246,0.15); }
+    [data-theme="dark"] .filter-tab.active { background: #8b5cf6; border-color: #8b5cf6; }
+    .filter-tab:hover:not(.active) { border-color: var(--color-primary); color: var(--color-primary); }
+
+    .content-card { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+    [data-theme="dark"] .content-card { background: #0f0c22; border: 1px solid rgba(139,92,246,0.12); }
+
+    .crud-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .crud-table th { text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--color-border-faint); white-space: nowrap; }
+    .crud-table td { padding: 10px 14px; border-bottom: 1px solid var(--color-border-faint); color: var(--color-text-secondary); }
+    .crud-table tr:last-child td { border-bottom: none; }
+    .crud-table tr:hover td { background: var(--color-surface-2); }
+    [data-theme="dark"] .crud-table th { color: #a78bfa; border-bottom-color: rgba(139,92,246,0.12); }
+    [data-theme="dark"] .crud-table td { border-bottom-color: rgba(139,92,246,0.08); color: #c4b5fd; }
+    [data-theme="dark"] .crud-table tr:hover td { background: #1a1535; }
+
+    .vazio { text-align: center; color: var(--color-text-faint); font-size: 13px; padding: 32px; font-style: italic; }
+
+    /* ── Modal de mover etapa ── */
+    .etapa-select-wrap { display: flex; gap: 8px; align-items: center; }
+    .etapa-select-wrap select { flex: 1; }
+
+    /* ── Badge de etapa ── */
+    .etapa-badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px; white-space: nowrap;
+      background: color-mix(in srgb, var(--eb-cor, #888) 15%, transparent);
+      color: var(--eb-cor, #888);
+      border: 1px solid color-mix(in srgb, var(--eb-cor, #888) 30%, transparent);
+    }
+  </style>
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────── -->
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- ── Layout ─────────────────────────────────── -->
+<div class="app-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <!-- Conteúdo -->
+  <main class="main">
+
+    <!-- Page header -->
+    <div class="page-header">
+      <div>
+        <h1>🗺️ Logística — Funil de Pedidos</h1>
+        <p>Acompanhe a distribuição dos pedidos em cada etapa do fluxo de vendas.</p>
+      </div>
+      <button class="btn btn-primary" onclick="atualizarTudo()">↻ Atualizar</button>
+    </div>
+
+    <!-- Fluxo visual -->
+    <div class="pipeline-flow" id="pipelineFlow"></div>
+
+    <!-- Cards de etapas -->
+    <div class="pipeline" id="pipeline">
+      <div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--color-text-faint)">Carregando etapas…</div>
+    </div>
+
+    <!-- Toolbar de filtro -->
+    <div class="toolbar">
+      <input class="search-input" type="search" id="busca" placeholder="Buscar por número, cliente ou produto…" oninput="filtrar()">
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" onclick="filtrarEtapa('', this)">Todos</button>
+      </div>
+    </div>
+
+    <!-- Tabela de pedidos -->
+    <div class="section-head">
+      <span class="section-title" id="tabelaTitulo">Todos os Pedidos</span>
+      <span class="section-count" id="tabelaCount"></span>
+    </div>
+    <div class="content-card">
+      <div class="crud-table-wrap">
+        <table class="crud-table">
+          <thead>
+            <tr>
+              <th>Nº Pedido</th>
+              <th>Cliente</th>
+              <th>Produto</th>
+              <th>Valor Total</th>
+              <th>Etapa</th>
+              <th>Status</th>
+              <th>Data</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyPedidos">
+            <tr><td colspan="8" class="vazio">Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ── Modal: Mover etapa ─────────────────────── -->
+<div id="backdropEtapa" style="display:none" class="crud-backdrop" onclick="if(event.target===this)fecharModal()">
+  <div class="crud-modal" style="max-width:460px">
+    <div class="crud-modal-head">
+      <h3 id="modalEtapaTitulo">Mover Etapa</h3>
+      <button class="crud-btn-fechar" onclick="fecharModal()">✕</button>
+    </div>
+    <div class="crud-form-area" style="padding:20px">
+      <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:16px" id="modalEtapaDesc"></p>
+      <label class="form-label" style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--color-text-muted)">Nova Etapa</label>
+      <select class="form-select" id="modalEtapaSelect" style="margin-top:6px;width:100%"></select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-confirmar" onclick="confirmarEtapa()">Confirmar</button>
+      <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+// ── Sessão e tema ──────────────────────────────
+sbVerificarSessao('../index.html');
+sbExigirPermissao('vendas', '../dashboard.html');
+document.getElementById('roleBadge').textContent = sbPerfil() || '';
+sbIniciarBtnTema('btnTema');
+function alternarTema() { const n = sbToggleTema(); document.getElementById('btnTema').textContent = n === 'dark' ? '☀️ Claro' : '🌙 Escuro'; location.reload(); }
+function sair() { sbLogout('../index.html'); }
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('show'); }
+
+// ── Configuração das etapas ───────────────────
+const ETAPAS = [
+  { nome: 'Pedido de Venda', icone: '🛍️', cor: '#6366f1' },
+  { nome: 'Financeiro',      icone: '💳', cor: '#0ea5e9' },
+  { nome: 'Nota Fiscal',     icone: '🧾', cor: '#8b5cf6' },
+  { nome: 'Separação',       icone: '📦', cor: '#f59e0b' },
+  { nome: 'Romaneio',        icone: '📃', cor: '#f97316' },
+  { nome: 'Expedição',       icone: '🚀', cor: '#ec4899' },
+  { nome: 'Entrega',         icone: '✅', cor: '#22c55e' },
+];
+
+// ── Dados ──────────────────────────────────────
+let todosPedidos = [];
+let etapaAtiva   = '';
+
+function moeda(v) { return v != null ? 'R$ ' + Number(v).toLocaleString('pt-BR', {minimumFractionDigits:2,maximumFractionDigits:2}) : '—'; }
+function dataFmt(d) { if (!d) return '—'; const [a,m,dd] = d.split('-'); return `${dd}/${m}/${a}`; }
+
+function etapaBadge(nome) {
+  const e = ETAPAS.find(x => x.nome === nome) || { cor: '#888' };
+  return `<span class="etapa-badge" style="--eb-cor:${e.cor}">${nome || '—'}</span>`;
+}
+function statusBadge(s) {
+  const m = { 'Confirmado':'badge-azul','Rascunho':'badge-cinza','Cancelado':'badge-vermelho','Entregue':'badge-verde','Em Separação':'badge-laranja','Em Expedição':'badge-laranja' };
+  return `<span class="badge ${m[s]||'badge-cinza'}">${s||'—'}</span>`;
+}
+
+// ── Renderizar pipeline ────────────────────────
+function renderPipeline(contagens, total) {
+  // Fluxo
+  const flow = document.getElementById('pipelineFlow');
+  flow.innerHTML = ETAPAS.map((e,i) =>
+    `<span class="flow-step"><span class="flow-dot" style="background:${e.cor}"></span>${e.nome}</span>${i < ETAPAS.length-1 ? '<span class="flow-arrow">›</span>' : ''}`
+  ).join('');
+
+  // Cards
+  const pipe = document.getElementById('pipeline');
+  pipe.innerHTML = ETAPAS.map(e => {
+    const qtd = contagens[e.nome] || 0;
+    const pct = total > 0 ? Math.round((qtd/total)*100) : 0;
+    const isActive = etapaAtiva === e.nome;
+    return `
+      <div class="etapa-card${isActive ? ' active' : ''}" style="--etapa-cor:${e.cor}" onclick="filtrarEtapa('${e.nome}', null)">
+        <div class="etapa-stripe"></div>
+        <span class="etapa-icon">${e.icone}</span>
+        <div class="etapa-count">${qtd}</div>
+        <div class="etapa-label">${e.nome}</div>
+        <div class="etapa-pct">${pct}% do total</div>
+      </div>`;
+  }).join('');
+
+  // Filter tabs
+  const tabs = document.getElementById('filterTabs');
+  tabs.innerHTML = `<button class="filter-tab${etapaAtiva==='' ? ' active':''}" onclick="filtrarEtapa('',this)">Todos (${total})</button>` +
+    ETAPAS.map(e => {
+      const qtd = contagens[e.nome] || 0;
+      return `<button class="filter-tab${etapaAtiva===e.nome?' active':''}" onclick="filtrarEtapa('${e.nome}',this)">${e.nome} (${qtd})</button>`;
+    }).join('');
+}
+
+// ── Carregar dados ─────────────────────────────
+async function atualizarTudo() {
+  document.getElementById('tbodyPedidos').innerHTML = '<tr><td colspan="8" class="vazio">Carregando…</td></tr>';
+  try {
+    todosPedidos = await sbListar('vendas_pedidos',
+      'select=id,numero,valor_total,status,etapa,data,cliente_id,clientes(nome),produto_id,produtos(nome)&order=created_at.desc');
+
+    // Contar por etapa
+    const contagens = {};
+    ETAPAS.forEach(e => contagens[e.nome] = 0);
+    todosPedidos.forEach(p => {
+      const etapa = p.etapa || 'Pedido de Venda';
+      if (contagens[etapa] !== undefined) contagens[etapa]++;
+      else contagens[etapa] = 1;
+    });
+
+    renderPipeline(contagens, todosPedidos.length);
+    renderTabela(todosPedidosFiltrados());
+  } catch(e) {
+    document.getElementById('tbodyPedidos').innerHTML = `<tr><td colspan="8" class="vazio">Erro ao carregar: ${e.message}</td></tr>`;
+  }
+}
+
+// ── Filtrar ────────────────────────────────────
+function todosPedidosFiltrados() {
+  const busca = document.getElementById('busca').value.toLowerCase();
+  return todosPedidos.filter(p => {
+    const matchEtapa  = !etapaAtiva || (p.etapa || 'Pedido de Venda') === etapaAtiva;
+    const matchBusca  = !busca ||
+      (p.numero||'').toLowerCase().includes(busca) ||
+      (p.clientes?.nome||'').toLowerCase().includes(busca) ||
+      (p.produtos?.nome||'').toLowerCase().includes(busca);
+    return matchEtapa && matchBusca;
+  });
+}
+
+function filtrarEtapa(etapa, btn) {
+  etapaAtiva = etapa;
+  // Atualizar cards e tabs
+  document.querySelectorAll('.etapa-card').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  if (etapa) {
+    document.querySelectorAll('.etapa-card').forEach(c => {
+      if (c.querySelector('.etapa-label')?.textContent === etapa) c.classList.add('active');
+    });
+  }
+  const titulo = etapa ? `Pedidos em: ${etapa}` : 'Todos os Pedidos';
+  document.getElementById('tabelaTitulo').textContent = titulo;
+  renderTabela(todosPedidosFiltrados());
+}
+
+function filtrar() {
+  renderTabela(todosPedidosFiltrados());
+}
+
+// ── Renderizar tabela ──────────────────────────
+function renderTabela(pedidos) {
+  document.getElementById('tabelaCount').textContent = `${pedidos.length} pedido(s)`;
+  const tbody = document.getElementById('tbodyPedidos');
+  if (!pedidos.length) {
+    tbody.innerHTML = '<tr><td colspan="8" class="vazio">Nenhum pedido nesta etapa.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = pedidos.map(p => `
+    <tr>
+      <td style="font-family:monospace;font-size:11px;font-weight:600">${p.numero}</td>
+      <td>${p.clientes?.nome || '—'}</td>
+      <td>${p.produtos?.nome || '—'}</td>
+      <td style="font-weight:600">${moeda(p.valor_total)}</td>
+      <td>${etapaBadge(p.etapa || 'Pedido de Venda')}</td>
+      <td>${statusBadge(p.status)}</td>
+      <td>${dataFmt(p.data)}</td>
+      <td>
+        <button class="btn-acao btn-editar" title="Mover etapa" onclick="abrirMoverEtapa('${p.id}','${p.numero}','${p.etapa||'Pedido de Venda'}')">↗ Mover</button>
+        <a class="btn-acao btn-mat-editar" href="pedidos-venda.html" title="Ver pedido">✏️</a>
+      </td>
+    </tr>`).join('');
+}
+
+// ── Modal: mover etapa ─────────────────────────
+let _idMovendo = null;
+
+function abrirMoverEtapa(id, numero, etapaAtualPed) {
+  _idMovendo = id;
+  document.getElementById('modalEtapaTitulo').textContent = `Mover Etapa — ${numero}`;
+  document.getElementById('modalEtapaDesc').textContent   = `Etapa atual: ${etapaAtualPed}`;
+  const sel = document.getElementById('modalEtapaSelect');
+  sel.innerHTML = ETAPAS.map(e =>
+    `<option value="${e.nome}"${e.nome === etapaAtualPed ? ' selected' : ''}>${e.icone} ${e.nome}</option>`
+  ).join('');
+  document.getElementById('backdropEtapa').style.display = 'flex';
+}
+
+function fecharModal() {
+  document.getElementById('backdropEtapa').style.display = 'none';
+  _idMovendo = null;
+}
+
+async function confirmarEtapa() {
+  if (!_idMovendo) return;
+  const novaEtapa = document.getElementById('modalEtapaSelect').value;
+  try {
+    await sbAtualizar('vendas_pedidos', _idMovendo, { etapa: novaEtapa });
+    fecharModal();
+    await atualizarTudo();
+  } catch(e) {
+    alert('Erro ao atualizar etapa: ' + e.message);
+  }
+}
+
+// ── Iniciar ────────────────────────────────────
+atualizarTudo();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,764 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Clientes</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+    .sidebar { width: 240px; background: var(--color-surface); border-right: 1px solid var(--color-border-faint); display: flex; flex-direction: column; position: fixed; top: 56px; left: 0; bottom: 0; overflow-y: auto; z-index: 50; transition: transform .25s; }
+    [data-theme="dark"] .sidebar { border-right-color: var(--color-border-light); }
+    .sidebar-section { padding: 20px 0 4px; }
+    .sidebar-section-label { font-size: 10px; font-weight: 700; color: var(--color-text-disabled); letter-spacing: 1.2px; text-transform: uppercase; padding: 0 20px 6px; }
+    .sidebar-link { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 13px; font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-left: 3px solid transparent; transition: background .15s, color .15s, border-color .15s; }
+    .sidebar-link:hover { background: #e8f0fe; color: var(--color-primary); }
+    .sidebar-link.ativo { background: #e8f0fe; color: var(--color-primary); border-left-color: var(--color-primary); font-weight: 600; }
+    [data-theme="dark"] .sidebar-link:hover, [data-theme="dark"] .sidebar-link.ativo { background: #1e2554; color: #7aa3d4; }
+    [data-theme="dark"] .sidebar-link.ativo { border-left-color: #7aa3d4; }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+    .page-header { margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .page-header h1 { font-size: 22px; font-weight: 700; color: var(--color-text); }
+    .page-header p { font-size: 13px; color: var(--color-text-muted); margin-top: 2px; }
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+    /* Toolbar */
+    .toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .search-input { flex: 1; min-width: 200px; padding: 8px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); font-family: inherit; outline: none; }
+    .search-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(0,67,132,0.12); }
+    [data-theme="dark"] .search-input { background: var(--color-surface-2); border-color: var(--color-border); color: var(--color-text); }
+    .filter-btn { padding: 7px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 12px; font-weight: 600; background: var(--color-surface); color: var(--color-text-muted); cursor: pointer; font-family: inherit; transition: all .15s; }
+    .filter-btn.ativo { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+    .filter-btn:hover:not(.ativo) { background: var(--color-surface-2); }
+    /* Seção tabela */
+    .content-section { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+    [data-theme="dark"] .content-section { background: var(--color-surface); }
+    /* Feedback global */
+    #msgGlobal { display: none; padding: 10px 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 600; margin-bottom: 14px; }
+    #msgGlobal.ok { background: var(--color-success-bg); border: 1px solid var(--color-success-border); color: var(--color-success); display: block; }
+    #msgGlobal.err { background: var(--color-error-bg); border: 1px solid var(--color-error-border); color: var(--color-error); display: block; }
+    #msgGlobal.warn { background: var(--color-warning-bg); border: 1px solid var(--color-warning-border); color: var(--color-warning); display: block; }
+    /* Modal grande */
+    .crud-modal { max-width: 860px !important; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-grid .span-2 { grid-column: span 2; }
+    @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } .form-grid .span-2 { grid-column: span 1; } }
+    .form-group { display: flex; flex-direction: column; gap: 4px; }
+    .form-label { font-size: 10px; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.3px; }
+    .form-label span { color: var(--color-error); }
+    .form-input, .form-select, .form-textarea { width: 100%; padding: 9px 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; color: var(--color-text); background: var(--color-surface-3); font-family: inherit; outline: none; transition: border-color .15s, box-shadow .15s; }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(0,67,132,0.12); }
+    .form-input[readonly] { background: var(--color-border-light); color: var(--color-text-muted); cursor: default; }
+    .form-textarea { resize: vertical; min-height: 70px; }
+    [data-theme="dark"] .form-input, [data-theme="dark"] .form-select, [data-theme="dark"] .form-textarea { background: var(--color-surface-2); border-color: var(--color-border); color: var(--color-text); }
+    /* Toggle ativo */
+    .toggle-wrap { display: flex; align-items: center; gap: 10px; padding: 10px 0; }
+    .toggle { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider { position: absolute; inset: 0; background: #ccc; border-radius: 24px; cursor: pointer; transition: background .2s; }
+    .toggle-slider::before { content: ''; position: absolute; width: 18px; height: 18px; left: 3px; bottom: 3px; background: #fff; border-radius: 50%; transition: transform .2s; }
+    .toggle input:checked + .toggle-slider { background: var(--color-success); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
+    .toggle-label { font-size: 13px; color: var(--color-text-secondary); }
+    /* Modal footer */
+    .modal-footer { padding: 12px 20px; display: flex; justify-content: center; gap: 10px; border-top: 1px solid var(--color-border-light); background: var(--color-surface-2); }
+    [data-theme="dark"] .modal-footer { background: var(--color-surface-2); border-top-color: var(--color-border-light); }
+    .modal-body-scroll { overflow-y: auto; padding: 20px; flex: 1; }
+    /* Paginação */
+    .paginacao { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--color-border-faint); font-size: 12px; color: var(--color-text-muted); }
+    .paginacao-btns { display: flex; gap: 6px; }
+    .pag-btn { padding: 4px 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); color: var(--color-text-muted); font-size: 12px; cursor: pointer; font-family: inherit; }
+    .pag-btn:disabled { opacity: 0.4; cursor: default; }
+    .pag-btn:not(:disabled):hover { background: var(--color-surface-2); }
+    /* Botão Finanças */
+    .btn-fin { background: #1565c0; color: #fff; border: none; border-radius: 6px; padding: 4px 9px; font-size: 12px; cursor: pointer; font-family: inherit; font-weight: 600; white-space: nowrap; }
+    .btn-fin:hover { background: #0d47a1; }
+    /* Modal Finanças */
+    .fin-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+    @media (max-width: 600px) { .fin-cards { grid-template-columns: 1fr; } }
+    .fin-card { background: var(--color-surface-2); border-radius: 10px; padding: 16px; text-align: center; border: 1px solid var(--color-border-faint); }
+    .fin-card-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-muted); margin-bottom: 6px; }
+    .fin-card-valor { font-size: 22px; font-weight: 800; }
+    .fin-card-valor.azul { color: #1565c0; }
+    .fin-card-valor.verde { color: #2e7d32; }
+    .fin-card-valor.vermelho { color: #c62828; }
+    .fin-card-valor.amarelo { color: #e65100; }
+    .fin-section-titulo { font-size: 13px; font-weight: 700; color: var(--color-text); margin: 16px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--color-border-faint); }
+    .fin-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .fin-table th { text-align: left; padding: 6px 8px; background: var(--color-surface-2); color: var(--color-text-muted); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; }
+    .fin-table td { padding: 7px 8px; border-bottom: 1px solid var(--color-border-faint); color: var(--color-text); vertical-align: middle; }
+    .fin-table tr:last-child td { border-bottom: none; }
+    .badge-avencer { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; border-radius: 12px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+    .badge-vencida { background: #fce8e6; color: #c62828; border: 1px solid #ef9a9a; border-radius: 12px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+    .badge-emdia   { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; border-radius: 12px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+    .badge-paga    { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; border-radius: 12px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+    .badge-contrato-ativo    { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; border-radius: 12px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+    .badge-contrato-cancelado { background: #fce8e6; color: #c62828; border: 1px solid #ef9a9a; border-radius: 12px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+    .badge-contrato-encerrado { background: #f5f5f5; color: #616161; border: 1px solid #bdbdbd; border-radius: 12px; padding: 2px 8px; font-size: 11px; font-weight: 600; }
+    .fin-vazio { text-align: center; color: var(--color-text-muted); padding: 16px; font-size: 12px; font-style: italic; }
+    .fin-limite-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; background: var(--color-surface-2); border-radius: 10px; padding: 14px 18px; border: 1px solid var(--color-border-faint); }
+    .fin-limite-label { font-size: 12px; color: var(--color-text-muted); font-weight: 600; flex: 1; }
+    .fin-limite-input { width: 160px; padding: 7px 10px; border: 1px solid var(--color-border); border-radius: 6px; font-size: 13px; font-family: inherit; text-align: right; background: var(--color-surface); color: var(--color-text); outline: none; }
+    .fin-limite-input:focus { border-color: #1565c0; box-shadow: 0 0 0 3px rgba(21,101,192,.12); }
+    .fin-btn-salvar-limite { padding: 7px 14px; background: #1565c0; color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .fin-btn-salvar-limite:hover { background: #0d47a1; }
+  </style>
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script src="../gamificacao/gamif.js"></script>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<div class="app-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="page-header">
+      <div>
+        <h1>👥 Clientes</h1>
+        <p>Cadastro de clientes pessoa física e jurídica</p>
+      </div>
+      <button class="btn" onclick="abrirModalNovo()">+ Novo Cliente</button>
+    </div>
+
+    <div id="msgGlobal"></div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <input class="search-input" type="text" id="campoBusca" placeholder="🔍  Buscar por nome ou CNPJ/CPF..." oninput="filtrar()">
+      <button class="filter-btn ativo" data-filtro="todos" onclick="setFiltro('todos',this)">Todos</button>
+      <button class="filter-btn" data-filtro="ativos" onclick="setFiltro('ativos',this)">Ativos</button>
+      <button class="filter-btn" data-filtro="inativos" onclick="setFiltro('inativos',this)">Inativos</button>
+    </div>
+
+    <!-- Tabela -->
+    <div class="content-section">
+      <div class="crud-table-wrap">
+        <table class="crud-table">
+          <thead>
+            <tr>
+              <th>Nome / Razão Social</th>
+              <th>CNPJ / CPF</th>
+              <th>E-mail</th>
+              <th>Telefone</th>
+              <th>Segmento</th>
+              <th>Status</th>
+              <th style="width:140px">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyClientes">
+            <tr><td colspan="7" class="crud-vazio">Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="paginacao">
+        <span id="paginacaoInfo">—</span>
+        <div class="paginacao-btns">
+          <button class="pag-btn" id="btnAnterior" onclick="mudarPagina(-1)">‹ Anterior</button>
+          <button class="pag-btn" id="btnProximo" onclick="mudarPagina(1)">Próxima ›</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ── Modal Formulário ── -->
+<div class="crud-backdrop" id="modalFormulario" style="display:none" onclick="fecharSeClicouFora(event,'modalFormulario')">
+  <div class="crud-modal">
+    <div class="crud-modal-head">
+      <h3 id="modalTitulo">Novo Cliente</h3>
+      <button class="crud-btn-fechar" onclick="fecharModal()">✕</button>
+    </div>
+    <div class="modal-body-scroll">
+      <div id="msgModal" style="display:none;margin-bottom:12px;padding:10px 14px;border-radius:6px;font-size:13px;font-weight:600;"></div>
+      <form id="formCliente" onsubmit="salvar(event)">
+        <div class="form-grid">
+          <div class="form-group span-2">
+            <label class="form-label" for="fNome">Nome / Razão Social <span>*</span></label>
+            <input class="form-input" type="text" id="fNome" required placeholder="Nome completo ou razão social">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fCnpjCpf">CNPJ / CPF</label>
+            <input class="form-input" type="text" id="fCnpjCpf" placeholder="000.000.000-00 ou 00.000.000/0001-00" maxlength="18" oninput="aplicarMascaraCNPJCPF(this)">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fSegmento">Segmento</label>
+            <select class="form-select" id="fSegmento">
+              <option value="">— Selecione —</option>
+              <option>Tecnologia</option><option>Saúde</option><option>Varejo</option>
+              <option>Alimentação</option><option>Automobilístico</option><option>Metalmecânica</option>
+              <option>Madeireiro</option><option>Serviços</option><option>Agricultura</option>
+              <option>Transporte</option><option>Outros</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fEmail">E-mail</label>
+            <input class="form-input" type="email" id="fEmail" placeholder="email@exemplo.com.br">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fTelefone">Telefone</label>
+            <input class="form-input" type="text" id="fTelefone" placeholder="(00) 00000-0000" maxlength="15" oninput="aplicarMascaraTel(this)">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fCep">CEP</label>
+            <input class="form-input" type="text" id="fCep" placeholder="00000-000" maxlength="9" oninput="aplicarMascaraCEP(this)">
+          </div>
+          <div class="form-group span-2">
+            <label class="form-label" for="fEndereco">Endereço</label>
+            <input class="form-input" type="text" id="fEndereco" placeholder="Rua, número, complemento">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fEstado">Estado</label>
+            <select class="form-select" id="fEstado">
+              <option value="">— UF —</option>
+              <option>AC</option><option>AL</option><option>AM</option><option>AP</option>
+              <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+              <option>GO</option><option>MA</option><option>MG</option><option>MS</option>
+              <option>MT</option><option>PA</option><option>PB</option><option>PE</option>
+              <option>PI</option><option>PR</option><option>RJ</option><option>RN</option>
+              <option>RO</option><option>RR</option><option>RS</option><option>SC</option>
+              <option>SE</option><option>SP</option><option>TO</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="fCidade">Cidade</label>
+            <select class="form-select" id="fCidade">
+              <option value="">— Cidade —</option>
+            </select>
+          </div>
+          <div class="form-group span-2">
+            <label class="form-label" for="fObs">Observações</label>
+            <textarea class="form-textarea" id="fObs" placeholder="Anotações adicionais…"></textarea>
+          </div>
+          <div class="form-group span-2">
+            <div class="toggle-wrap">
+              <label class="toggle">
+                <input type="checkbox" id="fAtivo" checked>
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="toggle-label">Cliente ativo</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+      <button class="btn-salvar" onclick="document.getElementById('formCliente').requestSubmit()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal Confirmar Exclusão ── -->
+<div class="crud-backdrop" id="modalExcluir" style="display:none" onclick="fecharSeClicouFora(event,'modalExcluir')">
+  <div class="crud-modal" style="max-width:440px">
+    <div class="crud-modal-head" style="background:#c62828">
+      <h3>Confirmar Exclusão</h3>
+      <button class="crud-btn-fechar" onclick="fecharModalExcluir()">✕</button>
+    </div>
+    <div class="modal-body-scroll" style="padding:20px">
+      <p style="font-size:14px;color:var(--color-text)">Tem certeza que deseja excluir o cliente <strong id="nomeExcluir"></strong>?</p>
+      <p style="font-size:12px;color:var(--color-text-muted);margin-top:8px">Esta ação não pode ser desfeita.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancelar" onclick="fecharModalExcluir()">Cancelar</button>
+      <button class="btn-salvar" style="background:#c62828" onclick="excluirConfirmado()">🗑️ Excluir</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Modal Finanças ── -->
+<div class="crud-backdrop" id="modalFinancas" style="display:none">
+  <div class="crud-modal" style="max-width:720px">
+    <div class="crud-modal-head" style="background:#1565c0">
+      <h3 id="finTitulo">💰 Finanças do Cliente</h3>
+      <button class="crud-btn-fechar" onclick="fecharModalFinancas()">✕</button>
+    </div>
+    <div class="modal-body-scroll" style="padding:20px" id="finConteudo">
+      <p style="text-align:center;color:var(--color-text-muted)">Carregando…</p>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn-salvar" style="background:#6366f1" id="btnAnaliseCredito" onclick="solicitarAnaliseCredito()">🔎 Solicitar Análise de Crédito</button>
+      <button class="btn-cancelar" onclick="fecharModalFinancas()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao();
+  sbExigirPermissao('cadastros');
+
+  // ── Header ──
+  document.getElementById('roleBadge').textContent = sbPerfil() || '';
+
+  // ── Tema ──
+  (function () {
+    const t = localStorage.getItem('senai_tema') || 'light';
+    const btn = document.getElementById('btnTema');
+    btn.textContent = t === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+    btn.onclick = () => {
+      const novo = sbToggleTema();
+      btn.textContent = novo === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+    };
+  })();
+
+  function sair() { sbLogout('../index.html'); }
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  }
+
+  // ── ViaCEP + Estado→Cidade ──
+  sbViaCEP('fCep', { endereco: 'fEndereco', cidade: 'fCidade', estado: 'fEstado' });
+  sbBindEstadoCidade('fEstado', 'fCidade', 'SC');
+
+  // ── Estado ──
+  let todos = [];
+  let filtrados = [];
+  let filtroAtual = 'todos';
+  let paginaAtual = 0;
+  const POR_PAGINA = 50;
+  let idParaExcluir = null;
+  let modoEdicao = false;
+  let idEdicao = null;
+
+  // ── Máscaras ──
+  function aplicarMascaraCNPJCPF(el) {
+    let v = el.value.replace(/\D/g, '').slice(0, 14);
+    if (v.length <= 11) {
+      v = v.replace(/(\d{3})(\d)/, '$1.$2')
+           .replace(/(\d{3})(\d)/, '$1.$2')
+           .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+    } else {
+      v = v.replace(/^(\d{2})(\d)/, '$1.$2')
+           .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+           .replace(/(\d{3})\.(\d{3})(\d)/, '$1.$2/$3')
+           .replace(/(\d{4})(\d{1,2})$/, '$1-$2');
+    }
+    el.value = v;
+  }
+
+  function aplicarMascaraTel(el) {
+    let v = el.value.replace(/\D/g, '').slice(0, 11);
+    if (v.length <= 10) v = v.replace(/(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    else                 v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+    el.value = v;
+  }
+
+  function aplicarMascaraCEP(el) {
+    let v = el.value.replace(/\D/g, '').slice(0, 8);
+    if (v.length > 5) v = v.replace(/(\d{5})(\d)/, '$1-$2');
+    el.value = v;
+  }
+
+  // ── Validações ──
+  function validarCPF(cpf) {
+    cpf = cpf.replace(/\D/g, '');
+    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+    let s = 0, r;
+    for (let i = 0; i < 9; i++) s += +cpf[i] * (10 - i);
+    r = 11 - (s % 11); if (r >= 10) r = 0;
+    if (r !== +cpf[9]) return false;
+    s = 0;
+    for (let i = 0; i < 10; i++) s += +cpf[i] * (11 - i);
+    r = 11 - (s % 11); if (r >= 10) r = 0;
+    return r === +cpf[10];
+  }
+
+  function validarCNPJ(cnpj) {
+    cnpj = cnpj.replace(/\D/g, '');
+    if (cnpj.length !== 14 || /^(\d)\1{13}$/.test(cnpj)) return false;
+    const c = (base) => {
+      let s = 0, p = base - 7;
+      for (let i = base; i >= 1; i--) { s += +cnpj[base - i] * p--; if (p < 2) p = 9; }
+      const r = s % 11; return r < 2 ? 0 : 11 - r;
+    };
+    return c(12) === +cnpj[12] && c(13) === +cnpj[13];
+  }
+
+  // ── Mensagem Global ──
+  function msg(texto, tipo = 'ok', ms = 4000) {
+    const el = document.getElementById('msgGlobal');
+    el.textContent = texto; el.className = tipo; el.style.display = 'block';
+    if (ms > 0) setTimeout(() => { el.style.display = 'none'; }, ms);
+  }
+
+  function msgModal(texto, tipo = 'err') {
+    const el = document.getElementById('msgModal');
+    el.textContent = texto;
+    el.style.cssText = tipo === 'err'
+      ? 'display:block;background:#fce8e6;border:1px solid #f44336;color:#c62828'
+      : 'display:block;background:#e8f5e9;border:1px solid #c8e6c9;color:#2e7d32';
+  }
+
+  // ── Carregar ──
+  async function carregar() {
+    document.getElementById('tbodyClientes').innerHTML = '<tr><td colspan="7" class="crud-vazio">Carregando…</td></tr>';
+    try {
+      todos = await sbListar('clientes', 'order=nome.asc');
+      filtrar();
+    } catch (e) {
+      document.getElementById('tbodyClientes').innerHTML = `<tr><td colspan="7" class="crud-vazio">Erro ao carregar: ${e.message}</td></tr>`;
+    }
+  }
+
+  // ── Filtrar e renderizar ──
+  function setFiltro(f, el) {
+    filtroAtual = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('ativo'));
+    el.classList.add('ativo');
+    paginaAtual = 0;
+    filtrar();
+  }
+
+  function filtrar() {
+    const termo = document.getElementById('campoBusca').value.toLowerCase().trim();
+    filtrados = todos.filter(c => {
+      if (filtroAtual === 'ativos' && !c.ativo) return false;
+      if (filtroAtual === 'inativos' && c.ativo) return false;
+      if (termo) {
+        return (c.nome || '').toLowerCase().includes(termo) ||
+               (c.cnpj_cpf || '').toLowerCase().includes(termo);
+      }
+      return true;
+    });
+    renderTabela();
+  }
+
+  function renderTabela() {
+    const tbody = document.getElementById('tbodyClientes');
+    const inicio = paginaAtual * POR_PAGINA;
+    const pagina = filtrados.slice(inicio, inicio + POR_PAGINA);
+
+    document.getElementById('paginacaoInfo').textContent =
+      `${filtrados.length} registro(s) · página ${paginaAtual + 1} de ${Math.max(1, Math.ceil(filtrados.length / POR_PAGINA))}`;
+    document.getElementById('btnAnterior').disabled = paginaAtual === 0;
+    document.getElementById('btnProximo').disabled = inicio + POR_PAGINA >= filtrados.length;
+
+    if (!pagina.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="crud-vazio">Nenhum cliente encontrado.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = pagina.map(c => `
+      <tr>
+        <td title="${c.nome || ''}">${c.nome || '—'}</td>
+        <td style="font-family:monospace;font-size:12px">${c.cnpj_cpf || '—'}</td>
+        <td title="${c.email || ''}">${c.email || '—'}</td>
+        <td>${c.telefone || '—'}</td>
+        <td>${c.segmento || '—'}</td>
+        <td>${c.ativo
+          ? '<span class="badge badge-verde">Ativo</span>'
+          : '<span class="badge badge-vermelho">Inativo</span>'}</td>
+        <td class="crud-acts">
+          <button class="btn-fin" title="Finanças" onclick="abrirModalFinancas('${c.id}','${(c.nome || '').replace(/'/g, "\\'")}')">💰 Finanças</button>
+          <button class="btn-ed" title="Editar" onclick="abrirModalEditar('${c.id}')">✏️</button>
+          <button class="btn-del" title="Excluir" onclick="confirmarExcluir('${c.id}','${(c.nome || '').replace(/'/g, "\\'")}')">🗑️</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function mudarPagina(dir) {
+    paginaAtual += dir;
+    renderTabela();
+    window.scrollTo(0, 0);
+  }
+
+  // ── Modal ──
+  function abrirModalNovo() {
+    modoEdicao = false; idEdicao = null;
+    document.getElementById('modalTitulo').textContent = 'Novo Cliente';
+    document.getElementById('formCliente').reset();
+    document.getElementById('fAtivo').checked = true;
+    document.getElementById('msgModal').style.display = 'none';
+    document.getElementById('modalFormulario').style.display = 'flex';
+  }
+
+  async function abrirModalEditar(id) {
+    modoEdicao = true; idEdicao = id;
+    document.getElementById('modalTitulo').textContent = 'Editar Cliente';
+    document.getElementById('msgModal').style.display = 'none';
+    const c = todos.find(x => x.id === id);
+    if (!c) return;
+    document.getElementById('fNome').value      = c.nome || '';
+    document.getElementById('fCnpjCpf').value   = c.cnpj_cpf || '';
+    document.getElementById('fEmail').value     = c.email || '';
+    document.getElementById('fTelefone').value  = c.telefone || '';
+    document.getElementById('fSegmento').value  = c.segmento || '';
+    document.getElementById('fCep').value       = c.cep || '';
+    document.getElementById('fEndereco').value  = c.endereco || '';
+    document.getElementById('fEstado').value    = c.estado || 'SC';
+    document.getElementById('fObs').value       = c.observacoes || '';
+    document.getElementById('fAtivo').checked   = c.ativo !== false;
+    document.getElementById('modalFormulario').style.display = 'flex';
+    await sbCarregarCidades(c.estado || 'SC', 'fCidade', c.cidade || '');
+  }
+
+  function fecharModal() {
+    document.getElementById('modalFormulario').style.display = 'none';
+  }
+
+  function fecharSeClicouFora(e, id) {
+    if (e.target.id === id) document.getElementById(id).style.display = 'none';
+  }
+
+  // ── Salvar ──
+  async function salvar(e) {
+    e.preventDefault();
+    const nome    = document.getElementById('fNome').value.trim();
+    const cnpjCpf = document.getElementById('fCnpjCpf').value.trim();
+    const email   = document.getElementById('fEmail').value.trim();
+
+    if (!nome) { msgModal('Nome / Razão Social é obrigatório.'); return; }
+
+    // Validar CNPJ/CPF se preenchido
+    if (cnpjCpf) {
+      const digits = cnpjCpf.replace(/\D/g, '');
+      if (digits.length === 11 && !validarCPF(cnpjCpf)) { msgModal('CPF inválido. Verifique o número digitado.'); return; }
+      if (digits.length === 14 && !validarCNPJ(cnpjCpf)) { msgModal('CNPJ inválido. Verifique o número digitado.'); return; }
+      if (digits.length !== 11 && digits.length !== 14 && digits.length > 0) { msgModal('CNPJ/CPF inválido: use 11 dígitos para CPF ou 14 para CNPJ.'); return; }
+
+      // Verificar duplicidade
+      const duplicado = todos.find(c => c.cnpj_cpf === cnpjCpf && c.id !== idEdicao);
+      if (duplicado) { msgModal(`CNPJ/CPF já cadastrado para "${duplicado.nome}".`); return; }
+    }
+
+    const dados = {
+      nome,
+      cnpj_cpf:    cnpjCpf || null,
+      email:       email || null,
+      telefone:    document.getElementById('fTelefone').value.trim() || null,
+      segmento:    document.getElementById('fSegmento').value || null,
+      cep:         document.getElementById('fCep').value.trim() || null,
+      endereco:    document.getElementById('fEndereco').value.trim() || null,
+      cidade:      document.getElementById('fCidade').value.trim() || null,
+      estado:      document.getElementById('fEstado').value || null,
+      observacoes: document.getElementById('fObs').value.trim() || null,
+      ativo:       document.getElementById('fAtivo').checked,
+    };
+
+    try {
+      if (modoEdicao) {
+        await sbAtualizar('clientes', idEdicao, dados);
+        msg('Cliente atualizado com sucesso!', 'ok');
+      } else {
+        await sbInserir('clientes', dados);
+        msg('Cliente cadastrado com sucesso!', 'ok');
+        if (window.gamif) await gamif.registrarEvento('cliente_cadastrado');
+      }
+      fecharModal();
+      await carregar();
+    } catch (er) {
+      msgModal('Erro ao salvar: ' + er.message);
+    }
+  }
+
+  // ── Excluir ──
+  function confirmarExcluir(id, nome) {
+    idParaExcluir = id;
+    document.getElementById('nomeExcluir').textContent = nome;
+    document.getElementById('modalExcluir').style.display = 'flex';
+  }
+
+  function fecharModalExcluir() {
+    document.getElementById('modalExcluir').style.display = 'none';
+    idParaExcluir = null;
+  }
+
+  async function excluirConfirmado() {
+    if (!idParaExcluir) return;
+    try {
+      await sbExcluir('clientes', idParaExcluir);
+      msg('Cliente excluído com sucesso.', 'ok');
+      fecharModalExcluir();
+      await carregar();
+    } catch (e) {
+      fecharModalExcluir();
+      msg('Erro ao excluir: ' + e.message, 'err');
+    }
+  }
+
+  // ── Modal Finanças ────────────────────────────────────────────
+  let clienteFinId = null;
+
+  function fecharModalFinancas() {
+    document.getElementById('modalFinancas').style.display = 'none';
+    clienteFinId = null;
+  }
+
+  function fmtMoeda(v) {
+    return 'R$ ' + (parseFloat(v) || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function fmtData(d) {
+    if (!d) return '—';
+    const [y, m, day] = d.split('-');
+    return `${day}/${m}/${y}`;
+  }
+
+  function badgeParcela(status) {
+    const m = { 'A Vencer': 'avencer', 'Vencida': 'vencida', 'Em Dia': 'emdia', 'Paga': 'paga' };
+    return `<span class="badge-${m[status] || 'avencer'}">${status}</span>`;
+  }
+
+  function badgeContrato(status) {
+    const m = { 'Ativo': 'ativo', 'Cancelado': 'cancelado', 'Encerrado': 'encerrado' };
+    return `<span class="badge-contrato-${m[status] || 'ativo'}">${status}</span>`;
+  }
+
+  function solicitarAnaliseCredito() {
+    if (!clienteFinId) return;
+    window.open(`../financeiro/analisecredito.html?cliente_id=${clienteFinId}`, '_blank');
+  }
+
+  async function abrirModalFinancas(id, nome) {
+    clienteFinId = id;
+    document.getElementById('finTitulo').textContent = '💰 Finanças — ' + nome;
+    document.getElementById('finConteudo').innerHTML = '<p style="text-align:center;color:var(--color-text-muted)">Carregando…</p>';
+    document.getElementById('modalFinancas').style.display = 'flex';
+
+    try {
+      const cliente = todos.find(x => x.id === id) || {};
+      const limite  = parseFloat(cliente.limite_credito) || 0;
+
+      const [parcelas, contratos] = await Promise.all([
+        sbListar('fin_parcelas',  `cliente_id=eq.${id}&order=vencimento.asc`),
+        sbListar('fin_contratos', `cliente_id=eq.${id}&order=created_at.desc`)
+      ]);
+
+      const aVencer    = parcelas.filter(p => p.status === 'A Vencer').length;
+      const vencidas   = parcelas.filter(p => p.status === 'Vencida').length;
+      const emDiaPagas = parcelas.filter(p => p.status === 'Em Dia' || p.status === 'Paga').length;
+      const valorVencido = parcelas.filter(p => p.status === 'Vencida').reduce((s, p) => s + (parseFloat(p.valor) || 0), 0);
+
+      const limiteUtilizado  = parcelas
+        .filter(p => p.status === 'A Vencer' || p.status === 'Vencida')
+        .reduce((s, p) => s + (parseFloat(p.valor) || 0), 0);
+      const limiteDisponivel = Math.max(0, limite - limiteUtilizado);
+      const pctUsado = limite > 0 ? Math.min(100, (limiteUtilizado / limite) * 100) : 0;
+      const corBarra = pctUsado >= 90 ? '#c62828' : pctUsado >= 60 ? '#f57c00' : '#2e7d32';
+
+      document.getElementById('finConteudo').innerHTML = `
+        <!-- Bloco de Limite de Crédito — somente leitura -->
+        <div style="background:linear-gradient(135deg,#e3f0ff 0%,#f0f7ff 100%);border:1px solid #90caf9;border-radius:14px;padding:20px 24px 16px;margin-bottom:18px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+            <span style="font-size:22px">💳</span>
+            <span style="font-size:14px;font-weight:700;color:#1565c0;text-transform:uppercase;letter-spacing:.5px">Limite de Crédito</span>
+            <span style="margin-left:auto;font-size:11px;color:#90a4ae;background:#e3f2fd;padding:2px 8px;border-radius:20px">Gerenciado pelo Financeiro</span>
+          </div>
+
+          <!-- Três métricas lado a lado -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px">
+            <div style="text-align:center;background:#fff;border-radius:10px;padding:12px 8px;border:1px solid #bbdefb">
+              <div style="font-size:11px;color:#5c6bc0;font-weight:600;margin-bottom:4px">🏦 TOTAL</div>
+              <div style="font-size:16px;font-weight:800;color:#1565c0">${fmtMoeda(limite)}</div>
+            </div>
+            <div style="text-align:center;background:#fff;border-radius:10px;padding:12px 8px;border:1px solid #ffccbc">
+              <div style="font-size:11px;color:#bf360c;font-weight:600;margin-bottom:4px">📤 UTILIZADO</div>
+              <div style="font-size:16px;font-weight:800;color:#d84315">${fmtMoeda(limiteUtilizado)}</div>
+            </div>
+            <div style="text-align:center;background:#fff;border-radius:10px;padding:12px 8px;border:1px solid #c8e6c9">
+              <div style="font-size:11px;color:#2e7d32;font-weight:600;margin-bottom:4px">✅ DISPONÍVEL</div>
+              <div style="font-size:16px;font-weight:800;color:#2e7d32">${fmtMoeda(limiteDisponivel)}</div>
+            </div>
+          </div>
+
+          <!-- Barra de progresso -->
+          <div style="background:#e3f2fd;border-radius:20px;height:12px;overflow:hidden;margin-bottom:6px">
+            <div style="width:${pctUsado.toFixed(1)}%;height:100%;background:${corBarra};border-radius:20px;transition:width .4s ease"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:#78909c">
+            <span>${pctUsado.toFixed(1)}% utilizado</span>
+            <span>${(100 - pctUsado).toFixed(1)}% disponível</span>
+          </div>
+        </div>
+
+        <!-- Cards de Parcelas -->
+        <div class="fin-cards">
+          <div class="fin-card">
+            <div class="fin-card-label">A Vencer</div>
+            <div class="fin-card-valor amarelo">${aVencer}</div>
+          </div>
+          <div class="fin-card">
+            <div class="fin-card-label">Vencidas</div>
+            <div class="fin-card-valor vermelho">${vencidas}</div>
+            ${vencidas > 0 ? `<div style="font-size:11px;color:#c62828;margin-top:4px">${fmtMoeda(valorVencido)}</div>` : ''}
+          </div>
+          <div class="fin-card">
+            <div class="fin-card-label">Em Dia / Pagas</div>
+            <div class="fin-card-valor verde">${emDiaPagas}</div>
+          </div>
+        </div>
+
+        <!-- Parcelas -->
+        <div class="fin-section-titulo">📅 Parcelas (${parcelas.length})</div>
+        ${parcelas.length === 0
+          ? '<div class="fin-vazio">Nenhuma parcela cadastrada.</div>'
+          : `<div style="overflow-x:auto"><table class="fin-table">
+              <thead><tr><th>#</th><th>Vencimento</th><th>Valor</th><th>Status</th><th>Pagamento</th></tr></thead>
+              <tbody>${parcelas.map(p => `<tr>
+                <td>${p.numero_parcela}</td><td>${fmtData(p.vencimento)}</td>
+                <td>${fmtMoeda(p.valor)}</td><td>${badgeParcela(p.status)}</td>
+                <td>${fmtData(p.data_pagamento)}</td>
+              </tr>`).join('')}</tbody>
+            </table></div>`}
+
+        <!-- Contratos -->
+        <div class="fin-section-titulo">📄 Contratos (${contratos.length})</div>
+        ${contratos.length === 0
+          ? '<div class="fin-vazio">Nenhum contrato cadastrado.</div>'
+          : `<div style="overflow-x:auto"><table class="fin-table">
+              <thead><tr><th>Número</th><th>Descrição</th><th>Valor Total</th><th>Início</th><th>Fim</th><th>Status</th></tr></thead>
+              <tbody>${contratos.map(c => `<tr>
+                <td style="font-family:monospace;font-size:11px">${c.numero}</td>
+                <td>${c.descricao || '—'}</td><td>${fmtMoeda(c.valor_total)}</td>
+                <td>${fmtData(c.data_inicio)}</td><td>${fmtData(c.data_fim)}</td>
+                <td>${badgeContrato(c.status)}</td>
+              </tr>`).join('')}</tbody>
+            </table></div>`}
+      `;
+    } catch (e) {
+      document.getElementById('finConteudo').innerHTML = `<p style="color:#c62828;text-align:center">Erro ao carregar dados: ${e.message}</p>`;
+    }
+  }
+
+  // ── Inicializar ──
+  carregar();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

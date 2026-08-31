@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: var(--color-primary); display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    [data-theme="dark"] body { background: #0a0d18; }
+
+    .login-card { background: var(--color-surface); border-radius: var(--radius-xl); box-shadow: var(--shadow-card); width: 100%; max-width: 400px; overflow: hidden; }
+
+    .login-header { background: linear-gradient(135deg, #003068 0%, #004384 60%, #0055b3 100%); padding: 36px 28px 28px; text-align: center; }
+    .login-logo { display: inline-block; background: rgba(255,255,255,.18); color: #fff; font-weight: 700; font-size: 20px; letter-spacing: 2px; padding: 6px 20px; border-radius: var(--radius-md); margin-bottom: 16px; }
+    .login-header h1 { color: #fff; font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .login-header p { color: rgba(255,255,255,.75); font-size: 12px; }
+
+    .login-body { padding: 32px 28px 24px; }
+
+    .login-field { margin-bottom: 20px; }
+    .login-field label { display: block; font-size: 11px; font-weight: 700; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 6px; }
+    .login-field input { width: 100%; padding: 11px 14px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 14px; color: var(--color-text); background: var(--color-surface-3); outline: none; font-family: inherit; transition: border-color .15s, box-shadow .15s; }
+    .login-field input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(0,67,132,.12); background: var(--color-surface); }
+    [data-theme="dark"] .login-field input { background: var(--color-surface-3); border-color: var(--color-border); color: var(--color-text); }
+    [data-theme="dark"] .login-field input:focus { border-color: #5588cc; box-shadow: 0 0 0 3px rgba(50,100,200,.15); background: var(--color-surface-2); }
+
+    .btn-login { width: 100%; padding: 13px; background: var(--color-primary); color: #fff; border: none; border-radius: var(--radius-md); font-size: 14px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .15s, transform .1s; margin-top: 4px; }
+    .btn-login:hover { background: var(--color-primary-dark); }
+    .btn-login:active { transform: scale(.98); }
+    .btn-login:disabled { background: #9aa0a6; cursor: not-allowed; transform: none; }
+
+    .login-error { display: none; background: var(--color-error-bg); border: 1px solid var(--color-error-border); color: var(--color-error); font-size: 12px; padding: 10px 14px; border-radius: var(--radius-md); margin-bottom: 16px; text-align: center; }
+    .login-error.show { display: block; }
+
+    .login-spinner { display: none; text-align: center; margin-top: 10px; font-size: 12px; color: var(--color-text-faint); }
+    .login-spinner.show { display: block; }
+
+    .login-footer { text-align: center; font-size: 11px; color: var(--color-text-disabled); padding: 16px; border-top: 1px solid var(--color-border-faint); display: flex; align-items: center; justify-content: center; gap: 12px; background: var(--color-surface); }
+    .btn-tema-login { border: 1px solid var(--color-border); background: none; cursor: pointer; border-radius: var(--radius-pill); padding: 3px 12px; font-size: 11px; font-family: inherit; transition: .15s; color: var(--color-text-muted); }
+    .btn-tema-login:hover { background: var(--color-surface-2); color: var(--color-text); }
+    [data-theme="dark"] .btn-tema-login { border-color: var(--color-border-light); color: var(--color-text-muted); }
+    [data-theme="dark"] .btn-tema-login:hover { background: var(--color-surface-3); color: var(--color-text); }
+  </style>
+
+  <script>
+    // Aplicar tema antes do render (evita flash)
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+
+<div class="login-card">
+  <div class="login-header">
+    <div class="login-logo">ERP</div>
+    <h1>Senai — ERP</h1>
+    <p>Sistema de Gestão Integrada</p>
+  </div>
+
+  <div class="login-body">
+    <div class="login-error" id="loginErro"></div>
+
+    <div class="login-field">
+      <label for="inputEmail">E-mail</label>
+      <input type="email" id="inputEmail" placeholder="seu@email.com" autocomplete="username">
+    </div>
+
+    <div class="login-field">
+      <label for="inputSenha">Senha</label>
+      <input type="password" id="inputSenha" placeholder="••••••••" autocomplete="current-password">
+    </div>
+
+    <button class="btn-login" id="btnLogin" onclick="fazerLogin()">Entrar</button>
+    <div class="login-spinner" id="loginSpinner">Verificando credenciais…</div>
+  </div>
+
+  <div class="login-footer">
+    <span>ERP Senai &nbsp;·&nbsp; SENAI 2026</span>
+    <button class="btn-tema-login" id="btnTemaLogin" onclick="alternarTema()">🌙</button>
+  </div>
+</div>
+
+<script src="SUPABASE.js"></script>
+<script>
+  // Redirecionar se já logado
+  (function () {
+    const role  = localStorage.getItem('erp_role');
+    const login = parseInt(localStorage.getItem('erp_login') || '0', 10);
+    const OITO_HORAS = 8 * 60 * 60 * 1000;
+    if (role && Date.now() - login < OITO_HORAS) {
+      window.location.replace('dashboard.html');
+    }
+  })();
+
+  // Inicializar botão de tema
+  window.addEventListener('DOMContentLoaded', function () {
+    const t   = localStorage.getItem('senai_tema') || 'light';
+    const btn = document.getElementById('btnTemaLogin');
+    if (btn) btn.textContent = t === 'dark' ? '☀️' : '🌙';
+  });
+
+  function alternarTema() {
+    const atual = document.documentElement.getAttribute('data-theme');
+    const novo  = atual === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', novo);
+    localStorage.setItem('senai_tema', novo);
+    const btn = document.getElementById('btnTemaLogin');
+    if (btn) btn.textContent = novo === 'dark' ? '☀️' : '🌙';
+  }
+
+  // Enter submete o form
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('inputSenha').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') fazerLogin();
+    });
+    document.getElementById('inputEmail').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') document.getElementById('inputSenha').focus();
+    });
+  });
+
+  async function fazerLogin() {
+    const email  = document.getElementById('inputEmail').value.trim();
+    const senha  = document.getElementById('inputSenha').value;
+    const erro   = document.getElementById('loginErro');
+    const btn    = document.getElementById('btnLogin');
+    const spin   = document.getElementById('loginSpinner');
+
+    erro.classList.remove('show');
+
+    if (!email) {
+      erro.textContent = 'Informe o e-mail.';
+      erro.classList.add('show');
+      return;
+    }
+    if (!senha) {
+      erro.textContent = 'Informe a senha.';
+      erro.classList.add('show');
+      return;
+    }
+
+    btn.disabled = true;
+    spin.classList.add('show');
+
+    try {
+      await sbLogin(email, senha);
+      window.location.href = 'dashboard.html';
+    } catch (e) {
+      erro.textContent = e.message || 'Erro ao fazer login. Tente novamente.';
+      erro.classList.add('show');
+      document.getElementById('inputSenha').value = '';
+      btn.disabled = false;
+      spin.classList.remove('show');
+    }
+  }
+</script>
+</body>
+</html>

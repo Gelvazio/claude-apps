@@ -139,7 +139,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L1",
       "_origin": "ast",
-      "id": "src_main",
+      "id": "financas_app_src_main_js_src_main",
       "community": 0,
       "norm_label": "main.js"
     },
@@ -169,7 +169,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L16",
       "_origin": "ast",
-      "id": "src_main_fmt",
+      "id": "financas_app_src_main_js_src_main_fmt",
       "community": 0,
       "norm_label": "fmt()"
     },
@@ -209,7 +209,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L37",
       "_origin": "ast",
-      "id": "src_main_loaddata",
+      "id": "financas_app_src_main_js_src_main_loaddata",
       "community": 0,
       "norm_label": "loaddata()"
     },
@@ -224,10 +224,20 @@
       "norm_label": "renderauth()"
     },
     {
+      "label": "renderReset()",
+      "file_type": "code",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L129",
+      "_origin": "ast",
+      "id": "src_main_renderreset",
+      "community": 0,
+      "norm_label": "renderreset()"
+    },
+    {
       "label": "traduzErro()",
       "file_type": "code",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L114",
+      "source_location": "L174",
       "_origin": "ast",
       "id": "src_main_traduzerro",
       "community": 0,
@@ -237,7 +247,7 @@
       "label": "renderApp()",
       "file_type": "code",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L122",
+      "source_location": "L182",
       "_origin": "ast",
       "id": "src_main_renderapp",
       "community": 0,
@@ -247,7 +257,7 @@
       "label": "renderLedgerRows()",
       "file_type": "code",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L178",
+      "source_location": "L238",
       "_origin": "ast",
       "id": "src_main_renderledgerrows",
       "community": 0,
@@ -257,7 +267,7 @@
       "label": "escapeHtml()",
       "file_type": "code",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L202",
+      "source_location": "L262",
       "_origin": "ast",
       "id": "src_main_escapehtml",
       "community": 0,
@@ -267,7 +277,7 @@
       "label": "changeMonth()",
       "file_type": "code",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L208",
+      "source_location": "L268",
       "_origin": "ast",
       "id": "src_main_changemonth",
       "community": 0,
@@ -277,7 +287,7 @@
       "label": "deleteTx()",
       "file_type": "code",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L214",
+      "source_location": "L274",
       "_origin": "ast",
       "id": "src_main_deletetx",
       "community": 0,
@@ -287,7 +297,7 @@
       "label": "openModal()",
       "file_type": "code",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L221",
+      "source_location": "L281",
       "_origin": "ast",
       "id": "src_main_openmodal",
       "community": 0,
@@ -297,7 +307,7 @@
       "label": "drawChart()",
       "file_type": "code",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L280",
+      "source_location": "L340",
       "_origin": "ast",
       "id": "src_main_drawchart",
       "community": 0,
@@ -307,7 +317,7 @@
       "label": "boot()",
       "file_type": "code",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L336",
+      "source_location": "L396",
       "_origin": "ast",
       "id": "src_main_boot",
       "community": 0,
@@ -332,6 +342,536 @@
       "id": "src_supabase_supabase",
       "community": 0,
       "norm_label": "supabase"
+    },
+    {
+      "label": "package.json",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package",
+      "community": 8,
+      "norm_label": "package.json"
+    },
+    {
+      "label": "name",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L2",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_name",
+      "community": 8,
+      "norm_label": "name"
+    },
+    {
+      "label": "private",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_private",
+      "community": 8,
+      "norm_label": "private"
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L4",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_version",
+      "community": 8,
+      "norm_label": "version"
+    },
+    {
+      "label": "type",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_type",
+      "community": 8,
+      "norm_label": "type"
+    },
+    {
+      "label": "scripts",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L6",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_scripts",
+      "community": 8,
+      "norm_label": "scripts"
+    },
+    {
+      "label": "dev",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_scripts_dev",
+      "community": 8,
+      "norm_label": "dev"
+    },
+    {
+      "label": "build",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L8",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_scripts_build",
+      "community": 8,
+      "norm_label": "build"
+    },
+    {
+      "label": "preview",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_scripts_preview",
+      "community": 8,
+      "norm_label": "preview"
+    },
+    {
+      "label": "server",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_scripts_server",
+      "community": 8,
+      "norm_label": "server"
+    },
+    {
+      "label": "devDependencies",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L12",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_devdependencies",
+      "community": 8,
+      "norm_label": "devdependencies"
+    },
+    {
+      "label": "vite",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_devdependencies_vite",
+      "community": 8,
+      "norm_label": "vite"
+    },
+    {
+      "label": "dependencies",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L15",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_dependencies",
+      "community": 8,
+      "norm_label": "dependencies"
+    },
+    {
+      "label": "@supabase/supabase-js",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L16",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_dependencies_supabase_supabase_js",
+      "community": 8,
+      "norm_label": "@supabase/supabase-js"
+    },
+    {
+      "label": "json-server",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_package_dependencies_json_server",
+      "community": 8,
+      "norm_label": "json-server"
+    },
+    {
+      "label": "login.js",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/login.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_login",
+      "community": 17,
+      "norm_label": "login.js"
+    },
+    {
+      "label": "showToast()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/login.js",
+      "source_location": "L13",
+      "_origin": "ast",
+      "id": "src_login_showtoast",
+      "community": 17,
+      "norm_label": "showtoast()"
+    },
+    {
+      "label": "openCadastro()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/login.js",
+      "source_location": "L56",
+      "_origin": "ast",
+      "id": "src_login_opencadastro",
+      "community": 17,
+      "norm_label": "opencadastro()"
+    },
+    {
+      "label": "closeCadastro()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/login.js",
+      "source_location": "L65",
+      "_origin": "ast",
+      "id": "src_login_closecadastro",
+      "community": 17,
+      "norm_label": "closecadastro()"
+    },
+    {
+      "label": "main.js",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_src_main_js_src_main",
+      "community": 5,
+      "norm_label": "main.js"
+    },
+    {
+      "label": "allLojas",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "src_main_alllojas",
+      "community": 5,
+      "norm_label": "alllojas"
+    },
+    {
+      "label": "allLancamentos",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L36",
+      "_origin": "ast",
+      "id": "src_main_alllancamentos",
+      "community": 5,
+      "norm_label": "alllancamentos"
+    },
+    {
+      "label": "selectedMonth",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L37",
+      "_origin": "ast",
+      "id": "src_main_selectedmonth",
+      "community": 5,
+      "norm_label": "selectedmonth"
+    },
+    {
+      "label": "getCurrentMonth()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L42",
+      "_origin": "ast",
+      "id": "src_main_getcurrentmonth",
+      "community": 5,
+      "norm_label": "getcurrentmonth()"
+    },
+    {
+      "label": "loadData()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L48",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_src_main_js_src_main_loaddata",
+      "community": 5,
+      "norm_label": "loaddata()"
+    },
+    {
+      "label": "patchLancamento()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L63",
+      "_origin": "ast",
+      "id": "src_main_patchlancamento",
+      "community": 5,
+      "norm_label": "patchlancamento()"
+    },
+    {
+      "label": "getMonthData()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L71",
+      "_origin": "ast",
+      "id": "src_main_getmonthdata",
+      "community": 5,
+      "norm_label": "getmonthdata()"
+    },
+    {
+      "label": "getFilteredData()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L75",
+      "_origin": "ast",
+      "id": "src_main_getfiltereddata",
+      "community": 5,
+      "norm_label": "getfiltereddata()"
+    },
+    {
+      "label": "fmt$()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L85",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_src_main_js_src_main_fmt",
+      "community": 5,
+      "norm_label": "fmt$()"
+    },
+    {
+      "label": "fmtDate()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L89",
+      "_origin": "ast",
+      "id": "src_main_fmtdate",
+      "community": 5,
+      "norm_label": "fmtdate()"
+    },
+    {
+      "label": "addMonths()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L95",
+      "_origin": "ast",
+      "id": "src_main_addmonths",
+      "community": 5,
+      "norm_label": "addmonths()"
+    },
+    {
+      "label": "findInstallmentGroup()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L105",
+      "_origin": "ast",
+      "id": "src_main_findinstallmentgroup",
+      "community": 5,
+      "norm_label": "findinstallmentgroup()"
+    },
+    {
+      "label": "getRecordsForScope()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L120",
+      "_origin": "ast",
+      "id": "src_main_getrecordsforscope",
+      "community": 5,
+      "norm_label": "getrecordsforscope()"
+    },
+    {
+      "label": "esc()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L127",
+      "_origin": "ast",
+      "id": "src_main_esc",
+      "community": 5,
+      "norm_label": "esc()"
+    },
+    {
+      "label": "renderMonthLabel()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L136",
+      "_origin": "ast",
+      "id": "src_main_rendermonthlabel",
+      "community": 5,
+      "norm_label": "rendermonthlabel()"
+    },
+    {
+      "label": "renderCards()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L144",
+      "_origin": "ast",
+      "id": "src_main_rendercards",
+      "community": 5,
+      "norm_label": "rendercards()"
+    },
+    {
+      "label": "STATUS_LABEL",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L179",
+      "_origin": "ast",
+      "id": "src_main_status_label",
+      "community": 5,
+      "norm_label": "status_label"
+    },
+    {
+      "label": "renderTable()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L181",
+      "_origin": "ast",
+      "id": "src_main_rendertable",
+      "community": 5,
+      "norm_label": "rendertable()"
+    },
+    {
+      "label": "render()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L238",
+      "_origin": "ast",
+      "id": "src_main_render",
+      "community": 5,
+      "norm_label": "render()"
+    },
+    {
+      "label": "showToast()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L245",
+      "_origin": "ast",
+      "id": "src_main_showtoast",
+      "community": 5,
+      "norm_label": "showtoast()"
+    },
+    {
+      "label": "handleCancelar()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L291",
+      "_origin": "ast",
+      "id": "src_main_handlecancelar",
+      "community": 5,
+      "norm_label": "handlecancelar()"
+    },
+    {
+      "label": "confirmModal()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L310",
+      "_origin": "ast",
+      "id": "src_main_confirmmodal",
+      "community": 5,
+      "norm_label": "confirmmodal()"
+    },
+    {
+      "label": "scopeModal()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L341",
+      "_origin": "ast",
+      "id": "src_main_scopemodal",
+      "community": 5,
+      "norm_label": "scopemodal()"
+    },
+    {
+      "label": "handleExcluir()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L379",
+      "_origin": "ast",
+      "id": "src_main_handleexcluir",
+      "community": 5,
+      "norm_label": "handleexcluir()"
+    },
+    {
+      "label": "fillForm()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L415",
+      "_origin": "ast",
+      "id": "src_main_fillform",
+      "community": 5,
+      "norm_label": "fillform()"
+    },
+    {
+      "label": "openModalInsert()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L440",
+      "_origin": "ast",
+      "id": "src_main_openmodalinsert",
+      "community": 5,
+      "norm_label": "openmodalinsert()"
+    },
+    {
+      "label": "openModalEdit()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L457",
+      "_origin": "ast",
+      "id": "src_main_openmodaledit",
+      "community": 5,
+      "norm_label": "openmodaledit()"
+    },
+    {
+      "label": "closeModal()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L478",
+      "_origin": "ast",
+      "id": "src_main_closemodal",
+      "community": 5,
+      "norm_label": "closemodal()"
+    },
+    {
+      "label": "shiftMonth()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L595",
+      "_origin": "ast",
+      "id": "src_main_shiftmonth",
+      "community": 5,
+      "norm_label": "shiftmonth()"
+    },
+    {
+      "label": "openConfigModal()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L638",
+      "_origin": "ast",
+      "id": "src_main_openconfigmodal",
+      "community": 5,
+      "norm_label": "openconfigmodal()"
+    },
+    {
+      "label": "saveConfigModal()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L693",
+      "_origin": "ast",
+      "id": "src_main_saveconfigmodal",
+      "community": 5,
+      "norm_label": "saveconfigmodal()"
+    },
+    {
+      "label": "closeConfigModal()",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L704",
+      "_origin": "ast",
+      "id": "src_main_closeconfigmodal",
+      "community": 5,
+      "norm_label": "closeconfigmodal()"
+    },
+    {
+      "label": "vite.config.js",
+      "file_type": "code",
+      "source_file": "sistemafinanceiro/vite.config.js",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_vite_config",
+      "community": 19,
+      "norm_label": "vite.config.js"
     },
     {
       "label": "README.md",
@@ -490,7 +1030,7 @@
       "source_location": "L160",
       "_origin": "ast",
       "id": "financas_app_claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
-      "community": 8,
+      "community": 1,
       "norm_label": "calculos e formatacao"
     },
     {
@@ -500,7 +1040,7 @@
       "source_location": "L162",
       "_origin": "ast",
       "id": "financas_app_claude_c\u00e1lculo_de_saldo",
-      "community": 8,
+      "community": 1,
       "norm_label": "calculo de saldo"
     },
     {
@@ -510,7 +1050,7 @@
       "source_location": "L170",
       "_origin": "ast",
       "id": "financas_app_claude_formata\u00e7\u00e3o_de_moeda",
-      "community": 8,
+      "community": 1,
       "norm_label": "formatacao de moeda"
     },
     {
@@ -520,7 +1060,7 @@
       "source_location": "L180",
       "_origin": "ast",
       "id": "financas_app_claude_limites_de_m\u00eas",
-      "community": 8,
+      "community": 1,
       "norm_label": "limites de mes"
     },
     {
@@ -540,7 +1080,7 @@
       "source_location": "L214",
       "_origin": "ast",
       "id": "financas_app_claude_banco_de_dados_supabase",
-      "community": 7,
+      "community": 1,
       "norm_label": "banco de dados (supabase)"
     },
     {
@@ -550,7 +1090,7 @@
       "source_location": "L216",
       "_origin": "ast",
       "id": "financas_app_claude_tabela_categorias",
-      "community": 7,
+      "community": 1,
       "norm_label": "tabela: `categorias`"
     },
     {
@@ -560,7 +1100,7 @@
       "source_location": "L229",
       "_origin": "ast",
       "id": "financas_app_claude_tabela_transacoes",
-      "community": 7,
+      "community": 1,
       "norm_label": "tabela: `transacoes`"
     },
     {
@@ -570,7 +1110,7 @@
       "source_location": "L244",
       "_origin": "ast",
       "id": "financas_app_claude_categorias_padr\u00e3o_seed_no_app",
-      "community": 7,
+      "community": 1,
       "norm_label": "categorias padrao (seed no app)"
     },
     {
@@ -610,7 +1150,7 @@
       "source_location": "L300",
       "_origin": "ast",
       "id": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
-      "community": 5,
+      "community": 1,
       "norm_label": "setup e configuracao"
     },
     {
@@ -620,7 +1160,7 @@
       "source_location": "L302",
       "_origin": "ast",
       "id": "financas_app_claude_1_criar_projeto_supabase",
-      "community": 5,
+      "community": 1,
       "norm_label": "1. criar projeto supabase"
     },
     {
@@ -630,7 +1170,7 @@
       "source_location": "L308",
       "_origin": "ast",
       "id": "financas_app_claude_2_configurar_credenciais",
-      "community": 5,
+      "community": 1,
       "norm_label": "2. configurar credenciais"
     },
     {
@@ -640,7 +1180,7 @@
       "source_location": "L319",
       "_origin": "ast",
       "id": "financas_app_claude_3_habilitar_email_auth",
-      "community": 5,
+      "community": 1,
       "norm_label": "3. habilitar email auth"
     },
     {
@@ -650,7 +1190,7 @@
       "source_location": "L324",
       "_origin": "ast",
       "id": "financas_app_claude_4_instalar_e_rodar",
-      "community": 5,
+      "community": 1,
       "norm_label": "4. instalar e rodar"
     },
     {
@@ -670,7 +1210,7 @@
       "source_location": "L345",
       "_origin": "ast",
       "id": "financas_app_claude_fluxos_principais",
-      "community": 6,
+      "community": 1,
       "norm_label": "fluxos principais"
     },
     {
@@ -680,7 +1220,7 @@
       "source_location": "L347",
       "_origin": "ast",
       "id": "financas_app_claude_novo_usu\u00e1rio_signup_primeiro_acesso",
-      "community": 6,
+      "community": 1,
       "norm_label": "novo usuario (signup + primeiro acesso)"
     },
     {
@@ -690,7 +1230,7 @@
       "source_location": "L359",
       "_origin": "ast",
       "id": "financas_app_claude_usu\u00e1rio_existente",
-      "community": 6,
+      "community": 1,
       "norm_label": "usuario existente"
     },
     {
@@ -700,7 +1240,7 @@
       "source_location": "L366",
       "_origin": "ast",
       "id": "financas_app_claude_navega\u00e7\u00e3o_mensal",
-      "community": 6,
+      "community": 1,
       "norm_label": "navegacao mensal"
     },
     {
@@ -710,7 +1250,7 @@
       "source_location": "L373",
       "_origin": "ast",
       "id": "financas_app_claude_gr\u00e1fico_de_6_meses",
-      "community": 6,
+      "community": 1,
       "norm_label": "grafico de 6 meses"
     },
     {
@@ -852,6 +1392,916 @@
       "id": "financas_app_readme_pr\u00f3ximos_passos_poss\u00edveis",
       "community": 3,
       "norm_label": "proximos passos possiveis"
+    },
+    {
+      "label": "email.md",
+      "file_type": "document",
+      "source_file": "financas-app/email.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "financas_app_email",
+      "community": 18,
+      "norm_label": "email.md"
+    },
+    {
+      "label": "RELATORIO_TRANSACOES_MOBILLS_1d00b6b3.md",
+      "file_type": "document",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_1d00b6b3.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "converted_relatorio_transacoes_mobills_1d00b6b3",
+      "community": 13,
+      "norm_label": "relatorio_transacoes_mobills_1d00b6b3.md"
+    },
+    {
+      "label": "Sheet: Receitas e Despesas",
+      "file_type": "document",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_1d00b6b3.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "converted_relatorio_transacoes_mobills_1d00b6b3_sheet_receitas_e_despesas",
+      "community": 13,
+      "norm_label": "sheet: receitas e despesas"
+    },
+    {
+      "label": "Sheet: Despesas",
+      "file_type": "document",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_1d00b6b3.md",
+      "source_location": "L454",
+      "_origin": "ast",
+      "id": "converted_relatorio_transacoes_mobills_1d00b6b3_sheet_despesas",
+      "community": 13,
+      "norm_label": "sheet: despesas"
+    },
+    {
+      "label": "Sheet: Receitas",
+      "file_type": "document",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_1d00b6b3.md",
+      "source_location": "L775",
+      "_origin": "ast",
+      "id": "converted_relatorio_transacoes_mobills_1d00b6b3_sheet_receitas",
+      "community": 13,
+      "norm_label": "sheet: receitas"
+    },
+    {
+      "label": "Sheet: Transfer\u00eancias",
+      "file_type": "document",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_1d00b6b3.md",
+      "source_location": "L909",
+      "_origin": "ast",
+      "id": "converted_relatorio_transacoes_mobills_1d00b6b3_sheet_transfer\u00eancias",
+      "community": 13,
+      "norm_label": "sheet: transferencias"
+    },
+    {
+      "label": "RELATORIO_TRANSACOES_MOBILLS_8eb3b9d2.md",
+      "file_type": "document",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_8eb3b9d2.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "converted_relatorio_transacoes_mobills_8eb3b9d2",
+      "community": 14,
+      "norm_label": "relatorio_transacoes_mobills_8eb3b9d2.md"
+    },
+    {
+      "label": "Sheet: Receitas e Despesas",
+      "file_type": "document",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_8eb3b9d2.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "converted_relatorio_transacoes_mobills_8eb3b9d2_sheet_receitas_e_despesas",
+      "community": 14,
+      "norm_label": "sheet: receitas e despesas"
+    },
+    {
+      "label": "Sheet: Despesas",
+      "file_type": "document",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_8eb3b9d2.md",
+      "source_location": "L454",
+      "_origin": "ast",
+      "id": "converted_relatorio_transacoes_mobills_8eb3b9d2_sheet_despesas",
+      "community": 14,
+      "norm_label": "sheet: despesas"
+    },
+    {
+      "label": "Sheet: Receitas",
+      "file_type": "document",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_8eb3b9d2.md",
+      "source_location": "L775",
+      "_origin": "ast",
+      "id": "converted_relatorio_transacoes_mobills_8eb3b9d2_sheet_receitas",
+      "community": 14,
+      "norm_label": "sheet: receitas"
+    },
+    {
+      "label": "Sheet: Transfer\u00eancias",
+      "file_type": "document",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_8eb3b9d2.md",
+      "source_location": "L909",
+      "_origin": "ast",
+      "id": "converted_relatorio_transacoes_mobills_8eb3b9d2_sheet_transfer\u00eancias",
+      "community": 14,
+      "norm_label": "sheet: transferencias"
+    },
+    {
+      "label": "CLAUDE.md",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude",
+      "community": 6,
+      "norm_label": "claude.md"
+    },
+    {
+      "label": "\ud83d\udcca Dashboard Financeiro - Documenta\u00e7\u00e3o T\u00e9cnica",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "community": 6,
+      "norm_label": "\ud83d\udcca dashboard financeiro - documentacao tecnica"
+    },
+    {
+      "label": "\ud83d\udccb \u00cdndice",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_\u00edndice",
+      "community": 6,
+      "norm_label": "\ud83d\udccb indice"
+    },
+    {
+      "label": "\ud83c\udfaf Vis\u00e3o Geral",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L24",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_vis\u00e3o_geral",
+      "community": 6,
+      "norm_label": "\ud83c\udfaf visao geral"
+    },
+    {
+      "label": "\ud83d\udee0\ufe0f Stack T\u00e9cnico",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_stack_t\u00e9cnico",
+      "community": 6,
+      "norm_label": "\ud83d\udee0\ufe0f stack tecnico"
+    },
+    {
+      "label": "\ud83c\udfd7\ufe0f Arquitetura",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L53",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_arquitetura",
+      "community": 6,
+      "norm_label": "\ud83c\udfd7\ufe0f arquitetura"
+    },
+    {
+      "label": "\ud83d\ude80 Instala\u00e7\u00e3o e Setup",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L89",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_instala\u00e7\u00e3o_e_setup",
+      "community": 6,
+      "norm_label": "\ud83d\ude80 instalacao e setup"
+    },
+    {
+      "label": "1. Pr\u00e9-requisitos",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L91",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_1_pr\u00e9_requisitos",
+      "community": 6,
+      "norm_label": "1. pre-requisitos"
+    },
+    {
+      "label": "2. Clonar/Preparar Reposit\u00f3rio",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L96",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_2_clonar_preparar_reposit\u00f3rio",
+      "community": 6,
+      "norm_label": "2. clonar/preparar repositorio"
+    },
+    {
+      "label": "3. Configurar Vari\u00e1veis de Ambiente",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L102",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_3_configurar_vari\u00e1veis_de_ambiente",
+      "community": 6,
+      "norm_label": "3. configurar variaveis de ambiente"
+    },
+    {
+      "label": "4. Criar Schema PostgreSQL",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L113",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_4_criar_schema_postgresql",
+      "community": 6,
+      "norm_label": "4. criar schema postgresql"
+    },
+    {
+      "label": "5. Rodar Desenvolvimento",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L119",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_5_rodar_desenvolvimento",
+      "community": 6,
+      "norm_label": "5. rodar desenvolvimento"
+    },
+    {
+      "label": "\ud83d\udcca Estrutura do Banco de Dados",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L128",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_estrutura_do_banco_de_dados",
+      "community": 12,
+      "norm_label": "\ud83d\udcca estrutura do banco de dados"
+    },
+    {
+      "label": "Tabela: `usuarios`",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L130",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_tabela_usuarios",
+      "community": 12,
+      "norm_label": "tabela: `usuarios`"
+    },
+    {
+      "label": "Tabela: `loja`",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L142",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_tabela_loja",
+      "community": 12,
+      "norm_label": "tabela: `loja`"
+    },
+    {
+      "label": "Tabela: `cliente`",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L162",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_tabela_cliente",
+      "community": 12,
+      "norm_label": "tabela: `cliente`"
+    },
+    {
+      "label": "Tabela: `cli_loja`",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L176",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_tabela_cli_loja",
+      "community": 12,
+      "norm_label": "tabela: `cli_loja`"
+    },
+    {
+      "label": "Tabela: `lancamento` \u2b50",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L187",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_tabela_lancamento",
+      "community": 12,
+      "norm_label": "tabela: `lancamento` \u2b50"
+    },
+    {
+      "label": "\ud83d\udd10 API e Cliente Supabase",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L233",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_api_e_cliente_supabase",
+      "community": 6,
+      "norm_label": "\ud83d\udd10 api e cliente supabase"
+    },
+    {
+      "label": "Arquivo: `src/supabaseClient.js`",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L235",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_arquivo_src_supabaseclient_js",
+      "community": 6,
+      "norm_label": "arquivo: `src/supabaseclient.js`"
+    },
+    {
+      "label": "Autentica\u00e7\u00e3o",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L239",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_autentica\u00e7\u00e3o",
+      "community": 6,
+      "norm_label": "autenticacao"
+    },
+    {
+      "label": "CRUD Lan\u00e7amentos",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L249",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_crud_lan\u00e7amentos",
+      "community": 6,
+      "norm_label": "crud lancamentos"
+    },
+    {
+      "label": "Dados Auxiliares",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L258",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_dados_auxiliares",
+      "community": 6,
+      "norm_label": "dados auxiliares"
+    },
+    {
+      "label": "\ud83d\udd10 Autentica\u00e7\u00e3o",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L266",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_autentica\u00e7\u00e3o_266",
+      "community": 16,
+      "norm_label": "\ud83d\udd10 autenticacao"
+    },
+    {
+      "label": "Fluxo de Login",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L268",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_fluxo_de_login",
+      "community": 16,
+      "norm_label": "fluxo de login"
+    },
+    {
+      "label": "Fluxo de Cadastro",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L275",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_fluxo_de_cadastro",
+      "community": 16,
+      "norm_label": "fluxo de cadastro"
+    },
+    {
+      "label": "Persist\u00eancia",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L283",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_persist\u00eancia",
+      "community": 16,
+      "norm_label": "persistencia"
+    },
+    {
+      "label": "Logout",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L288",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_logout",
+      "community": 16,
+      "norm_label": "logout"
+    },
+    {
+      "label": "\u2728 Funcionalidades",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L295",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_funcionalidades",
+      "community": 6,
+      "norm_label": "\u2728 funcionalidades"
+    },
+    {
+      "label": "Dashboard Principal (`index.html` + `main.js`)",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L297",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_dashboard_principal_index_html_main_js",
+      "community": 6,
+      "norm_label": "dashboard principal (`index.html` + `main.js`)"
+    },
+    {
+      "label": "1. Resumo (Summary Cards)",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L299",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_1_resumo_summary_cards",
+      "community": 6,
+      "norm_label": "1. resumo (summary cards)"
+    },
+    {
+      "label": "2. Filtros",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L305",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_2_filtros",
+      "community": 6,
+      "norm_label": "2. filtros"
+    },
+    {
+      "label": "3. Tabela de Lan\u00e7amentos",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L310",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_3_tabela_de_lan\u00e7amentos",
+      "community": 6,
+      "norm_label": "3. tabela de lancamentos"
+    },
+    {
+      "label": "4. Modal de Edi\u00e7\u00e3o/Inser\u00e7\u00e3o",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L321",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_4_modal_de_edi\u00e7\u00e3o_inser\u00e7\u00e3o",
+      "community": 6,
+      "norm_label": "4. modal de edicao/insercao"
+    },
+    {
+      "label": "5. Parcelamento",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L333",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_5_parcelamento",
+      "community": 6,
+      "norm_label": "5. parcelamento"
+    },
+    {
+      "label": "6. A\u00e7\u00f5es",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L347",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_6_a\u00e7\u00f5es",
+      "community": 6,
+      "norm_label": "6. acoes"
+    },
+    {
+      "label": "\ud83d\udcbb Guia de Desenvolvimento",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L355",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_guia_de_desenvolvimento",
+      "community": 11,
+      "norm_label": "\ud83d\udcbb guia de desenvolvimento"
+    },
+    {
+      "label": "Estrutura de Arquivos",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L357",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_estrutura_de_arquivos",
+      "community": 11,
+      "norm_label": "estrutura de arquivos"
+    },
+    {
+      "label": "Como Adicionar uma Funcionalidade",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L379",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_como_adicionar_uma_funcionalidade",
+      "community": 11,
+      "norm_label": "como adicionar uma funcionalidade"
+    },
+    {
+      "label": "1. Adicionar campo na tabela",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L381",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_1_adicionar_campo_na_tabela",
+      "community": 11,
+      "norm_label": "1. adicionar campo na tabela"
+    },
+    {
+      "label": "2. Adicionar fun\u00e7\u00e3o CRUD",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L384",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_2_adicionar_fun\u00e7\u00e3o_crud",
+      "community": 11,
+      "norm_label": "2. adicionar funcao crud"
+    },
+    {
+      "label": "3. Usar no main.js",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L398",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_3_usar_no_main_js",
+      "community": 11,
+      "norm_label": "3. usar no main.js"
+    },
+    {
+      "label": "Debugging",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L406",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_debugging",
+      "community": 11,
+      "norm_label": "debugging"
+    },
+    {
+      "label": "\u26a0\ufe0f Problemas Conhecidos",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L414",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_problemas_conhecidos",
+      "community": 15,
+      "norm_label": "\u26a0\ufe0f problemas conhecidos"
+    },
+    {
+      "label": "1. CORS",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L416",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_1_cors",
+      "community": 15,
+      "norm_label": "1. cors"
+    },
+    {
+      "label": "2. Tokens Expirados",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L419",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_2_tokens_expirados",
+      "community": 15,
+      "norm_label": "2. tokens expirados"
+    },
+    {
+      "label": "3. RLS Bloqueando Queries",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L425",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_3_rls_bloqueando_queries",
+      "community": 15,
+      "norm_label": "3. rls bloqueando queries"
+    },
+    {
+      "label": "4. Parcela Atual N\u00e3o Incrementa",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L430",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_4_parcela_atual_n\u00e3o_incrementa",
+      "community": 15,
+      "norm_label": "4. parcela atual nao incrementa"
+    },
+    {
+      "label": "\ud83d\udd04 Migra\u00e7\u00e3o de Dados (financeiro.json \u2192 PostgreSQL)",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L435",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_migra\u00e7\u00e3o_de_dados_financeiro_json_postgresql",
+      "community": 6,
+      "norm_label": "\ud83d\udd04 migracao de dados (financeiro.json \u2192 postgresql)"
+    },
+    {
+      "label": "Script de Migra\u00e7\u00e3o (Exemplo)",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L437",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_script_de_migra\u00e7\u00e3o_exemplo",
+      "community": 6,
+      "norm_label": "script de migracao (exemplo)"
+    },
+    {
+      "label": "\ud83d\udcdd Pr\u00f3ximos Passos",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L462",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_pr\u00f3ximos_passos",
+      "community": 6,
+      "norm_label": "\ud83d\udcdd proximos passos"
+    },
+    {
+      "label": "\ud83d\udcde Suporte",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L475",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_claude_suporte",
+      "community": 6,
+      "norm_label": "\ud83d\udcde suporte"
+    },
+    {
+      "label": "MEMORY.md",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_memory",
+      "community": 10,
+      "norm_label": "memory.md"
+    },
+    {
+      "label": "Memory Index",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_memory_memory_index",
+      "community": 10,
+      "norm_label": "memory index"
+    },
+    {
+      "label": "Projeto: Dashboard Financeiro",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L3",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_memory_projeto_dashboard_financeiro",
+      "community": 10,
+      "norm_label": "projeto: dashboard financeiro"
+    },
+    {
+      "label": "Stack",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L5",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_memory_stack",
+      "community": 10,
+      "norm_label": "stack"
+    },
+    {
+      "label": "Autentica\u00e7\u00e3o",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L10",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_memory_autentica\u00e7\u00e3o",
+      "community": 10,
+      "norm_label": "autenticacao"
+    },
+    {
+      "label": "Arquivos criados",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L18",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_memory_arquivos_criados",
+      "community": 10,
+      "norm_label": "arquivos criados"
+    },
+    {
+      "label": "Como rodar",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L25",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_memory_como_rodar",
+      "community": 10,
+      "norm_label": "como rodar"
+    },
+    {
+      "label": "Estrutura do banco (`financeiro.json`)",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L34",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_memory_estrutura_do_banco_financeiro_json",
+      "community": 10,
+      "norm_label": "estrutura do banco (`financeiro.json`)"
+    },
+    {
+      "label": "Status e cores",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L38",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_memory_status_e_cores",
+      "community": 10,
+      "norm_label": "status e cores"
+    },
+    {
+      "label": "Funcionalidades",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L45",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_memory_funcionalidades",
+      "community": 10,
+      "norm_label": "funcionalidades"
+    },
+    {
+      "label": "SUMMARY.md",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary",
+      "community": 7,
+      "norm_label": "summary.md"
+    },
+    {
+      "label": "\ud83d\udccb RESUMO DE MIGRA\u00c7\u00c3O - Dashboard Financeiro para Supabase",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_resumo_de_migra\u00e7\u00e3o_dashboard_financeiro_para_supabase",
+      "community": 7,
+      "norm_label": "\ud83d\udccb resumo de migracao - dashboard financeiro para supabase"
+    },
+    {
+      "label": "\u2705 PASSOS DE EXECU\u00c7\u00c3O",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L7",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_passos_de_execu\u00e7\u00e3o",
+      "community": 7,
+      "norm_label": "\u2705 passos de execucao"
+    },
+    {
+      "label": "1. \u2705 Criar arquivo db/supabase.sql com tabelas PostgreSQL",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L9",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_1_criar_arquivo_db_supabase_sql_com_tabelas_postgresql",
+      "community": 7,
+      "norm_label": "1. \u2705 criar arquivo db/supabase.sql com tabelas postgresql"
+    },
+    {
+      "label": "2. \u2705 Atualizar c\u00f3digo fonte para Supabase Auth",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L17",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_2_atualizar_c\u00f3digo_fonte_para_supabase_auth",
+      "community": 7,
+      "norm_label": "2. \u2705 atualizar codigo fonte para supabase auth"
+    },
+    {
+      "label": "3. \u23ed\ufe0f Criar API Edge Functions para CRUD de lan\u00e7amentos",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L28",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_3_criar_api_edge_functions_para_crud_de_lan\u00e7amentos",
+      "community": 7,
+      "norm_label": "3. \u23ed\ufe0f criar api edge functions para crud de lancamentos"
+    },
+    {
+      "label": "4. \u2705 Atualizar main.js para usar Supabase client",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L32",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_4_atualizar_main_js_para_usar_supabase_client",
+      "community": 7,
+      "norm_label": "4. \u2705 atualizar main.js para usar supabase client"
+    },
+    {
+      "label": "5. \u23ed\ufe0f Migrar dados de financeiro.json para PostgreSQL",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L39",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_5_migrar_dados_de_financeiro_json_para_postgresql",
+      "community": 7,
+      "norm_label": "5. \u23ed\ufe0f migrar dados de financeiro.json para postgresql"
+    },
+    {
+      "label": "6. \u23ed\ufe0f Testar no ambiente Supabase",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L46",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_6_testar_no_ambiente_supabase",
+      "community": 7,
+      "norm_label": "6. \u23ed\ufe0f testar no ambiente supabase"
+    },
+    {
+      "label": "7. \u2705 Atualizar CLAUDE.md com especifica\u00e7\u00f5es",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_7_atualizar_claude_md_com_especifica\u00e7\u00f5es",
+      "community": 7,
+      "norm_label": "7. \u2705 atualizar claude.md com especificacoes"
+    },
+    {
+      "label": "\ud83d\udcca ESTRUTURA DO BANCO",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L63",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_estrutura_do_banco",
+      "community": 7,
+      "norm_label": "\ud83d\udcca estrutura do banco"
+    },
+    {
+      "label": "Tabela: `usuarios`",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L65",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_tabela_usuarios",
+      "community": 7,
+      "norm_label": "tabela: `usuarios`"
+    },
+    {
+      "label": "Tabela: `loja`",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L74",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_tabela_loja",
+      "community": 7,
+      "norm_label": "tabela: `loja`"
+    },
+    {
+      "label": "Tabela: `lancamento`",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L91",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_tabela_lancamento",
+      "community": 7,
+      "norm_label": "tabela: `lancamento`"
+    },
+    {
+      "label": "Tabela: `cliente`",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L110",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_tabela_cliente",
+      "community": 7,
+      "norm_label": "tabela: `cliente`"
+    },
+    {
+      "label": "Tabela: `cli_loja`",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L121",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_tabela_cli_loja",
+      "community": 7,
+      "norm_label": "tabela: `cli_loja`"
+    },
+    {
+      "label": "\ud83d\udd04 TIMELINE ESPERADA",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L131",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_timeline_esperada",
+      "community": 7,
+      "norm_label": "\ud83d\udd04 timeline esperada"
+    },
+    {
+      "label": "\ud83d\udccc PR\u00d3XIMAS A\u00c7\u00d5ES",
+      "file_type": "document",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L140",
+      "_origin": "ast",
+      "id": "sistemafinanceiro_summary_pr\u00f3ximas_a\u00e7\u00f5es",
+      "community": 7,
+      "norm_label": "\ud83d\udccc proximas acoes"
     }
   ],
   "links": [
@@ -861,9 +2311,9 @@
       "source_file": "financas-app/package.json",
       "source_location": "L14",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package",
-      "target": "financas_app_package_dependencies",
-      "confidence_score": 1.0
+      "target": "financas_app_package_dependencies"
     },
     {
       "relation": "contains",
@@ -871,9 +2321,9 @@
       "source_file": "financas-app/package.json",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package",
-      "target": "financas_app_package_devdependencies",
-      "confidence_score": 1.0
+      "target": "financas_app_package_devdependencies"
     },
     {
       "relation": "contains",
@@ -881,9 +2331,9 @@
       "source_file": "financas-app/package.json",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package",
-      "target": "financas_app_package_name",
-      "confidence_score": 1.0
+      "target": "financas_app_package_name"
     },
     {
       "relation": "contains",
@@ -891,9 +2341,9 @@
       "source_file": "financas-app/package.json",
       "source_location": "L4",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package",
-      "target": "financas_app_package_private",
-      "confidence_score": 1.0
+      "target": "financas_app_package_private"
     },
     {
       "relation": "contains",
@@ -901,9 +2351,9 @@
       "source_file": "financas-app/package.json",
       "source_location": "L6",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package",
-      "target": "financas_app_package_scripts",
-      "confidence_score": 1.0
+      "target": "financas_app_package_scripts"
     },
     {
       "relation": "contains",
@@ -911,9 +2361,9 @@
       "source_file": "financas-app/package.json",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package",
-      "target": "financas_app_package_type",
-      "confidence_score": 1.0
+      "target": "financas_app_package_type"
     },
     {
       "relation": "contains",
@@ -921,9 +2371,9 @@
       "source_file": "financas-app/package.json",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package",
-      "target": "financas_app_package_version",
-      "confidence_score": 1.0
+      "target": "financas_app_package_version"
     },
     {
       "relation": "contains",
@@ -931,9 +2381,9 @@
       "source_file": "financas-app/package.json",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package_scripts",
-      "target": "financas_app_package_scripts_build",
-      "confidence_score": 1.0
+      "target": "financas_app_package_scripts_build"
     },
     {
       "relation": "contains",
@@ -941,9 +2391,9 @@
       "source_file": "financas-app/package.json",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package_scripts",
-      "target": "financas_app_package_scripts_dev",
-      "confidence_score": 1.0
+      "target": "financas_app_package_scripts_dev"
     },
     {
       "relation": "contains",
@@ -951,9 +2401,9 @@
       "source_file": "financas-app/package.json",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package_scripts",
-      "target": "financas_app_package_scripts_preview",
-      "confidence_score": 1.0
+      "target": "financas_app_package_scripts_preview"
     },
     {
       "relation": "contains",
@@ -961,9 +2411,9 @@
       "source_file": "financas-app/package.json",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package_devdependencies",
-      "target": "financas_app_package_devdependencies_vite",
-      "confidence_score": 1.0
+      "target": "financas_app_package_devdependencies_vite"
     },
     {
       "relation": "contains",
@@ -971,8 +2421,28 @@
       "source_file": "financas-app/package.json",
       "source_location": "L15",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_package_dependencies",
-      "target": "financas_app_package_dependencies_supabase_supabase_js",
+      "target": "financas_app_package_dependencies_supabase_supabase_js"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "financas_app_src_main_js_src_main",
+      "target": "financas_app_src_main_js_src_main_fmt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "financas_app_src_main_js_src_main",
+      "target": "financas_app_src_main_js_src_main_loaddata",
       "confidence_score": 1.0
     },
     {
@@ -981,7 +2451,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L4",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_app",
       "confidence_score": 1.0
     },
@@ -989,9 +2459,9 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L336",
+      "source_location": "L396",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_boot",
       "confidence_score": 1.0
     },
@@ -999,9 +2469,9 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L208",
+      "source_location": "L268",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_changemonth",
       "confidence_score": 1.0
     },
@@ -1011,7 +2481,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L6",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_default_cats",
       "confidence_score": 1.0
     },
@@ -1019,9 +2489,9 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L214",
+      "source_location": "L274",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_deletetx",
       "confidence_score": 1.0
     },
@@ -1029,9 +2499,9 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L280",
+      "source_location": "L340",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_drawchart",
       "confidence_score": 1.0
     },
@@ -1039,30 +2509,10 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L202",
+      "source_location": "L262",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_escapehtml",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "financas-app/src/main.js",
-      "source_location": "L16",
-      "weight": 1.0,
-      "source": "src_main",
-      "target": "src_main_fmt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "financas-app/src/main.js",
-      "source_location": "L37",
-      "weight": 1.0,
-      "source": "src_main",
-      "target": "src_main_loaddata",
       "confidence_score": 1.0
     },
     {
@@ -1071,7 +2521,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L34",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_meses",
       "confidence_score": 1.0
     },
@@ -1081,7 +2531,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L27",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_monthbounds",
       "confidence_score": 1.0
     },
@@ -1089,9 +2539,9 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L221",
+      "source_location": "L281",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_openmodal",
       "confidence_score": 1.0
     },
@@ -1099,9 +2549,9 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L122",
+      "source_location": "L182",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_renderapp",
       "confidence_score": 1.0
     },
@@ -1111,7 +2561,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L60",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_renderauth",
       "confidence_score": 1.0
     },
@@ -1119,10 +2569,20 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L178",
+      "source_location": "L238",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_renderledgerrows",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L129",
+      "weight": 1.0,
+      "source": "financas_app_src_main_js_src_main",
+      "target": "src_main_renderreset",
       "confidence_score": 1.0
     },
     {
@@ -1131,7 +2591,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L19",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_state",
       "confidence_score": 1.0
     },
@@ -1139,9 +2599,9 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L114",
+      "source_location": "L174",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_main_traduzerro",
       "confidence_score": 1.0
     },
@@ -1152,7 +2612,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L2",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_supabase",
       "confidence_score": 1.0
     },
@@ -1163,7 +2623,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L2",
       "weight": 1.0,
-      "source": "src_main",
+      "source": "financas_app_src_main_js_src_main",
       "target": "src_supabase_supabase",
       "confidence_score": 1.0
     },
@@ -1172,21 +2632,10 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L141",
+      "source_location": "L201",
       "weight": 1.0,
       "source": "src_main_renderapp",
-      "target": "src_main_fmt",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "financas-app/src/main.js",
-      "source_location": "L295",
-      "weight": 1.0,
-      "source": "src_main_drawchart",
-      "target": "src_main_monthbounds",
+      "target": "financas_app_src_main_js_src_main_fmt",
       "confidence_score": 1.0
     },
     {
@@ -1196,7 +2645,7 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L38",
       "weight": 1.0,
-      "source": "src_main_loaddata",
+      "source": "financas_app_src_main_js_src_main_loaddata",
       "target": "src_main_monthbounds",
       "confidence_score": 1.0
     },
@@ -1205,10 +2654,21 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L341",
+      "source_location": "L295",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "src_main_drawchart",
+      "target": "src_main_monthbounds"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L401",
       "weight": 1.0,
       "source": "src_main_boot",
-      "target": "src_main_loaddata",
+      "target": "financas_app_src_main_js_src_main_loaddata",
       "confidence_score": 1.0
     },
     {
@@ -1216,10 +2676,10 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L210",
+      "source_location": "L270",
       "weight": 1.0,
       "source": "src_main_changemonth",
-      "target": "src_main_loaddata",
+      "target": "financas_app_src_main_js_src_main_loaddata",
       "confidence_score": 1.0
     },
     {
@@ -1227,10 +2687,10 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "financas-app/src/main.js",
-      "source_location": "L216",
+      "source_location": "L276",
       "weight": 1.0,
       "source": "src_main_deletetx",
-      "target": "src_main_loaddata",
+      "target": "financas_app_src_main_js_src_main_loaddata",
       "confidence_score": 1.0
     },
     {
@@ -1240,8 +2700,19 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L338",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_boot",
-      "target": "src_main_renderauth",
+      "target": "src_main_renderauth"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "financas-app/src/main.js",
+      "source_location": "L62",
+      "weight": 1.0,
+      "source": "src_main_renderauth",
+      "target": "src_main_renderreset",
       "confidence_score": 1.0
     },
     {
@@ -1251,9 +2722,9 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L342",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_boot",
-      "target": "src_main_renderapp",
-      "confidence_score": 1.0
+      "target": "src_main_renderapp"
     },
     {
       "relation": "calls",
@@ -1262,9 +2733,9 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L211",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_changemonth",
-      "target": "src_main_renderapp",
-      "confidence_score": 1.0
+      "target": "src_main_renderapp"
     },
     {
       "relation": "calls",
@@ -1273,9 +2744,9 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L217",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_deletetx",
-      "target": "src_main_renderapp",
-      "confidence_score": 1.0
+      "target": "src_main_renderapp"
     },
     {
       "relation": "calls",
@@ -1284,9 +2755,9 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L175",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_renderapp",
-      "target": "src_main_drawchart",
-      "confidence_score": 1.0
+      "target": "src_main_drawchart"
     },
     {
       "relation": "calls",
@@ -1295,9 +2766,9 @@
       "source_file": "financas-app/src/main.js",
       "source_location": "L157",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_main_renderapp",
-      "target": "src_main_renderledgerrows",
-      "confidence_score": 1.0
+      "target": "src_main_renderledgerrows"
     },
     {
       "relation": "contains",
@@ -1305,8 +2776,773 @@
       "source_file": "financas-app/src/supabase.js",
       "source_location": "L7",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "src_supabase",
-      "target": "src_supabase_supabase",
+      "target": "src_supabase_supabase"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package",
+      "target": "sistemafinanceiro_package_dependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package",
+      "target": "sistemafinanceiro_package_devdependencies",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package",
+      "target": "sistemafinanceiro_package_name",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package",
+      "target": "sistemafinanceiro_package_private",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package",
+      "target": "sistemafinanceiro_package_scripts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package",
+      "target": "sistemafinanceiro_package_type",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package",
+      "target": "sistemafinanceiro_package_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package_scripts",
+      "target": "sistemafinanceiro_package_scripts_build",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package_scripts",
+      "target": "sistemafinanceiro_package_scripts_dev",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package_scripts",
+      "target": "sistemafinanceiro_package_scripts_preview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package_scripts",
+      "target": "sistemafinanceiro_package_scripts_server",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package_devdependencies",
+      "target": "sistemafinanceiro_package_devdependencies_vite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package_dependencies",
+      "target": "sistemafinanceiro_package_dependencies_json_server",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/package.json",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_package_dependencies",
+      "target": "sistemafinanceiro_package_dependencies_supabase_supabase_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/login.js",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "src_login",
+      "target": "src_login_closecadastro",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/login.js",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "src_login",
+      "target": "src_login_opencadastro",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/login.js",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "src_login",
+      "target": "src_login_showtoast",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L85",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "sistemafinanceiro_src_main_js_src_main_fmt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L48",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "sistemafinanceiro_src_main_js_src_main_loaddata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L95",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_addmonths",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_alllancamentos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_alllojas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L704",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_closeconfigmodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L478",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_closemodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L310",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_confirmmodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L127",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_esc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L415",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_fillform",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_findinstallmentgroup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L89",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_fmtdate",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_getcurrentmonth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L75",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_getfiltereddata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_getmonthdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L120",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_getrecordsforscope",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L291",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_handlecancelar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L379",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_handleexcluir",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L638",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_openconfigmodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L457",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_openmodaledit",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L440",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_openmodalinsert",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_patchlancamento",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L238",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_render",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L144",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_rendercards",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L136",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_rendermonthlabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L181",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_rendertable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L693",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_saveconfigmodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L341",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_scopemodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_selectedmonth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L595",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_shiftmonth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L245",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_showtoast",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L179",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main",
+      "target": "src_main_status_label",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_src_main_js_src_main_loaddata",
+      "target": "src_main_render",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L145",
+      "weight": 1.0,
+      "source": "src_main_rendercards",
+      "target": "src_main_getmonthdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L182",
+      "weight": 1.0,
+      "source": "src_main_rendertable",
+      "target": "src_main_getfiltereddata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L154",
+      "weight": 1.0,
+      "source": "src_main_rendercards",
+      "target": "sistemafinanceiro_src_main_js_src_main_fmt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L121",
+      "weight": 1.0,
+      "source": "src_main_getrecordsforscope",
+      "target": "src_main_findinstallmentgroup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L401",
+      "weight": 1.0,
+      "source": "src_main_handleexcluir",
+      "target": "src_main_getrecordsforscope",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L389",
+      "weight": 1.0,
+      "source": "src_main_handleexcluir",
+      "target": "src_main_esc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L465",
+      "weight": 1.0,
+      "source": "src_main_openmodaledit",
+      "target": "src_main_esc",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L239",
+      "weight": 1.0,
+      "source": "src_main_render",
+      "target": "src_main_rendermonthlabel",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L240",
+      "weight": 1.0,
+      "source": "src_main_render",
+      "target": "src_main_rendercards",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L241",
+      "weight": 1.0,
+      "source": "src_main_render",
+      "target": "src_main_rendertable",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L302",
+      "weight": 1.0,
+      "source": "src_main_handlecancelar",
+      "target": "src_main_render",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L407",
+      "weight": 1.0,
+      "source": "src_main_handleexcluir",
+      "target": "src_main_render",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L600",
+      "weight": 1.0,
+      "source": "src_main_shiftmonth",
+      "target": "src_main_render",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L303",
+      "weight": 1.0,
+      "source": "src_main_handlecancelar",
+      "target": "src_main_showtoast",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L408",
+      "weight": 1.0,
+      "source": "src_main_handleexcluir",
+      "target": "src_main_showtoast",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L443",
+      "weight": 1.0,
+      "source": "src_main_openmodalinsert",
+      "target": "src_main_showtoast",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L698",
+      "weight": 1.0,
+      "source": "src_main_saveconfigmodal",
+      "target": "src_main_showtoast",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L292",
+      "weight": 1.0,
+      "source": "src_main_handlecancelar",
+      "target": "src_main_confirmmodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L393",
+      "weight": 1.0,
+      "source": "src_main_handleexcluir",
+      "target": "src_main_confirmmodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L386",
+      "weight": 1.0,
+      "source": "src_main_handleexcluir",
+      "target": "src_main_scopemodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L462",
+      "weight": 1.0,
+      "source": "src_main_openmodaledit",
+      "target": "src_main_scopemodal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L473",
+      "weight": 1.0,
+      "source": "src_main_openmodaledit",
+      "target": "src_main_fillform",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L452",
+      "weight": 1.0,
+      "source": "src_main_openmodalinsert",
+      "target": "src_main_fillform",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/src/main.js",
+      "source_location": "L701",
+      "weight": 1.0,
+      "source": "src_main_saveconfigmodal",
+      "target": "src_main_closeconfigmodal",
       "confidence_score": 1.0
     },
     {
@@ -1315,9 +3551,9 @@
       "source_file": "README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme",
-      "target": "readme_claude_apps",
-      "confidence_score": 1.0
+      "target": "readme_claude_apps"
     },
     {
       "relation": "contains",
@@ -1325,9 +3561,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude",
-      "target": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica"
     },
     {
       "relation": "contains",
@@ -1335,9 +3571,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L24",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_arquitetura",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_arquitetura"
     },
     {
       "relation": "contains",
@@ -1345,9 +3581,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L431",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_arquivo_env",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_arquivo_env"
     },
     {
       "relation": "contains",
@@ -1355,9 +3591,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L214",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_banco_de_dados_supabase",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_banco_de_dados_supabase"
     },
     {
       "relation": "contains",
@@ -1365,9 +3601,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L454",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_comandos_\u00fateis",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_comandos_\u00fateis"
     },
     {
       "relation": "contains",
@@ -1375,9 +3611,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L262",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_componentes_visuais",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_componentes_visuais"
     },
     {
       "relation": "contains",
@@ -1385,9 +3621,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L160",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_c\u00e1lculos_e_formata\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1395,9 +3631,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L335",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_deploy_vercel",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_deploy_vercel"
     },
     {
       "relation": "contains",
@@ -1405,9 +3641,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L69",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_fluxo_de_dados",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_fluxo_de_dados"
     },
     {
       "relation": "contains",
@@ -1415,9 +3651,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L345",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_fluxos_principais",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_fluxos_principais"
     },
     {
       "relation": "contains",
@@ -1425,9 +3661,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L395",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_fun\u00e7\u00f5es_utilit\u00e1rias",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_fun\u00e7\u00f5es_utilit\u00e1rias"
     },
     {
       "relation": "contains",
@@ -1435,9 +3671,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L192",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_gr\u00e1fico_\u00faltimos_6_meses",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_gr\u00e1fico_\u00faltimos_6_meses"
     },
     {
       "relation": "contains",
@@ -1445,9 +3681,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L444",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_links_\u00fateis",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_links_\u00fateis"
     },
     {
       "relation": "contains",
@@ -1455,9 +3691,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L421",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_poss\u00edveis_bugs_melhorias",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_poss\u00edveis_bugs_melhorias"
     },
     {
       "relation": "contains",
@@ -1465,9 +3701,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L404",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_pr\u00f3ximos_passos_roadmap",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_pr\u00f3ximos_passos_roadmap"
     },
     {
       "relation": "contains",
@@ -1475,9 +3711,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L382",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_seguran\u00e7a_rls",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_seguran\u00e7a_rls"
     },
     {
       "relation": "contains",
@@ -1485,9 +3721,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L300",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_setup_e_configura\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1495,9 +3731,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L12",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_stack_t\u00e9cnico",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_stack_t\u00e9cnico"
     },
     {
       "relation": "contains",
@@ -1505,9 +3741,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L47",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_state_estado_da_aplica\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_state_estado_da_aplica\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1515,9 +3751,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_raz\u00e3o_documenta\u00e7\u00e3o_t\u00e9cnica",
-      "target": "financas_app_claude_vis\u00e3o_geral",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_vis\u00e3o_geral"
     },
     {
       "relation": "contains",
@@ -1525,9 +3761,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L59",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_state_estado_da_aplica\u00e7\u00e3o",
-      "target": "financas_app_claude_fluxo_de_state",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_fluxo_de_state"
     },
     {
       "relation": "contains",
@@ -1535,9 +3771,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L71",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_fluxo_de_dados",
-      "target": "financas_app_claude_1_autentica\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_1_autentica\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1545,9 +3781,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L89",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_fluxo_de_dados",
-      "target": "financas_app_claude_2_carregamento_de_dados",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_2_carregamento_de_dados"
     },
     {
       "relation": "contains",
@@ -1555,9 +3791,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L115",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_fluxo_de_dados",
-      "target": "financas_app_claude_3_navega\u00e7\u00e3o_de_m\u00eas",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_3_navega\u00e7\u00e3o_de_m\u00eas"
     },
     {
       "relation": "contains",
@@ -1565,9 +3801,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L129",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_fluxo_de_dados",
-      "target": "financas_app_claude_4_cria\u00e7\u00e3o_de_transa\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_4_cria\u00e7\u00e3o_de_transa\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1575,9 +3811,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L146",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_fluxo_de_dados",
-      "target": "financas_app_claude_5_exclus\u00e3o_de_transa\u00e7\u00e3o",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_5_exclus\u00e3o_de_transa\u00e7\u00e3o"
     },
     {
       "relation": "contains",
@@ -1585,9 +3821,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L162",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
-      "target": "financas_app_claude_c\u00e1lculo_de_saldo",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_c\u00e1lculo_de_saldo"
     },
     {
       "relation": "contains",
@@ -1595,9 +3831,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L170",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
-      "target": "financas_app_claude_formata\u00e7\u00e3o_de_moeda",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_formata\u00e7\u00e3o_de_moeda"
     },
     {
       "relation": "contains",
@@ -1605,9 +3841,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L180",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_c\u00e1lculos_e_formata\u00e7\u00e3o",
-      "target": "financas_app_claude_limites_de_m\u00eas",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_limites_de_m\u00eas"
     },
     {
       "relation": "contains",
@@ -1615,9 +3851,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L244",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_banco_de_dados_supabase",
-      "target": "financas_app_claude_categorias_padr\u00e3o_seed_no_app",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_categorias_padr\u00e3o_seed_no_app"
     },
     {
       "relation": "contains",
@@ -1625,9 +3861,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L216",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_banco_de_dados_supabase",
-      "target": "financas_app_claude_tabela_categorias",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_tabela_categorias"
     },
     {
       "relation": "contains",
@@ -1635,9 +3871,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L229",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_banco_de_dados_supabase",
-      "target": "financas_app_claude_tabela_transacoes",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_tabela_transacoes"
     },
     {
       "relation": "contains",
@@ -1645,9 +3881,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L286",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_componentes_visuais",
-      "target": "financas_app_claude_css_classes_principais",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_css_classes_principais"
     },
     {
       "relation": "contains",
@@ -1655,9 +3891,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L264",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_componentes_visuais",
-      "target": "financas_app_claude_telas_principais",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_telas_principais"
     },
     {
       "relation": "contains",
@@ -1665,9 +3901,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L302",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
-      "target": "financas_app_claude_1_criar_projeto_supabase",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_1_criar_projeto_supabase"
     },
     {
       "relation": "contains",
@@ -1675,9 +3911,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L308",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
-      "target": "financas_app_claude_2_configurar_credenciais",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_2_configurar_credenciais"
     },
     {
       "relation": "contains",
@@ -1685,9 +3921,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L319",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
-      "target": "financas_app_claude_3_habilitar_email_auth",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_3_habilitar_email_auth"
     },
     {
       "relation": "contains",
@@ -1695,9 +3931,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L324",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_setup_e_configura\u00e7\u00e3o",
-      "target": "financas_app_claude_4_instalar_e_rodar",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_4_instalar_e_rodar"
     },
     {
       "relation": "contains",
@@ -1705,9 +3941,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L373",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_fluxos_principais",
-      "target": "financas_app_claude_gr\u00e1fico_de_6_meses",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_gr\u00e1fico_de_6_meses"
     },
     {
       "relation": "contains",
@@ -1715,9 +3951,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L366",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_fluxos_principais",
-      "target": "financas_app_claude_navega\u00e7\u00e3o_mensal",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_navega\u00e7\u00e3o_mensal"
     },
     {
       "relation": "contains",
@@ -1725,9 +3961,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L347",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_fluxos_principais",
-      "target": "financas_app_claude_novo_usu\u00e1rio_signup_primeiro_acesso",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_novo_usu\u00e1rio_signup_primeiro_acesso"
     },
     {
       "relation": "contains",
@@ -1735,9 +3971,9 @@
       "source_file": "financas-app/CLAUDE.md",
       "source_location": "L359",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_claude_fluxos_principais",
-      "target": "financas_app_claude_usu\u00e1rio_existente",
-      "confidence_score": 1.0
+      "target": "financas_app_claude_usu\u00e1rio_existente"
     },
     {
       "relation": "contains",
@@ -1745,9 +3981,9 @@
       "source_file": "financas-app/README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_readme",
-      "target": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
-      "confidence_score": 1.0
+      "target": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal"
     },
     {
       "relation": "contains",
@@ -1755,9 +3991,9 @@
       "source_file": "financas-app/README.md",
       "source_location": "L25",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
-      "target": "financas_app_readme_deploy_vercel",
-      "confidence_score": 1.0
+      "target": "financas_app_readme_deploy_vercel"
     },
     {
       "relation": "contains",
@@ -1765,9 +4001,9 @@
       "source_file": "financas-app/README.md",
       "source_location": "L32",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
-      "target": "financas_app_readme_o_que_tem",
-      "confidence_score": 1.0
+      "target": "financas_app_readme_o_que_tem"
     },
     {
       "relation": "contains",
@@ -1775,9 +4011,9 @@
       "source_file": "financas-app/README.md",
       "source_location": "L42",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
-      "target": "financas_app_readme_pr\u00f3ximos_passos_poss\u00edveis",
-      "confidence_score": 1.0
+      "target": "financas_app_readme_pr\u00f3ximos_passos_poss\u00edveis"
     },
     {
       "relation": "contains",
@@ -1785,9 +4021,9 @@
       "source_file": "financas-app/README.md",
       "source_location": "L18",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
-      "target": "financas_app_readme_rodar_localmente",
-      "confidence_score": 1.0
+      "target": "financas_app_readme_rodar_localmente"
     },
     {
       "relation": "contains",
@@ -1795,11 +4031,861 @@
       "source_file": "financas-app/README.md",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "financas_app_readme_raz\u00e3o_controle_financeiro_pessoal",
-      "target": "financas_app_readme_setup",
+      "target": "financas_app_readme_setup"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_1d00b6b3.md",
+      "source_location": "L454",
+      "weight": 1.0,
+      "source": "converted_relatorio_transacoes_mobills_1d00b6b3",
+      "target": "converted_relatorio_transacoes_mobills_1d00b6b3_sheet_despesas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_1d00b6b3.md",
+      "source_location": "L775",
+      "weight": 1.0,
+      "source": "converted_relatorio_transacoes_mobills_1d00b6b3",
+      "target": "converted_relatorio_transacoes_mobills_1d00b6b3_sheet_receitas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_1d00b6b3.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "converted_relatorio_transacoes_mobills_1d00b6b3",
+      "target": "converted_relatorio_transacoes_mobills_1d00b6b3_sheet_receitas_e_despesas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_1d00b6b3.md",
+      "source_location": "L909",
+      "weight": 1.0,
+      "source": "converted_relatorio_transacoes_mobills_1d00b6b3",
+      "target": "converted_relatorio_transacoes_mobills_1d00b6b3_sheet_transfer\u00eancias",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_8eb3b9d2.md",
+      "source_location": "L454",
+      "weight": 1.0,
+      "source": "converted_relatorio_transacoes_mobills_8eb3b9d2",
+      "target": "converted_relatorio_transacoes_mobills_8eb3b9d2_sheet_despesas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_8eb3b9d2.md",
+      "source_location": "L775",
+      "weight": 1.0,
+      "source": "converted_relatorio_transacoes_mobills_8eb3b9d2",
+      "target": "converted_relatorio_transacoes_mobills_8eb3b9d2_sheet_receitas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_8eb3b9d2.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "converted_relatorio_transacoes_mobills_8eb3b9d2",
+      "target": "converted_relatorio_transacoes_mobills_8eb3b9d2_sheet_receitas_e_despesas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "graphify-out/converted/RELATORIO_TRANSACOES_MOBILLS_8eb3b9d2.md",
+      "source_location": "L909",
+      "weight": 1.0,
+      "source": "converted_relatorio_transacoes_mobills_8eb3b9d2",
+      "target": "converted_relatorio_transacoes_mobills_8eb3b9d2_sheet_transfer\u00eancias",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude",
+      "target": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L233",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_api_e_cliente_supabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L53",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_arquitetura",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L266",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_autentica\u00e7\u00e3o_266",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L128",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_estrutura_do_banco_de_dados",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L295",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_funcionalidades",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L355",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_guia_de_desenvolvimento",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L89",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_instala\u00e7\u00e3o_e_setup",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L435",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_migra\u00e7\u00e3o_de_dados_financeiro_json_postgresql",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L414",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_problemas_conhecidos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L462",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_pr\u00f3ximos_passos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_stack_t\u00e9cnico",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L475",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_suporte",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_vis\u00e3o_geral",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_financeiro_documenta\u00e7\u00e3o_t\u00e9cnica",
+      "target": "sistemafinanceiro_claude_\u00edndice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L91",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_instala\u00e7\u00e3o_e_setup",
+      "target": "sistemafinanceiro_claude_1_pr\u00e9_requisitos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L96",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_instala\u00e7\u00e3o_e_setup",
+      "target": "sistemafinanceiro_claude_2_clonar_preparar_reposit\u00f3rio",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_instala\u00e7\u00e3o_e_setup",
+      "target": "sistemafinanceiro_claude_3_configurar_vari\u00e1veis_de_ambiente",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L113",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_instala\u00e7\u00e3o_e_setup",
+      "target": "sistemafinanceiro_claude_4_criar_schema_postgresql",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L119",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_instala\u00e7\u00e3o_e_setup",
+      "target": "sistemafinanceiro_claude_5_rodar_desenvolvimento",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L176",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_estrutura_do_banco_de_dados",
+      "target": "sistemafinanceiro_claude_tabela_cli_loja",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L162",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_estrutura_do_banco_de_dados",
+      "target": "sistemafinanceiro_claude_tabela_cliente",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L187",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_estrutura_do_banco_de_dados",
+      "target": "sistemafinanceiro_claude_tabela_lancamento",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L142",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_estrutura_do_banco_de_dados",
+      "target": "sistemafinanceiro_claude_tabela_loja",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L130",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_estrutura_do_banco_de_dados",
+      "target": "sistemafinanceiro_claude_tabela_usuarios",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L235",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_api_e_cliente_supabase",
+      "target": "sistemafinanceiro_claude_arquivo_src_supabaseclient_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L239",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_arquivo_src_supabaseclient_js",
+      "target": "sistemafinanceiro_claude_autentica\u00e7\u00e3o",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L249",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_arquivo_src_supabaseclient_js",
+      "target": "sistemafinanceiro_claude_crud_lan\u00e7amentos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L258",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_arquivo_src_supabaseclient_js",
+      "target": "sistemafinanceiro_claude_dados_auxiliares",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L275",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_autentica\u00e7\u00e3o_266",
+      "target": "sistemafinanceiro_claude_fluxo_de_cadastro",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L268",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_autentica\u00e7\u00e3o_266",
+      "target": "sistemafinanceiro_claude_fluxo_de_login",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L288",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_autentica\u00e7\u00e3o_266",
+      "target": "sistemafinanceiro_claude_logout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L283",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_autentica\u00e7\u00e3o_266",
+      "target": "sistemafinanceiro_claude_persist\u00eancia",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L297",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_funcionalidades",
+      "target": "sistemafinanceiro_claude_dashboard_principal_index_html_main_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L299",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_principal_index_html_main_js",
+      "target": "sistemafinanceiro_claude_1_resumo_summary_cards",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L305",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_principal_index_html_main_js",
+      "target": "sistemafinanceiro_claude_2_filtros",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L310",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_principal_index_html_main_js",
+      "target": "sistemafinanceiro_claude_3_tabela_de_lan\u00e7amentos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L321",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_principal_index_html_main_js",
+      "target": "sistemafinanceiro_claude_4_modal_de_edi\u00e7\u00e3o_inser\u00e7\u00e3o",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L333",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_principal_index_html_main_js",
+      "target": "sistemafinanceiro_claude_5_parcelamento",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L347",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_dashboard_principal_index_html_main_js",
+      "target": "sistemafinanceiro_claude_6_a\u00e7\u00f5es",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L379",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_guia_de_desenvolvimento",
+      "target": "sistemafinanceiro_claude_como_adicionar_uma_funcionalidade",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L406",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_guia_de_desenvolvimento",
+      "target": "sistemafinanceiro_claude_debugging",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L357",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_guia_de_desenvolvimento",
+      "target": "sistemafinanceiro_claude_estrutura_de_arquivos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L381",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_como_adicionar_uma_funcionalidade",
+      "target": "sistemafinanceiro_claude_1_adicionar_campo_na_tabela",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L384",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_como_adicionar_uma_funcionalidade",
+      "target": "sistemafinanceiro_claude_2_adicionar_fun\u00e7\u00e3o_crud",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L398",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_como_adicionar_uma_funcionalidade",
+      "target": "sistemafinanceiro_claude_3_usar_no_main_js",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L416",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_problemas_conhecidos",
+      "target": "sistemafinanceiro_claude_1_cors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L419",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_problemas_conhecidos",
+      "target": "sistemafinanceiro_claude_2_tokens_expirados",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L425",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_problemas_conhecidos",
+      "target": "sistemafinanceiro_claude_3_rls_bloqueando_queries",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L430",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_problemas_conhecidos",
+      "target": "sistemafinanceiro_claude_4_parcela_atual_n\u00e3o_incrementa",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/CLAUDE.md",
+      "source_location": "L437",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_claude_migra\u00e7\u00e3o_de_dados_financeiro_json_postgresql",
+      "target": "sistemafinanceiro_claude_script_de_migra\u00e7\u00e3o_exemplo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_memory",
+      "target": "sistemafinanceiro_memory_memory_index",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_memory_memory_index",
+      "target": "sistemafinanceiro_memory_projeto_dashboard_financeiro",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_memory_projeto_dashboard_financeiro",
+      "target": "sistemafinanceiro_memory_arquivos_criados",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_memory_projeto_dashboard_financeiro",
+      "target": "sistemafinanceiro_memory_autentica\u00e7\u00e3o",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_memory_projeto_dashboard_financeiro",
+      "target": "sistemafinanceiro_memory_como_rodar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_memory_projeto_dashboard_financeiro",
+      "target": "sistemafinanceiro_memory_estrutura_do_banco_financeiro_json",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L45",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_memory_projeto_dashboard_financeiro",
+      "target": "sistemafinanceiro_memory_funcionalidades",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_memory_projeto_dashboard_financeiro",
+      "target": "sistemafinanceiro_memory_stack",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/MEMORY.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_memory_projeto_dashboard_financeiro",
+      "target": "sistemafinanceiro_memory_status_e_cores",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary",
+      "target": "sistemafinanceiro_summary_resumo_de_migra\u00e7\u00e3o_dashboard_financeiro_para_supabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_resumo_de_migra\u00e7\u00e3o_dashboard_financeiro_para_supabase",
+      "target": "sistemafinanceiro_summary_estrutura_do_banco",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_resumo_de_migra\u00e7\u00e3o_dashboard_financeiro_para_supabase",
+      "target": "sistemafinanceiro_summary_passos_de_execu\u00e7\u00e3o",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L140",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_resumo_de_migra\u00e7\u00e3o_dashboard_financeiro_para_supabase",
+      "target": "sistemafinanceiro_summary_pr\u00f3ximas_a\u00e7\u00f5es",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L131",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_resumo_de_migra\u00e7\u00e3o_dashboard_financeiro_para_supabase",
+      "target": "sistemafinanceiro_summary_timeline_esperada",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_passos_de_execu\u00e7\u00e3o",
+      "target": "sistemafinanceiro_summary_1_criar_arquivo_db_supabase_sql_com_tabelas_postgresql",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_passos_de_execu\u00e7\u00e3o",
+      "target": "sistemafinanceiro_summary_2_atualizar_c\u00f3digo_fonte_para_supabase_auth",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L28",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_passos_de_execu\u00e7\u00e3o",
+      "target": "sistemafinanceiro_summary_3_criar_api_edge_functions_para_crud_de_lan\u00e7amentos",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_passos_de_execu\u00e7\u00e3o",
+      "target": "sistemafinanceiro_summary_4_atualizar_main_js_para_usar_supabase_client",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_passos_de_execu\u00e7\u00e3o",
+      "target": "sistemafinanceiro_summary_5_migrar_dados_de_financeiro_json_para_postgresql",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L46",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_passos_de_execu\u00e7\u00e3o",
+      "target": "sistemafinanceiro_summary_6_testar_no_ambiente_supabase",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_passos_de_execu\u00e7\u00e3o",
+      "target": "sistemafinanceiro_summary_7_atualizar_claude_md_com_especifica\u00e7\u00f5es",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L121",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_estrutura_do_banco",
+      "target": "sistemafinanceiro_summary_tabela_cli_loja",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L110",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_estrutura_do_banco",
+      "target": "sistemafinanceiro_summary_tabela_cliente",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L91",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_estrutura_do_banco",
+      "target": "sistemafinanceiro_summary_tabela_lancamento",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L74",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_estrutura_do_banco",
+      "target": "sistemafinanceiro_summary_tabela_loja",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "sistemafinanceiro/SUMMARY.md",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "sistemafinanceiro_summary_estrutura_do_banco",
+      "target": "sistemafinanceiro_summary_tabela_usuarios",
       "confidence_score": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "596f292925a39f9be5e2c794770452eb83a43e0b"
+  "built_at_commit": "a8dee53871cb88cb9cbef326210c5a91069e6131"
 }

@@ -1,0 +1,548 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Perfis</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+    .sidebar { width: 240px; background: var(--color-surface); border-right: 1px solid var(--color-border-faint); display: flex; flex-direction: column; position: fixed; top: 56px; left: 0; bottom: 0; overflow-y: auto; z-index: 50; transition: transform .25s; }
+    [data-theme="dark"] .sidebar { border-right-color: var(--color-border-light); }
+    .sidebar-section { padding: 20px 0 4px; }
+    .sidebar-section-label { font-size: 10px; font-weight: 700; color: var(--color-text-disabled); letter-spacing: 1.2px; text-transform: uppercase; padding: 0 20px 6px; }
+    .sidebar-link { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 13px; font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-left: 3px solid transparent; transition: background .15s, color .15s, border-color .15s; }
+    .sidebar-link:hover { background: #e8f0fe; color: var(--color-primary); }
+    .sidebar-link.ativo { background: #e8f0fe; color: var(--color-primary); border-left-color: var(--color-primary); font-weight: 600; }
+    [data-theme="dark"] .sidebar-link:hover, [data-theme="dark"] .sidebar-link.ativo { background: #1e2554; color: #7aa3d4; }
+    [data-theme="dark"] .sidebar-link.ativo { border-left-color: #7aa3d4; }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+    .page-header { margin-bottom: 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .page-header-left h1 { font-size: 22px; font-weight: 700; color: var(--color-text); }
+    .page-header-left p  { font-size: 13px; color: var(--color-text-muted); margin-top: 2px; }
+    .toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .search-input { flex: 1; min-width: 200px; max-width: 360px; height: 38px; padding: 0 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); }
+    .search-input:focus { outline: none; border-color: var(--color-primary); }
+    .btn-novo { height: 38px; padding: 0 18px; font-size: 13px; font-weight: 600; background: var(--color-primary); color: #fff; border: none; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background .15s; white-space: nowrap; }
+    .btn-novo:hover { background: #1a4fa8; }
+    .table-wrap { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+    .table-scroll { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 10px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--color-border-faint); white-space: nowrap; background: var(--color-surface); }
+    .data-table td { padding: 11px 16px; border-bottom: 1px solid var(--color-border-faint); color: var(--color-text-secondary); vertical-align: middle; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #f5f8ff; }
+    [data-theme="dark"] .data-table th { color: #7aa3d4; border-bottom-color: var(--color-border-light); }
+    [data-theme="dark"] .data-table td { border-bottom-color: var(--color-border-light); }
+    [data-theme="dark"] .data-table tr:hover td { background: #22252e; }
+    .vazio { text-align: center; color: var(--color-text-faint); font-size: 13px; padding: 32px; font-style: italic; }
+    .badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 20px; }
+    .badge-verde   { background: #e6f4ea; color: #1e7e34; }
+    .badge-vermelho{ background: #fce8e6; color: #c62828; }
+    [data-theme="dark"] .badge-verde    { background: #1b3a23; color: #81c995; }
+    [data-theme="dark"] .badge-vermelho { background: #3c1c1c; color: #f28b82; }
+    .acoes { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .btn-acao { border: none; border-radius: var(--radius-sm); padding: 4px 10px; font-size: 12px; font-weight: 600; cursor: pointer; transition: background .15s; white-space: nowrap; }
+    .btn-editar  { background: #e8f0fe; color: #1557b0; }
+    .btn-editar:hover  { background: #c5d8fb; }
+    .btn-excluir { background: #fce8e6; color: #c62828; }
+    .btn-excluir:hover { background: #f5c6c2; }
+    .btn-telas   { background: #e8f5e9; color: #1b5e20; }
+    .btn-telas:hover { background: #c8e6c9; }
+    [data-theme="dark"] .btn-editar  { background: #1e2554; color: #7aa3d4; }
+    [data-theme="dark"] .btn-editar:hover { background: #263178; }
+    [data-theme="dark"] .btn-excluir { background: #3c1c1c; color: #f28b82; }
+    [data-theme="dark"] .btn-excluir:hover { background: #5a2828; }
+    [data-theme="dark"] .btn-telas   { background: #1b3a23; color: #81c995; }
+    [data-theme="dark"] .btn-telas:hover { background: #254e30; }
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+    .crud-msg { display: none; padding: 10px 16px; border-radius: var(--radius-md); font-size: 13px; margin-bottom: 16px; font-weight: 500; }
+    .crud-msg.ok   { background: #e6f4ea; color: #1e7e34; border: 1px solid #a8d5b1; display: block; }
+    .crud-msg.err  { background: #fce8e6; color: #c62828; border: 1px solid #f5c6c2; display: block; }
+    /* Modal */
+    .crud-backdrop { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:200; align-items:center; justify-content:center; padding:16px; }
+    .crud-backdrop.show { display:flex; }
+    .crud-modal { background: var(--color-surface); border-radius: var(--radius-xl); padding: 28px; width: 100%; max-width: 480px; max-height: 90vh; display: flex; flex-direction: column; box-shadow: var(--shadow-lg); }
+    .crud-modal-title { font-size: 17px; font-weight: 700; color: var(--color-text); margin-bottom: 20px; }
+    .crud-modal-body { overflow-y: auto; flex: 1; padding-right: 4px; }
+    .crud-modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--color-border-faint); flex-wrap: wrap; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 12px; font-weight: 600; color: var(--color-text-muted); margin-bottom: 5px; }
+    .form-control { width: 100%; height: 38px; padding: 0 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); box-sizing: border-box; }
+    .form-control:focus { outline: none; border-color: var(--color-primary); }
+    .form-select { width: 100%; height: 38px; padding: 0 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); cursor: pointer; }
+    .form-select:focus { outline: none; border-color: var(--color-primary); }
+    .btn-salvar   { height: 36px; padding: 0 20px; font-size: 13px; font-weight: 600; background: var(--color-primary); color: #fff; border: none; border-radius: var(--radius-md); cursor: pointer; }
+    .btn-salvar:hover { background: #1a4fa8; }
+    .btn-cancelar { height: 36px; padding: 0 16px; font-size: 13px; font-weight: 600; background: var(--color-bg); color: var(--color-text-muted); border: 1px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; }
+    .btn-cancelar:hover { background: var(--color-border-faint); }
+    /* Modal Telas */
+    .modal-telas-large { max-width: 640px; }
+    .telas-grupo { margin-bottom: 16px; }
+    .telas-grupo-titulo { font-size: 11px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--color-border-faint); }
+    .tela-item { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: var(--radius-sm); cursor: pointer; transition: background .15s; }
+    .tela-item:hover { background: #f0f4ff; }
+    [data-theme="dark"] .tela-item:hover { background: #1e2554; }
+    .tela-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--color-primary); cursor: pointer; flex-shrink: 0; }
+    .tela-item-nome { font-size: 13px; font-weight: 500; color: var(--color-text); }
+    .tela-item-html { font-size: 11px; color: var(--color-text-faint); font-family: monospace; margin-left: auto; }
+    .sel-all-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .sel-all-row label { font-size: 12px; font-weight: 700; color: var(--color-text-muted); cursor: pointer; }
+    .nome-perfil { font-weight: 600; color: var(--color-text); font-size: 14px; }
+    .telas-count { font-size: 11px; color: var(--color-text-faint); }
+    /* Toggle inline */
+    .tog { position: relative; display: inline-flex; align-items: center; cursor: pointer; gap: 8px; }
+    .tog input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .tog-slider { width: 36px; height: 20px; background: #ccc; border-radius: 20px; flex-shrink: 0; transition: background .2s; position: relative; }
+    .tog-slider::before { content: ''; position: absolute; width: 14px; height: 14px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: transform .2s; }
+    .tog input:checked + .tog-slider { background: #1e7e34; }
+    .tog input:checked + .tog-slider::before { transform: translateX(16px); }
+    @media (max-width: 600px) { .crud-modal { padding: 16px; } .crud-modal-footer { flex-direction: column; } .btn-salvar, .btn-cancelar { width: 100%; } }
+  </style>
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>🔑 Perfis de Acesso</h1>
+        <p>Gerencie os perfis do sistema e configure as telas que cada perfil pode acessar.</p>
+      </div>
+      <button class="btn-novo" onclick="abrirModalNovo()">+ Novo Perfil</button>
+    </div>
+
+    <div class="crud-msg" id="msgGlobal"></div>
+
+    <div class="toolbar">
+      <input class="search-input" type="search" id="inputBusca" placeholder="🔍  Buscar por nome…" oninput="filtrar()">
+      <select class="form-select" style="width:auto;min-width:130px" id="filtroAtivo" onchange="filtrar()">
+        <option value="">Todos os status</option>
+        <option value="1">Ativo</option>
+        <option value="0">Inativo</option>
+      </select>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nome do Perfil</th>
+              <th>Status</th>
+              <th>Telas vinculadas</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyPerfis">
+            <tr><td colspan="5" class="vazio">Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal Perfil (criar/editar) -->
+<div class="crud-backdrop" id="backdropPerfil">
+  <div class="crud-modal">
+    <div class="crud-modal-title" id="modalPerfilTitulo">Novo Perfil</div>
+    <div class="crud-modal-body">
+      <input type="hidden" id="fId">
+      <div class="form-group">
+        <label class="form-label">Nome do Perfil *</label>
+        <input class="form-control" type="text" id="fNome" placeholder="Ex: Vendedor, Estoquista…">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <label class="tog" style="margin-top:4px">
+          <input type="checkbox" id="fAtivo" checked>
+          <span class="tog-slider"></span>
+          <span style="font-size:13px;font-weight:500;color:var(--color-text-muted)">Ativo</span>
+        </label>
+      </div>
+      <div class="crud-msg" id="msgModal"></div>
+    </div>
+    <div class="crud-modal-footer">
+      <button class="btn-cancelar" onclick="fecharModalPerfil()">Cancelar</button>
+      <button class="btn-salvar" onclick="salvarPerfil()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Telas do Perfil -->
+<div class="crud-backdrop" id="backdropTelas">
+  <div class="crud-modal modal-telas-large">
+    <div class="crud-modal-title">
+      🖥️ Telas do Perfil: <span id="modalTelaPerfilNome" style="color:var(--color-primary)"></span>
+    </div>
+    <div class="crud-modal-body" id="modalTelaBody">
+      <div class="sel-all-row">
+        <input type="checkbox" id="chkTodas" onchange="marcarTodas(this.checked)">
+        <label for="chkTodas">Marcar / desmarcar todas</label>
+        <span class="telas-count" id="contagemTelas"></span>
+      </div>
+      <div id="telasGrupos"></div>
+    </div>
+    <div class="crud-modal-body" style="display:none">
+      <div class="crud-msg" id="msgTelas"></div>
+    </div>
+    <div class="crud-modal-footer">
+      <button class="btn-cancelar" onclick="fecharModalTelas()">Cancelar</button>
+      <button class="btn-salvar" onclick="salvarTelasDoPerfil()">Confirmar Telas</button>
+    </div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao('../index.html');
+  if (!sbIsAdmin()) {
+    alert('Acesso restrito a Administradores.');
+    window.location.replace('../dashboard.html');
+  }
+
+  document.getElementById('roleBadge').textContent = sbPerfil() || '';
+
+  (function () {
+    const t   = localStorage.getItem('senai_tema') || 'light';
+    const btn = document.getElementById('btnTema');
+    if (btn) btn.textContent = t === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  })();
+
+  function alternarTema() {
+    const novo = sbToggleTema();
+    const btn  = document.getElementById('btnTema');
+    if (btn) btn.textContent = novo === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  }
+
+  function sair() { sbLogout('../index.html'); }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  }
+
+  // ── Estado ─────────────────────────────────────────────────────
+  let todosPerfis    = [];
+  let todasTelas     = [];   // telas carregadas do banco (tabela tela + tela_sistema)
+  let sistemasMap    = {};   // siscodigo → sisnome
+  let perfilTelaAtual = null; // { id, nome } do perfil no modal de telas
+  let telasVinculadas = new Set(); // tela_ids do perfil no modal
+
+  // ── Init ────────────────────────────────────────────────────────
+  async function init() {
+    try {
+      // Carregar telas e vínculos do banco
+      const [telaDB, vinculos] = await Promise.all([
+        sbListar('tela', 'order=id.asc'),
+        sbListar('tela_sistema', '')
+      ]);
+      const sisMap = {};
+      vinculos.forEach(v => { if (!sisMap[v.tela_id]) sisMap[v.tela_id] = v.sistema_id; });
+      todasTelas = telaDB.map(t => ({ ...t, sistema_id: sisMap[t.id] ?? 0 }));
+
+      // Sistemas
+      const sis = await sbListar('sistema', 'sisativo=eq.1&order=sisordem.asc');
+      sis.forEach(s => { sistemasMap[s.siscodigo] = s.sisnome; });
+
+      await carregarPerfis();
+    } catch (e) {
+      document.getElementById('tbodyPerfis').innerHTML =
+        `<tr><td colspan="5" class="vazio">Erro: ${e.message}</td></tr>`;
+    }
+  }
+
+  async function carregarPerfis() {
+    try {
+      todosPerfis = await sbListar('perfil', 'order=id.asc&select=id,nome,ativo');
+      // Para cada perfil, contar telas vinculadas
+      const vinculos = await sbListar('perfil_sistema', 'select=perfil_id,tela_id');
+      const contMap  = {};
+      vinculos.forEach(v => {
+        contMap[v.perfil_id] = (contMap[v.perfil_id] || 0) + 1;
+      });
+      todosPerfis.forEach(p => { p._telasCount = contMap[p.id] || 0; });
+      filtrar();
+    } catch (e) {
+      document.getElementById('tbodyPerfis').innerHTML =
+        `<tr><td colspan="5" class="vazio">Erro ao carregar perfis: ${e.message}</td></tr>`;
+    }
+  }
+
+  // ── Renderizar ─────────────────────────────────────────────────
+  function renderizar(lista) {
+    const tbody = document.getElementById('tbodyPerfis');
+    if (!lista.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="vazio">Nenhum perfil encontrado.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = lista.map(p => {
+      const ativo  = p.ativo === 1 || p.ativo === true;
+      const badge  = ativo
+        ? '<span class="badge badge-verde">Ativo</span>'
+        : '<span class="badge badge-vermelho">Inativo</span>';
+      return `
+        <tr>
+          <td style="color:var(--color-text-faint);font-size:12px">${p.id}</td>
+          <td><span class="nome-perfil">${escHtml(p.nome)}</span></td>
+          <td>${badge}</td>
+          <td style="font-size:12px;color:var(--color-text-faint)">${p._telasCount} tela(s)</td>
+          <td>
+            <div class="acoes">
+              <button class="btn-acao btn-telas"   onclick='abrirModalTelas(${JSON.stringify(p)})'>🖥️ Telas do Perfil</button>
+              <button class="btn-acao btn-editar"  onclick='abrirModalEditar(${JSON.stringify(p)})'>✏️ Editar</button>
+              <button class="btn-acao btn-excluir" onclick="excluirPerfil(${p.id}, '${escHtml(p.nome)}')">🗑️ Excluir</button>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  function filtrar() {
+    const busca = document.getElementById('inputBusca').value.toLowerCase().trim();
+    const ativo = document.getElementById('filtroAtivo').value;
+    const lista = todosPerfis.filter(p => {
+      const matchB = !busca || p.nome.toLowerCase().includes(busca);
+      const matchA = ativo === '' || String(p.ativo) === ativo;
+      return matchB && matchA;
+    });
+    renderizar(lista);
+  }
+
+  // ── Modal Perfil (criar/editar) ─────────────────────────────────
+  function abrirModalNovo() {
+    document.getElementById('fId').value    = '';
+    document.getElementById('fNome').value  = '';
+    document.getElementById('fAtivo').checked = true;
+    document.getElementById('modalPerfilTitulo').textContent = 'Novo Perfil';
+    sbMensagem('msgModal', '', '');
+    document.getElementById('backdropPerfil').classList.add('show');
+    setTimeout(() => document.getElementById('fNome').focus(), 100);
+  }
+
+  function abrirModalEditar(p) {
+    document.getElementById('fId').value    = p.id;
+    document.getElementById('fNome').value  = p.nome;
+    document.getElementById('fAtivo').checked = (p.ativo === 1 || p.ativo === true);
+    document.getElementById('modalPerfilTitulo').textContent = 'Editar Perfil';
+    sbMensagem('msgModal', '', '');
+    document.getElementById('backdropPerfil').classList.add('show');
+    setTimeout(() => document.getElementById('fNome').focus(), 100);
+  }
+
+  function fecharModalPerfil() {
+    document.getElementById('backdropPerfil').classList.remove('show');
+  }
+
+  async function salvarPerfil() {
+    const id    = document.getElementById('fId').value;
+    const nome  = document.getElementById('fNome').value.trim();
+    const ativo = document.getElementById('fAtivo').checked ? 1 : 0;
+
+    if (!nome) { sbMensagem('msgModal', 'Nome é obrigatório.', 'err'); return; }
+
+    const dados = { nome, ativo };
+    try {
+      if (id) {
+        await sbAtualizar('perfil', id, dados);
+        sbMensagem('msgGlobal', `Perfil "${nome}" atualizado com sucesso.`, 'ok');
+      } else {
+        await sbInserir('perfil', dados);
+        sbMensagem('msgGlobal', `Perfil "${nome}" criado com sucesso.`, 'ok');
+      }
+      fecharModalPerfil();
+      await carregarPerfis();
+    } catch (e) {
+      sbMensagem('msgModal', 'Erro ao salvar: ' + e.message, 'err');
+    }
+  }
+
+  // ── Excluir Perfil ─────────────────────────────────────────────
+  async function excluirPerfil(id, nome) {
+    if (!confirm(`Tem certeza que deseja excluir o perfil "${nome}"?\nIsso também removerá todas as telas vinculadas a ele.\nEsta ação não pode ser desfeita.`)) return;
+    try {
+      // Remove vínculos antes
+      await fetch(`${SUPABASE_URL}/rest/v1/perfil_sistema?perfil_id=eq.${id}`, {
+        method: 'DELETE', headers: HEADERS
+      });
+      await sbExcluir('perfil', id);
+      sbMensagem('msgGlobal', `Perfil "${nome}" excluído.`, 'ok');
+      await carregarPerfis();
+    } catch (e) {
+      sbMensagem('msgGlobal', 'Erro ao excluir: ' + e.message, 'err');
+    }
+  }
+
+  // ── Modal Telas do Perfil ───────────────────────────────────────
+  async function abrirModalTelas(p) {
+    perfilTelaAtual = p;
+    document.getElementById('modalTelaPerfilNome').textContent = p.nome;
+    document.getElementById('telasGrupos').innerHTML = '<p style="color:var(--color-text-faint);font-size:13px;padding:16px">Carregando telas…</p>';
+    document.getElementById('backdropTelas').classList.add('show');
+
+    try {
+      // Buscar telas já vinculadas a este perfil
+      const vinculos = await sbListar('perfil_sistema', `perfil_id=eq.${p.id}&select=tela_id`);
+      telasVinculadas = new Set(vinculos.map(v => v.tela_id));
+
+      // Construir lista agrupada por módulo (só telas ativas)
+      const ativas = todasTelas.filter(t => t.ativo === 1 || t.ativo === true);
+      construirListaTelas(ativas);
+    } catch (e) {
+      document.getElementById('telasGrupos').innerHTML =
+        `<p style="color:#c62828;font-size:13px;padding:16px">Erro: ${e.message}</p>`;
+    }
+  }
+
+  function construirListaTelas(ativas) {
+    // Agrupar por sistema_id
+    const grupos = {};
+    ativas.forEach(t => {
+      const g = t.sistema_id || 0;
+      if (!grupos[g]) grupos[g] = [];
+      grupos[g].push(t);
+    });
+
+    const sisOrdem = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    let html = '';
+    sisOrdem.forEach(sisId => {
+      if (!grupos[sisId] || !grupos[sisId].length) return;
+      const nomeGrupo = sistemasMap[sisId] || `Módulo ${sisId}`;
+      html += `<div class="telas-grupo"><div class="telas-grupo-titulo">${escHtml(nomeGrupo)}</div>`;
+      grupos[sisId].forEach(t => {
+        const checked = telasVinculadas.has(t.id) ? 'checked' : '';
+        html += `
+          <label class="tela-item">
+            <input type="checkbox" class="chk-tela" data-id="${t.id}" ${checked}>
+            <span class="tela-item-nome">${escHtml(t.nome)}</span>
+            <span class="tela-item-html">${escHtml(t.nome_html)}</span>
+          </label>`;
+      });
+      html += '</div>';
+    });
+
+    document.getElementById('telasGrupos').innerHTML = html || '<p style="color:var(--color-text-faint);font-size:13px;padding:16px">Nenhuma tela ativa encontrada.</p>';
+    atualizarContagem();
+
+    // Sincronizar checkbox "marcar todas"
+    const chkTodas = document.getElementById('chkTodas');
+    const todos = document.querySelectorAll('.chk-tela');
+    const marcados = document.querySelectorAll('.chk-tela:checked');
+    chkTodas.checked = todos.length > 0 && todos.length === marcados.length;
+    chkTodas.indeterminate = marcados.length > 0 && marcados.length < todos.length;
+
+    // Listener nas checkboxes para manter contador
+    document.querySelectorAll('.chk-tela').forEach(chk => {
+      chk.addEventListener('change', atualizarContagem);
+    });
+  }
+
+  function marcarTodas(valor) {
+    document.querySelectorAll('.chk-tela').forEach(chk => { chk.checked = valor; });
+    atualizarContagem();
+  }
+
+  function atualizarContagem() {
+    const total    = document.querySelectorAll('.chk-tela').length;
+    const marcados = document.querySelectorAll('.chk-tela:checked').length;
+    document.getElementById('contagemTelas').textContent = `${marcados} de ${total} selecionadas`;
+    // Atualiza indeterminate do "marcar todas"
+    const chkTodas = document.getElementById('chkTodas');
+    chkTodas.checked = total > 0 && total === marcados;
+    chkTodas.indeterminate = marcados > 0 && marcados < total;
+  }
+
+  function fecharModalTelas() {
+    document.getElementById('backdropTelas').classList.remove('show');
+    perfilTelaAtual = null;
+    telasVinculadas = new Set();
+  }
+
+  async function salvarTelasDoPerfil() {
+    if (!perfilTelaAtual) return;
+    const perfId = perfilTelaAtual.id;
+
+    // Coletar checkboxes marcados
+    const selecionados = Array.from(document.querySelectorAll('.chk-tela:checked'))
+      .map(chk => parseInt(chk.dataset.id));
+
+    try {
+      // 1. Deletar todos os vínculos atuais do perfil
+      await fetch(`${SUPABASE_URL}/rest/v1/perfil_sistema?perfil_id=eq.${perfId}`, {
+        method: 'DELETE', headers: HEADERS
+      });
+
+      // 2. Inserir os novos vínculos
+      if (selecionados.length > 0) {
+        const novos = selecionados.map(telaId => ({ perfil_id: perfId, tela_id: telaId }));
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/perfil_sistema`, {
+          method: 'POST',
+          headers: HEADERS,
+          body: JSON.stringify(novos)
+        });
+        if (!res.ok) throw new Error(await res.text());
+      }
+
+      sbMensagem('msgGlobal', `Telas do perfil "${perfilTelaAtual.nome}" atualizadas (${selecionados.length} tela(s)).`, 'ok');
+      fecharModalTelas();
+      await carregarPerfis();
+    } catch (e) {
+      sbMensagem('msgGlobal', 'Erro ao salvar telas: ' + e.message, 'err');
+    }
+  }
+
+  // ── Utilitários ────────────────────────────────────────────────
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // Fechar modal clicando fora
+  document.getElementById('backdropPerfil').addEventListener('click', function(e) {
+    if (e.target === this) fecharModalPerfil();
+  });
+  document.getElementById('backdropTelas').addEventListener('click', function(e) {
+    if (e.target === this) fecharModalTelas();
+  });
+
+  init();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>

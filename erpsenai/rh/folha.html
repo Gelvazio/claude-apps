@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Folha de Pagamento</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}.sidebar{width:240px;background:var(--color-surface);border-right:1px solid var(--color-border-faint);display:flex;flex-direction:column;position:fixed;top:56px;left:0;bottom:0;overflow-y:auto;z-index:50;transition:transform .25s}.sidebar-section{padding:20px 0 4px}.sidebar-section-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:1.2px;text-transform:uppercase;padding:0 20px 6px}.sidebar-link{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--color-text-muted);text-decoration:none;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s}.sidebar-link:hover{background:#e8f0fe;color:var(--color-primary)}.sidebar-link.ativo{background:#e8f0fe;color:var(--color-primary);border-left-color:var(--color-primary);font-weight:600}[data-theme="dark"] .sidebar-link:hover,[data-theme="dark"] .sidebar-link.ativo{background:#1e2554;color:#7aa3d4}.sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}.main{margin-left:240px;padding:28px 32px;flex:1}@media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:16px}.sidebar.open{transform:translateX(0)}}.page-header{margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}.page-header h1{font-size:22px;font-weight:700;color:var(--color-text)}.page-header p{font-size:13px;color:var(--color-text-muted);margin-top:2px}.btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}@media(max-width:768px){.btn-menu{display:flex}}.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}.sidebar-overlay.show{display:block}.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}.search-input{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:13px;background:var(--color-surface);color:var(--color-text);font-family:inherit;outline:none}.search-input:focus{border-color:var(--color-primary)}.filter-btn{padding:7px 14px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:12px;font-weight:600;background:var(--color-surface);color:var(--color-text-muted);cursor:pointer;font-family:inherit}.filter-btn.ativo{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}.content-section{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}#msgGlobal{display:none;padding:10px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;margin-bottom:14px}#msgGlobal.ok{background:var(--color-success-bg);border:1px solid var(--color-success-border);color:var(--color-success);display:block}#msgGlobal.err{background:var(--color-error-bg);border:1px solid var(--color-error-border);color:var(--color-error);display:block}.crud-modal{max-width:860px!important}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-grid .span-2{grid-column:span 2}@media(max-width:600px){.form-grid{grid-template-columns:1fr}.form-grid .span-2{grid-column:span 1}}.form-section-title{font-size:11px;font-weight:700;color:var(--color-primary);text-transform:uppercase;letter-spacing:.5px;padding:16px 0 4px;border-bottom:1px solid var(--color-border-faint);margin-bottom:4px;grid-column:1/-1}.form-group{display:flex;flex-direction:column;gap:4px}.form-label{font-size:10px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.3px}.form-label span{color:var(--color-error)}.form-input,.form-select,.form-textarea{width:100%;padding:9px 12px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:13px;color:var(--color-text);background:var(--color-surface-3);font-family:inherit;outline:none}.form-input:focus,.form-select:focus{border-color:var(--color-primary)}.form-input[readonly]{background:var(--color-border-light);color:var(--color-text-muted);cursor:default}.form-textarea{resize:vertical;min-height:60px}[data-theme="dark"] .form-input,[data-theme="dark"] .form-select,[data-theme="dark"] .form-textarea{background:var(--color-surface-2);border-color:var(--color-border);color:var(--color-text)}.modal-footer{padding:12px 20px;display:flex;justify-content:center;gap:10px;border-top:1px solid var(--color-border-light);background:var(--color-surface-2)}.modal-body-scroll{overflow-y:auto;padding:20px;flex:1;max-height:70vh}.paginacao{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--color-border-faint);font-size:12px;color:var(--color-text-muted)}.paginacao-btns{display:flex;gap:6px}.pag-btn{padding:4px 10px;border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface);color:var(--color-text-muted);font-size:12px;cursor:pointer;font-family:inherit}.pag-btn:disabled{opacity:.4;cursor:default}.nota-calc{background:var(--color-surface-2);border:1px solid var(--color-border-faint);border-radius:var(--radius-md);padding:12px;font-size:12px;color:var(--color-text-muted);grid-column:1/-1;line-height:1.6}
+    @media(max-width:600px){.form-input,.form-select,.form-textarea{font-size:16px}}
+  </style>
+  <script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <script src="../gamificacao/gamif.js"></script>
+</head>
+<body>
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page-header">
+      <div><h1>💰 Folha de Pagamento</h1><p>Lançamentos mensais de salário com encargos e deduções</p></div>
+      <button class="btn" onclick="abrirModalNovo()">+ Novo Lançamento</button>
+    </div>
+    <div id="msgGlobal"></div>
+    <div class="toolbar">
+      <input class="search-input" type="text" id="campoBusca" placeholder="🔍  Buscar por funcionário..." oninput="filtrar()">
+      <input class="filter-btn" type="month" id="filtroMes" onchange="filtrar()" style="cursor:pointer;min-width:140px">
+      <select class="filter-btn" id="filtroStatus" onchange="filtrar()" style="cursor:pointer"><option value="">Todos os status</option><option>Rascunho</option><option>Calculado</option><option>Pago</option><option>Cancelado</option></select>
+    </div>
+    <div class="content-section">
+      <div class="crud-table-wrap">
+        <table class="crud-table">
+          <thead><tr><th>Número</th><th>Funcionário</th><th>Competência</th><th>Salário Bruto</th><th>INSS</th><th>IRRF</th><th>Líquido</th><th>Status</th><th style="width:80px">Ações</th></tr></thead>
+          <tbody id="tbodyFolha"><tr><td colspan="9" class="crud-vazio">Carregando…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="paginacao"><span id="paginacaoInfo">—</span><div class="paginacao-btns"><button class="pag-btn" id="btnAnterior" onclick="mudarPagina(-1)">‹ Anterior</button><button class="pag-btn" id="btnProximo" onclick="mudarPagina(1)">Próxima ›</button></div></div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div class="crud-backdrop" id="modalFormulario" style="display:none" onclick="fecharSeClicouFora(event,'modalFormulario')">
+  <div class="crud-modal">
+    <div class="crud-modal-head"><h3 id="modalTitulo">Novo Lançamento</h3><button class="crud-btn-fechar" onclick="fecharModal()">✕</button></div>
+    <div class="modal-body-scroll">
+      <div id="msgModal" style="display:none;margin-bottom:12px;padding:10px 14px;border-radius:6px;font-size:13px;font-weight:600;"></div>
+      <form id="formFolha" onsubmit="salvar(event)">
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label">Número</label><input class="form-input" type="text" id="fNumero" readonly></div>
+          <div class="form-group"><label class="form-label">Competência (Mês/Ano) <span>*</span></label><input class="form-input" type="month" id="fCompetencia" required></div>
+          <div class="form-group span-2"><label class="form-label">Funcionário <span>*</span></label><select class="form-select" id="fFuncionario" required onchange="preencherSalario()"><option value="">— Selecione —</option></select></div>
+
+          <div class="form-section-title">Proventos</div>
+          <div class="form-group"><label class="form-label">Salário Base (R$) <span>*</span></label><input class="form-input" type="number" id="fSalarioBase" required min="0" step="0.01" oninput="calcular()"></div>
+          <div class="form-group"><label class="form-label">Horas Extras (R$)</label><input class="form-input" type="number" id="fHorasExtras" min="0" step="0.01" value="0" oninput="calcular()"></div>
+          <div class="form-group"><label class="form-label">Adicional Noturno (R$)</label><input class="form-input" type="number" id="fAdicionalNoturno" min="0" step="0.01" value="0" oninput="calcular()"></div>
+          <div class="form-group"><label class="form-label">Outros Proventos (R$)</label><input class="form-input" type="number" id="fOutrosProventos" min="0" step="0.01" value="0" oninput="calcular()"></div>
+          <div class="form-group"><label class="form-label">Salário Bruto (R$)</label><input class="form-input" type="number" id="fSalarioBruto" readonly></div>
+          <div style="display:none"></div>
+
+          <div class="form-section-title">Deduções</div>
+          <div class="form-group"><label class="form-label">INSS (R$)</label><input class="form-input" type="number" id="fInss" readonly oninput="calcular()"></div>
+          <div class="form-group"><label class="form-label">IRRF (R$)</label><input class="form-input" type="number" id="fIrrf" readonly oninput="calcular()"></div>
+          <div class="form-group"><label class="form-label">Desconto Faltas (R$)</label><input class="form-input" type="number" id="fDescontoFaltas" min="0" step="0.01" value="0" oninput="calcular()"></div>
+          <div class="form-group"><label class="form-label">Outros Descontos (R$)</label><input class="form-input" type="number" id="fOutrosDescontos" min="0" step="0.01" value="0" oninput="calcular()"></div>
+          <div class="form-group"><label class="form-label">Total Deduções (R$)</label><input class="form-input" type="number" id="fTotalDeducoes" readonly></div>
+          <div style="display:none"></div>
+
+          <div class="form-section-title">Resultado</div>
+          <div class="form-group"><label class="form-label">Salário Líquido (R$)</label><input class="form-input" type="number" id="fLiquido" readonly style="font-size:16px;font-weight:700;color:var(--color-success)"></div>
+          <div class="form-group"><label class="form-label">Status</label><select class="form-select" id="fStatus"><option>Rascunho</option><option>Calculado</option><option>Pago</option><option>Cancelado</option></select></div>
+          <div class="nota-calc">📌 <strong>INSS:</strong> Calculado automaticamente (7,5% a 14% conforme faixa salarial · tabela 2024). <strong>IRRF:</strong> Calculado sobre salário bruto − INSS − dependentes (tabela progressiva 2024). Os valores são orientativos e não substituem contabilidade profissional.</div>
+          <div class="form-group span-2"><label class="form-label">Observações</label><textarea class="form-textarea" id="fObs"></textarea></div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer"><button class="btn-cancelar" onclick="fecharModal()">Cancelar</button><button class="btn-salvar" onclick="document.getElementById('formFolha').requestSubmit()">Confirmar</button></div>
+  </div>
+</div>
+
+<div class="crud-backdrop" id="modalExcluir" style="display:none" onclick="fecharSeClicouFora(event,'modalExcluir')">
+  <div class="crud-modal" style="max-width:440px">
+    <div class="crud-modal-head" style="background:#c62828"><h3>Confirmar Exclusão</h3><button class="crud-btn-fechar" onclick="fecharModalExcluir()">✕</button></div>
+    <div class="modal-body-scroll" style="padding:20px"><p style="font-size:14px">Excluir lançamento <strong id="nomeExcluir"></strong>?</p></div>
+    <div class="modal-footer"><button class="btn-cancelar" onclick="fecharModalExcluir()">Cancelar</button><button class="btn-salvar" style="background:#c62828" onclick="excluirConfirmado()">🗑️ Excluir</button></div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao();
+  document.getElementById('roleBadge').textContent=sbPerfil()||'';
+  (function(){const t=localStorage.getItem('senai_tema')||'light';const btn=document.getElementById('btnTema');btn.textContent=t==='dark'?'☀️ Claro':'🌙 Escuro';btn.onclick=()=>{const n=sbToggleTema();btn.textContent=n==='dark'?'☀️ Claro':'🌙 Escuro';};})();
+  function sair(){sbLogout('../index.html');}
+  function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('show');}
+
+  const hoje=new Date();
+  document.getElementById('filtroMes').value=`${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,'0')}`;
+
+  let todos=[],filtrados=[],paginaAtual=0;
+  const POR_PAGINA=50;
+  let idParaExcluir=null,modoEdicao=false,idEdicao=null;
+  let funcionarios=[];
+
+  function fmtBRL(v){return'R$ '+parseFloat(v||0).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function msg(t,tipo='ok',ms=4000){const el=document.getElementById('msgGlobal');el.textContent=t;el.className=tipo;el.style.display='block';if(ms>0)setTimeout(()=>el.style.display='none',ms);}
+  function msgModal(t,tipo='err'){const el=document.getElementById('msgModal');el.textContent=t;el.style.cssText=tipo==='err'?'display:block;background:#fce8e6;border:1px solid #f44336;color:#c62828':'display:block;background:#e8f5e9;border:1px solid #c8e6c9;color:#2e7d32';}
+
+  function calcINSS(bruto){
+    const tabela=[[1518,7.5],[2267.63,9],[3556.91,12],[7406.02,14]];
+    let aliquota=14;for(const[limite,al] of tabela){if(bruto<=limite){aliquota=al;break;}}
+    return Math.min(bruto*aliquota/100,1036.84);
+  }
+
+  function calcIRRF(bc){
+    if(bc<=2259.20)return 0;
+    if(bc<=2826.65)return bc*0.075-169.44;
+    if(bc<=3751.05)return bc*0.15-381.44;
+    if(bc<=4664.68)return bc*0.225-662.77;
+    return bc*0.275-896.00;
+  }
+
+  function calcular(){
+    const base=parseFloat(document.getElementById('fSalarioBase').value)||0;
+    const he=parseFloat(document.getElementById('fHorasExtras').value)||0;
+    const an=parseFloat(document.getElementById('fAdicionalNoturno').value)||0;
+    const op=parseFloat(document.getElementById('fOutrosProventos').value)||0;
+    const bruto=base+he+an+op;
+    const inss=calcINSS(bruto);
+    const irrf=calcIRRF(bruto-inss);
+    const df=parseFloat(document.getElementById('fDescontoFaltas').value)||0;
+    const od=parseFloat(document.getElementById('fOutrosDescontos').value)||0;
+    const totDed=inss+irrf+df+od;
+    const liq=bruto-totDed;
+    document.getElementById('fSalarioBruto').value=bruto.toFixed(2);
+    document.getElementById('fInss').value=inss.toFixed(2);
+    document.getElementById('fIrrf').value=irrf.toFixed(2);
+    document.getElementById('fTotalDeducoes').value=totDed.toFixed(2);
+    document.getElementById('fLiquido').value=liq.toFixed(2);
+  }
+
+  async function preencherSalario(){
+    const id=document.getElementById('fFuncionario').value;
+    const f=funcionarios.find(x=>x.id===id);
+    if(f&&f.salario){document.getElementById('fSalarioBase').value=f.salario;calcular();}
+  }
+
+  function nomeFunc(id){const f=funcionarios.find(x=>x.id===id);return f?f.nome:'—';}
+
+  async function carregar(){
+    document.getElementById('tbodyFolha').innerHTML='<tr><td colspan="9" class="crud-vazio">Carregando…</td></tr>';
+    try{
+      funcionarios=await sbListar('rh_funcionarios','ativo=eq.true&order=nome.asc');
+      const opts='<option value="">— Selecione —</option>'+funcionarios.map(f=>`<option value="${f.id}">${f.nome}</option>`).join('');
+      document.getElementById('fFuncionario').innerHTML=opts;
+      todos=await sbListar('rh_folha_lancamentos','order=competencia.desc,created_at.desc');
+      filtrar();
+    }catch(e){document.getElementById('tbodyFolha').innerHTML=`<tr><td colspan="9" class="crud-vazio">Erro: ${e.message}</td></tr>`;}
+  }
+
+  function filtrar(){
+    const t=document.getElementById('campoBusca').value.toLowerCase().trim();
+    const mes=document.getElementById('filtroMes').value;
+    const st=document.getElementById('filtroStatus').value;
+    filtrados=todos.filter(r=>{
+      if(mes&&r.competencia&&!r.competencia.startsWith(mes))return false;
+      if(st&&r.status!==st)return false;
+      if(t)return nomeFunc(r.funcionario_id).toLowerCase().includes(t)||(r.numero||'').toLowerCase().includes(t);
+      return true;
+    });
+    paginaAtual=0;renderTabela();
+  }
+
+  const ST_BADGE={'Rascunho':'badge-amarelo','Calculado':'badge-azul','Pago':'badge-verde','Cancelado':'badge-vermelho'};
+
+  function renderTabela(){
+    const tbody=document.getElementById('tbodyFolha');
+    const inicio=paginaAtual*POR_PAGINA;const pag=filtrados.slice(inicio,inicio+POR_PAGINA);
+    document.getElementById('paginacaoInfo').textContent=`${filtrados.length} registro(s) · página ${paginaAtual+1} de ${Math.max(1,Math.ceil(filtrados.length/POR_PAGINA))}`;
+    document.getElementById('btnAnterior').disabled=paginaAtual===0;
+    document.getElementById('btnProximo').disabled=inicio+POR_PAGINA>=filtrados.length;
+    if(!pag.length){tbody.innerHTML='<tr><td colspan="9" class="crud-vazio">Nenhum lançamento encontrado.</td></tr>';return;}
+    tbody.innerHTML=pag.map(r=>`<tr>
+      <td style="font-family:monospace;font-size:12px">${r.numero||'—'}</td>
+      <td>${nomeFunc(r.funcionario_id)}</td>
+      <td>${r.competencia?r.competencia.substring(0,7):'—'}</td>
+      <td>${fmtBRL(r.salario_bruto)}</td>
+      <td>${fmtBRL(r.inss)}</td>
+      <td>${fmtBRL(r.irrf)}</td>
+      <td style="font-weight:700;color:var(--color-success)">${fmtBRL(r.salario_liquido)}</td>
+      <td><span class="${ST_BADGE[r.status]||'badge-amarelo'}">${r.status||'Rascunho'}</span></td>
+      <td class="crud-acts"><button class="btn-ed" onclick="abrirModalEditar('${r.id}')">✏️</button><button class="btn-del" onclick="confirmarExcluir('${r.id}','${(r.numero||'').replace(/'/g,"\\'")}')">🗑️</button></td>
+    </tr>`).join('');
+  }
+
+  function mudarPagina(dir){paginaAtual+=dir;renderTabela();window.scrollTo(0,0);}
+
+  async function abrirModalNovo(){
+    modoEdicao=false;idEdicao=null;
+    document.getElementById('modalTitulo').textContent='Novo Lançamento de Folha';
+    document.getElementById('formFolha').reset();
+    document.getElementById('msgModal').style.display='none';
+    document.getElementById('fNumero').value=await sbProximoNumero('rh_folha_lancamentos','numero','FL');
+    document.getElementById('fCompetencia').value=`${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,'0')}`;
+    document.getElementById('fStatus').value='Rascunho';
+    ['fHorasExtras','fAdicionalNoturno','fOutrosProventos','fDescontoFaltas','fOutrosDescontos'].forEach(id=>document.getElementById(id).value=0);
+    calcular();
+    document.getElementById('modalFormulario').style.display='flex';
+  }
+
+  async function abrirModalEditar(id){
+    modoEdicao=true;idEdicao=id;
+    document.getElementById('modalTitulo').textContent='Editar Lançamento';
+    document.getElementById('msgModal').style.display='none';
+    const r=todos.find(x=>x.id===id);if(!r)return;
+    document.getElementById('fNumero').value=r.numero||'';
+    document.getElementById('fFuncionario').value=r.funcionario_id||'';
+    document.getElementById('fCompetencia').value=r.competencia||'';
+    document.getElementById('fSalarioBase').value=r.salario_base||0;
+    document.getElementById('fHorasExtras').value=r.horas_extras||0;
+    document.getElementById('fAdicionalNoturno').value=r.adicional_noturno||0;
+    document.getElementById('fOutrosProventos').value=r.outros_proventos||0;
+    document.getElementById('fDescontoFaltas').value=r.desconto_faltas||0;
+    document.getElementById('fOutrosDescontos').value=r.outros_descontos||0;
+    document.getElementById('fStatus').value=r.status||'Rascunho';
+    document.getElementById('fObs').value=r.observacoes||'';
+    calcular();
+    document.getElementById('modalFormulario').style.display='flex';
+  }
+
+  function fecharModal(){document.getElementById('modalFormulario').style.display='none';}
+  function fecharSeClicouFora(e,id){if(e.target.id===id)document.getElementById(id).style.display='none';}
+
+  async function salvar(e){
+    e.preventDefault();
+    const funcId=document.getElementById('fFuncionario').value;
+    const comp=document.getElementById('fCompetencia').value;
+    if(!funcId){msgModal('Selecione o funcionário.');return;}
+    if(!comp){msgModal('Competência é obrigatória.');return;}
+    const base=parseFloat(document.getElementById('fSalarioBase').value)||0;
+    if(!base){msgModal('Salário base é obrigatório.');return;}
+    const dados={
+      numero:document.getElementById('fNumero').value,
+      funcionario_id:funcId,
+      competencia:comp+'-01',
+      salario_base:base,
+      horas_extras:parseFloat(document.getElementById('fHorasExtras').value)||0,
+      adicional_noturno:parseFloat(document.getElementById('fAdicionalNoturno').value)||0,
+      outros_proventos:parseFloat(document.getElementById('fOutrosProventos').value)||0,
+      salario_bruto:parseFloat(document.getElementById('fSalarioBruto').value)||0,
+      inss:parseFloat(document.getElementById('fInss').value)||0,
+      irrf:parseFloat(document.getElementById('fIrrf').value)||0,
+      desconto_faltas:parseFloat(document.getElementById('fDescontoFaltas').value)||0,
+      outros_descontos:parseFloat(document.getElementById('fOutrosDescontos').value)||0,
+      total_deducoes:parseFloat(document.getElementById('fTotalDeducoes').value)||0,
+      salario_liquido:parseFloat(document.getElementById('fLiquido').value)||0,
+      status:document.getElementById('fStatus').value,
+      observacoes:document.getElementById('fObs').value.trim()||null
+    };
+    try{
+      if(modoEdicao)await sbAtualizar('rh_folha_lancamentos',idEdicao,dados);
+      else          await sbInserir('rh_folha_lancamentos',dados);
+      fecharModal();await carregar();msg(modoEdicao?'Lançamento atualizado!':'Lançamento registrado!');
+    }catch(err){msgModal('Erro: '+err.message);}
+  }
+
+  function confirmarExcluir(id,nome){idParaExcluir=id;document.getElementById('nomeExcluir').textContent=nome;document.getElementById('modalExcluir').style.display='flex';}
+  function fecharModalExcluir(){document.getElementById('modalExcluir').style.display='none';}
+  async function excluirConfirmado(){try{await sbExcluir('rh_folha_lancamentos',idParaExcluir);fecharModalExcluir();await carregar();msg('Lançamento excluído.','ok');}catch(e){fecharModalExcluir();msg('Erro: '+e.message,'err');}}
+
+  carregar();
+</script>
+</body>
+</html>

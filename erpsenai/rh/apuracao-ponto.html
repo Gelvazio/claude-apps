@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Apuração de Ponto</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}.sidebar{width:240px;background:var(--color-surface);border-right:1px solid var(--color-border-faint);display:flex;flex-direction:column;position:fixed;top:56px;left:0;bottom:0;overflow-y:auto;z-index:50;transition:transform .25s}.sidebar-section{padding:20px 0 4px}.sidebar-section-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:1.2px;text-transform:uppercase;padding:0 20px 6px}.sidebar-link{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--color-text-muted);text-decoration:none;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s}.sidebar-link:hover{background:#e8f0fe;color:var(--color-primary)}.sidebar-link.ativo{background:#e8f0fe;color:var(--color-primary);border-left-color:var(--color-primary);font-weight:600}[data-theme="dark"] .sidebar-link:hover,[data-theme="dark"] .sidebar-link.ativo{background:#1e2554;color:#7aa3d4}.sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}.main{margin-left:240px;padding:28px 32px;flex:1}@media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:16px}.sidebar.open{transform:translateX(0)}}.page-header{margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}.page-header h1{font-size:22px;font-weight:700;color:var(--color-text)}.page-header p{font-size:13px;color:var(--color-text-muted);margin-top:2px}.btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}@media(max-width:768px){.btn-menu{display:flex}}.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}.sidebar-overlay.show{display:block}.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}.filter-btn{padding:7px 14px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:12px;font-weight:600;background:var(--color-surface);color:var(--color-text-muted);cursor:pointer;font-family:inherit}.filter-btn.ativo{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}.content-section{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:24px}.card-stat{background:var(--color-surface);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow-sm);border:1px solid var(--color-border-faint)}.card-stat-value{font-size:28px;font-weight:800;color:var(--color-primary);line-height:1}.card-stat-label{font-size:12px;color:var(--color-text-muted);margin-top:4px}.card-stat.verde .card-stat-value{color:var(--color-success)}.card-stat.vermelho .card-stat-value{color:var(--color-error)}.card-stat.amarelo .card-stat-value{color:#f59e0b}.paginacao{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--color-border-faint);font-size:12px;color:var(--color-text-muted)}.paginacao-btns{display:flex;gap:6px}.pag-btn{padding:4px 10px;border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface);color:var(--color-text-muted);font-size:12px;cursor:pointer;font-family:inherit}.pag-btn:disabled{opacity:.4;cursor:default}
+  </style>
+  <script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <script src="../gamificacao/gamif.js"></script>
+</head>
+<body>
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page-header">
+      <div><h1>📋 Apuração de Ponto</h1><p>Resumo do espelho de ponto por funcionário e período</p></div>
+    </div>
+    <!-- Filtros -->
+    <div class="toolbar" style="background:var(--color-surface);padding:16px;border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);margin-bottom:20px;flex-wrap:wrap;gap:12px">
+      <div style="display:flex;flex-direction:column;gap:4px;min-width:180px">
+        <label style="font-size:10px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase">Período (Mês/Ano)</label>
+        <input type="month" id="filtroPeriodo" class="filter-btn" style="cursor:pointer">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;min-width:200px">
+        <label style="font-size:10px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase">Funcionário</label>
+        <select id="filtroFunc" class="filter-btn" style="cursor:pointer"><option value="">Todos</option></select>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px;min-width:200px">
+        <label style="font-size:10px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase">Departamento</label>
+        <select id="filtroDep" class="filter-btn" style="cursor:pointer"><option value="">Todos</option></select>
+      </div>
+      <div style="display:flex;align-items:flex-end">
+        <button class="btn" onclick="carregar()">🔍 Apurar</button>
+      </div>
+    </div>
+
+    <!-- Cards resumo -->
+    <div class="card-grid" id="cardsResumo" style="display:none">
+      <div class="card-stat"><div class="card-stat-value" id="statDias">—</div><div class="card-stat-label">Dias registrados</div></div>
+      <div class="card-stat verde"><div class="card-stat-value" id="statHorasTot">—</div><div class="card-stat-label">Total horas trabalhadas</div></div>
+      <div class="card-stat amarelo"><div class="card-stat-value" id="statExtras">—</div><div class="card-stat-label">Horas extras</div></div>
+      <div class="card-stat vermelho"><div class="card-stat-value" id="statFaltas">—</div><div class="card-stat-label">Faltas</div></div>
+      <div class="card-stat"><div class="card-stat-value" id="statAtestados">—</div><div class="card-stat-label">Atestados</div></div>
+    </div>
+
+    <!-- Tabela -->
+    <div class="content-section">
+      <div class="crud-table-wrap">
+        <table class="crud-table">
+          <thead><tr><th>Funcionário</th><th>Depto</th><th>Dias</th><th>H. Trabalhadas</th><th>H. Extras</th><th>Faltas</th><th>F. Justif.</th><th>Atestados</th></tr></thead>
+          <tbody id="tbodyApuracao"><tr><td colspan="8" class="crud-vazio">Selecione o período e clique em Apurar.</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao();
+  document.getElementById('roleBadge').textContent=sbPerfil()||'';
+  (function(){const t=localStorage.getItem('senai_tema')||'light';const btn=document.getElementById('btnTema');btn.textContent=t==='dark'?'☀️ Claro':'🌙 Escuro';btn.onclick=()=>{const n=sbToggleTema();btn.textContent=n==='dark'?'☀️ Claro':'🌙 Escuro';};})();
+  function sair(){sbLogout('../index.html');}
+  function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('show');}
+
+  const hoje=new Date();
+  document.getElementById('filtroPeriodo').value=`${hoje.getFullYear()}-${String(hoje.getMonth()+1).padStart(2,'0')}`;
+
+  let funcionarios=[],departamentos=[];
+
+  async function init(){
+    [funcionarios,departamentos]=await Promise.all([
+      sbListar('rh_funcionarios','ativo=eq.true&order=nome.asc'),
+      sbListar('rh_departamentos','ativo=eq.true&order=nome.asc')
+    ]);
+    document.getElementById('filtroFunc').innerHTML='<option value="">Todos</option>'+funcionarios.map(f=>`<option value="${f.id}">${f.nome}</option>`).join('');
+    document.getElementById('filtroDep').innerHTML='<option value="">Todos</option>'+departamentos.map(d=>`<option value="${d.id}">${d.nome}</option>`).join('');
+  }
+
+  function nomeDep(id){const d=departamentos.find(x=>x.id===id);return d?d.nome:'—';}
+
+  async function carregar(){
+    const mes=document.getElementById('filtroPeriodo').value;
+    const funcId=document.getElementById('filtroFunc').value;
+    const depId=document.getElementById('filtroDep').value;
+    if(!mes){alert('Selecione um período.');return;}
+
+    document.getElementById('tbodyApuracao').innerHTML='<tr><td colspan="8" class="crud-vazio">Carregando…</td></tr>';
+
+    let query=`data=gte.${mes}-01&data=lte.${mes}-31&order=funcionario_id.asc`;
+    if(funcId)query+=`&funcionario_id=eq.${funcId}`;
+
+    const registros=await sbListar('rh_ponto',query);
+
+    let funcsFiltrados=funcionarios;
+    if(funcId)funcsFiltrados=funcionarios.filter(f=>f.id===funcId);
+    if(depId)funcsFiltrados=funcsFiltrados.filter(f=>f.departamento_id===depId);
+
+    // Agrupar por funcionário
+    const mapa={};
+    registros.forEach(r=>{
+      if(!mapa[r.funcionario_id])mapa[r.funcionario_id]={dias:0,ht:0,he:0,faltas:0,fJust:0,atestados:0};
+      const m=mapa[r.funcionario_id];
+      m.dias++;
+      m.ht+=parseFloat(r.horas_trabalhadas||0);
+      const he=parseFloat(r.horas_extras||0);
+      if(he>0)m.he+=he;
+      if(r.ocorrencia==='Falta')m.faltas++;
+      if(r.ocorrencia==='Falta Justificada')m.fJust++;
+      if(r.ocorrencia==='Atestado')m.atestados++;
+    });
+
+    const tbody=document.getElementById('tbodyApuracao');
+    if(!funcsFiltrados.length){tbody.innerHTML='<tr><td colspan="8" class="crud-vazio">Nenhum funcionário encontrado.</td></tr>';return;}
+
+    let totalDias=0,totalHT=0,totalHE=0,totalF=0,totalAt=0;
+    tbody.innerHTML=funcsFiltrados.map(f=>{
+      const m=mapa[f.id]||{dias:0,ht:0,he:0,faltas:0,fJust:0,atestados:0};
+      totalDias+=m.dias;totalHT+=m.ht;totalHE+=m.he;totalF+=m.faltas;totalAt+=m.atestados;
+      return`<tr>
+        <td>${f.nome}</td>
+        <td>${nomeDep(f.departamento_id)}</td>
+        <td style="text-align:center">${m.dias}</td>
+        <td>${m.ht.toFixed(1)}h</td>
+        <td>${m.he>0?'<span style="color:#16a34a;font-weight:700">+'+m.he.toFixed(1)+'h</span>':'0h'}</td>
+        <td>${m.faltas>0?'<span style="color:#dc2626;font-weight:700">'+m.faltas+'</span>':'0'}</td>
+        <td>${m.fJust}</td>
+        <td>${m.atestados}</td>
+      </tr>`;
+    }).join('');
+
+    document.getElementById('statDias').textContent=totalDias;
+    document.getElementById('statHorasTot').textContent=totalHT.toFixed(1)+'h';
+    document.getElementById('statExtras').textContent='+'+totalHE.toFixed(1)+'h';
+    document.getElementById('statFaltas').textContent=totalF;
+    document.getElementById('statAtestados').textContent=totalAt;
+    document.getElementById('cardsResumo').style.display='grid';
+  }
+
+  init();
+</script>
+</body>
+</html>

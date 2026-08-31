@@ -1,0 +1,1477 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ERP — Admin Gamificação</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <script src="gamif.js"></script>
+    <style>
+      .app-layout {
+        display: flex;
+        min-height: calc(100vh - 56px);
+      }
+      .sidebar {
+        width: 240px;
+        background: var(--color-surface);
+        border-right: 1px solid var(--color-border-faint);
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 56px;
+        left: 0;
+        bottom: 0;
+        overflow-y: auto;
+        z-index: 50;
+        transition: transform 0.25s;
+      }
+      .sidebar-section {
+        padding: 20px 0 4px;
+      }
+      .sidebar-section-label {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--color-text-disabled);
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        padding: 0 20px 6px;
+      }
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 20px;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-text-muted);
+        text-decoration: none;
+        border-left: 3px solid transparent;
+        transition:
+          background 0.15s,
+          color 0.15s,
+          border-color 0.15s;
+      }
+      .sidebar-link:hover {
+        background: #e8f0fe;
+        color: var(--color-primary);
+      }
+      .sidebar-link.ativo {
+        background: #e8f0fe;
+        color: var(--color-primary);
+        border-left-color: var(--color-primary);
+        font-weight: 600;
+      }
+      [data-theme='dark'] .sidebar-link:hover,
+      [data-theme='dark'] .sidebar-link.ativo {
+        background: #1e2554;
+        color: #7aa3d4;
+      }
+      .sidebar-icon {
+        font-size: 16px;
+        width: 20px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+      .main {
+        margin-left: 240px;
+        padding: 28px 32px;
+        flex: 1;
+      }
+      @media (max-width: 768px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+        .main {
+          margin-left: 0;
+          padding: 16px;
+        }
+        .sidebar.open {
+          transform: translateX(0);
+        }
+      }
+      .sidebar-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 49;
+      }
+      .sidebar-overlay.show {
+        display: block;
+      }
+      .btn-menu {
+        display: none;
+        background: rgba(255, 255, 255, 0.15);
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+      }
+      @media (max-width: 768px) {
+        .btn-menu {
+          display: flex;
+        }
+      }
+      /* Abas */
+      .abas {
+        display: flex;
+        gap: 4px;
+        border-bottom: 2px solid var(--color-border-faint);
+        margin-bottom: 20px;
+      }
+      .aba {
+        padding: 10px 18px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--color-text-muted);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -2px;
+        background: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        font-family: inherit;
+      }
+      .aba.ativa {
+        color: var(--color-primary);
+        border-bottom-color: var(--color-primary);
+      }
+      .painel {
+        display: none;
+      }
+      .painel.ativo {
+        display: block;
+      }
+      /* Cards métricas */
+      .metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 14px;
+        margin-bottom: 24px;
+      }
+      .metric-card {
+        background: var(--color-surface);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-sm);
+        padding: 16px;
+      }
+      .metric-val {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--color-primary);
+      }
+      .metric-label {
+        font-size: 12px;
+        color: var(--color-text-muted);
+        margin-top: 4px;
+      }
+      /* Tabela */
+      .section-card {
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+      .section-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--color-border-faint);
+      }
+      .section-card-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--color-text);
+      }
+      .crud-table-wrap {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 10px 14px;
+        text-align: left;
+        font-size: 13px;
+        border-bottom: 1px solid var(--color-border-faint);
+      }
+      th {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--color-text-disabled);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background: var(--color-surface-2);
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      .badge-tipo {
+        padding: 2px 8px;
+        border-radius: 100px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .badge-tipo.onboarding {
+        background: #e8f0fe;
+        color: #1a56db;
+      }
+      .badge-tipo.especial {
+        background: #fef3c7;
+        color: #92400e;
+      }
+      .badge-tipo.modulo {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      /* Modal */
+      .crud-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 200;
+        align-items: center;
+        justify-content: center;
+        padding: 12px;
+      }
+      .crud-backdrop.show {
+        display: flex;
+      }
+      .crud-modal {
+        background: var(--color-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        width: 100%;
+        max-width: 520px;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+      }
+      .crud-modal-header {
+        padding: 16px 20px;
+        border-bottom: 1px solid var(--color-border-faint);
+        font-weight: 700;
+        font-size: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .modal-body-scroll {
+        overflow-y: auto;
+        padding: 20px;
+        flex: 1;
+      }
+      .modal-footer {
+        padding: 12px 20px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        border-top: 1px solid var(--color-border-faint);
+        background: var(--color-surface-2);
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 12px;
+      }
+      .form-label {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        padding: 9px 12px;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-md);
+        font-size: 13px;
+        color: var(--color-text);
+        background: var(--color-surface-3);
+        font-family: inherit;
+        outline: none;
+      }
+      .form-input:focus,
+      .form-select:focus {
+        border-color: var(--color-primary);
+      }
+      @media (max-width: 600px) {
+        .form-input,
+        .form-select,
+        .form-textarea {
+          font-size: 16px;
+        }
+      }
+      /* ── Agente Tele Vendas ── */
+      .tv-card{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);padding:20px 24px;margin-bottom:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+      .tv-dot{width:14px;height:14px;border-radius:50%;background:#aaa;flex-shrink:0;transition:background .3s}
+      .tv-dot.ativo{background:#16a34a;box-shadow:0 0 0 4px rgba(22,163,74,.2);animation:tvpulse 1.2s ease-in-out infinite}
+      @keyframes tvpulse{0%,100%{box-shadow:0 0 0 4px rgba(22,163,74,.2)}50%{box-shadow:0 0 0 8px rgba(22,163,74,.05)}}
+      .tv-status-text{font-size:14px;font-weight:700;color:var(--color-text);flex:1;min-width:140px}
+      .tv-counter{font-size:13px;color:var(--color-text-muted);white-space:nowrap}
+      .tv-cfg{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px;background:var(--color-surface-2);border-radius:var(--radius-md);padding:12px 16px;border:1px solid var(--color-border-faint)}
+      .tv-cfg-item{display:flex;flex-direction:column;gap:3px}
+      .tv-cfg-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase;letter-spacing:.8px}
+      .tv-cfg-val{font-size:13px;font-weight:600;color:var(--color-text)}
+      .tv-btn-start{background:#16a34a;color:#fff;border:none;border-radius:8px;padding:9px 22px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;transition:background .15s}
+      .tv-btn-start:hover{background:#15803d}
+      .tv-btn-stop{background:#dc2626;color:#fff;border:none;border-radius:8px;padding:9px 22px;font-size:14px;font-weight:700;cursor:pointer;display:none;align-items:center;gap:6px;transition:background .15s}
+      .tv-btn-stop:hover{background:#b91c1c}
+      .tv-btn-clear{background:var(--color-surface-2);color:var(--color-text-muted);border:1px solid var(--color-border);border-radius:8px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s}
+      .tv-btn-clear:hover{background:var(--color-border-faint)}
+      .tv-val-badge{font-weight:700;color:#16a34a}
+      .progress-bar-wrap{width:100%;height:4px;background:var(--color-border-faint);border-radius:100px;overflow:hidden;margin-top:4px}
+      .progress-bar-fill{height:100%;background:#16a34a;border-radius:100px;width:0%;transition:width 1s linear}
+      /* ── Accordion sidebar ── */
+      .sidebar-section-label{cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:0 20px 6px;user-select:none}
+      .sidebar-section-label::after{content:'▸';font-size:11px;transition:transform .2s;color:var(--color-text-disabled)}
+      .sidebar-section.open>.sidebar-section-label::after{transform:rotate(90deg)}
+      .sidebar-section-links{display:none}
+      .sidebar-section.open>.sidebar-section-links{display:block}
+      /* ── TV config form ── */
+      .tv-cfg-form{background:var(--color-surface-2);border:1px solid var(--color-border-faint);border-radius:var(--radius-md);padding:16px;margin-bottom:16px}
+      .tv-cfg-form-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;align-items:flex-end}
+      .tv-cfg-form-field{display:flex;flex-direction:column;gap:4px}
+      .tv-cfg-form-field label{font-size:10px;font-weight:700;color:var(--color-text-disabled);text-transform:uppercase;letter-spacing:.8px}
+      .tv-cfg-form-field input,.tv-cfg-form-field select{padding:7px 10px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:13px;background:var(--color-surface);color:var(--color-text);font-family:inherit;outline:none;min-width:90px}
+      .tv-cfg-form-field input:focus,.tv-cfg-form-field select:focus{border-color:var(--color-primary)}
+      .tv-select-list{max-height:150px;overflow-y:auto;border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:6px 8px;background:var(--color-surface);font-size:13px}
+      /* ── RH Gamif ── */
+      .rh-action-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+      .rh-action-card{background:var(--color-surface);border:1.5px solid var(--color-border-faint);border-radius:var(--radius-md);padding:14px 8px;cursor:pointer;transition:border-color .15s,box-shadow .15s;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+      .rh-action-card:hover{border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(0,67,132,.1)}
+      .rh-action-card.ativo{border-color:var(--color-primary);background:#e8f0fe}
+      [data-theme="dark"] .rh-action-card.ativo{background:#1e2554}
+      .rh-action-icon{font-size:28px;line-height:1}
+      .rh-action-label{font-size:11px;font-weight:700;color:var(--color-text);line-height:1.3}
+    </style>
+    <script>
+      (function () {
+        const t = localStorage.getItem('senai_tema') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
+  </head>
+  <body>
+    <script>
+      (function () {
+        const role = localStorage.getItem('erp_role');
+        if (!role) window.location.replace('../index.html');
+        if (role !== 'Administrador') {
+          alert('Acesso restrito a administradores.');
+          window.location.replace('../dashboard.html');
+        }
+      })();
+    </script>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+    <header
+      style="position:fixed;top:0;left:0;right:0;height:56px;background:var(--color-primary);display:flex;align-items:center;padding:0 20px;gap:14px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.18)"
+    >
+      <button class="btn-menu" onclick="toggleSidebar()">☰</button>
+      <span style="color:#fff;font-weight:700;font-size:16px;flex:1">⚙️ ERP SENAI</span>
+      <button
+        onclick="toggleTema()"
+        style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px"
+      >
+        🌙 Tema
+      </button>
+      <button
+        onclick="sair()"
+        style="background:rgba(255,255,255,.15);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:12px"
+      >
+        Sair
+      </button>
+    </header>
+
+    <div class="app-layout" style="margin-top:56px">
+      <aside class="sidebar" id="sidebar"></aside>
+
+      <main class="main">
+        <div style="margin-bottom:20px">
+          <h1 style="font-size:22px;font-weight:700;color:var(--color-text)">
+            ⚙️ Admin — Gamificação
+          </h1>
+        </div>
+
+        <div class="abas">
+          <button class="aba ativa" onclick="trocarAba('missoes',this)">Missões</button>
+          <button class="aba" onclick="trocarAba('grupos',this)">Grupos</button>
+          <button class="aba" onclick="trocarAba('geral',this)">Visão Geral</button>
+          <button class="aba" onclick="trocarAba('televendas',this)">📞 Tele Vendas</button>
+          <button class="aba" onclick="trocarAba('rh',this)">👥 RH</button>
+        </div>
+
+        <!-- ABA MISSÕES -->
+        <div class="painel ativo" id="painelMissoes">
+          <div class="section-card">
+            <div class="section-card-header">
+              <div class="section-card-title">Missões</div>
+              <button class="btn btn-primary" onclick="abrirModalMissao()">+ Nova Missão</button>
+            </div>
+            <div class="crud-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Título</th>
+                    <th>Evento</th>
+                    <th>Meta</th>
+                    <th>XP</th>
+                    <th>Tipo</th>
+                    <th>Grupo</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyMissoes">
+                  <tr>
+                    <td
+                      colspan="8"
+                      style="text-align:center;padding:20px;color:var(--color-text-muted)"
+                    >
+                      Carregando...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA GRUPOS -->
+        <div class="painel" id="painelGrupos">
+          <div class="section-card" style="margin-bottom:16px">
+            <div class="section-card-header">
+              <div class="section-card-title">Grupos</div>
+              <button class="btn btn-primary" onclick="abrirModalGrupo()">+ Novo Grupo</button>
+            </div>
+            <div class="crud-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Membros</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyGrupos">
+                  <tr>
+                    <td
+                      colspan="4"
+                      style="text-align:center;padding:20px;color:var(--color-text-muted)"
+                    >
+                      Carregando...
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA TELE VENDAS -->
+        <div class="painel" id="painelTelevendas">
+
+          <!-- Status card -->
+          <div class="tv-card">
+            <div class="tv-dot" id="tvDot"></div>
+            <div>
+              <div class="tv-status-text" id="tvStatusText">Agente parado</div>
+              <div class="progress-bar-wrap" style="width:160px"><div class="progress-bar-fill" id="tvProgressBar"></div></div>
+            </div>
+            <div class="tv-counter" id="tvCounter">0 pedidos enviados nesta sessão</div>
+            <div style="display:flex;gap:8px;margin-left:auto;flex-wrap:wrap">
+              <button class="tv-btn-start" id="btnTvStart" onclick="iniciarAgenteTv()">▶ Iniciar Agente</button>
+              <button class="tv-btn-stop"  id="btnTvStop"  onclick="pararAgenteTv()">⏹ Parar</button>
+              <button class="tv-btn-clear" onclick="limparTelevendas()">🗑 Limpar Agente</button>
+            </div>
+          </div>
+
+          <!-- Config form -->
+          <div class="tv-cfg-form">
+            <div style="font-size:11px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Configurações do Agente</div>
+            <div class="tv-cfg-form-row">
+              <div class="tv-cfg-form-field" style="min-width:120px">
+                <label>Pedidos / minuto</label>
+                <input type="number" id="tvPedidosMin" value="6" min="1" max="60" style="width:90px">
+              </div>
+              <div class="tv-cfg-form-field">
+                <label>Valor mínimo (R$)</label>
+                <input type="number" id="tvValMin" value="10" min="1" style="width:110px">
+              </div>
+              <div class="tv-cfg-form-field">
+                <label>Valor máximo (R$)</label>
+                <input type="number" id="tvValMax" value="100000" min="1" style="width:110px">
+              </div>
+              <div class="tv-cfg-form-field">
+                <label>Próximo envio</label>
+                <span id="tvProximo" style="font-size:13px;font-weight:700;color:var(--color-text);padding-top:5px">—</span>
+              </div>
+            </div>
+            <div class="tv-cfg-form-row" style="margin-bottom:0">
+              <div class="tv-cfg-form-field" style="flex:1;min-width:180px">
+                <label>Produto</label>
+                <select id="tvModoProduto" onchange="tvAtualizarModoProduto()">
+                  <option value="aleatorio">Aleatório</option>
+                  <option value="especifico">Específico</option>
+                  <option value="lista">Lista</option>
+                </select>
+                <div id="tvProdutoEspWrap" style="display:none;margin-top:6px">
+                  <select id="tvProdutoEsp" class="tv-cfg-form-field" style="width:100%"><option>Carregando…</option></select>
+                </div>
+                <div id="tvProdutoListaWrap" style="display:none;margin-top:6px">
+                  <div class="tv-select-list" id="tvProdutoListaCks"></div>
+                </div>
+              </div>
+              <div class="tv-cfg-form-field" style="flex:1;min-width:180px">
+                <label>Cliente</label>
+                <select id="tvModoCliente" onchange="tvAtualizarModoCliente()">
+                  <option value="aleatorio">Aleatório</option>
+                  <option value="especifico">Específico</option>
+                  <option value="lista">Lista</option>
+                </select>
+                <div id="tvClienteEspWrap" style="display:none;margin-top:6px">
+                  <select id="tvClienteEsp" style="width:100%;padding:7px 10px;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-size:13px;background:var(--color-surface);color:var(--color-text);font-family:inherit;outline:none"><option>Carregando…</option></select>
+                </div>
+                <div id="tvClienteListaWrap" style="display:none;margin-top:6px">
+                  <div class="tv-select-list" id="tvClienteListaCks"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabela de pedidos -->
+          <div class="section-card">
+            <div class="section-card-header">
+              <div class="section-card-title">Pedidos enviados pelo agente</div>
+              <button class="btn btn-secondary" style="font-size:12px;padding:5px 12px" onclick="carregarUltimosTelevendas()">🔄 Atualizar</button>
+            </div>
+            <div class="crud-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Pedido D</th>
+                    <th>Produto / Obs.</th>
+                    <th>Valor</th>
+                    <th>Data/Hora</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyTelevendas">
+                  <tr><td colspan="6" style="text-align:center;padding:20px;color:var(--color-text-muted)">Nenhum pedido enviado ainda. Clique em ▶ Iniciar Agente.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA RH -->
+        <div class="painel" id="painelRh">
+          <div class="section-card" style="margin-bottom:16px">
+            <div class="section-card-header">
+              <div class="section-card-title">👥 Ações de RH — Gamificação</div>
+            </div>
+            <div style="padding:16px">
+
+              <!-- 1. Ação -->
+              <div style="margin-bottom:16px">
+                <div style="font-size:11px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">1. Escolha a ação</div>
+                <div class="rh-action-grid">
+                  <div class="rh-action-card" onclick="selecionarAcaoRh('contratacao',this)">
+                    <div class="rh-action-icon">📝</div>
+                    <div class="rh-action-label">Contratar Funcionário</div>
+                  </div>
+                  <div class="rh-action-card" onclick="selecionarAcaoRh('demissao',this)">
+                    <div class="rh-action-icon">🚪</div>
+                    <div class="rh-action-label">Demitir Funcionário</div>
+                  </div>
+                  <div class="rh-action-card" onclick="selecionarAcaoRh('promocao',this)">
+                    <div class="rh-action-icon">⬆️</div>
+                    <div class="rh-action-label">Promover Funcionário</div>
+                  </div>
+                  <div class="rh-action-card" onclick="selecionarAcaoRh('ferias',this)">
+                    <div class="rh-action-icon">🏖️</div>
+                    <div class="rh-action-label">Iniciar Férias</div>
+                  </div>
+                  <div class="rh-action-card" onclick="selecionarAcaoRh('atestado',this)">
+                    <div class="rh-action-icon">🏥</div>
+                    <div class="rh-action-label">Iniciar Atestado</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. Funcionários -->
+              <div style="margin-bottom:16px">
+                <div style="font-size:11px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">2. Selecione o(s) funcionário(s)</div>
+                <div style="display:flex;gap:16px;align-items:center;margin-bottom:8px;flex-wrap:wrap">
+                  <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;font-weight:500">
+                    <input type="radio" name="rhModoFunc" value="aleatorio" checked onchange="rhAtualizarModoFunc()"> Aleatório
+                  </label>
+                  <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;font-weight:500">
+                    <input type="radio" name="rhModoFunc" value="especifico" onchange="rhAtualizarModoFunc()"> Específico
+                  </label>
+                  <label style="display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer;font-weight:500">
+                    <input type="radio" name="rhModoFunc" value="lista" onchange="rhAtualizarModoFunc()"> Lista (múltiplos)
+                  </label>
+                </div>
+                <div id="rhFuncEspWrap" style="display:none">
+                  <select class="form-select" id="rhFuncEsp" style="max-width:360px"><option value="">Carregando…</option></select>
+                </div>
+                <div id="rhFuncListaWrap" style="display:none">
+                  <div id="rhFuncListaCks" style="max-height:180px;overflow-y:auto;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:8px;background:var(--color-surface-2)"></div>
+                </div>
+              </div>
+
+              <!-- 3. Prioridade + Obs -->
+              <div style="display:grid;grid-template-columns:160px 1fr;gap:12px;margin-bottom:16px">
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Prioridade</div>
+                  <select class="form-select" id="rhPrioridade">
+                    <option>Normal</option>
+                    <option>Alta</option>
+                    <option>Urgente</option>
+                  </select>
+                </div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Observação</div>
+                  <input class="form-input" id="rhObs" placeholder="Informação adicional para a pendência no RH…">
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                <button class="btn btn-primary" onclick="gerarPendenciaRh()" id="btnGerarRh" disabled>📋 Gerar Pendência no RH</button>
+                <span id="rhMsg" style="font-size:13px"></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabela de pendências geradas -->
+          <div class="section-card">
+            <div class="section-card-header">
+              <div class="section-card-title">Pendências geradas</div>
+              <button class="btn btn-secondary" style="font-size:12px;padding:5px 12px" onclick="carregarPendenciasRh()">🔄 Atualizar</button>
+            </div>
+            <div class="crud-table-wrap">
+              <table>
+                <thead>
+                  <tr><th>#</th><th>Tipo</th><th>Funcionário</th><th>Prioridade</th><th>Status</th><th>Criada em</th></tr>
+                </thead>
+                <tbody id="tbodyRhPend">
+                  <tr><td colspan="6" style="text-align:center;padding:20px;color:var(--color-text-muted)">Nenhuma pendência gerada ainda.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABA VISÃO GERAL -->
+        <div class="painel" id="painelGeral">
+          <div class="metrics" id="metrics"></div>
+          <div class="section-card">
+            <div class="section-card-header">
+              <div class="section-card-title">Top 10 por XP</div>
+            </div>
+            <div class="crud-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Usuário</th>
+                    <th>Nível</th>
+                    <th>XP Total</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyTop"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal Missão -->
+    <div class="crud-backdrop" id="modalMissao">
+      <div class="crud-modal">
+        <div class="crud-modal-header">
+          <span id="modalMissaoTitulo">Nova Missão</span
+          ><button
+            onclick="fecharModalMissao()"
+            style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--color-text-muted)"
+          >
+            ×
+          </button>
+        </div>
+        <div class="modal-body-scroll">
+          <div class="form-group">
+            <label class="form-label">Título *</label
+            ><input class="form-input" id="mTitulo" placeholder="Ex: Crie 3 pedidos de compra" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Descrição</label
+            ><textarea class="form-textarea form-input" id="mDesc" rows="2"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Evento *</label>
+            <select class="form-select" id="mEvento">
+              <option value="">Selecione...</option>
+              <option value="cliente_cadastrado">cliente_cadastrado</option>
+              <option value="fornecedor_cadastrado">fornecedor_cadastrado</option>
+              <option value="produto_cadastrado">produto_cadastrado</option>
+              <option value="solicitacao_criada">solicitacao_criada</option>
+              <option value="pedido_compra_criado">pedido_compra_criado</option>
+              <option value="recebimento_registrado">recebimento_registrado</option>
+              <option value="nota_fiscal_compra_lancada">nota_fiscal_compra_lancada</option>
+              <option value="movimentacao_estoque">movimentacao_estoque</option>
+              <option value="inventario_realizado">inventario_realizado</option>
+              <option value="pedido_venda_criado">pedido_venda_criado</option>
+              <option value="expedicao_confirmada">expedicao_confirmada</option>
+              <option value="entrega_confirmada">entrega_confirmada</option>
+            </select>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div class="form-group">
+              <label class="form-label">Meta (repetições) *</label
+              ><input class="form-input" id="mMeta" type="number" min="1" value="1" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">XP *</label
+              ><input class="form-input" id="mXp" type="number" min="1" value="50" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tipo</label>
+            <select class="form-select" id="mTipo">
+              <option value="modulo">Por Módulo</option>
+              <option value="especial">Especial</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Grupo</label
+            ><select class="form-select" id="mGrupo">
+              <option value="">Todos os grupos</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Prazo</label
+            ><input class="form-input" id="mPrazo" type="date" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="fecharModalMissao()">Cancelar</button>
+          <button class="btn btn-primary" onclick="salvarMissao()">Salvar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Grupo -->
+    <div class="crud-backdrop" id="modalGrupo">
+      <div class="crud-modal">
+        <div class="crud-modal-header">
+          <span id="modalGrupoTitulo">Novo Grupo</span
+          ><button
+            onclick="fecharModalGrupo()"
+            style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--color-text-muted)"
+          >
+            ×
+          </button>
+        </div>
+        <div class="modal-body-scroll">
+          <div class="form-group">
+            <label class="form-label">Nome *</label
+            ><input class="form-input" id="gNome" placeholder="Ex: Turma 2026-A" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tipo</label>
+            <select class="form-select" id="gTipo">
+              <option value="turma">Turma</option>
+              <option value="setor">Setor</option>
+            </select>
+          </div>
+          <div class="form-group" id="grupoMembrosWrap" style="display:none">
+            <label class="form-label">Membros</label>
+            <div
+              id="grupoMembros"
+              style="max-height:200px;overflow-y:auto;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:8px"
+            ></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="fecharModalGrupo()">Cancelar</button>
+          <button class="btn btn-primary" onclick="salvarGrupo()">Salvar</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const SB_URL = 'https://vdhahqicqlrdvcpesiwk.supabase.co/rest/v1';
+      const SB_KEY =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZkaGFocWljcWxyZHZjcGVzaXdrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY3MTI3OTYsImV4cCI6MjEwMjI4ODc5Nn0.7ACHuUUv6VMyy4-BbQcdAcmabMtqhiuVgrTGUUcV7RY';
+      const HDR = {
+        apikey: SB_KEY,
+        Authorization: `Bearer ${SB_KEY}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=representation'
+      };
+
+      const NIVEL_NOMES = [
+        '',
+        'Iniciante',
+        'Aprendiz',
+        'Operador',
+        'Analista',
+        'Especialista',
+        'Sênior',
+        'Master ERP'
+      ];
+
+      async function get(path) {
+        const r = await fetch(`${SB_URL}/${path}`, { headers: HDR });
+        return r.json();
+      }
+      async function post(path, body) {
+        const r = await fetch(`${SB_URL}/${path}`, {
+          method: 'POST',
+          headers: HDR,
+          body: JSON.stringify(body)
+        });
+        return r.json();
+      }
+      async function patch(path, body) {
+        const r = await fetch(`${SB_URL}/${path}`, {
+          method: 'PATCH',
+          headers: HDR,
+          body: JSON.stringify(body)
+        });
+        return r.json();
+      }
+      async function del(path) {
+        await fetch(`${SB_URL}/${path}`, { method: 'DELETE', headers: HDR });
+      }
+
+      let _grupos = [],
+        _usuarios = [],
+        _idEdicaoMissao = null,
+        _idEdicaoGrupo = null;
+
+      // ── Accordion sidebar ──
+      document.querySelectorAll('.sidebar-section-label').forEach(lbl => {
+        lbl.addEventListener('click', () => lbl.closest('.sidebar-section').classList.toggle('open'));
+      });
+
+      // ── Abas ──
+      function trocarAba(nome, btn) {
+        document.querySelectorAll('.painel').forEach((p) => p.classList.remove('ativo'));
+        document.querySelectorAll('.aba').forEach((b) => b.classList.remove('ativa'));
+        document
+          .getElementById('painel' + nome.charAt(0).toUpperCase() + nome.slice(1))
+          .classList.add('ativo');
+        btn.classList.add('ativa');
+        if (nome === 'geral') carregarGeral();
+        if (nome === 'grupos') carregarGrupos();
+        if (nome === 'missoes') carregarMissoes();
+        if (nome === 'televendas') iniciarAbaTelevendas();
+        if (nome === 'rh') iniciarAbaRh();
+      }
+
+      // ── Missões ──
+      async function carregarMissoes() {
+        const [missoes, grupos] = await Promise.all([
+          get(
+            'gamif_missoes?order=tipo.asc,created_at.desc&select=id,titulo,evento,meta,xp,tipo,grupo_id,ativo'
+          ),
+          get('gamif_grupos?select=id,nome')
+        ]);
+        _grupos = grupos;
+        const gMap = {};
+        grupos.forEach((g) => {
+          gMap[g.id] = g.nome;
+        });
+
+        const tipos = { onboarding: 'onboarding', modulo: 'modulo', especial: 'especial' };
+        document.getElementById('tbodyMissoes').innerHTML = missoes
+          .map(
+            (m) => `
+      <tr>
+        <td>${m.titulo}</td>
+        <td style="font-size:11px;color:var(--color-text-muted)">${m.evento}</td>
+        <td>${m.meta}</td>
+        <td style="font-weight:700;color:var(--color-primary)">${m.xp}</td>
+        <td><span class="badge-tipo ${tipos[m.tipo] || 'modulo'}">${m.tipo}</span></td>
+        <td>${m.grupo_id ? gMap[m.grupo_id] || '—' : 'Todos'}</td>
+        <td><span style="font-size:11px;font-weight:600;color:${m.ativo ? 'var(--color-success)' : 'var(--color-text-disabled)'}">${m.ativo ? 'Ativa' : 'Inativa'}</span></td>
+        <td>
+          ${
+            m.tipo !== 'onboarding'
+              ? `<button class="btn btn-secondary" style="font-size:11px;padding:4px 8px" onclick="editarMissao('${m.id}')">Editar</button>
+          <button class="btn btn-secondary" style="font-size:11px;padding:4px 8px;margin-left:4px" onclick="toggleMissao('${m.id}',${m.ativo})">${m.ativo ? 'Desativar' : 'Ativar'}</button>`
+              : '<span style="font-size:11px;color:var(--color-text-disabled)">Fixo</span>'
+          }
+        </td>
+      </tr>
+    `
+          )
+          .join('');
+
+        // Popular select de grupos no modal
+        const sel = document.getElementById('mGrupo');
+        sel.innerHTML =
+          '<option value="">Todos os grupos</option>' +
+          grupos.map((g) => `<option value="${g.id}">${g.nome}</option>`).join('');
+      }
+
+      function abrirModalMissao() {
+        _idEdicaoMissao = null;
+        document.getElementById('modalMissaoTitulo').textContent = 'Nova Missão';
+        ['mTitulo', 'mDesc', 'mEvento', 'mGrupo', 'mPrazo'].forEach((id) => {
+          document.getElementById(id).value = '';
+        });
+        document.getElementById('mMeta').value = '1';
+        document.getElementById('mXp').value = '50';
+        document.getElementById('mTipo').value = 'modulo';
+        document.getElementById('modalMissao').classList.add('show');
+      }
+
+      async function editarMissao(id) {
+        const rows = await get(`gamif_missoes?id=eq.${id}&select=*`);
+        const m = rows[0];
+        if (!m) return;
+        _idEdicaoMissao = id;
+        document.getElementById('modalMissaoTitulo').textContent = 'Editar Missão';
+        document.getElementById('mTitulo').value = m.titulo;
+        document.getElementById('mDesc').value = m.descricao || '';
+        document.getElementById('mEvento').value = m.evento;
+        document.getElementById('mMeta').value = m.meta;
+        document.getElementById('mXp').value = m.xp;
+        document.getElementById('mTipo').value = m.tipo;
+        document.getElementById('mGrupo').value = m.grupo_id || '';
+        document.getElementById('mPrazo').value = m.prazo || '';
+        document.getElementById('modalMissao').classList.add('show');
+      }
+
+      async function salvarMissao() {
+        const titulo = document.getElementById('mTitulo').value.trim();
+        const evento = document.getElementById('mEvento').value;
+        const meta = parseInt(document.getElementById('mMeta').value) || 1;
+        const xp = parseInt(document.getElementById('mXp').value) || 0;
+        if (!titulo || !evento || !xp) {
+          alert('Preencha título, evento e XP.');
+          return;
+        }
+
+        const dados = {
+          titulo,
+          descricao: document.getElementById('mDesc').value.trim() || null,
+          evento,
+          meta,
+          xp,
+          tipo: document.getElementById('mTipo').value,
+          grupo_id: document.getElementById('mGrupo').value || null,
+          prazo: document.getElementById('mPrazo').value || null
+        };
+
+        if (_idEdicaoMissao) {
+          await patch(`gamif_missoes?id=eq.${_idEdicaoMissao}`, dados);
+        } else {
+          await post('gamif_missoes', dados);
+        }
+        fecharModalMissao();
+        carregarMissoes();
+      }
+
+      async function toggleMissao(id, ativo) {
+        await patch(`gamif_missoes?id=eq.${id}`, { ativo: !ativo });
+        carregarMissoes();
+      }
+
+      function fecharModalMissao() {
+        document.getElementById('modalMissao').classList.remove('show');
+      }
+
+      // ── Grupos ──
+      async function carregarGrupos() {
+        const [grupos, membros] = await Promise.all([
+          get('gamif_grupos?order=nome.asc&select=id,nome,tipo'),
+          get('gamif_usuario_grupo?select=grupo_id,usuario_id')
+        ]);
+        _grupos = grupos;
+        const countMap = {};
+        membros.forEach((m) => {
+          countMap[m.grupo_id] = (countMap[m.grupo_id] || 0) + 1;
+        });
+
+        document.getElementById('tbodyGrupos').innerHTML = grupos
+          .map(
+            (g) => `
+      <tr>
+        <td style="font-weight:600">${g.nome}</td>
+        <td>${g.tipo}</td>
+        <td>${countMap[g.id] || 0} membro(s)</td>
+        <td>
+          <button class="btn btn-secondary" style="font-size:11px;padding:4px 8px" onclick="gerenciarMembros('${g.id}','${g.nome}')">Membros</button>
+          <button class="btn btn-secondary" style="font-size:11px;padding:4px 8px;margin-left:4px;color:var(--color-error)" onclick="excluirGrupo('${g.id}')">Excluir</button>
+        </td>
+      </tr>
+    `
+          )
+          .join('');
+      }
+
+      function abrirModalGrupo() {
+        _idEdicaoGrupo = null;
+        document.getElementById('modalGrupoTitulo').textContent = 'Novo Grupo';
+        document.getElementById('gNome').value = '';
+        document.getElementById('gTipo').value = 'turma';
+        document.getElementById('grupoMembrosWrap').style.display = 'none';
+        document.getElementById('modalGrupo').classList.add('show');
+      }
+
+      async function salvarGrupo() {
+        const nome = document.getElementById('gNome').value.trim();
+        if (!nome) {
+          alert('Nome é obrigatório.');
+          return;
+        }
+        const dados = { nome, tipo: document.getElementById('gTipo').value };
+        if (_idEdicaoGrupo) {
+          await patch(`gamif_grupos?id=eq.${_idEdicaoGrupo}`, dados);
+        } else {
+          await post('gamif_grupos', dados);
+        }
+        fecharModalGrupo();
+        carregarGrupos();
+      }
+
+      async function gerenciarMembros(gid, gnome) {
+        _idEdicaoGrupo = gid;
+        document.getElementById('modalGrupoTitulo').textContent = `Membros — ${gnome}`;
+        document.getElementById('gNome').value = gnome;
+        document.getElementById('grupoMembrosWrap').style.display = 'block';
+
+        const [usuarios, membros] = await Promise.all([
+          get('erp_usuarios?status=eq.true&order=nome.asc&select=id,nome'),
+          get(`gamif_usuario_grupo?grupo_id=eq.${gid}&select=usuario_id`)
+        ]);
+        _usuarios = usuarios;
+        const memSet = new Set(membros.map((m) => m.usuario_id));
+
+        document.getElementById('grupoMembros').innerHTML = usuarios
+          .map(
+            (u) => `
+      <label style="display:flex;align-items:center;gap:8px;padding:6px 0;cursor:pointer">
+        <input type="checkbox" ${memSet.has(u.id) ? 'checked' : ''} data-uid="${u.id}" style="width:16px;height:16px">
+        <span style="font-size:13px">${u.nome}</span>
+      </label>
+    `
+          )
+          .join('');
+
+        document.getElementById('modalGrupo').classList.add('show');
+
+        // Override salvar para modo membros
+        document.querySelector('#modalGrupo .btn-primary').onclick = async () => {
+          const checks = document.querySelectorAll('#grupoMembros input[type=checkbox]');
+          await del(`gamif_usuario_grupo?grupo_id=eq.${gid}`);
+          for (const c of checks) {
+            if (c.checked)
+              await post('gamif_usuario_grupo', { grupo_id: gid, usuario_id: c.dataset.uid });
+          }
+          fecharModalGrupo();
+          carregarGrupos();
+        };
+      }
+
+      async function excluirGrupo(id) {
+        if (!confirm('Excluir este grupo? Os membros serão desvinculados.')) return;
+        await del(`gamif_usuario_grupo?grupo_id=eq.${id}`);
+        await del(`gamif_grupos?id=eq.${id}`);
+        carregarGrupos();
+      }
+
+      function fecharModalGrupo() {
+        document.getElementById('modalGrupo').classList.remove('show');
+        document.querySelector('#modalGrupo .btn-primary').onclick = salvarGrupo;
+      }
+
+      // ── Visão Geral ──
+      async function carregarGeral() {
+        const [usuarios, missoesConcluidas, xpData, top] = await Promise.all([
+          get('erp_usuarios?status=eq.true&select=id'),
+          get('gamif_progresso?concluida=eq.true&select=id'),
+          get('gamif_perfil?select=xp_total'),
+          get('gamif_perfil?order=xp_total.desc&limit=10&select=usuario_id,xp_total,nivel')
+        ]);
+
+        const xpTotal = xpData.reduce((s, p) => s + (p.xp_total || 0), 0);
+        const uids = top.map((t) => t.usuario_id).join(',');
+        const nomes = uids ? await get(`erp_usuarios?id=in.(${uids})&select=id,nome`) : [];
+        const nMap = {};
+        nomes.forEach((u) => {
+          nMap[u.id] = u.nome;
+        });
+
+        document.getElementById('metrics').innerHTML = `
+      <div class="metric-card"><div class="metric-val">${usuarios.length}</div><div class="metric-label">Usuários ativos</div></div>
+      <div class="metric-card"><div class="metric-val">${missoesConcluidas.length}</div><div class="metric-label">Missões concluídas</div></div>
+      <div class="metric-card"><div class="metric-val">${xpTotal.toLocaleString('pt-BR')}</div><div class="metric-label">XP total distribuído</div></div>
+    `;
+
+        document.getElementById('tbodyTop').innerHTML = top
+          .map(
+            (p, i) => `
+      <tr>
+        <td>${i + 1}</td>
+        <td>${nMap[p.usuario_id] || 'Usuário'}</td>
+        <td>Nível ${p.nivel} — ${NIVEL_NOMES[p.nivel] || ''}</td>
+        <td style="font-weight:700;color:var(--color-primary)">${p.xp_total.toLocaleString('pt-BR')} XP</td>
+      </tr>
+    `
+          )
+          .join('');
+      }
+
+      // ── Agente Tele Vendas ─────────────────────────────────────────
+      let tvInterval   = null;
+      let tvCdInterval = null;
+      let tvContador   = 0;
+      let tvProdutos   = [];
+      let tvClientes   = [];
+      const TV_CHAVE   = 'AGENTE-TV';
+
+      function tvGetConfig() {
+        const pedMin    = Math.max(1, Math.min(60, parseInt(document.getElementById('tvPedidosMin').value) || 6));
+        const intervalo = Math.round(60 / pedMin);
+        const valMin    = parseFloat(document.getElementById('tvValMin').value) || 10;
+        const valMax    = Math.max(valMin + 1, parseFloat(document.getElementById('tvValMax').value) || 100000);
+        return { intervalo, valMin, valMax };
+      }
+
+      function tvEscolherItem(modo, pool, espId, listId) {
+        if (modo === 'especifico') {
+          const id = document.getElementById(espId).value;
+          const found = pool.find(p => p.id === id);
+          return found ? [found] : (pool.length ? [pool[0]] : []);
+        } else if (modo === 'lista') {
+          const checks = document.querySelectorAll(`#${listId} input:checked`);
+          const ids = new Set([...checks].map(c => c.value));
+          const filtered = pool.filter(p => ids.has(p.id));
+          return filtered.length ? filtered : pool;
+        }
+        return pool;
+      }
+
+      function tvPickRandom(arr) {
+        return arr.length ? arr[Math.floor(Math.random() * arr.length)] : null;
+      }
+
+      function tvPopularSelect(elId, items, labelFn) {
+        const el = document.getElementById(elId);
+        if (!el) return;
+        el.innerHTML = items.map(i => `<option value="${i.id}">${labelFn(i)}</option>`).join('');
+      }
+
+      function tvPopularCheckboxes(elId, items, labelFn) {
+        const el = document.getElementById(elId);
+        if (!el) return;
+        el.innerHTML = items.map(i =>
+          `<label style="display:flex;align-items:center;gap:6px;padding:4px 0;cursor:pointer;font-size:13px">
+            <input type="checkbox" value="${i.id}" style="width:14px;height:14px"> ${labelFn(i)}
+          </label>`
+        ).join('');
+      }
+
+      function tvAtualizarModoProduto() {
+        const modo = document.getElementById('tvModoProduto').value;
+        document.getElementById('tvProdutoEspWrap').style.display  = modo === 'especifico' ? 'block' : 'none';
+        document.getElementById('tvProdutoListaWrap').style.display = modo === 'lista'      ? 'block' : 'none';
+      }
+
+      function tvAtualizarModoCliente() {
+        const modo = document.getElementById('tvModoCliente').value;
+        document.getElementById('tvClienteEspWrap').style.display  = modo === 'especifico' ? 'block' : 'none';
+        document.getElementById('tvClienteListaWrap').style.display = modo === 'lista'      ? 'block' : 'none';
+      }
+
+      async function iniciarAbaTelevendas() {
+        if (!tvProdutos.length) {
+          try {
+            tvProdutos = await get('produtos?ativo=eq.true&order=nome.asc&select=id,nome,preco_venda&limit=300');
+            tvPopularSelect('tvProdutoEsp', tvProdutos, p => p.nome);
+            tvPopularCheckboxes('tvProdutoListaCks', tvProdutos, p => p.nome);
+          } catch(e) { tvProdutos = []; }
+        }
+        if (!tvClientes.length) {
+          try {
+            tvClientes = await get('clientes?ativo=eq.true&order=nome.asc&select=id,nome&limit=300');
+            tvPopularSelect('tvClienteEsp', tvClientes, c => c.nome);
+            tvPopularCheckboxes('tvClienteListaCks', tvClientes, c => c.nome);
+          } catch(e) { tvClientes = []; }
+        }
+        await carregarUltimosTelevendas();
+      }
+
+      async function iniciarAgenteTv() {
+        if (tvInterval) return;
+        await iniciarAbaTelevendas();
+
+        const cfg = tvGetConfig();
+        document.querySelectorAll('.tv-cfg-form input, .tv-cfg-form select').forEach(el => el.disabled = true);
+        document.getElementById('btnTvStart').style.display = 'none';
+        document.getElementById('btnTvStop').style.display  = 'flex';
+        document.getElementById('tvDot').classList.add('ativo');
+        const pedMin = document.getElementById('tvPedidosMin').value;
+        document.getElementById('tvStatusText').textContent = `✅ Agente ativo — ${pedMin} pedido(s)/min`;
+
+        await enviarPedidoTv();
+        tvInterval = setInterval(enviarPedidoTv, cfg.intervalo * 1000);
+        iniciarCountdownTv(cfg.intervalo);
+      }
+
+      function pararAgenteTv() {
+        clearInterval(tvInterval);
+        clearInterval(tvCdInterval);
+        tvInterval = null; tvCdInterval = null;
+        document.querySelectorAll('.tv-cfg-form input, .tv-cfg-form select').forEach(el => el.disabled = false);
+        document.getElementById('btnTvStart').style.display = 'flex';
+        document.getElementById('btnTvStop').style.display  = 'none';
+        document.getElementById('tvDot').classList.remove('ativo');
+        document.getElementById('tvStatusText').textContent = 'Agente parado';
+        document.getElementById('tvProximo').textContent    = '—';
+        document.getElementById('tvProgressBar').style.width = '0%';
+      }
+
+      function iniciarCountdownTv(intervalo) {
+        let restante = intervalo;
+        clearInterval(tvCdInterval);
+        tvCdInterval = setInterval(() => {
+          restante--;
+          if (restante <= 0) restante = intervalo;
+          document.getElementById('tvProximo').textContent = `${restante}s`;
+          document.getElementById('tvProgressBar').style.width = (((intervalo - restante) / intervalo) * 100) + '%';
+        }, 1000);
+      }
+
+      async function enviarPedidoTv() {
+        const cfg      = tvGetConfig();
+        const modoProd = document.getElementById('tvModoProduto').value;
+        const modoCli  = document.getElementById('tvModoCliente').value;
+        const poolProd = tvEscolherItem(modoProd, tvProdutos, 'tvProdutoEsp', 'tvProdutoListaCks');
+        const poolCli  = tvEscolherItem(modoCli,  tvClientes, 'tvClienteEsp', 'tvClienteListaCks');
+        const produto  = tvPickRandom(poolProd);
+        const cliente  = tvPickRandom(poolCli);
+
+        tvContador++;
+        const valor    = parseFloat((Math.random() * (cfg.valMax - cfg.valMin) + cfg.valMin).toFixed(2));
+        const seq      = String(tvContador).padStart(4, '0');
+        const pedidoD  = `TV-${Date.now()}-${seq}`;
+        const qtd      = Math.floor(Math.random() * 20) + 1;
+        const nomeProd = produto?.nome || 'Produto Genérico';
+        const nomeCli  = cliente?.nome || null;
+        const valFmt   = valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+        const obsPartes = [`${nomeProd}`, `Qtd: ${qtd}`, `Valor: R$ ${valFmt}`];
+        if (nomeCli) obsPartes.push(`Cliente: ${nomeCli}`);
+        const obs = obsPartes.join(' | ');
+
+        try {
+          await post('televendas', {
+            pedido_d:   pedidoD,
+            datahora:   new Date().toISOString(),
+            id_chave:   TV_CHAVE,
+            status:     'Em Aberto',
+            observacao: obs
+          });
+          document.getElementById('tvCounter').textContent = `${tvContador} pedido(s) enviado(s) nesta sessão`;
+          await carregarUltimosTelevendas();
+        } catch(e) { console.error('[AgenteTv]', e); }
+      }
+
+      async function carregarUltimosTelevendas() {
+        const rows = await get(`televendas?id_chave=eq.${TV_CHAVE}&order=created_at.desc&limit=30&select=id,pedido_d,datahora,status,observacao`);
+        const tbody = document.getElementById('tbodyTelevendas');
+        if (!rows.length) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--color-text-muted)">Nenhum pedido enviado ainda. Clique em ▶ Iniciar Agente.</td></tr>';
+          return;
+        }
+        const SC = { 'Em Aberto':'#6b7280','Em Atendimento':'#1a56db','Aguardando Retorno':'#d97706','Concluído':'#16a34a','Cancelado':'#dc2626' };
+        tbody.innerHTML = rows.map(r => {
+          const dh  = r.datahora ? new Date(r.datahora).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '—';
+          const mV  = r.observacao?.match(/Valor: R\$ ([\d.,]+)/);
+          const val = mV ? `<span class="tv-val-badge">R$ ${mV[1]}</span>` : '—';
+          const obs = r.observacao?.replace(/\s*\|.*$/, '').trim() || '—';
+          return `<tr>
+            <td style="font-family:monospace;font-size:11px;color:var(--color-text-muted)">#${r.id}</td>
+            <td style="font-family:monospace;font-size:12px">${r.pedido_d}</td>
+            <td style="font-size:12px;color:var(--color-text-muted)">${obs}</td>
+            <td>${val}</td>
+            <td style="white-space:nowrap;font-size:12px">${dh}</td>
+            <td><span style="font-size:11px;font-weight:700;color:${SC[r.status]||'#6b7280'}">${r.status}</span></td>
+          </tr>`;
+        }).join('');
+      }
+
+      async function limparTelevendas() {
+        if (!confirm('Excluir TODOS os pedidos gerados pelo agente (id_chave = AGENTE-TV)?')) return;
+        await del(`televendas?id_chave=eq.${TV_CHAVE}`);
+        tvContador = 0;
+        document.getElementById('tvCounter').textContent = '0 pedidos enviados nesta sessão';
+        await carregarUltimosTelevendas();
+      }
+
+      // ── Módulo RH Gamificação ──────────────────────────────────────
+      let rhAcaoAtual   = null;
+      let rhFuncionarios = [];
+
+      const RH_ACOES = {
+        contratacao: { label: 'Contratação',  icon: '📝' },
+        demissao:    { label: 'Demissão',     icon: '🚪' },
+        promocao:    { label: 'Promoção',     icon: '⬆️' },
+        ferias:      { label: 'Férias',       icon: '🏖️' },
+        atestado:    { label: 'Atestado',     icon: '🏥' }
+      };
+
+      async function iniciarAbaRh() {
+        if (!rhFuncionarios.length) {
+          try {
+            rhFuncionarios = await get('rh_funcionarios?ativo=eq.true&order=nome.asc&select=id,nome,matricula&limit=500');
+          } catch(e) { rhFuncionarios = []; }
+
+          // popular select específico
+          const sel = document.getElementById('rhFuncEsp');
+          sel.innerHTML = rhFuncionarios.length
+            ? rhFuncionarios.map(f => `<option value="${f.id}">${f.nome}${f.matricula ? ' ('+f.matricula+')' : ''}</option>`).join('')
+            : '<option value="">Nenhum funcionário ativo</option>';
+
+          // popular lista de checkboxes
+          document.getElementById('rhFuncListaCks').innerHTML = rhFuncionarios.map(f =>
+            `<label style="display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;font-size:13px">
+              <input type="checkbox" value="${f.id}" data-nome="${f.nome}" style="width:15px;height:15px">
+              ${f.nome}${f.matricula ? ' <span style="font-size:11px;color:var(--color-text-muted)">'+f.matricula+'</span>' : ''}
+            </label>`
+          ).join('') || '<p style="color:var(--color-text-muted);font-size:13px;padding:8px">Nenhum funcionário ativo encontrado.</p>';
+        }
+        await carregarPendenciasRh();
+      }
+
+      function selecionarAcaoRh(acao, card) {
+        document.querySelectorAll('.rh-action-card').forEach(c => c.classList.remove('ativo'));
+        card.classList.add('ativo');
+        rhAcaoAtual = acao;
+        document.getElementById('btnGerarRh').disabled = false;
+      }
+
+      function rhAtualizarModoFunc() {
+        const modo = document.querySelector('input[name="rhModoFunc"]:checked').value;
+        document.getElementById('rhFuncEspWrap').style.display   = modo === 'especifico' ? 'block' : 'none';
+        document.getElementById('rhFuncListaWrap').style.display = modo === 'lista'      ? 'block' : 'none';
+      }
+
+      function rhGetFuncionariosSelecionados() {
+        const modo = document.querySelector('input[name="rhModoFunc"]:checked').value;
+        if (modo === 'aleatorio') {
+          if (!rhFuncionarios.length) return [];
+          return [rhFuncionarios[Math.floor(Math.random() * rhFuncionarios.length)]];
+        } else if (modo === 'especifico') {
+          const id = document.getElementById('rhFuncEsp').value;
+          return rhFuncionarios.filter(f => f.id === id);
+        } else {
+          const checks = document.querySelectorAll('#rhFuncListaCks input:checked');
+          const ids    = new Set([...checks].map(c => c.value));
+          return rhFuncionarios.filter(f => ids.has(f.id));
+        }
+      }
+
+      async function gerarPendenciaRh() {
+        if (!rhAcaoAtual) { alert('Selecione uma ação primeiro.'); return; }
+        const funcs = rhGetFuncionariosSelecionados();
+        if (!funcs.length) { alert('Selecione pelo menos um funcionário.'); return; }
+
+        const prioridade = document.getElementById('rhPrioridade').value;
+        const obs        = document.getElementById('rhObs').value.trim();
+        const acao       = RH_ACOES[rhAcaoAtual];
+        const btn        = document.getElementById('btnGerarRh');
+        btn.disabled = true; btn.textContent = 'Gerando…';
+
+        try {
+          for (const f of funcs) {
+            await post('rh_pendencias', {
+              tipo:            rhAcaoAtual,
+              titulo:          `${acao.label} — ${f.nome}`,
+              funcionario_id:  f.id,
+              funcionario_nome: f.nome,
+              status:          'Pendente',
+              prioridade,
+              observacao:      obs || null,
+              dados_extra:     { matricula: f.matricula || null }
+            });
+          }
+          const msg = document.getElementById('rhMsg');
+          msg.style.color = 'var(--color-success)';
+          msg.textContent = `✅ ${funcs.length} pendência(s) gerada(s) com sucesso no RH!`;
+          setTimeout(() => { msg.textContent = ''; }, 5000);
+          await carregarPendenciasRh();
+        } catch(e) {
+          alert('Erro ao gerar pendência: ' + e.message);
+        } finally {
+          btn.disabled = false; btn.textContent = '📋 Gerar Pendência no RH';
+        }
+      }
+
+      async function carregarPendenciasRh() {
+        const rows = await get('rh_pendencias?order=created_at.desc&limit=100&select=id,tipo,funcionario_nome,prioridade,status,created_at');
+        const tbody = document.getElementById('tbodyRhPend');
+        if (!rows || !rows.length) {
+          tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--color-text-muted)">Nenhuma pendência gerada ainda.</td></tr>';
+          return;
+        }
+        const CP = { Normal:'#6b7280', Alta:'#d97706', Urgente:'#dc2626' };
+        const CS = { Pendente:'#ef4444', 'Em Andamento':'#1a56db', Resolvido:'#16a34a' };
+        tbody.innerHTML = rows.map(r => {
+          const acao = RH_ACOES[r.tipo] || { label: r.tipo, icon: '📋' };
+          const dh   = r.created_at ? new Date(r.created_at).toLocaleString('pt-BR', { dateStyle:'short', timeStyle:'short' }) : '—';
+          return `<tr>
+            <td style="font-family:monospace;font-size:11px;color:var(--color-text-muted)">${r.id.slice(0,8)}…</td>
+            <td>${acao.icon} <span style="font-size:13px;font-weight:600">${acao.label}</span></td>
+            <td style="font-weight:600">${r.funcionario_nome}</td>
+            <td><span style="font-size:11px;font-weight:700;color:${CP[r.prioridade]||'#6b7280'}">${r.prioridade}</span></td>
+            <td><span style="font-size:11px;font-weight:700;color:${CS[r.status]||'#6b7280'}">${r.status}</span></td>
+            <td style="font-size:12px;white-space:nowrap">${dh}</td>
+          </tr>`;
+        }).join('');
+      }
+
+      function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('open');
+        document.getElementById('sidebarOverlay').classList.toggle('show');
+      }
+      function toggleTema() {
+        const t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', t);
+        localStorage.setItem('senai_tema', t);
+      }
+      function sair() {
+        localStorage.clear();
+        window.location.replace('../index.html');
+      }
+
+      carregarMissoes();
+    </script>
+  <script src="../menu.js"></script>
+</body>
+</html>

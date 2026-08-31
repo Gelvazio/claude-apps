@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Cargos</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout{display:flex;min-height:calc(100vh - 56px)}.sidebar{width:240px;background:var(--color-surface);border-right:1px solid var(--color-border-faint);display:flex;flex-direction:column;position:fixed;top:56px;left:0;bottom:0;overflow-y:auto;z-index:50;transition:transform .25s}[data-theme="dark"] .sidebar{border-right-color:var(--color-border-light)}.sidebar-section{padding:20px 0 4px}.sidebar-section-label{font-size:10px;font-weight:700;color:var(--color-text-disabled);letter-spacing:1.2px;text-transform:uppercase;padding:0 20px 6px}.sidebar-link{display:flex;align-items:center;gap:10px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--color-text-muted);text-decoration:none;border-left:3px solid transparent;transition:background .15s,color .15s,border-color .15s}.sidebar-link:hover{background:#e8f0fe;color:var(--color-primary)}.sidebar-link.ativo{background:#e8f0fe;color:var(--color-primary);border-left-color:var(--color-primary);font-weight:600}[data-theme="dark"] .sidebar-link:hover,[data-theme="dark"] .sidebar-link.ativo{background:#1e2554;color:#7aa3d4}[data-theme="dark"] .sidebar-link.ativo{border-left-color:#7aa3d4}.sidebar-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}.main{margin-left:240px;padding:28px 32px;flex:1}@media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0;padding:16px}.sidebar.open{transform:translateX(0)}}.page-header{margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}.page-header h1{font-size:22px;font-weight:700;color:var(--color-text)}.page-header p{font-size:13px;color:var(--color-text-muted);margin-top:2px}.btn-menu{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:6px;cursor:pointer;align-items:center;justify-content:center}@media(max-width:768px){.btn-menu{display:flex}}.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:49}.sidebar-overlay.show{display:block}.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}.search-input{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:13px;background:var(--color-surface);color:var(--color-text);font-family:inherit;outline:none}.search-input:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(0,67,132,.12)}.filter-btn{padding:7px 14px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:12px;font-weight:600;background:var(--color-surface);color:var(--color-text-muted);cursor:pointer;font-family:inherit;transition:all .15s}.filter-btn.ativo{background:var(--color-primary);color:#fff;border-color:var(--color-primary)}.filter-btn:hover:not(.ativo){background:var(--color-surface-2)}.content-section{background:var(--color-surface);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);overflow:hidden}#msgGlobal{display:none;padding:10px 16px;border-radius:var(--radius-md);font-size:13px;font-weight:600;margin-bottom:14px}#msgGlobal.ok{background:var(--color-success-bg);border:1px solid var(--color-success-border);color:var(--color-success);display:block}#msgGlobal.err{background:var(--color-error-bg);border:1px solid var(--color-error-border);color:var(--color-error);display:block}.crud-modal{max-width:700px!important}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-grid .span-2{grid-column:span 2}@media(max-width:600px){.form-grid{grid-template-columns:1fr}.form-grid .span-2{grid-column:span 1}}.form-group{display:flex;flex-direction:column;gap:4px}.form-label{font-size:10px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.3px}.form-label span{color:var(--color-error)}.form-input,.form-select,.form-textarea{width:100%;padding:9px 12px;border:1px solid var(--color-border);border-radius:var(--radius-md);font-size:13px;color:var(--color-text);background:var(--color-surface-3);font-family:inherit;outline:none;transition:border-color .15s,box-shadow .15s}.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(0,67,132,.12)}.form-input[readonly]{background:var(--color-border-light);color:var(--color-text-muted);cursor:default}.form-textarea{resize:vertical;min-height:70px}[data-theme="dark"] .form-input,[data-theme="dark"] .form-select,[data-theme="dark"] .form-textarea{background:var(--color-surface-2);border-color:var(--color-border);color:var(--color-text)}.toggle-wrap{display:flex;align-items:center;gap:10px;padding:10px 0}.toggle{position:relative;width:44px;height:24px;flex-shrink:0}.toggle input{opacity:0;width:0;height:0}.toggle-slider{position:absolute;inset:0;background:#ccc;border-radius:24px;cursor:pointer;transition:background .2s}.toggle-slider::before{content:'';position:absolute;width:18px;height:18px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:transform .2s}.toggle input:checked+.toggle-slider{background:var(--color-success)}.toggle input:checked+.toggle-slider::before{transform:translateX(20px)}.toggle-label{font-size:13px;color:var(--color-text-secondary)}.modal-footer{padding:12px 20px;display:flex;justify-content:center;gap:10px;border-top:1px solid var(--color-border-light);background:var(--color-surface-2)}.modal-body-scroll{overflow-y:auto;padding:20px;flex:1}.paginacao{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--color-border-faint);font-size:12px;color:var(--color-text-muted)}.paginacao-btns{display:flex;gap:6px}.pag-btn{padding:4px 10px;border:1px solid var(--color-border);border-radius:var(--radius-sm);background:var(--color-surface);color:var(--color-text-muted);font-size:12px;cursor:pointer;font-family:inherit}.pag-btn:disabled{opacity:.4;cursor:default}.pag-btn:not(:disabled):hover{background:var(--color-surface-2)}
+  </style>
+  <script>(function(){const t=localStorage.getItem('senai_tema')||'light';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <script src="../gamificacao/gamif.js"></script>
+</head>
+<body>
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main">
+    <div class="page-header">
+      <div><h1>💼 Cargos</h1><p>Cadastro de cargos por departamento</p></div>
+      <button class="btn" onclick="abrirModalNovo()">+ Novo Cargo</button>
+    </div>
+    <div id="msgGlobal"></div>
+    <div class="toolbar">
+      <input class="search-input" type="text" id="campoBusca" placeholder="🔍  Buscar por nome, código ou departamento..." oninput="filtrar()">
+      <button class="filter-btn ativo" data-filtro="todos" onclick="setFiltro('todos',this)">Todos</button>
+      <button class="filter-btn" data-filtro="ativos" onclick="setFiltro('ativos',this)">Ativos</button>
+      <button class="filter-btn" data-filtro="inativos" onclick="setFiltro('inativos',this)">Inativos</button>
+    </div>
+    <div class="content-section">
+      <div class="crud-table-wrap">
+        <table class="crud-table">
+          <thead><tr><th>Código</th><th>Cargo</th><th>Departamento</th><th>Nível</th><th>Salário Base</th><th>Status</th><th style="width:80px">Ações</th></tr></thead>
+          <tbody id="tbodyCargos"><tr><td colspan="7" class="crud-vazio">Carregando…</td></tr></tbody>
+        </table>
+      </div>
+      <div class="paginacao"><span id="paginacaoInfo">—</span><div class="paginacao-btns"><button class="pag-btn" id="btnAnterior" onclick="mudarPagina(-1)">‹ Anterior</button><button class="pag-btn" id="btnProximo" onclick="mudarPagina(1)">Próxima ›</button></div></div>
+    </div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div class="crud-backdrop" id="modalFormulario" style="display:none" onclick="fecharSeClicouFora(event,'modalFormulario')">
+  <div class="crud-modal">
+    <div class="crud-modal-head"><h3 id="modalTitulo">Novo Cargo</h3><button class="crud-btn-fechar" onclick="fecharModal()">✕</button></div>
+    <div class="modal-body-scroll">
+      <div id="msgModal" style="display:none;margin-bottom:12px;padding:10px 14px;border-radius:6px;font-size:13px;font-weight:600;"></div>
+      <form id="formCargo" onsubmit="salvar(event)">
+        <div class="form-grid">
+          <div class="form-group"><label class="form-label">Código</label><input class="form-input" type="text" id="fCodigo" readonly placeholder="Gerado automaticamente"></div>
+          <div class="form-group"><label class="form-label">Nível</label><select class="form-select" id="fNivel"><option value="">— Selecione —</option><option>Júnior</option><option>Pleno</option><option>Sênior</option><option>Especialista</option><option>Gerência</option></select></div>
+          <div class="form-group span-2"><label class="form-label">Nome do Cargo <span>*</span></label><input class="form-input" type="text" id="fNome" required placeholder="Ex: Analista de TI"></div>
+          <div class="form-group span-2"><label class="form-label">Departamento <span>*</span></label><select class="form-select" id="fDepartamento" required><option value="">— Selecione —</option></select></div>
+          <div class="form-group"><label class="form-label">CBO</label><input class="form-input" type="text" id="fCbo" placeholder="Ex: 2521-05"></div>
+          <div class="form-group"><label class="form-label">Salário Base (R$)</label><input class="form-input" type="number" id="fSalarioBase" min="0" step="0.01" placeholder="0,00"></div>
+          <div class="form-group span-2"><label class="form-label">Descrição</label><textarea class="form-textarea" id="fDescricao" placeholder="Descrição das atividades e requisitos…"></textarea></div>
+          <div class="form-group span-2"><div class="toggle-wrap"><label class="toggle"><input type="checkbox" id="fAtivo" checked><span class="toggle-slider"></span></label><span class="toggle-label">Cargo ativo</span></div></div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer"><button class="btn-cancelar" onclick="fecharModal()">Cancelar</button><button class="btn-salvar" onclick="document.getElementById('formCargo').requestSubmit()">Confirmar</button></div>
+  </div>
+</div>
+
+<!-- Modal Excluir -->
+<div class="crud-backdrop" id="modalExcluir" style="display:none" onclick="fecharSeClicouFora(event,'modalExcluir')">
+  <div class="crud-modal" style="max-width:440px">
+    <div class="crud-modal-head" style="background:#c62828"><h3>Confirmar Exclusão</h3><button class="crud-btn-fechar" onclick="fecharModalExcluir()">✕</button></div>
+    <div class="modal-body-scroll" style="padding:20px"><p style="font-size:14px;color:var(--color-text)">Tem certeza que deseja excluir o cargo <strong id="nomeExcluir"></strong>?</p><p style="font-size:12px;color:var(--color-text-muted);margin-top:8px">Esta ação não pode ser desfeita.</p></div>
+    <div class="modal-footer"><button class="btn-cancelar" onclick="fecharModalExcluir()">Cancelar</button><button class="btn-salvar" style="background:#c62828" onclick="excluirConfirmado()">🗑️ Excluir</button></div>
+  </div>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao();
+  document.getElementById('roleBadge').textContent=sbPerfil()||'';
+  (function(){const t=localStorage.getItem('senai_tema')||'light';const btn=document.getElementById('btnTema');btn.textContent=t==='dark'?'☀️ Claro':'🌙 Escuro';btn.onclick=()=>{const n=sbToggleTema();btn.textContent=n==='dark'?'☀️ Claro':'🌙 Escuro';};})();
+  function sair(){sbLogout('../index.html');}
+  function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('show');}
+
+  let todos=[],filtrados=[],filtroAtual='todos',paginaAtual=0;
+  const POR_PAGINA=50;
+  let idParaExcluir=null,modoEdicao=false,idEdicao=null;
+  let departamentos=[];
+
+  function msg(t,tipo='ok',ms=4000){const el=document.getElementById('msgGlobal');el.textContent=t;el.className=tipo;el.style.display='block';if(ms>0)setTimeout(()=>el.style.display='none',ms);}
+  function msgModal(t,tipo='err'){const el=document.getElementById('msgModal');el.textContent=t;el.style.cssText=tipo==='err'?'display:block;background:#fce8e6;border:1px solid #f44336;color:#c62828':'display:block;background:#e8f5e9;border:1px solid #c8e6c9;color:#2e7d32';}
+
+  async function carregarDepartamentos(){
+    departamentos=await sbListar('rh_departamentos','ativo=eq.true&order=nome.asc');
+    const sel=document.getElementById('fDepartamento');
+    sel.innerHTML='<option value="">— Selecione —</option>'+departamentos.map(d=>`<option value="${d.id}">${d.nome}</option>`).join('');
+  }
+
+  function nomeDepartamento(id){const d=departamentos.find(x=>x.id===id);return d?d.nome:'—';}
+
+  async function carregar(){
+    document.getElementById('tbodyCargos').innerHTML='<tr><td colspan="7" class="crud-vazio">Carregando…</td></tr>';
+    try{
+      await carregarDepartamentos();
+      todos=await sbListar('rh_cargos','order=nome.asc');
+      filtrar();
+    }catch(e){document.getElementById('tbodyCargos').innerHTML=`<tr><td colspan="7" class="crud-vazio">Erro: ${e.message}</td></tr>`;}
+  }
+
+  function setFiltro(f,el){filtroAtual=f;document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('ativo'));el.classList.add('ativo');paginaAtual=0;filtrar();}
+  function filtrar(){
+    const t=document.getElementById('campoBusca').value.toLowerCase().trim();
+    filtrados=todos.filter(c=>{
+      if(filtroAtual==='ativos'&&!c.ativo)return false;
+      if(filtroAtual==='inativos'&&c.ativo)return false;
+      if(t)return(c.nome||'').toLowerCase().includes(t)||(c.codigo||'').toLowerCase().includes(t)||nomeDepartamento(c.departamento_id).toLowerCase().includes(t);
+      return true;
+    });
+    renderTabela();
+  }
+
+  function renderTabela(){
+    const tbody=document.getElementById('tbodyCargos');
+    const inicio=paginaAtual*POR_PAGINA;
+    const pag=filtrados.slice(inicio,inicio+POR_PAGINA);
+    document.getElementById('paginacaoInfo').textContent=`${filtrados.length} registro(s) · página ${paginaAtual+1} de ${Math.max(1,Math.ceil(filtrados.length/POR_PAGINA))}`;
+    document.getElementById('btnAnterior').disabled=paginaAtual===0;
+    document.getElementById('btnProximo').disabled=inicio+POR_PAGINA>=filtrados.length;
+    if(!pag.length){tbody.innerHTML='<tr><td colspan="7" class="crud-vazio">Nenhum cargo encontrado.</td></tr>';return;}
+    tbody.innerHTML=pag.map(c=>`<tr>
+      <td style="font-family:monospace;font-size:12px">${c.codigo||'—'}</td>
+      <td>${c.nome||'—'}</td>
+      <td>${nomeDepartamento(c.departamento_id)}</td>
+      <td>${c.nivel||'—'}</td>
+      <td>${c.salario_base?'R$ '+parseFloat(c.salario_base).toLocaleString('pt-BR',{minimumFractionDigits:2}):'—'}</td>
+      <td>${c.ativo?'<span class="badge badge-verde">Ativo</span>':'<span class="badge badge-vermelho">Inativo</span>'}</td>
+      <td class="crud-acts">
+        <button class="btn-ed" title="Editar" onclick="abrirModalEditar('${c.id}')">✏️</button>
+        <button class="btn-del" title="Excluir" onclick="confirmarExcluir('${c.id}','${(c.nome||'').replace(/'/g,"\\'")}')">🗑️</button>
+      </td>
+    </tr>`).join('');
+  }
+
+  function mudarPagina(dir){paginaAtual+=dir;renderTabela();window.scrollTo(0,0);}
+
+  async function abrirModalNovo(){
+    modoEdicao=false;idEdicao=null;
+    document.getElementById('modalTitulo').textContent='Novo Cargo';
+    document.getElementById('formCargo').reset();
+    document.getElementById('fAtivo').checked=true;
+    document.getElementById('msgModal').style.display='none';
+    document.getElementById('fCodigo').value=await sbProximoNumero('rh_cargos','codigo','CGO');
+    document.getElementById('modalFormulario').style.display='flex';
+  }
+
+  async function abrirModalEditar(id){
+    modoEdicao=true;idEdicao=id;
+    document.getElementById('modalTitulo').textContent='Editar Cargo';
+    document.getElementById('msgModal').style.display='none';
+    const c=todos.find(x=>x.id===id);if(!c)return;
+    document.getElementById('fCodigo').value=c.codigo||'';
+    document.getElementById('fNome').value=c.nome||'';
+    document.getElementById('fDepartamento').value=c.departamento_id||'';
+    document.getElementById('fNivel').value=c.nivel||'';
+    document.getElementById('fCbo').value=c.cbo||'';
+    document.getElementById('fSalarioBase').value=c.salario_base||'';
+    document.getElementById('fDescricao').value=c.descricao||'';
+    document.getElementById('fAtivo').checked=c.ativo!==false;
+    document.getElementById('modalFormulario').style.display='flex';
+  }
+
+  function fecharModal(){document.getElementById('modalFormulario').style.display='none';}
+  function fecharSeClicouFora(e,id){if(e.target.id===id)document.getElementById(id).style.display='none';}
+
+  async function salvar(e){
+    e.preventDefault();
+    const nome=document.getElementById('fNome').value.trim();
+    const dep=document.getElementById('fDepartamento').value;
+    if(!nome){msgModal('Nome do cargo é obrigatório.');return;}
+    if(!dep){msgModal('Selecione o departamento.');return;}
+    const dados={codigo:document.getElementById('fCodigo').value,nome,departamento_id:dep,nivel:document.getElementById('fNivel').value||null,cbo:document.getElementById('fCbo').value.trim()||null,salario_base:parseFloat(document.getElementById('fSalarioBase').value)||null,descricao:document.getElementById('fDescricao').value.trim()||null,ativo:document.getElementById('fAtivo').checked};
+    try{
+      if(modoEdicao)await sbAtualizar('rh_cargos',idEdicao,dados);
+      else          await sbInserir('rh_cargos',dados);
+      fecharModal();await carregar();msg(modoEdicao?'Cargo atualizado!':'Cargo cadastrado!');
+    }catch(err){msgModal('Erro ao salvar: '+err.message);}
+  }
+
+  function confirmarExcluir(id,nome){idParaExcluir=id;document.getElementById('nomeExcluir').textContent=nome;document.getElementById('modalExcluir').style.display='flex';}
+  function fecharModalExcluir(){document.getElementById('modalExcluir').style.display='none';}
+  async function excluirConfirmado(){
+    try{await sbExcluir('rh_cargos',idParaExcluir);fecharModalExcluir();await carregar();msg('Cargo excluído.','ok');}
+    catch(e){fecharModalExcluir();msg('Erro ao excluir: '+e.message,'err');}
+  }
+
+  carregar();
+</script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ERP — Telas</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .app-layout { display: flex; min-height: calc(100vh - 56px); }
+    .sidebar { width: 240px; background: var(--color-surface); border-right: 1px solid var(--color-border-faint); display: flex; flex-direction: column; position: fixed; top: 56px; left: 0; bottom: 0; overflow-y: auto; z-index: 50; transition: transform .25s; }
+    [data-theme="dark"] .sidebar { border-right-color: var(--color-border-light); }
+    .sidebar-section { padding: 20px 0 4px; }
+    .sidebar-section-label { font-size: 10px; font-weight: 700; color: var(--color-text-disabled); letter-spacing: 1.2px; text-transform: uppercase; padding: 0 20px 6px; }
+    .sidebar-link { display: flex; align-items: center; gap: 10px; padding: 9px 20px; font-size: 13px; font-weight: 500; color: var(--color-text-muted); text-decoration: none; border-left: 3px solid transparent; transition: background .15s, color .15s, border-color .15s; }
+    .sidebar-link:hover { background: #e8f0fe; color: var(--color-primary); }
+    .sidebar-link.ativo { background: #e8f0fe; color: var(--color-primary); border-left-color: var(--color-primary); font-weight: 600; }
+    [data-theme="dark"] .sidebar-link:hover, [data-theme="dark"] .sidebar-link.ativo { background: #1e2554; color: #7aa3d4; }
+    [data-theme="dark"] .sidebar-link.ativo { border-left-color: #7aa3d4; }
+    .sidebar-icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+    .main { margin-left: 240px; padding: 28px 32px; flex: 1; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .main { margin-left: 0; padding: 16px; } .sidebar.open { transform: translateX(0); } }
+    .page-header { margin-bottom: 24px; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .page-header-left h1 { font-size: 22px; font-weight: 700; color: var(--color-text); }
+    .page-header-left p  { font-size: 13px; color: var(--color-text-muted); margin-top: 2px; }
+    .toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+    .search-input { flex: 1; min-width: 200px; max-width: 360px; height: 38px; padding: 0 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); font-size: 13px; background: var(--color-surface); color: var(--color-text); }
+    .search-input:focus { outline: none; border-color: var(--color-primary); }
+    .table-wrap { background: var(--color-surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+    .table-scroll { overflow-x: auto; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .data-table th { text-align: left; padding: 10px 16px; font-size: 10px; font-weight: 700; color: var(--color-primary); text-transform: uppercase; letter-spacing: .4px; border-bottom: 2px solid var(--color-border-faint); white-space: nowrap; background: var(--color-surface); }
+    .data-table td { padding: 11px 16px; border-bottom: 1px solid var(--color-border-faint); color: var(--color-text-secondary); vertical-align: middle; }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: #f5f8ff; }
+    [data-theme="dark"] .data-table th { color: #7aa3d4; border-bottom-color: var(--color-border-light); }
+    [data-theme="dark"] .data-table td { border-bottom-color: var(--color-border-light); }
+    [data-theme="dark"] .data-table tr:hover td { background: #22252e; }
+    .vazio { text-align: center; color: var(--color-text-faint); font-size: 13px; padding: 32px; font-style: italic; }
+    .badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 20px; }
+    .badge-verde   { background: #e6f4ea; color: #1e7e34; }
+    .badge-vermelho{ background: #fce8e6; color: #c62828; }
+    .badge-azul    { background: #e8f0fe; color: #1557b0; }
+    [data-theme="dark"] .badge-verde    { background: #1b3a23; color: #81c995; }
+    [data-theme="dark"] .badge-vermelho { background: #3c1c1c; color: #f28b82; }
+    [data-theme="dark"] .badge-azul     { background: #1e2554; color: #7aa3d4; }
+    .btn-menu { display: none; background: rgba(255,255,255,.15); border: none; color: #fff; font-size: 20px; width: 36px; height: 36px; border-radius: 6px; cursor: pointer; align-items: center; justify-content: center; }
+    @media (max-width: 768px) { .btn-menu { display: flex; } }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 49; }
+    .sidebar-overlay.show { display: block; }
+    .crud-msg { display: none; padding: 10px 16px; border-radius: var(--radius-md); font-size: 13px; margin-bottom: 16px; font-weight: 500; }
+    .crud-msg.ok   { background: #e6f4ea; color: #1e7e34; border: 1px solid #a8d5b1; display: block; }
+    .crud-msg.err  { background: #fce8e6; color: #c62828; border: 1px solid #f5c6c2; display: block; }
+    /* Toggle inline */
+    .tog { position: relative; display: inline-flex; align-items: center; cursor: pointer; gap: 8px; }
+    .tog input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .tog-slider { width: 40px; height: 22px; background: #ccc; border-radius: 22px; flex-shrink: 0; transition: background .2s; position: relative; }
+    .tog-slider::before { content: ''; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: transform .2s; }
+    .tog input:checked + .tog-slider { background: #1e7e34; }
+    .tog input:checked + .tog-slider::before { transform: translateX(18px); }
+    .tog-label { font-size: 12px; font-weight: 600; color: var(--color-text-muted); min-width: 50px; }
+    .nome-tela { font-weight: 600; color: var(--color-text); }
+    .html-file { font-size: 11px; color: var(--color-text-faint); font-family: monospace; margin-top: 2px; }
+    .fonte-badge { font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 700; }
+    .fonte-json { background: #fff3e0; color: #e65100; }
+    .fonte-db   { background: #e8f0fe; color: #1557b0; }
+    [data-theme="dark"] .fonte-json { background: #3a2000; color: #ffb74d; }
+    [data-theme="dark"] .fonte-db   { background: #1e2554; color: #7aa3d4; }
+  </style>
+  <script>
+    (function () {
+      const t = localStorage.getItem('senai_tema') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+
+<header class="header">
+  <button class="btn-menu" id="btnMenu" onclick="toggleSidebar()">☰</button>
+  <a class="header-logo" href="../dashboard.html">ERP</a>
+  <span class="header-title">Senai</span>
+  <span class="header-spacer"></span>
+  <span class="role-badge" id="roleBadge"></span>
+  <button class="header-btn" id="btnTema" onclick="alternarTema()" style="min-width:96px">🌙 Escuro</button>
+  <button class="header-btn" onclick="sair()">🚪 Sair</button>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <main class="main">
+    <div class="page-header">
+      <div class="page-header-left">
+        <h1>🖥️ Telas do Sistema</h1>
+        <p>Ative ou desative telas do sistema. Dados gerenciados diretamente no banco.</p>
+      </div>
+    </div>
+
+    <div class="crud-msg" id="msgGlobal"></div>
+
+    <div class="toolbar">
+      <input class="search-input" type="search" id="inputBusca" placeholder="🔍  Buscar por nome ou arquivo…" oninput="filtrar()">
+      <select class="form-select" style="width:auto;min-width:150px" id="filtroSistema" onchange="filtrar()">
+        <option value="">Todos os módulos</option>
+      </select>
+      <select class="form-select" style="width:auto;min-width:130px" id="filtroAtivo" onchange="filtrar()">
+        <option value="">Todos os status</option>
+        <option value="1">Ativo</option>
+        <option value="0">Inativo</option>
+      </select>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Tela</th>
+              <th>Módulo</th>
+              <th>Arquivo</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tbodyTelas">
+            <tr><td colspan="6" class="vazio">Carregando…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="../menu.js"></script>
+<script src="../SUPABASE.js"></script>
+<script>
+  sbVerificarSessao('../index.html');
+  if (!sbIsAdmin()) {
+    alert('Acesso restrito a Administradores.');
+    window.location.replace('../dashboard.html');
+  }
+
+  document.getElementById('roleBadge').textContent = sbPerfil() || '';
+
+  (function () {
+    const t   = localStorage.getItem('senai_tema') || 'light';
+    const btn = document.getElementById('btnTema');
+    if (btn) btn.textContent = t === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  })();
+
+  function alternarTema() {
+    const novo = sbToggleTema();
+    const btn  = document.getElementById('btnTema');
+    if (btn) btn.textContent = novo === 'dark' ? '☀️ Claro' : '🌙 Escuro';
+  }
+
+  function sair() { sbLogout('../index.html'); }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('sidebarOverlay').classList.toggle('show');
+  }
+
+  // ── Estado ────────────────────────────────────────────────
+  let todasTelas   = [];
+  let sistemasMap  = {};
+
+  // ── Inicializar ───────────────────────────────────────────
+  async function init() {
+    try {
+      // 1. Buscar telas e vínculos do banco
+      const [telaDB, vinculos, sistemas] = await Promise.all([
+        sbListar('tela', 'order=id.asc'),
+        sbListar('tela_sistema', ''),
+        sbListar('sistema', 'sisativo=eq.1&order=sisordem.asc')
+      ]);
+
+      const sisMap = {};
+      vinculos.forEach(v => { if (!sisMap[v.tela_id]) sisMap[v.tela_id] = v.sistema_id; });
+      todasTelas = telaDB.map(t => ({ ...t, sistema_id: sisMap[t.id] ?? 0 }));
+
+      // 2. Montar mapa de sistemas e filtro
+      sistemas.forEach(s => { sistemasMap[s.siscodigo] = s.sisnome; });
+      const sel = document.getElementById('filtroSistema');
+      sistemas.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.siscodigo;
+        opt.textContent = s.sisnome;
+        sel.appendChild(opt);
+      });
+
+      renderizar(todasTelas);
+    } catch (e) {
+      document.getElementById('tbodyTelas').innerHTML =
+        `<tr><td colspan="5" class="vazio">Erro ao carregar telas: ${e.message}</td></tr>`;
+    }
+  }
+
+  // ── Toggle ativo/inativo ──────────────────────────────────
+  async function toggleAtivo(id, novoValor) {
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/tela?id=eq.${id}`, {
+        method:  'PATCH',
+        headers: HEADERS,
+        body:    JSON.stringify({ ativo: novoValor ? 1 : 0 })
+      });
+      if (!res.ok) throw new Error(await res.text());
+
+      // Atualiza cache local
+      const t = todasTelas.find(x => x.id === id);
+      if (t) { t.ativo = novoValor ? 1 : 0; t.noDb = true; }
+
+      const label = document.getElementById(`label_${id}`);
+      if (label) label.textContent = novoValor ? 'Ativo' : 'Inativo';
+
+      sbMensagem('msgGlobal', `Tela "${todasTelas.find(x=>x.id===id)?.nome}" ${novoValor ? 'ativada' : 'desativada'}.`, 'ok');
+    } catch (e) {
+      sbMensagem('msgGlobal', 'Erro ao salvar: ' + e.message, 'err');
+      // Reverter toggle visualmente
+      const chk = document.getElementById(`tog_${id}`);
+      if (chk) chk.checked = !novoValor;
+    }
+  }
+
+  // ── Renderizar tabela ─────────────────────────────────────
+  function renderizar(lista) {
+    const tbody = document.getElementById('tbodyTelas');
+    if (!lista.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="vazio">Nenhuma tela encontrada.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = lista.map(t => {
+      const modulo = sistemasMap[t.sistema_id] || '—';
+      const ativo  = t.ativo === 1 || t.ativo === true;
+      return `
+        <tr>
+          <td style="color:var(--color-text-faint);font-size:12px">${t.id}</td>
+          <td><div class="nome-tela">${escHtml(t.nome)}</div></td>
+          <td><span class="badge badge-azul">${escHtml(modulo)}</span></td>
+          <td><span class="html-file">${escHtml(t.nome_html)}</span></td>
+          <td>
+            <label class="tog">
+              <input type="checkbox" id="tog_${t.id}" ${ativo ? 'checked' : ''}
+                onchange="toggleAtivo(${t.id}, this.checked)">
+              <span class="tog-slider"></span>
+              <span class="tog-label" id="label_${t.id}">${ativo ? 'Ativo' : 'Inativo'}</span>
+            </label>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  // ── Filtrar ───────────────────────────────────────────────
+  function filtrar() {
+    const busca   = document.getElementById('inputBusca').value.toLowerCase().trim();
+    const sistema = document.getElementById('filtroSistema').value;
+    const ativo   = document.getElementById('filtroAtivo').value;
+
+    const lista = todasTelas.filter(t => {
+      const matchBusca  = !busca || t.nome.toLowerCase().includes(busca) || t.nome_html.toLowerCase().includes(busca);
+      const matchSist   = !sistema || String(t.sistema_id) === sistema;
+      const matchAtivo  = ativo === '' || String(t.ativo) === ativo;
+      return matchBusca && matchSist && matchAtivo;
+    });
+    renderizar(lista);
+  }
+
+  function escHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  init();
+</script>
+<script>
+  (function () {
+    if (localStorage.getItem('erp_role') === 'Administrador') {
+      var el = document.getElementById('linkAdmin');
+      if (el) el.style.display = 'flex';
+    }
+  })();
+</script>
+</body>
+</html>
