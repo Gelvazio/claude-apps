@@ -21,7 +21,7 @@ const state = {
   transacoes: [],
   categorias: [],
   refDate: new Date(),
-  authMode: 'login', // login | signup
+  authMode: 'login', // login | signup | reset
 }
 
 function monthBounds(d) {
@@ -58,6 +58,10 @@ async function loadData() {
 
 // ---------- Auth screen ----------
 function renderAuth() {
+  if (state.authMode === 'reset') {
+    return renderReset()
+  }
+
   const isSignup = state.authMode === 'signup'
   app.innerHTML = `
     <div class="auth-screen">
@@ -72,15 +76,25 @@ function renderAuth() {
         <p class="auth-error" id="auth-error"></p>
         <button class="btn-primary" type="submit">${isSignup ? 'Criar conta' : 'Entrar'}</button>
       </form>
-      <button class="auth-toggle" id="auth-toggle">
-        ${isSignup ? 'Já tem conta? Entrar' : 'Ainda não tem conta? Criar'}
-      </button>
+      <div class="auth-links">
+        <button class="auth-toggle" id="auth-toggle">
+          ${isSignup ? 'Já tem conta? Entrar' : 'Ainda não tem conta? Criar'}
+        </button>
+        ${!isSignup ? '<button class="auth-forgot" id="auth-forgot">Esqueceu a senha?</button>' : ''}
+      </div>
     </div>
   `
 
   document.getElementById('auth-toggle').onclick = () => {
     state.authMode = isSignup ? 'login' : 'signup'
     renderAuth()
+  }
+
+  if (!isSignup) {
+    document.getElementById('auth-forgot').onclick = () => {
+      state.authMode = 'reset'
+      renderAuth()
+    }
   }
 
   document.getElementById('auth-form').onsubmit = async (e) => {
@@ -108,6 +122,52 @@ function renderAuth() {
     }
     state.session = data.session
     await boot()
+  }
+}
+
+// ---------- Reset password screen ----------
+function renderReset() {
+  app.innerHTML = `
+    <div class="auth-screen">
+      <div>
+        <div class="auth-mark">livro-caixa</div>
+        <h1 class="auth-title">Resetar senha</h1>
+        <p class="auth-sub">Enviaremos um link de recuperação para seu e-mail.</p>
+      </div>
+      <form class="auth-form" id="reset-form">
+        <input type="email" name="email" placeholder="e-mail" required autocomplete="email" />
+        <p class="auth-error" id="reset-error"></p>
+        <button class="btn-primary" type="submit">Enviar link</button>
+      </form>
+      <button class="auth-toggle" id="reset-back">Voltar ao login</button>
+    </div>
+  `
+
+  document.getElementById('reset-back').onclick = () => {
+    state.authMode = 'login'
+    renderAuth()
+  }
+
+  document.getElementById('reset-form').onsubmit = async (e) => {
+    e.preventDefault()
+    const btn = e.target.querySelector('button')
+    const errorEl = document.getElementById('reset-error')
+    errorEl.textContent = ''
+    btn.disabled = true
+    const email = e.target.email.value.trim()
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}`,
+    })
+
+    btn.disabled = false
+    if (error) {
+      errorEl.textContent = traduzErro(error.message)
+      return
+    }
+    errorEl.style.color = 'var(--income)'
+    errorEl.textContent = 'Link enviado! Verifique seu e-mail para resetar a senha.'
+    e.target.reset()
   }
 }
 

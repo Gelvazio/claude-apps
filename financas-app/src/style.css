@@ -115,7 +115,23 @@ button {
 .btn-primary:hover { background: var(--income); }
 .btn-primary:disabled { opacity: 0.5; cursor: default; }
 
+.auth-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
 .auth-toggle {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.auth-forgot {
   background: none;
   border: none;
   color: var(--ink-soft);
