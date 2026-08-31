@@ -1,0 +1,4492 @@
+﻿[
+    {
+        "Situação":  "Paga",
+        "Data":  "30/08/2026",
+        "Valor":  -57,
+        "Conta":  "Carteira",
+        "Descrição":  "AJUSTE DESPESAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "27/08/2026",
+        "Valor":  -940,
+        "Conta":  "Carteira",
+        "Descrição":  "Cartão NEON",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "15/08/2026",
+        "Valor":  500,
+        "Conta":  "Carteira",
+        "Descrição":  "Emprestimo rosimeri",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "15/08/2026",
+        "Valor":  700,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO TONINHO",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/08/2026",
+        "Valor":  -230,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI(41/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/08/2026",
+        "Valor":  -440,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/08/2026",
+        "Valor":  -232,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGUROS LOVI ELANTRA - CARTAO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/08/2026",
+        "Valor":  100,
+        "Conta":  "Carteira",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/08/2026",
+        "Valor":  -30,
+        "Conta":  "Carteira",
+        "Descrição":  "ESPAÇO MEGA - DIA 25",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/08/2026",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "CLAUDE CODE IA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/08/2026",
+        "Valor":  -54,
+        "Conta":  "Carteira",
+        "Descrição":  "YOUTUBE PREMIUM",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/08/2026",
+        "Valor":  2500,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/08/2026",
+        "Valor":  -482,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/08/2026",
+        "Valor":  -240,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/08/2026",
+        "Valor":  -290,
+        "Conta":  "Carteira",
+        "Descrição":  "OLEO ALEMAO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/08/2026",
+        "Valor":  -350,
+        "Conta":  "Carteira",
+        "Descrição":  "MAQUINA DE LAVAR ROUPAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/08/2026",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/08/2026",
+        "Valor":  750,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/08/2026",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/08/2026",
+        "Valor":  -830,
+        "Conta":  "Carteira",
+        "Descrição":  "UNIMED MENSALIDADES",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/08/2026",
+        "Valor":  -380,
+        "Conta":  "Carteira",
+        "Descrição":  "UNIMED BOLETO ",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2026",
+        "Valor":  -29109.06,
+        "Conta":  "Carteira",
+        "Descrição":  "AJUSTE DESPESAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2026",
+        "Valor":  4648.44,
+        "Conta":  "Carteira",
+        "Descrição":  "RESCISÃO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2026",
+        "Valor":  -170,
+        "Conta":  "Carteira",
+        "Descrição":  "Ração Cachorro(40/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2026",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(40/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2026",
+        "Valor":  -400,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2026",
+        "Valor":  -580,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO BLUSOL(6/8)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2026",
+        "Valor":  -50,
+        "Conta":  "Carteira",
+        "Descrição":  "GOOGLE DRIVE INFOPRODUTOS(1/99)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2026",
+        "Valor":  -270,
+        "Conta":  "Carteira",
+        "Descrição":  "MOUNJARO BINA - 7 X(4/7)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2026",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2026",
+        "Valor":  -1000,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2026",
+        "Valor":  -200,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E TELEFONE",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/07/2026",
+        "Valor":  150,
+        "Conta":  "Carteira",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/07/2026",
+        "Valor":  -140,
+        "Conta":  "Carteira",
+        "Descrição":  "BOTIJAO DE GÁS(52/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "06/07/2026",
+        "Valor":  3000,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/07/2026",
+        "Valor":  5500,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/07/2026",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/07/2026",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/07/2026",
+        "Valor":  -500,
+        "Conta":  "Carteira",
+        "Descrição":  "Pos Graduação IA Gelvazio(2/12)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/07/2026",
+        "Valor":  -830,
+        "Conta":  "Carteira",
+        "Descrição":  "UNIMED MENSALIDADES",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2026",
+        "Valor":  -1400,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2026",
+        "Valor":  -170,
+        "Conta":  "Carteira",
+        "Descrição":  "Ração Cachorro(39/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2026",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(39/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2026",
+        "Valor":  -125,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "PARCELA BAIKI BADHAI(3/3)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2026",
+        "Valor":  -580,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO BLUSOL(5/8)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2026",
+        "Valor":  -270,
+        "Conta":  "Carteira",
+        "Descrição":  "MOUNJARO BINA - 7 X(3/7)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/06/2026",
+        "Valor":  -400,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/06/2026",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/06/2026",
+        "Valor":  -240,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/06/2026",
+        "Valor":  150,
+        "Conta":  "Carteira",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/06/2026",
+        "Valor":  -140,
+        "Conta":  "Carteira",
+        "Descrição":  "BOTIJAO DE GÁS(51/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "06/06/2026",
+        "Valor":  3000,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/06/2026",
+        "Valor":  5500,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/06/2026",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/06/2026",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/06/2026",
+        "Valor":  -830,
+        "Conta":  "Carteira",
+        "Descrição":  "Unimed Mensalidade ",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/06/2026",
+        "Valor":  -500,
+        "Conta":  "Carteira",
+        "Descrição":  "Pos Graduação IA Gelvazio(1/12)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2026",
+        "Valor":  -400,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2026",
+        "Valor":  -400,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2026",
+        "Valor":  -192,
+        "Conta":  "Carteira",
+        "Descrição":  "Roupa Marcia(2/2)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2026",
+        "Valor":  -170,
+        "Conta":  "Carteira",
+        "Descrição":  "Ração Cachorro(38/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2026",
+        "Valor":  -580,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO BLUSOL(4/8)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2026",
+        "Valor":  -2300,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2026",
+        "Valor":  -411,
+        "Conta":  "NUBANK",
+        "Descrição":  "INTERNET E CÂMERAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/05/2026",
+        "Valor":  150,
+        "Conta":  "Carteira",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/05/2026",
+        "Valor":  -140,
+        "Conta":  "Carteira",
+        "Descrição":  "BOTIJAO DE GÁS(50/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "06/05/2026",
+        "Valor":  3000,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/05/2026",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(37/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/05/2026",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(38/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/05/2026",
+        "Valor":  -125,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "PARCELA BAIKI BADHAI(2/3)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/05/2026",
+        "Valor":  -600,
+        "Conta":  "Carteira",
+        "Descrição":  "Roupa Marcia Nilais",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/05/2026",
+        "Valor":  -270,
+        "Conta":  "Carteira",
+        "Descrição":  "MOUNJARO BINA - 7 X(2/7)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/05/2026",
+        "Valor":  -350,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO PRAIA MAICO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/05/2026",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/05/2026",
+        "Valor":  -1000,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO CREDITO ALDO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/05/2026",
+        "Valor":  -2500,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO NUBANK EMPRESA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/05/2026",
+        "Valor":  5500,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/05/2026",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/05/2026",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/04/2026",
+        "Valor":  -430,
+        "Conta":  "NUBANK",
+        "Descrição":  "INTERNET E CÂMERAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/04/2026",
+        "Valor":  150,
+        "Conta":  "Carteira",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/04/2026",
+        "Valor":  -125,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "PARCELA BAIKI BADHAI(1/3)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/04/2026",
+        "Valor":  -192,
+        "Conta":  "Carteira",
+        "Descrição":  "Roupa Marcia(1/2)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/04/2026",
+        "Valor":  -75,
+        "Conta":  "Carteira",
+        "Descrição":  "Meia academia ",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/04/2026",
+        "Valor":  -406,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO CREDITO ALDO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/04/2026",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "06/04/2026",
+        "Valor":  3000,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/04/2026",
+        "Valor":  5500,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/04/2026",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/04/2026",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/04/2026",
+        "Valor":  -20,
+        "Conta":  "Carteira",
+        "Descrição":  "MERCADO LIVRE JESSICA - PARCELAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2026",
+        "Valor":  -360,
+        "Conta":  "Carteira",
+        "Descrição":  "Ar Condicionado Aldo (3/10)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2026",
+        "Valor":  -163,
+        "Conta":  "Carteira",
+        "Descrição":  "Acordo Obencard (3/3)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2026",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(36/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2026",
+        "Valor":  -97,
+        "Conta":  "Carteira",
+        "Descrição":  "Fogão Aldo (3/10)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2026",
+        "Valor":  -133,
+        "Conta":  "Carteira",
+        "Descrição":  "Cama Aldo (3/18)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2026",
+        "Valor":  -190,
+        "Conta":  "NUBANK",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA(9/42)",
+        "Tags":  "",
+        "Categoria":  "Educação",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2026",
+        "Valor":  -580,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO BLUSOL(2/8)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/03/2026",
+        "Valor":  -400,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/03/2026",
+        "Valor":  -1000,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/03/2026",
+        "Valor":  -240,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/03/2026",
+        "Valor":  150,
+        "Conta":  "Carteira",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/03/2026",
+        "Valor":  -102,
+        "Conta":  "Carteira",
+        "Descrição":  "Acordo Santander(3/23)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/03/2026",
+        "Valor":  -140,
+        "Conta":  "Carteira",
+        "Descrição":  "BOTIJAO DE GÁS(48/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/03/2026",
+        "Valor":  3000,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/03/2026",
+        "Valor":  5500,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/03/2026",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/03/2026",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/03/2026",
+        "Valor":  -12.5,
+        "Conta":  "Carteira",
+        "Descrição":  "GOOGLE DRIVE INFOPRODUTOS(1/3)",
+        "Tags":  "",
+        "Categoria":  "INTERNET",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -360,
+        "Conta":  "Carteira",
+        "Descrição":  "Ar Condicionado Aldo (2/10)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -770,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -163,
+        "Conta":  "Carteira",
+        "Descrição":  "Acordo Obencard (2/3)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -600,
+        "Conta":  "Carteira",
+        "Descrição":  "Cartão NU Empresas ",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -170,
+        "Conta":  "Carteira",
+        "Descrição":  "Ração Cachorro(35/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -220,
+        "Conta":  "NUBANK",
+        "Descrição":  "ACADEMIA GELVAZIO E JESSICA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -430,
+        "Conta":  "NUBANK",
+        "Descrição":  "INTERNET E CÂMERAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -97,
+        "Conta":  "Carteira",
+        "Descrição":  "Fogão Aldo (2/10)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -133,
+        "Conta":  "Carteira",
+        "Descrição":  "Cama Aldo (2/18)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -146,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(35/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -190,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "JANEIRO - PEDAGOGIA JESSICA(7/42)",
+        "Tags":  "",
+        "Categoria":  "Educação",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -190,
+        "Conta":  "NUBANK",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA(8/42)",
+        "Tags":  "",
+        "Categoria":  "Educação",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2026",
+        "Valor":  -580,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO BLUSOL(1/8)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/02/2026",
+        "Valor":  150,
+        "Conta":  "Carteira",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/02/2026",
+        "Valor":  -102,
+        "Conta":  "Carteira",
+        "Descrição":  "Acordo Santander(2/23)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/02/2026",
+        "Valor":  -586,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/02/2026",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/02/2026",
+        "Valor":  -84,
+        "Conta":  "Carteira",
+        "Descrição":  "MERCADO LIVRE JESSICA - PARCELAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/02/2026",
+        "Valor":  3700,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/02/2026",
+        "Valor":  -500,
+        "Conta":  "Carteira",
+        "Descrição":  "Cartão Pessoal ",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/02/2026",
+        "Valor":  4200,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/02/2026",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/02/2026",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "15/01/2026",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "12/01/2026",
+        "Valor":  -150,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Academia Gelvazio e Jessica",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/01/2026",
+        "Valor":  -360,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Ar Condicionado Aldo (1/10)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/01/2026",
+        "Valor":  -134,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(34/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/01/2026",
+        "Valor":  -97,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Fogão Aldo (1/10)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/01/2026",
+        "Valor":  -133,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Cama Aldo (1/18)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/01/2026",
+        "Valor":  -163,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Acordo Obencard (1/3)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/01/2026",
+        "Valor":  -388.85,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "INTERNET E CÂMERAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/01/2026",
+        "Valor":  -574,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/01/2026",
+        "Valor":  -1074.94,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/01/2026",
+        "Valor":  150,
+        "Conta":  "Carteira",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "09/01/2026",
+        "Valor":  -180,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SUPABASE PRO",
+        "Tags":  "",
+        "Categoria":  "HOBBIES",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/01/2026",
+        "Valor":  -100,
+        "Conta":  "Carteira",
+        "Descrição":  "Acordo Santander(1/23)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/01/2026",
+        "Valor":  -400,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO ALDO ROSARIO guardar",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/01/2026",
+        "Valor":  -20,
+        "Conta":  "Carteira",
+        "Descrição":  "MERCADO LIVRE JESSICA - PARCELAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/01/2026",
+        "Valor":  -220,
+        "Conta":  "Carteira",
+        "Descrição":  "Shopee",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/01/2026",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/01/2026",
+        "Valor":  3000,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/01/2026",
+        "Valor":  -310,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Acordo Vuon Card",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/01/2026",
+        "Valor":  3300,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/01/2026",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/01/2026",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "16/12/2025",
+        "Valor":  -300,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "INTERNET E CÂMERAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "16/12/2025",
+        "Valor":  -250,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "GEOMETRIA CARRO - SIGA BEM",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "16/12/2025",
+        "Valor":  -150,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CORREIA DO CARRO - 161 MIL KM",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "13/12/2025",
+        "Valor":  -340,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Cabelo Gelvazio e Lanche",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "13/12/2025",
+        "Valor":  -1450,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Roupa Jessica",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "13/12/2025",
+        "Valor":  6500,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Empréstimo Inter ",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2025",
+        "Valor":  -99,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Acordo Santander(1/24)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2025",
+        "Valor":  -141,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(33/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2025",
+        "Valor":  -240,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA(6/42)",
+        "Tags":  "",
+        "Categoria":  "Educação",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2025",
+        "Valor":  -650,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2025",
+        "Valor":  -750,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "EMPRESTIMO TONINHO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2025",
+        "Valor":  -600,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CARTAO ALDO ROSARIO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2025",
+        "Valor":  -407,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2025",
+        "Valor":  100,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "09/12/2025",
+        "Valor":  -175,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SUPABASE PRO",
+        "Tags":  "",
+        "Categoria":  "HOBBIES",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/12/2025",
+        "Valor":  -140,
+        "Conta":  "Carteira",
+        "Descrição":  "BOTIJAO DE GÁS(45/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/12/2025",
+        "Valor":  -1430,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "EMPRESTIMO CREDITO TRABALHADOR",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/12/2025",
+        "Valor":  -180,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "shoppe",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/12/2025",
+        "Valor":  2500,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/12/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/12/2025",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/12/2025",
+        "Valor":  5420,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "28/11/2025",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(32/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "28/11/2025",
+        "Valor":  -180,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "shoppe",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/11/2025",
+        "Valor":  -500,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "EMPRESTIMO TONINHO-IRMA TONINHO - TERÇA-FEIRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/11/2025",
+        "Valor":  -260,
+        "Conta":  "Carteira",
+        "Descrição":  "Ração Cachorro(32/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/11/2025",
+        "Valor":  -794,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/11/2025",
+        "Valor":  -399,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/11/2025",
+        "Valor":  100,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/11/2025",
+        "Valor":  -500,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "emprestimo toninho",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/11/2025",
+        "Valor":  -300,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (33/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/11/2025",
+        "Valor":  -190,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA(5/42)",
+        "Tags":  "",
+        "Categoria":  "Educação",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/11/2025",
+        "Valor":  -100,
+        "Conta":  "Carteira",
+        "Descrição":  "COMPRA TECLADO GUTO",
+        "Tags":  "",
+        "Categoria":  "Educação",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/11/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/11/2025",
+        "Valor":  -1430,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "EMPRESTIMO CREDITO TRABALHADOR",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/11/2025",
+        "Valor":  -750,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "DESPESA ADICIONAL UNIMED",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/11/2025",
+        "Valor":  -300,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "INTERNET E CÂMERAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/11/2025",
+        "Valor":  -150,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SUPABASE PRO",
+        "Tags":  "",
+        "Categoria":  "HOBBIES",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/11/2025",
+        "Valor":  -200,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "PSICOLOGA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/11/2025",
+        "Valor":  2000,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/11/2025",
+        "Valor":  5000,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "EMPRESTIMO JESSICA - 18 X 410",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/11/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/11/2025",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/11/2025",
+        "Valor":  5420,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "14/10/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "14/10/2025",
+        "Valor":  -150,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SUPABASE PRO",
+        "Tags":  "",
+        "Categoria":  "HOBBIES",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "14/10/2025",
+        "Valor":  100,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "14/10/2025",
+        "Valor":  4400,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "14/10/2025",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/10/2025",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(31/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/10/2025",
+        "Valor":  -300,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (32/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/10/2025",
+        "Valor":  -190,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA(4/42)",
+        "Tags":  "",
+        "Categoria":  "Educação",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/10/2025",
+        "Valor":  -600,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "10/10/2025",
+        "Valor":  -400,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/10/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/09/2025",
+        "Valor":  -190,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA(3/42)",
+        "Tags":  "",
+        "Categoria":  "Educação",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/09/2025",
+        "Valor":  -500,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/09/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/09/2025",
+        "Valor":  -350,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/09/2025",
+        "Valor":  -150,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SUPABASE PRO",
+        "Tags":  "",
+        "Categoria":  "HOBBIES",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/09/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/09/2025",
+        "Valor":  5420,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/09/2025",
+        "Valor":  -300,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (31/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "29/08/2025",
+        "Valor":  -722,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "AJUSTE DESPESAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/08/2025",
+        "Valor":  100,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/08/2025",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/08/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/08/2025",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/08/2025",
+        "Valor":  -312,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (30/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/08/2025",
+        "Valor":  -265,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Cartão Aldo",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/08/2025",
+        "Valor":  -505,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/08/2025",
+        "Valor":  325,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "TECLADO ERICK",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/08/2025",
+        "Valor":  -145,
+        "Conta":  "Carteira",
+        "Descrição":  "BOTIJAO DE GÁS(41/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/08/2025",
+        "Valor":  -190,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA(2/42)",
+        "Tags":  "",
+        "Categoria":  "Educação",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/08/2025",
+        "Valor":  -1600,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CARTAO CREDITO NUBANK",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/08/2025",
+        "Valor":  -150,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SUPABASE PRO",
+        "Tags":  "",
+        "Categoria":  "HOBBIES",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/08/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/08/2025",
+        "Valor":  -309,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/08/2025",
+        "Valor":  5400,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/07/2025",
+        "Valor":  -300,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (29/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/07/2025",
+        "Valor":  -300,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "TECLADO BORGES(2/2)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/07/2025",
+        "Valor":  -500,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CELULAR BORGES(1/2)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/07/2025",
+        "Valor":  -500,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CELULAR BORGES(2/2)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/07/2025",
+        "Valor":  -2120,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "LIMITE SANTANDER",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/07/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/07/2025",
+        "Valor":  5400,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/07/2025",
+        "Valor":  2000,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "PLR",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "22/07/2025",
+        "Valor":  6000,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "ACERTO SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "15/07/2025",
+        "Valor":  -150,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SUPABASE PRO",
+        "Tags":  "",
+        "Categoria":  "HOBBIES",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "15/07/2025",
+        "Valor":  100,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "15/07/2025",
+        "Valor":  1800,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2025",
+        "Valor":  -4744,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "AJUSTE DESPESAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2025",
+        "Valor":  -190,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA(1/42)",
+        "Tags":  "",
+        "Categoria":  "Educação",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2025",
+        "Valor":  -1386,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/07/2025",
+        "Valor":  -1369,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/07/2025",
+        "Valor":  -300,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "TECLADO BORGES(1/2)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/07/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/07/2025",
+        "Valor":  -1600,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CARTAO CREDITO NUBANK",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/07/2025",
+        "Valor":  -309,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/07/2025",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/07/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/07/2025",
+        "Valor":  100,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2025",
+        "Valor":  -275,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(27/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2025",
+        "Valor":  -260,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "LAVAÇÃO MARCELO - PROTEÇÃO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2025",
+        "Valor":  -610,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2025",
+        "Valor":  -1618.9,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CARTAO CREDITO NUBANK",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2025",
+        "Valor":  -331,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/06/2025",
+        "Valor":  -2344,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "AJUSTE DESPESAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "09/06/2025",
+        "Valor":  -300,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (28/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/06/2025",
+        "Valor":  -150,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SUPABASE PRO",
+        "Tags":  "",
+        "Categoria":  "HOBBIES",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/06/2025",
+        "Valor":  -3504.1,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "AJUSTE DESPESAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/06/2025",
+        "Valor":  -140,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA(4/4)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/06/2025",
+        "Valor":  -3000,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "COMPRAS JESSICA PREFEITURA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/06/2025",
+        "Valor":  -250,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "LIMPEZA CASA DEBORA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/06/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/06/2025",
+        "Valor":  -309,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/06/2025",
+        "Valor":  2000,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/06/2025",
+        "Valor":  5400,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/06/2025",
+        "Valor":  4300,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "ACERTO JESSICA PREFEITURA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "30/05/2025",
+        "Valor":  -140,
+        "Conta":  "Carteira",
+        "Descrição":  "BOTIJAO DE GÁS(38/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "30/05/2025",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(26/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "30/05/2025",
+        "Valor":  -170,
+        "Conta":  "Carteira",
+        "Descrição":  "Ração Cachorro(26/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "30/05/2025",
+        "Valor":  -140,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA(3/4)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "30/05/2025",
+        "Valor":  -870,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "19/05/2025",
+        "Valor":  -300,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (27/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2025",
+        "Valor":  100,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "MENSALIDADE MICROSAAS-NILAIS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2025",
+        "Valor":  1800,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2025",
+        "Valor":  4800,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2025",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/05/2025",
+        "Valor":  2000,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "09/05/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "09/05/2025",
+        "Valor":  -309,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "09/05/2025",
+        "Valor":  -1600,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CARTAO CREDITO NUBANK",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "09/05/2025",
+        "Valor":  -150,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SUPABASE PRO",
+        "Tags":  "",
+        "Categoria":  "HOBBIES",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "30/04/2025",
+        "Valor":  678.82,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "AJUSTE SALDOS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/04/2025",
+        "Valor":  -200,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "EMPRESTIMO TONINHO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/04/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/04/2025",
+        "Valor":  -309,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  -300,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (26/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri - MARÇO 2025(24/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(25/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  -140,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA(2/4)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  -373,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  -1600,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CARTAO CREDITO NUBANK",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  -505,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  1400,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  3800,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  2542,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/04/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/04/2025",
+        "Valor":  -500,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "carne Maico Vaca",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/04/2025",
+        "Valor":  -340,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Cartão Aldo",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2025",
+        "Valor":  -293.28,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (25/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2025",
+        "Valor":  -260,
+        "Conta":  "Carteira",
+        "Descrição":  "Ração Cachorro(24/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2025",
+        "Valor":  -200,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "EMPRESTIMO TONINHO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2025",
+        "Valor":  -1050,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CONSERTO CARRO JESSICA E GEO",
+        "Tags":  "",
+        "Categoria":  "COMBUSTIVEL",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2025",
+        "Valor":  -1600,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CARTAO CREDITO NUBANK",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/03/2025",
+        "Valor":  2000,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "SALARIO JESSICA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/03/2025",
+        "Valor":  -140,
+        "Conta":  "Carteira",
+        "Descrição":  "BOTIJAO DE GÁS(36/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/03/2025",
+        "Valor":  -684.54,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/03/2025",
+        "Valor":  -100,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "EMPRESTIMO MAICO - UBER JESSICA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/03/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/03/2025",
+        "Valor":  -309,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/03/2025",
+        "Valor":  5500,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/03/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/03/2025",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2025",
+        "Valor":  -140,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(23/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2025",
+        "Valor":  -430,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CARTAO CREDITO ALDO(2/2)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2025",
+        "Valor":  -50,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FACULDADE PEDAGOGIA JESSICA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2025",
+        "Valor":  -1900,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CARTAO CREDITO NUBANK",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2025",
+        "Valor":  -500,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/02/2025",
+        "Valor":  300,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/02/2025",
+        "Valor":  -344.99,
+        "Conta":  "Carteira",
+        "Descrição":  "CELESC NOVEMBRO 2024",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/02/2025",
+        "Valor":  -314.88,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CELESC DEZEMBRO 2024",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/02/2025",
+        "Valor":  -285.52,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (24/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/02/2025",
+        "Valor":  -150,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO ROSIMERI",
+        "Tags":  "",
+        "Categoria":  "Restaurante",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/02/2025",
+        "Valor":  -200,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO TONINHO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/02/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/02/2025",
+        "Valor":  -309,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/02/2025",
+        "Valor":  -120,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(22/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/02/2025",
+        "Valor":  -160,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "COPIA NOVA CHAVE ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/02/2025",
+        "Valor":  -181,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CONSERTO ARO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/02/2025",
+        "Valor":  3800,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/02/2025",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/02/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/01/2025",
+        "Valor":  -300,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (23/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/01/2025",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/01/2025",
+        "Valor":  -309,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/01/2025",
+        "Valor":  -2000,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CARTAO CREDITO NUBANK",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "06/01/2025",
+        "Valor":  -200,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "CARTAO CREDITO ALDO(1/2)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/01/2025",
+        "Valor":  5420,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/01/2025",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/01/2025",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "24/12/2024",
+        "Valor":  854,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FERIAS SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "20/12/2024",
+        "Valor":  6000,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "FERIAS TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "20/12/2024",
+        "Valor":  1650,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "2 PARCELA DECIMO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "20/12/2024",
+        "Valor":  300,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "2 PARCELA DECIMO SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "14/12/2024",
+        "Valor":  -435,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "14/12/2024",
+        "Valor":  -1456,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "AIRBNB - APARTAMENTO CASA CURITIBA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "13/12/2024",
+        "Valor":  -235,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "ALIMENTACAO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "13/12/2024",
+        "Valor":  -210,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "COMPRAS BALAS DEMETRIO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "13/12/2024",
+        "Valor":  -335,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "PEDRA BRITA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "13/12/2024",
+        "Valor":  -90,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "ALMOÇO MORUGA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "13/12/2024",
+        "Valor":  -310,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "GASOLINA CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "13/12/2024",
+        "Valor":  471,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "EMPRESTIMO FGTS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "11/12/2024",
+        "Valor":  -80,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "COMIDA FIM ANO BORGES",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "11/12/2024",
+        "Valor":  -214,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "PEÇAS VASO SANITARIO E TAMPA VASO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2024",
+        "Valor":  -1878,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO NUBANK(22/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2024",
+        "Valor":  -177.5,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (22/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2024",
+        "Valor":  -132.7,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(21/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/12/2024",
+        "Valor":  -358,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "07/12/2024",
+        "Valor":  -140,
+        "Conta":  "Carteira",
+        "Descrição":  "BOTIJAO DE GÁS(33/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/12/2024",
+        "Valor":  -1264,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "COMPRA CARNE MAICO 90 KG - R$ 25,00 o KG",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/12/2024",
+        "Valor":  -170,
+        "Conta":  "Carteira",
+        "Descrição":  "Ração Cachorro(21/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/12/2024",
+        "Valor":  -200,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "HD EXTERNO TIDAS TECNOLOGIA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/12/2024",
+        "Valor":  -520,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "ESTADIA CASA PRAIA - MAICO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/12/2024",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/12/2024",
+        "Valor":  -309,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/12/2024",
+        "Valor":  4620,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/12/2024",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Pendente",
+        "Data":  "04/12/2024",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/12/2024",
+        "Valor":  -347,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO CREDITO ALDO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/12/2024",
+        "Valor":  -80,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "LAVAÇÃO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/12/2024",
+        "Valor":  -80,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "COMPRA BOLO PADARIA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/12/2024",
+        "Valor":  1786,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "25/11/2024",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "25/11/2024",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "20/11/2024",
+        "Valor":  -177,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (21/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "20/11/2024",
+        "Valor":  -127,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(20/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "20/11/2024",
+        "Valor":  -413.79,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "18/11/2024",
+        "Valor":  -400,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "Cartão Aldo",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/11/2024",
+        "Valor":  -1911,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO NUBANK(21/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/11/2024",
+        "Valor":  -568.4,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO VUON FORT ATACADISTA - COMPRA 20-09(2/2)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/11/2024",
+        "Valor":  -209,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "OLEO ELANTRA - KAINAN",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/11/2024",
+        "Valor":  -295.43,
+        "Conta":  "Carteira",
+        "Descrição":  "ENERGIA ELETRICA-pagar com cartao credito",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/11/2024",
+        "Valor":  -1268.1,
+        "Conta":  "Carteira",
+        "Descrição":  "CHEQUE MAICO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/11/2024",
+        "Valor":  -309,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "05/11/2024",
+        "Valor":  -437,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO FACIO",
+        "Tags":  "",
+        "Categoria":  "COMBUSTIVEL",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "04/11/2024",
+        "Valor":  4634,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/11/2024",
+        "Valor":  -515,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO CREDITO ALDO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/11/2024",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/11/2024",
+        "Valor":  2464,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "29/10/2024",
+        "Valor":  -380,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "PELICULA CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "25/10/2024",
+        "Valor":  300,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO FGTS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "25/10/2024",
+        "Valor":  274,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "AJUSTES SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "25/10/2024",
+        "Valor":  1500,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "AJUDA CUSTOS RODRIGO",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "25/10/2024",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "11/10/2024",
+        "Valor":  -190,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (20/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "11/10/2024",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/10/2024",
+        "Valor":  -546.21,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO VUON FORT ATACADISTA(1/2)",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/10/2024",
+        "Valor":  -468.98,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/10/2024",
+        "Valor":  -1897.13,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO CREDITO NUBANK(20/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/10/2024",
+        "Valor":  -133,
+        "Conta":  "Carteira",
+        "Descrição":  "Água Rosimeri(19/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/10/2024",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/10/2024",
+        "Valor":  -309,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/10/2024",
+        "Valor":  4827,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/10/2024",
+        "Valor":  -47,
+        "Conta":  "Carteira",
+        "Descrição":  "AÇAI JESSICA E GELVAZIO",
+        "Tags":  "",
+        "Categoria":  "Restaurante",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/10/2024",
+        "Valor":  -185,
+        "Conta":  "Carteira",
+        "Descrição":  "GASOLINA",
+        "Tags":  "",
+        "Categoria":  "COMBUSTIVEL",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/10/2024",
+        "Valor":  -66,
+        "Conta":  "Carteira",
+        "Descrição":  "LANCHE CACHORRO QUENTE",
+        "Tags":  "",
+        "Categoria":  "Restaurante",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/10/2024",
+        "Valor":  -102,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "ALMOÇO ROUXINOL",
+        "Tags":  "",
+        "Categoria":  "Restaurante",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/10/2024",
+        "Valor":  -78,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "LANCHE PADARIA AGRONOMICA",
+        "Tags":  "",
+        "Categoria":  "Restaurante",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/10/2024",
+        "Valor":  107.63,
+        "Conta":  "Carteira",
+        "Descrição":  "REAJUSTE SALDO",
+        "Tags":  null,
+        "Categoria":  "Reajuste",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/10/2024",
+        "Valor":  -461,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO CREDITO ALDO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/10/2024",
+        "Valor":  -186,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO FACIO",
+        "Tags":  "",
+        "Categoria":  "COMBUSTIVEL",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/10/2024",
+        "Valor":  -200,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO TONINHO-IRMA TONINHO - TERÇA-FEIRA",
+        "Tags":  "",
+        "Categoria":  "COMBUSTIVEL",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/10/2024",
+        "Valor":  -200,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO ROSIMERI",
+        "Tags":  "",
+        "Categoria":  "Restaurante",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/10/2024",
+        "Valor":  -40,
+        "Conta":  "Carteira",
+        "Descrição":  "MAICO - ENTRADA SELIM DE PRATA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/10/2024",
+        "Valor":  -40,
+        "Conta":  "Carteira",
+        "Descrição":  "LINGUIÇA MAURO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/10/2024",
+        "Valor":  -100,
+        "Conta":  "Carteira",
+        "Descrição":  "CARREGADOR DE CELULAR",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/10/2024",
+        "Valor":  -25,
+        "Conta":  "Carteira",
+        "Descrição":  "REMEDIO RELAXANTE MUSCULAR JESSICA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/10/2024",
+        "Valor":  2254,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/10/2024",
+        "Valor":  150,
+        "Conta":  "Carteira",
+        "Descrição":  "RESGATE APLICACAO SANTANDER",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "01/10/2024",
+        "Valor":  180,
+        "Conta":  "ALELO ALIMENTAÇÃO",
+        "Descrição":  "VALE ALIMENTAÇÃO",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "29/09/2024",
+        "Valor":  -355,
+        "Conta":  "Carteira",
+        "Descrição":  "AJUSTE DESPESAS",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "20/09/2024",
+        "Valor":  -282.93,
+        "Conta":  "Carteira",
+        "Descrição":  "GASOLINA CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "20/09/2024",
+        "Valor":  65,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET E NETFLIX BINA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "20/09/2024",
+        "Valor":  60,
+        "Conta":  "Carteira",
+        "Descrição":  "AGUA ROSIMERI",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "13/09/2024",
+        "Valor":  415,
+        "Conta":  "Carteira",
+        "Descrição":  "COMPRA CHEQUE DEBORA",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/09/2024",
+        "Valor":  -187.19,
+        "Conta":  "Carteira",
+        "Descrição":  "INTERNET (19/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/09/2024",
+        "Valor":  -220,
+        "Conta":  "Carteira",
+        "Descrição":  "Ração Cachorro(18/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "10/09/2024",
+        "Valor":  -1817,
+        "Conta":  "Carteira",
+        "Descrição":  "FINANCIAMENTO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/09/2024",
+        "Valor":  -135,
+        "Conta":  "Carteira",
+        "Descrição":  "BOTIJAO DE GÁS(30/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/09/2024",
+        "Valor":  -1627.03,
+        "Conta":  "Carteira",
+        "Descrição":  "CHEQUE MAICO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "08/09/2024",
+        "Valor":  -381,
+        "Conta":  "Carteira",
+        "Descrição":  "SEGURO CARRO ELANTRA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/09/2024",
+        "Valor":  -1720,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO CREDITO NUBANK(19/99)",
+        "Tags":  "",
+        "Categoria":  "Casa",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/09/2024",
+        "Valor":  -200,
+        "Conta":  "Carteira",
+        "Descrição":  "CARTAO CREDITO ALDO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/09/2024",
+        "Valor":  -402.85,
+        "Conta":  "Carteira",
+        "Descrição":  "FARMACIA LORENA",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/09/2024",
+        "Valor":  -550,
+        "Conta":  "Carteira",
+        "Descrição":  "EMPRESTIMO TONINHO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "03/09/2024",
+        "Valor":  -150,
+        "Conta":  "Carteira",
+        "Descrição":  "ADESAO SEGURO CARRO",
+        "Tags":  "",
+        "Categoria":  "ALIMENTACAO",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/09/2024",
+        "Valor":  2333,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO SENAC",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  "Paga",
+        "Data":  "02/09/2024",
+        "Valor":  4800,
+        "Conta":  "Carteira",
+        "Descrição":  "SALARIO TIDAS",
+        "Tags":  null,
+        "Categoria":  "Investimento",
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  null,
+        "Data":  null,
+        "Valor":  null,
+        "Conta":  null,
+        "Descrição":  null,
+        "Tags":  null,
+        "Categoria":  null,
+        "Subcategoria":  null
+    },
+    {
+        "Situação":  null,
+        "Data":  "Total (receitas - despesas)",
+        "Valor":  8992.09,
+        "Conta":  null,
+        "Descrição":  null,
+        "Tags":  null,
+        "Categoria":  null,
+        "Subcategoria":  null
+    }
+]
