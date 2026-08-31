@@ -1,86 +1,95 @@
-# Graph Report - erp-victor-anato-senai  (2026-08-24)
+# Graph Report - erpsenai  (2026-08-31)
 
 ## Corpus Check
-- 77 files · ~625,336 words
+- 88 files · ~702,611 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1311 nodes · 1295 edges · 80 communities (78 shown, 2 thin omitted)
-- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 1 edges (avg confidence: 0.85)
+- 1370 nodes · 1344 edges · 89 communities (87 shown, 2 thin omitted)
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4a9e9bb2`
+- Built from commit: `46326477`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- SUPABASE.js
-- Intro_gest_org
-- PASSOS-CRIACAO-ERP.md
-- Trans_Dig_Set_Ind
-- CLAUDE.md
-- Fund_Com_Inf
-- Armaz_4.0_cont
-- Gest_pro_log_4.0
-- Responsividade
-- Tec_aplic_mark
-- Rel_socio_prof
-- Saude_Seg_Trab
-- Módulo 6 — GAMIFICAÇÃO
-- Módulo 2 — COMPRAS
-- Módulo 4 — VENDAS E LOGÍSTICA
-- Supabase — Configuração e Uso da API
-- Módulo 1 — CADASTROS
-- Módulo 3 — ESTOQUE
-- Plan_Org_Trab
-- Módulo de Gamificação — Plano Completo de Implementação
-- Gest_proc_rh_4.0
-- Gamificação do ERP SENAI — Especificação de Design
-- Proc_cont_finan
-- Con_Proj_Eco_4.0
-- Componentes presentes
-- Conteúdo do infográfico
-- REGRAS DE NEGÓCIOS
-- Módulo Tele Vendas — Especificação
-- gamif.js
-- Status Geral
-- Gamificação do ERP SENAI — Plano de Implementação
-- Tecnologias
-- Assist. em Processos Administrativos e Industriais_1636h_Prática Profissional_b0c8fb28.md
-- Módulo de Recursos Humanos (RH) — Plano Completo de Implementação
-- Andamento — Módulo Tele Vendas
-- Andamento do Módulo de Recursos Humanos
-- Gamificação — Andamento da Implementação
-- Módulo 7 — RECURSOS HUMANOS
-- Andamento — Módulo Compras
-- Andamento — Módulo Cadastros
-- Andamento — Módulo Estoque
-- Andamento — Módulo Configurações
-- Andamento — Módulo Vendas e Logística
-- Andamento — Módulo Financeiro
-- Andamento — Módulo Marketing
-- Módulo Compras — Referência de Desenvolvimento
-- Módulo Cadastros — Referência de Desenvolvimento
-- Módulo Estoque — Referência de Desenvolvimento
-- Módulo Financeiro — Referência de Desenvolvimento
-- 1. Campanhas (`campanhas.html`)
-- Módulo Gamificação — Referência de Desenvolvimento
-- Módulo Configurações — Referência de Desenvolvimento
-- Módulo Recursos Humanos — Referência de Desenvolvimento
-- Permissões de Acesso
-- Status Geral
-- Status Geral
-- Status Geral
-- menu.integration.test.js
-- Status Geral
-- menu.test.js
-- login-perfil.test.js
-- Status Geral
-- Progresso — Gamificação ERP SENAI
-- Status Geral
-- Status Geral
-- Status Geral
+- [[_COMMUNITY_SUPABASE.js|SUPABASE.js]]
+- [[_COMMUNITY_Intro_gest_org|Intro_gest_org]]
+- [[_COMMUNITY_PASSOS-CRIACAO-ERP|PASSOS-CRIACAO-ERP.md]]
+- [[_COMMUNITY_Trans_Dig_Set_Ind|Trans_Dig_Set_Ind]]
+- [[_COMMUNITY_CLAUDE|CLAUDE.md]]
+- [[_COMMUNITY_Fund_Com_Inf|Fund_Com_Inf]]
+- [[_COMMUNITY_Armaz_4.0_cont|Armaz_4.0_cont]]
+- [[_COMMUNITY_Gest_pro_log_4.0|Gest_pro_log_4.0]]
+- [[_COMMUNITY_Responsividade|Responsividade]]
+- [[_COMMUNITY_Tec_aplic_mark|Tec_aplic_mark]]
+- [[_COMMUNITY_Rel_socio_prof|Rel_socio_prof]]
+- [[_COMMUNITY_Saude_Seg_Trab|Saude_Seg_Trab]]
+- [[_COMMUNITY_Módulo 6 — GAMIFICAÇÃO|Módulo 6 — GAMIFICAÇÃO]]
+- [[_COMMUNITY_Módulo 2 — COMPRAS|Módulo 2 — COMPRAS]]
+- [[_COMMUNITY_Módulo 4 — VENDAS E LOGÍSTICA|Módulo 4 — VENDAS E LOGÍSTICA]]
+- [[_COMMUNITY_Supabase — Configuração e Uso da API|Supabase — Configuração e Uso da API]]
+- [[_COMMUNITY_Módulo 1 — CADASTROS|Módulo 1 — CADASTROS]]
+- [[_COMMUNITY_Módulo 3 — ESTOQUE|Módulo 3 — ESTOQUE]]
+- [[_COMMUNITY_Plan_Org_Trab|Plan_Org_Trab]]
+- [[_COMMUNITY_Módulo de Gamificação — Plano Completo de Implementação|Módulo de Gamificação — Plano Completo de Implementação]]
+- [[_COMMUNITY_Gest_proc_rh_4.0|Gest_proc_rh_4.0]]
+- [[_COMMUNITY_Gamificação do ERP SENAI — Especificação de Design|Gamificação do ERP SENAI — Especificação de Design]]
+- [[_COMMUNITY_Proc_cont_finan|Proc_cont_finan]]
+- [[_COMMUNITY_Con_Proj_Eco_4.0|Con_Proj_Eco_4.0]]
+- [[_COMMUNITY_Componentes presentes|Componentes presentes]]
+- [[_COMMUNITY_Conteúdo do infográfico|Conteúdo do infográfico]]
+- [[_COMMUNITY_REGRAS DE NEGÓCIOS|REGRAS DE NEGÓCIOS]]
+- [[_COMMUNITY_Módulo Tele Vendas — Especificação|Módulo Tele Vendas — Especificação]]
+- [[_COMMUNITY_gamif.js|gamif.js]]
+- [[_COMMUNITY_Status Geral|Status Geral]]
+- [[_COMMUNITY_Gamificação do ERP SENAI — Plano de Implementação|Gamificação do ERP SENAI — Plano de Implementação]]
+- [[_COMMUNITY_Tecnologias|Tecnologias]]
+- [[_COMMUNITY_Assist. em Processos Administrativos e Industriais_1636h_Prática Profissional_b0c8fb28|Assist. em Processos Administrativos e Industriais_1636h_Prática Profissional_b0c8fb28.md]]
+- [[_COMMUNITY_Módulo de Recursos Humanos (RH) — Plano Completo de Implementação|Módulo de Recursos Humanos (RH) — Plano Completo de Implementação]]
+- [[_COMMUNITY_Andamento — Módulo Tele Vendas|Andamento — Módulo Tele Vendas]]
+- [[_COMMUNITY_Andamento do Módulo de Recursos Humanos|Andamento do Módulo de Recursos Humanos]]
+- [[_COMMUNITY_Gamificação — Andamento da Implementação|Gamificação — Andamento da Implementação]]
+- [[_COMMUNITY_Módulo 7 — RECURSOS HUMANOS|Módulo 7 — RECURSOS HUMANOS]]
+- [[_COMMUNITY_Andamento — Módulo Compras|Andamento — Módulo Compras]]
+- [[_COMMUNITY_Andamento — Módulo Cadastros|Andamento — Módulo Cadastros]]
+- [[_COMMUNITY_Andamento — Módulo Estoque|Andamento — Módulo Estoque]]
+- [[_COMMUNITY_Andamento — Módulo Configurações|Andamento — Módulo Configurações]]
+- [[_COMMUNITY_Andamento — Módulo Vendas e Logística|Andamento — Módulo Vendas e Logística]]
+- [[_COMMUNITY_Andamento — Módulo Financeiro|Andamento — Módulo Financeiro]]
+- [[_COMMUNITY_Andamento — Módulo Marketing|Andamento — Módulo Marketing]]
+- [[_COMMUNITY_Módulo Compras — Referência de Desenvolvimento|Módulo Compras — Referência de Desenvolvimento]]
+- [[_COMMUNITY_Módulo Cadastros — Referência de Desenvolvimento|Módulo Cadastros — Referência de Desenvolvimento]]
+- [[_COMMUNITY_Módulo Estoque — Referência de Desenvolvimento|Módulo Estoque — Referência de Desenvolvimento]]
+- [[_COMMUNITY_Módulo Financeiro — Referência de Desenvolvimento|Módulo Financeiro — Referência de Desenvolvimento]]
+- [[_COMMUNITY_1. Campanhas (`campanhas.html`)|1. Campanhas (`campanhas.html`)]]
+- [[_COMMUNITY_Módulo Gamificação — Referência de Desenvolvimento|Módulo Gamificação — Referência de Desenvolvimento]]
+- [[_COMMUNITY_Módulo Configurações — Referência de Desenvolvimento|Módulo Configurações — Referência de Desenvolvimento]]
+- [[_COMMUNITY_Módulo Recursos Humanos — Referência de Desenvolvimento|Módulo Recursos Humanos — Referência de Desenvolvimento]]
+- [[_COMMUNITY_Permissões de Acesso|Permissões de Acesso]]
+- [[_COMMUNITY_Status Geral|Status Geral]]
+- [[_COMMUNITY_Status Geral|Status Geral]]
+- [[_COMMUNITY_Status Geral|Status Geral]]
+- [[_COMMUNITY_menu.integration.test.js|menu.integration.test.js]]
+- [[_COMMUNITY_Status Geral|Status Geral]]
+- [[_COMMUNITY_menu.test.js|menu.test.js]]
+- [[_COMMUNITY_login-perfil.test.js|login-perfil.test.js]]
+- [[_COMMUNITY_Status Geral|Status Geral]]
+- [[_COMMUNITY_Progresso — Gamificação ERP SENAI|Progresso — Gamificação ERP SENAI]]
+- [[_COMMUNITY_Status Geral|Status Geral]]
+- [[_COMMUNITY_Status Geral|Status Geral]]
+- [[_COMMUNITY_Status Geral|Status Geral]]
+- [[_COMMUNITY_Community 80|Community 80]]
+- [[_COMMUNITY_Community 81|Community 81]]
+- [[_COMMUNITY_Community 82|Community 82]]
+- [[_COMMUNITY_Community 83|Community 83]]
+- [[_COMMUNITY_Community 84|Community 84]]
+- [[_COMMUNITY_Community 85|Community 85]]
+- [[_COMMUNITY_Community 86|Community 86]]
+- [[_COMMUNITY_Community 87|Community 87]]
+- [[_COMMUNITY_Community 88|Community 88]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `Intro_gest_org` - 96 edges
@@ -100,7 +109,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (80 total, 2 thin omitted)
+## Communities (89 total, 2 thin omitted)
 
 ### Community 0 - "SUPABASE.js"
 Cohesion: 0.07
@@ -119,8 +128,8 @@ Cohesion: 0.03
 Nodes (78): Página 1, Página 10, Página 11, Página 12, Página 13, Página 14, Página 15, Página 16 (+70 more)
 
 ### Community 4 - "CLAUDE.md"
-Cohesion: 0.25
-Nodes (7): 5.1 Usuários, Commit, Push e Graphify, Módulo 5 — CONFIGURAÇÕES, Ordem de Implementação Sugerida, Princípios Fundamentais, Visão Geral (Dashboard), Visão Geral do Sistema
+Cohesion: 0.22
+Nodes (8): 5.1 Usuários, Administração da senha do usuário padrão, Commit, Push e Graphify, Módulo 5 — CONFIGURAÇÕES, Ordem de Implementação Sugerida, Princípios Fundamentais, Visão Geral (Dashboard), Visão Geral do Sistema
 
 ### Community 5 - "Fund_Com_Inf"
 Cohesion: 0.03
@@ -340,11 +349,15 @@ Nodes (5): assert, menuSource, { readFileSync }, { runInNewContext }, test
 
 ### Community 74 - "login-perfil.test.js"
 Cohesion: 0.25
-Nodes (8): assert, criarContexto(), fetch(), { readFileSync }, resposta(), { runInNewContext }, supabaseSource, test
+Nodes (5): assert, { readFileSync }, { runInNewContext }, supabaseSource, test
 
 ### Community 75 - "Status Geral"
 Cohesion: 0.29
 Nodes (6): Carregar Telas do Perfil no Login, Passo 1: Reproduzir o fluxo incorreto, Passo 2: Corrigir o carregamento por perfil, Passo 3: Validar login, menu e integração real, Passo 4: Commit, push e Graphify, Status Geral
+
+### Community 76 - "Progresso — Gamificação ERP SENAI"
+Cohesion: 0.25
+Nodes (7): Fluxo GERAR_NOTA_FISCAL e análise de crédito, Passo 1: Novos status, Passo 2: Decisão de crédito, Passo 3: Direcionamento, Passo 4: Restrição SQL, Passo 5: Publicação, Status Geral
 
 ### Community 77 - "Status Geral"
 Cohesion: 0.20
@@ -358,8 +371,40 @@ Nodes (8): Adicionar Fornecedor à Solicitação de Compra, Passo 1: Esquema, Pa
 Cohesion: 0.29
 Nodes (6): Destacar Fornecedor Obrigatório, Passo 1: Estados, Passo 2: Alerta e bloqueio da gravação, Passo 3: Destaque visual, Passo 4: Publicação, Status Geral
 
+### Community 80 - "Community 80"
+Cohesion: 0.29
+Nodes (6): Corrigir expansão dos accordions do menu, Passo 1: Identificar a causa, Passo 2: Corrigir o estado inicial, Passo 3: Revisão estática, Passo 4: Commit e push, Status Geral
+
+### Community 81 - "Community 81"
+Cohesion: 0.29
+Nodes (6): Corrigir menu da tela de Separação, Passo 1: Identificar a causa raiz, Passo 2: Corrigir a composição da ordem das seções, Passo 3: Documentar a regra, Passo 4: Commit e push, Status Geral
+
+### Community 82 - "Community 82"
+Cohesion: 0.29
+Nodes (6): Criar inserts para a tabela de pendências, Passo 1: Ler a estrutura da tabela, Passo 2: Mapear as pendências, Passo 3: Criar o script de inserts, Passo 4: Commit e push, Status Geral
+
+### Community 83 - "Community 83"
+Cohesion: 0.33
+Nodes (5): Atualizar documentação após remoção do criar-admin, Passo 1: Documentar a remoção do fluxo HTML, Passo 2: Indicar o fluxo SQL vigente, Passo 3: Commit e push, Status Geral
+
+### Community 84 - "Community 84"
+Cohesion: 0.33
+Nodes (5): Colocar Pipeline primeiro em Compras, Passo 1: Conferir a ordem atual, Passo 2: Reordenar os itens, Passo 3: Commit e push, Status Geral
+
+### Community 85 - "Community 85"
+Cohesion: 0.33
+Nodes (5): Correção da geração de nota fiscal ao finalizar pedido, Diagnóstico, Etapas, Objetivo, Validação prevista
+
+### Community 86 - "Community 86"
+Cohesion: 0.33
+Nodes (5): Criar script de atualização da senha do administrador, Passo 1: Criar o script SQL, Passo 2: Documentar o comportamento seguro, Passo 3: Commit e push, Status Geral
+
+### Community 87 - "Community 87"
+Cohesion: 0.33
+Nodes (5): 1. Remover autenticação fixa no localhost, 2. Remover referências em texto puro, 3. Limpar o histórico antes do push, Remover credencial administrativa do código, Verificação permitida
+
 ## Knowledge Gaps
-- **1025 isolated node(s):** `HEADERS`, `HEADERS_READ`, `Numerar`, `_SB_AND_MODULOS`, `{ readFileSync }` (+1020 more)
+- **1060 isolated node(s):** `HEADERS`, `HEADERS_READ`, `Numerar`, `_SB_AND_MODULOS`, `{ readFileSync }` (+1055 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -367,7 +412,7 @@ Nodes (6): Destacar Fornecedor Obrigatório, Passo 1: Estados, Passo 2: Alerta e
 _Questions this graph is uniquely positioned to answer:_
 
 - **What connects `HEADERS`, `HEADERS_READ`, `Numerar` to the rest of the system?**
-  _1025 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1060 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `SUPABASE.js` be split into smaller, more focused modules?**
   _Cohesion score 0.07293868921775898 - nodes in this community are weakly interconnected._
 - **Should `Intro_gest_org` be split into smaller, more focused modules?**

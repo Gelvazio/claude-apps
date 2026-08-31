@@ -14882,6 +14882,90 @@
       "source_location": "L7"
     },
     {
+      "id": "docs_destacar_fornecedor_obrigatorio",
+      "label": "DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "Status Geral",
+      "file_type": "document",
+      "node_kind": "page",
+      "norm_label": "destacar-fornecedor-obrigatorio.md",
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "docs_destacar_fornecedor_obrigatorio_destacar_fornecedor_obrigat\u00f3rio",
+      "label": "Destacar Fornecedor Obrigat\u00f3rio",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "Status Geral",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "destacar fornecedor obrigatorio",
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "docs_destacar_fornecedor_obrigatorio_passo_1_estados",
+      "label": "Passo 1: Estados",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "Status Geral",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "passo 1: estados",
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L17"
+    },
+    {
+      "id": "docs_destacar_fornecedor_obrigatorio_passo_2_alerta_e_bloqueio_da_grava\u00e7\u00e3o",
+      "label": "Passo 2: Alerta e bloqueio da grava\u00e7\u00e3o",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "Status Geral",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "passo 2: alerta e bloqueio da gravacao",
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L27"
+    },
+    {
+      "id": "docs_destacar_fornecedor_obrigatorio_passo_3_destaque_visual",
+      "label": "Passo 3: Destaque visual",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "Status Geral",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "passo 3: destaque visual",
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L37"
+    },
+    {
+      "id": "docs_destacar_fornecedor_obrigatorio_passo_4_publica\u00e7\u00e3o",
+      "label": "Passo 4: Publica\u00e7\u00e3o",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "Status Geral",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "passo 4: publicacao",
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L47"
+    },
+    {
+      "id": "docs_destacar_fornecedor_obrigatorio_status_geral",
+      "label": "Status Geral",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "Status Geral",
+      "file_type": "document",
+      "node_kind": "heading",
+      "norm_label": "status geral",
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L7"
+    },
+    {
       "id": "claude_autentica\u00e7\u00e3o",
       "label": "Autentica\u00e7\u00e3o",
       "_origin": "ast",
@@ -18352,6 +18436,72 @@
       "confidence_score": 1.0,
       "source_file": "docs/corrigir-menu-perfil-atual.md",
       "source_location": "L87",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_destacar_fornecedor_obrigatorio",
+      "target": "docs_destacar_fornecedor_obrigatorio_destacar_fornecedor_obrigat\u00f3rio",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_destacar_fornecedor_obrigatorio_destacar_fornecedor_obrigat\u00f3rio",
+      "target": "docs_destacar_fornecedor_obrigatorio_status_geral",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_destacar_fornecedor_obrigatorio_status_geral",
+      "target": "docs_destacar_fornecedor_obrigatorio_passo_1_estados",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_destacar_fornecedor_obrigatorio_status_geral",
+      "target": "docs_destacar_fornecedor_obrigatorio_passo_2_alerta_e_bloqueio_da_grava\u00e7\u00e3o",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_destacar_fornecedor_obrigatorio_status_geral",
+      "target": "docs_destacar_fornecedor_obrigatorio_passo_3_destaque_visual",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "docs_destacar_fornecedor_obrigatorio_status_geral",
+      "target": "docs_destacar_fornecedor_obrigatorio_passo_4_publica\u00e7\u00e3o",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md",
+      "source_location": "L47",
       "weight": 1.0
     },
     {
@@ -29863,5 +30013,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "2f531b058a6608bde2e8fa983836eba81f78d660"
+  "built_at_commit": "4a9e9bb2b66c488069b2b180f64574edb8212ac0"
 }

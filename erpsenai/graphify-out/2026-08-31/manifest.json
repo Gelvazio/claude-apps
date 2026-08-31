@@ -51,9 +51,9 @@
     "semantic_hash": ""
   },
   "compras/solicitacoes.html": {
-    "mtime": 1787578570.1951263,
-    "seen": 1787578615.0279768,
-    "ast_hash": "0866f9c314824dd7e98c0047c82574b4",
+    "mtime": 1787578663.6200938,
+    "seen": 1787578690.1728427,
+    "ast_hash": "337dedcd4fb16dfc6a3f5bec161d4817",
     "semantic_hash": ""
   },
   "configuracoes/usuarios.html": {
@@ -866,6 +866,12 @@
     "mtime": 1787578597.0586798,
     "seen": 1787578615.0279768,
     "ast_hash": "de4f43c8018ece90966b4a71abb85c71",
+    "semantic_hash": ""
+  },
+  "docs/DESTACAR-FORNECEDOR-OBRIGATORIO.md": {
+    "mtime": 1787578673.547077,
+    "seen": 1787578690.1728427,
+    "ast_hash": "4a4e3f50faaad6489585031c7be3869e",
     "semantic_hash": ""
   }
 }
