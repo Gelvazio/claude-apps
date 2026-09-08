@@ -111,6 +111,22 @@ if (await verificarAdminExistente(idEdicao)) {
 
 ---
 
+## ⚠️ AJUSTE NECESSÁRIO NO SUPABASE
+
+A validação do limite também está implementada no **banco de dados** (PostgreSQL/Supabase), em uma **função PL/pgSQL** ou **trigger**.
+
+### Ação obrigatória:
+1. Abrir **SQL Editor** do Supabase
+2. Executar o script: `REGRAS-NEGOCIOS/UPDATE_LIMITE_ADMINISTRADORES.sql`
+3. Isso atualizará a função `validar_limite_administradores()` para aceitar até **20 administradores**
+
+### Arquivo criado:
+- `REGRAS-NEGOCIOS/UPDATE_LIMITE_ADMINISTRADORES.sql`
+
+---
+
 ## Histórico
 - **2026-09-08 - 14:00**: Planejamento criado
+- **2026-09-08 - 14:05**: Alterações no frontend executadas
+- **2026-09-08 - 14:06**: Script SQL criado para Supabase
 
