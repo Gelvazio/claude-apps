@@ -9584,10 +9584,40 @@
       "norm_label": "tempo estimado"
     },
     {
-      "label": "Hist\u00f3rico",
+      "label": "\u26a0\ufe0f AJUSTE NECESS\u00c1RIO NO SUPABASE",
       "file_type": "document",
       "source_file": "docs/alterar-limite-administradores.md",
       "source_location": "L114",
+      "_origin": "ast",
+      "id": "docs_alterar_limite_administradores_ajuste_necess\u00e1rio_no_supabase",
+      "community": 89,
+      "norm_label": "\u26a0\ufe0f ajuste necessario no supabase"
+    },
+    {
+      "label": "A\u00e7\u00e3o obrigat\u00f3ria:",
+      "file_type": "document",
+      "source_file": "docs/alterar-limite-administradores.md",
+      "source_location": "L118",
+      "_origin": "ast",
+      "id": "docs_alterar_limite_administradores_a\u00e7\u00e3o_obrigat\u00f3ria",
+      "community": 89,
+      "norm_label": "acao obrigatoria:"
+    },
+    {
+      "label": "Arquivo criado:",
+      "file_type": "document",
+      "source_file": "docs/alterar-limite-administradores.md",
+      "source_location": "L123",
+      "_origin": "ast",
+      "id": "docs_alterar_limite_administradores_arquivo_criado",
+      "community": 89,
+      "norm_label": "arquivo criado:"
+    },
+    {
+      "label": "Hist\u00f3rico",
+      "file_type": "document",
+      "source_file": "docs/alterar-limite-administradores.md",
+      "source_location": "L128",
       "_origin": "ast",
       "id": "docs_alterar_limite_administradores_hist\u00f3rico",
       "community": 89,
@@ -23765,39 +23795,9 @@
       "source_file": "docs/alterar-limite-administradores.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_alterar_limite_administradores",
-      "target": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/alterar-limite-administradores.md",
-      "source_location": "L19",
-      "weight": 1.0,
-      "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
-      "target": "docs_alterar_limite_administradores_arquivos_afetados",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/alterar-limite-administradores.md",
-      "source_location": "L14",
-      "weight": 1.0,
-      "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
-      "target": "docs_alterar_limite_administradores_escopo",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/alterar-limite-administradores.md",
-      "source_location": "L24",
-      "weight": 1.0,
-      "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
-      "target": "docs_alterar_limite_administradores_etapas",
-      "confidence_score": 1.0
+      "target": "docs_alterar_limite_administradores_alterar_limite_de_administradores"
     },
     {
       "relation": "contains",
@@ -23806,8 +23806,48 @@
       "source_location": "L114",
       "weight": 1.0,
       "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
-      "target": "docs_alterar_limite_administradores_hist\u00f3rico",
+      "target": "docs_alterar_limite_administradores_ajuste_necess\u00e1rio_no_supabase",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/alterar-limite-administradores.md",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
+      "target": "docs_alterar_limite_administradores_arquivos_afetados"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/alterar-limite-administradores.md",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
+      "target": "docs_alterar_limite_administradores_escopo"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/alterar-limite-administradores.md",
+      "source_location": "L24",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
+      "target": "docs_alterar_limite_administradores_etapas"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/alterar-limite-administradores.md",
+      "source_location": "L114",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
+      "target": "docs_alterar_limite_administradores_hist\u00f3rico"
     },
     {
       "relation": "contains",
@@ -23815,9 +23855,9 @@
       "source_file": "docs/alterar-limite-administradores.md",
       "source_location": "L9",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
-      "target": "docs_alterar_limite_administradores_objetivo",
-      "confidence_score": 1.0
+      "target": "docs_alterar_limite_administradores_objetivo"
     },
     {
       "relation": "contains",
@@ -23825,9 +23865,9 @@
       "source_file": "docs/alterar-limite-administradores.md",
       "source_location": "L104",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
-      "target": "docs_alterar_limite_administradores_riscos",
-      "confidence_score": 1.0
+      "target": "docs_alterar_limite_administradores_riscos"
     },
     {
       "relation": "contains",
@@ -23835,9 +23875,9 @@
       "source_file": "docs/alterar-limite-administradores.md",
       "source_location": "L97",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
-      "target": "docs_alterar_limite_administradores_tecnologia",
-      "confidence_score": 1.0
+      "target": "docs_alterar_limite_administradores_tecnologia"
     },
     {
       "relation": "contains",
@@ -23845,9 +23885,9 @@
       "source_file": "docs/alterar-limite-administradores.md",
       "source_location": "L109",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
-      "target": "docs_alterar_limite_administradores_tempo_estimado",
-      "confidence_score": 1.0
+      "target": "docs_alterar_limite_administradores_tempo_estimado"
     },
     {
       "relation": "contains",
@@ -23855,9 +23895,9 @@
       "source_file": "docs/alterar-limite-administradores.md",
       "source_location": "L89",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_alterar_limite_administradores_alterar_limite_de_administradores",
-      "target": "docs_alterar_limite_administradores_valida\u00e7\u00f5es",
-      "confidence_score": 1.0
+      "target": "docs_alterar_limite_administradores_valida\u00e7\u00f5es"
     },
     {
       "relation": "contains",
@@ -23865,9 +23905,9 @@
       "source_file": "docs/alterar-limite-administradores.md",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_alterar_limite_administradores_etapas",
-      "target": "docs_alterar_limite_administradores_1_alterar_valida\u00e7\u00e3o_ao_criar_novo_administrador",
-      "confidence_score": 1.0
+      "target": "docs_alterar_limite_administradores_1_alterar_valida\u00e7\u00e3o_ao_criar_novo_administrador"
     },
     {
       "relation": "contains",
@@ -23875,9 +23915,9 @@
       "source_file": "docs/alterar-limite-administradores.md",
       "source_location": "L45",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_alterar_limite_administradores_etapas",
-      "target": "docs_alterar_limite_administradores_2_alterar_fun\u00e7\u00e3o_de_verifica\u00e7\u00e3o_do_limite",
-      "confidence_score": 1.0
+      "target": "docs_alterar_limite_administradores_2_alterar_fun\u00e7\u00e3o_de_verifica\u00e7\u00e3o_do_limite"
     },
     {
       "relation": "contains",
@@ -23885,8 +23925,28 @@
       "source_file": "docs/alterar-limite-administradores.md",
       "source_location": "L70",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "docs_alterar_limite_administradores_etapas",
-      "target": "docs_alterar_limite_administradores_3_alterar_valida\u00e7\u00e3o_ao_promover_usu\u00e1rio_existente",
+      "target": "docs_alterar_limite_administradores_3_alterar_valida\u00e7\u00e3o_ao_promover_usu\u00e1rio_existente"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/alterar-limite-administradores.md",
+      "source_location": "L123",
+      "weight": 1.0,
+      "source": "docs_alterar_limite_administradores_ajuste_necess\u00e1rio_no_supabase",
+      "target": "docs_alterar_limite_administradores_arquivo_criado",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/alterar-limite-administradores.md",
+      "source_location": "L118",
+      "weight": 1.0,
+      "source": "docs_alterar_limite_administradores_ajuste_necess\u00e1rio_no_supabase",
+      "target": "docs_alterar_limite_administradores_a\u00e7\u00e3o_obrigat\u00f3ria",
       "confidence_score": 1.0
     },
     {
@@ -28137,5 +28197,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "54124f80466fb3450db774da4e3346e7266bda23"
+  "built_at_commit": "c8f4b6602a0667cdbb7fc7178eda4d6cc30e7e4b"
 }

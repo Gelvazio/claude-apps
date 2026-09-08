@@ -1,16 +1,16 @@
 # Graph Report - erpsenai  (2026-09-08)
 
 ## Corpus Check
-- 89 files · ~702,984 words
+- 90 files · ~703,284 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1384 nodes · 1357 edges · 90 communities (88 shown, 2 thin omitted)
+- 1387 nodes · 1360 edges · 90 communities (88 shown, 2 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `54124f80`
+- Built from commit: `c8f4b660`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -405,11 +405,11 @@ Cohesion: 0.33
 Nodes (5): 1. Remover autenticação fixa no localhost, 2. Remover referências em texto puro, 3. Limpar o histórico antes do push, Remover credencial administrativa do código, Verificação permitida
 
 ### Community 89 - "Community 89"
-Cohesion: 0.14
-Nodes (13): ⬜ 1. Alterar validação ao criar novo administrador, ⬜ 2. Alterar função de verificação do limite, ⬜ 3. Alterar validação ao promover usuário existente, Alterar Limite de Administradores, Arquivos Afetados, Escopo, Etapas, Histórico (+5 more)
+Cohesion: 0.12
+Nodes (16): ⬜ 1. Alterar validação ao criar novo administrador, ⬜ 2. Alterar função de verificação do limite, ⬜ 3. Alterar validação ao promover usuário existente, ⚠️ AJUSTE NECESSÁRIO NO SUPABASE, Alterar Limite de Administradores, Arquivo criado:, Arquivos Afetados, Ação obrigatória: (+8 more)
 
 ## Knowledge Gaps
-- **1071 isolated node(s):** `HEADERS`, `HEADERS_READ`, `Numerar`, `_SB_AND_MODULOS`, `{ readFileSync }` (+1066 more)
+- **1073 isolated node(s):** `HEADERS`, `HEADERS_READ`, `Numerar`, `_SB_AND_MODULOS`, `{ readFileSync }` (+1068 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -417,7 +417,7 @@ Nodes (13): ⬜ 1. Alterar validação ao criar novo administrador, ⬜ 2. Alter
 _Questions this graph is uniquely positioned to answer:_
 
 - **What connects `HEADERS`, `HEADERS_READ`, `Numerar` to the rest of the system?**
-  _1071 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1073 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `SUPABASE.js` be split into smaller, more focused modules?**
   _Cohesion score 0.07293868921775898 - nodes in this community are weakly interconnected._
 - **Should `Intro_gest_org` be split into smaller, more focused modules?**

@@ -1,16 +1,16 @@
-# Graph Report - erpsenai  (2026-08-31)
+# Graph Report - erpsenai  (2026-09-08)
 
 ## Corpus Check
-- 88 files · ~702,611 words
+- 89 files · ~702,984 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1370 nodes · 1344 edges · 89 communities (87 shown, 2 thin omitted)
+- 1384 nodes · 1357 edges · 90 communities (88 shown, 2 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `46326477`
+- Built from commit: `54124f80`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -90,6 +90,7 @@
 - [[_COMMUNITY_Community 86|Community 86]]
 - [[_COMMUNITY_Community 87|Community 87]]
 - [[_COMMUNITY_Community 88|Community 88]]
+- [[_COMMUNITY_Community 89|Community 89]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `Intro_gest_org` - 96 edges
@@ -109,7 +110,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (89 total, 2 thin omitted)
+## Communities (90 total, 2 thin omitted)
 
 ### Community 0 - "SUPABASE.js"
 Cohesion: 0.07
@@ -403,8 +404,12 @@ Nodes (5): Criar script de atualização da senha do administrador, Passo 1: Cri
 Cohesion: 0.33
 Nodes (5): 1. Remover autenticação fixa no localhost, 2. Remover referências em texto puro, 3. Limpar o histórico antes do push, Remover credencial administrativa do código, Verificação permitida
 
+### Community 89 - "Community 89"
+Cohesion: 0.14
+Nodes (13): ⬜ 1. Alterar validação ao criar novo administrador, ⬜ 2. Alterar função de verificação do limite, ⬜ 3. Alterar validação ao promover usuário existente, Alterar Limite de Administradores, Arquivos Afetados, Escopo, Etapas, Histórico (+5 more)
+
 ## Knowledge Gaps
-- **1060 isolated node(s):** `HEADERS`, `HEADERS_READ`, `Numerar`, `_SB_AND_MODULOS`, `{ readFileSync }` (+1055 more)
+- **1071 isolated node(s):** `HEADERS`, `HEADERS_READ`, `Numerar`, `_SB_AND_MODULOS`, `{ readFileSync }` (+1066 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **2 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -412,7 +417,7 @@ Nodes (5): 1. Remover autenticação fixa no localhost, 2. Remover referências 
 _Questions this graph is uniquely positioned to answer:_
 
 - **What connects `HEADERS`, `HEADERS_READ`, `Numerar` to the rest of the system?**
-  _1060 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _1071 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `SUPABASE.js` be split into smaller, more focused modules?**
   _Cohesion score 0.07293868921775898 - nodes in this community are weakly interconnected._
 - **Should `Intro_gest_org` be split into smaller, more focused modules?**

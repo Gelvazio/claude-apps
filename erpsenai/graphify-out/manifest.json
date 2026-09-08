@@ -15,8 +15,8 @@
     "semantic_hash": ""
   },
   "CLAUDE.md": {
-    "mtime": 1787830216.2659822,
-    "ast_hash": "4886ef31aa04855a3b3ecb68ff9a6c11",
+    "mtime": 1788871321.636855,
+    "ast_hash": "88f3865b8ade487774ba1fb01ad6942f",
     "semantic_hash": ""
   },
   "dashboard.html": {
@@ -850,8 +850,13 @@
     "semantic_hash": ""
   },
   "docs/alterar-limite-administradores.md": {
-    "mtime": 1788871233.5242343,
-    "ast_hash": "8b522a9bb6a40a53aea0a47f188bbfc7",
+    "mtime": 1788871426.662094,
+    "ast_hash": "4c51379539af530bc7a6e7b146e2d0f2",
+    "semantic_hash": ""
+  },
+  "REGRAS-NEGOCIOS/UPDATE_LIMITE_ADMINISTRADORES.sql": {
+    "mtime": 1788871421.529281,
+    "ast_hash": "3091b969e32b927bc8c6ec8c07df7704",
     "semantic_hash": ""
   }
 }
