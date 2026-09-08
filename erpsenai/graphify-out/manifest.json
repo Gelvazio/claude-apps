@@ -50,8 +50,8 @@
     "semantic_hash": ""
   },
   "configuracoes/usuarios.html": {
-    "mtime": 1787231256.4000132,
-    "ast_hash": "3566b4e8e23c49f23a244aaaccfa74f0",
+    "mtime": 1788871229.9717953,
+    "ast_hash": "28b435e7a6ee60e7aa8b43ff81b6cce5",
     "semantic_hash": ""
   },
   "estoque/controle.html": {
@@ -847,6 +847,11 @@
   "REGRAS-NEGOCIOS/ebook_UCs/Trans_Dig_Set_Ind.pdf": {
     "mtime": 1676279306.0,
     "ast_hash": "4a0fc5f9d8470131f91b3e900a260461",
+    "semantic_hash": ""
+  },
+  "docs/alterar-limite-administradores.md": {
+    "mtime": 1788871233.5242343,
+    "ast_hash": "8b522a9bb6a40a53aea0a47f188bbfc7",
     "semantic_hash": ""
   }
 }

@@ -1,4 +1,4 @@
-﻿# ERP Senai — Orientações de Desenvolvimento
+﻿# ERP Senai — Orientações de Desenvolvimento-tutorial
 
 > Documento de referência para o desenvolvimento do sistema ERP. Leia integralmente antes de implementar qualquer módulo.
 
