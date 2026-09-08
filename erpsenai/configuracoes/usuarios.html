@@ -500,9 +500,9 @@
           return;
         }
 
-        // Bloquear mais de 3 Administradores
+        // Bloquear mais de 20 Administradores
         if (perfilId === adminPerfilId && await verificarAdminExistente()) {
-          sbMensagem('msgModal', 'Limite de 3 Administradores atingido. Desative um antes de criar outro.', 'err');
+          sbMensagem('msgModal', 'Limite de 20 Administradores atingido. Desative um antes de criar outro.', 'err');
           return;
         }
 
@@ -532,10 +532,10 @@
           }
         }
 
-        // Bloquear promoção a Administrador se já há 3
+        // Bloquear promoção a Administrador se já há 20
         if (perfilId === adminPerfilId && userAtual && userAtual.perfil_id !== adminPerfilId) {
           if (await verificarAdminExistente(idEdicao)) {
-            sbMensagem('msgModal', 'Limite de 3 Administradores atingido. Desative um antes de promover outro.', 'err');
+            sbMensagem('msgModal', 'Limite de 20 Administradores atingido. Desative um antes de promover outro.', 'err');
             return;
           }
         }
@@ -575,11 +575,11 @@
     return ativos.length === 0;
   }
 
-  // ── Verificar se o limite de 3 Administradores ativos foi atingido ──
+  // ── Verificar se o limite de 20 Administradores ativos foi atingido ──
   async function verificarAdminExistente(ignorarId = null) {
     if (!adminPerfilId) return false;
     const admins = await sbListar('erp_usuarios', `perfil_id=eq.${adminPerfilId}&status=eq.true&select=id`);
-    return admins.filter(a => a.id !== ignorarId).length >= 3;
+    return admins.filter(a => a.id !== ignorarId).length >= 20;
   }
 
   // ── Toggle rápido de status ─────────────────────────────────
