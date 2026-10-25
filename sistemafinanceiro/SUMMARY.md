@@ -159,3 +159,14 @@ created_at (timestamp)
 **Última atualização**: 2026-06-02  
 **Status Geral**: ✅ 5/7 passos concluídos (71% pronto)  
 **Bloqueante**: Instância Supabase precisa estar configurada para Passos 5-6
+
+---
+
+## 🔧 Correção 2026-10-24 (Analista Financeiro)
+
+Arquivos que a documentação citava, mas **não estavam no repo**, foram recriados:
+- `src/supabaseClient.js` — Auth + CRUD alinhado a `login.js` / `main.js`
+- `db/supabase.sql` — schema, RLS, trigger de perfil, loja seed id=1
+
+**Ainda bloqueante:** criar/conectar projeto Supabase, colar URL + anon key em `.env.local`, rodar `db/supabase.sql`, cadastrar usuário e (opcional) importar Mobills.
+
