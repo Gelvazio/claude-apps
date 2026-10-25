@@ -196,6 +196,9 @@ CREATE POLICY lancamento_delete_own ON public.lancamento
 
 -- Compatibilidade com INSERT_RELATORIO_TRANSACOES_MOBILLS.sql (schema fin)
 CREATE SCHEMA IF NOT EXISTS fin;
-CREATE OR REPLACE VIEW fin.lancamento AS SELECT * FROM public.lancamento;
+CREATE OR REPLACE VIEW fin.lancamento
+  WITH (security_invoker = true)
+  AS SELECT * FROM public.lancamento;
 GRANT SELECT, INSERT, UPDATE, DELETE ON fin.lancamento TO authenticated;
+GRANT USAGE ON SCHEMA fin TO authenticated;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO authenticated;
